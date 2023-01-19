@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>no.edvardsen</groupId>
-	<artifactId>csgonadeapp</artifactId>
+	<artifactId>csgo-nades</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>csgo-nade-app</name>
+	<name>csgo-nades</name>
 	<description>Back-end for csgo nade app</description>
 	<properties>
 		<java.version>17</java.version>

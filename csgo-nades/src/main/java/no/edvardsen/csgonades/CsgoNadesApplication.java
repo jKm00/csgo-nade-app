@@ -1,13 +1,13 @@
-package no.edvardsen.csgonadeapp;
+package no.edvardsen.csgonades;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CsgoNadeAppApplication {
+public class CsgoNadesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CsgoNadeAppApplication.class, args);
+		SpringApplication.run(CsgoNadesApplication.class, args);
 	}
 
 }
