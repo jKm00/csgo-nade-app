@@ -1,10 +1,10 @@
-package no.edvardsen.csgonades;
+package no.edvardsen.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CsgoNadesApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
