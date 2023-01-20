@@ -1,8 +1,27 @@
 package no.edvardsen.backend.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,19 +32,50 @@ import lombok.Data;
  */
 @AllArgsConstructor
 @Data
+@Entity
+@Table(name = Strat.TABLE_NAME)
 public class Strat {
 
-    private final Long id;
-    private final String name;
-    private final List<Lineup> lineups = new ArrayList<>();
-    private final CsgoMap map;
+    public static final String TABLE_NAME = "strat";
+    public static final String PRIMARY_KEY = "strat_id";
 
-    public Strat(Long id, String name, List<Lineup> lineups, CsgoMap map) {
-        this.id = id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = Strat.PRIMARY_KEY)
+    private Long id;
+
+    @Column(name = "strat_name")
+    private String name;
+
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "strat_lineups", joinColumns = @JoinColumn(name = Strat.PRIMARY_KEY), inverseJoinColumns = @JoinColumn(name = Lineup.PRIMARY_KEY))
+    private List<Lineup> lineups = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = CsgoMap.PRIMARY_KEY)
+    private CsgoMap map;
+
+    public Strat() {
+    }
+
+    public Strat(String name) {
+        this.name = name;
+    }
+
+    public Strat(String name, CsgoMap map) {
         this.name = name;
         this.map = map;
+    }
 
-        this.lineups.addAll(lineups);
+    /**
+     * Adds a lineup to this strat
+     * 
+     * @param lineup the lineup to be added to the strat
+     */
+    public void addLineup(Lineup lineup) {
+        this.lineups.add(lineup);
     }
 
 }
