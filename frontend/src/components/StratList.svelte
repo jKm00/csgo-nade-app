@@ -28,20 +28,23 @@
 <div>
 	<div class="header">
 		<h2 class="title">Strats</h2>
-		<button class="btn--create" on:click={() => (addToggler = !addToggler)}
+		<!-- TODO: on hold. Gonna manually add some strats for a beta version. Then come back and continue working on editor -->
+		<!-- <button class="btn--create" on:click={() => (addToggler = !addToggler)}
 			><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-				><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
+				><path
 					d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
 				/></svg
 			></button
-		>
+		> -->
 		<p class="desc">Click on a strat to see lineups</p>
 	</div>
 	<ul class="list">
 		{#each strats as strat (strat.id)}
 			<li class="list__item">
 				<button
-					class={activeStrat === strat.id ? `card btn btn--active` : `card btn`}
+					class={activeStrat === strat.id
+						? `card btn card--active`
+						: `card btn`}
 					on:click={() => updateActiveStrat(strat.id)}
 				>
 					{strat.name}
@@ -63,9 +66,10 @@
 		text-align: left;
 	}
 
-	.btn--create {
+	/* TODO: On hold */
+	/* .btn--create {
 		justify-self: end;
-	}
+	} */
 
 	.desc {
 		grid-column: 1 / -1;
@@ -85,7 +89,7 @@
 		cursor: pointer;
 	}
 
-	.btn--active {
+	.card--active {
 		background-color: #fa5252;
 	}
 </style>

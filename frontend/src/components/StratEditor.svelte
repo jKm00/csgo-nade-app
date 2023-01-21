@@ -1,3 +1,4 @@
+<!-- TODO: on hold. Gonna manually add some strats for a beta version. Then come back and continue working on editor -->
 <script lang="ts">
 	import type { CsgoMap } from '@/types/CsgoMap';
 	import { createEventDispatcher } from 'svelte';
