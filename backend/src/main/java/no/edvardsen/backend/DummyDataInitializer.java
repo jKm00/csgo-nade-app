@@ -63,7 +63,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
           340,
           "mirage_jungle_smoke.mp4");
 
-      CsgoMap mirage = new CsgoMap("Mirage");
+      CsgoMap mirage = new CsgoMap("Mirage", "a_thumbnail.png", "a_radar.jpeg");
 
       Strat aSmokes = new Strat("A smokes", mirage);
 

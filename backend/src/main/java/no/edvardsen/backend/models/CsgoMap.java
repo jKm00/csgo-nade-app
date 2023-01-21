@@ -1,9 +1,7 @@
 package no.edvardsen.backend.models;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,14 +35,24 @@ public class CsgoMap {
     @Column(name = "map_name")
     private String name;
 
+    // Url to thumbnail
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
+    // Url to radar image
+    @Column(name = "radar")
+    private String radar;
+
     @OneToMany(mappedBy = "map")
     private List<Strat> strats = new ArrayList<>();
 
     public CsgoMap() {
     }
 
-    public CsgoMap(String name) {
+    public CsgoMap(String name, String thumbnail, String radar) {
         this.name = name;
+        this.thumbnail = thumbnail;
+        this.radar = radar;
     }
 
     public void addStrat(Strat strat) {
