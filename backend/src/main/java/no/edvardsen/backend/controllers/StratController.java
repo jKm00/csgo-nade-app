@@ -6,11 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import no.edvardsen.backend.dtos.StratDto;
 import no.edvardsen.backend.models.CsgoMap;
 import no.edvardsen.backend.models.Strat;
 import no.edvardsen.backend.services.CsgoMapService;
@@ -40,6 +43,24 @@ public class StratController {
             response = new ResponseEntity<>(strats, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
+    }
+
+    @PostMapping("/{mapName}")
+    public ResponseEntity<String> addStratForMap(@PathVariable(value = "mapName") String mapName,
+            @RequestBody StratDto strat) {
+        ResponseEntity<String> response;
+
+        try {
+            CsgoMap map = this.mapService.findMapByName(mapName);
+            this.stratService.addStrat(map, strat);
+
+            response = new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (EntityNotFoundException e) {
+            response = new ResponseEntity<>("No map found with name: " + mapName, HttpStatus.BAD_REQUEST);
         }
 
         return response;

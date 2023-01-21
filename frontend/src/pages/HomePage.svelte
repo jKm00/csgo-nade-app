@@ -1,7 +1,8 @@
 <script lang="ts">
 	import PageTransition from '@/components/PageTransition.svelte';
+	import type { CsgoMap } from '@/types/CsgoMap';
 
-	export let maps: { name: string; thumbnail: string; map: string }[];
+	export let maps: CsgoMap[];
 </script>
 
 <main class="content">
