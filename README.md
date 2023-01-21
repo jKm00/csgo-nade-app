@@ -17,7 +17,7 @@ From terminal run:
 mvn spring-boot:run
 ```
 
-Optionally if you're using vs code; install spring boot extension and run fron vscode interface
+Optionally if you're using vs code; install spring boot extension and run from vscode interface
 
 ### Front-end
 
