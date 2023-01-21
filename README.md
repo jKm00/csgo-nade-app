@@ -1,11 +1,28 @@
 # CSGO Nade Application
 
-This appliaction is meant for DOT members to remeber strats on different maps
-and to help them remeber lineups.
+A web app displaying a list of strats for each map in the competitive map pool, along with videos of how to throw the nades required in the strat.
 
-The app has a set of maps with a set of starts. Each start has spesific nades
-with a "owner". The "owner" is the person who is supposed to throw the smoke
-if that start goes as planned.
+## Getting started
 
-Currently you are not able to add new maps, strats or nade.
-This can be implemented in later versions.
+### Prerequisite
+
+- Java 17
+- Maven 3.6.3
+- Node v14.21.1
+
+### Back-end
+
+From terminal run:
+```
+mvn spring-boot:run
+```
+
+Optionally if you're using vs code; install spring boot extension and run fron vscode interface
+
+### Front-end
+
+From terminal run:
+```
+npm run dev
+```
+
