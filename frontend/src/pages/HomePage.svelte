@@ -45,6 +45,7 @@
 		padding: 1rem;
 		border-radius: 0.1rem;
 		overflow: hidden;
+		box-shadow: 0 5px 10px rgba(0 0 0 / 0.1);
 
 		position: relative;
 
@@ -54,6 +55,7 @@
 	.box:hover,
 	.box:focus {
 		transform: scale(1.05);
+		box-shadow: 0 5px 10px rgba(0 0 0 / 0.2);
 	}
 
 	.box::after {

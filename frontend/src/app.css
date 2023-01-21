@@ -19,6 +19,10 @@ button {
   border: none;
 }
 
+svg {
+  width: 1rem;
+}
+
 /* =============
   Globals
   ============== */
@@ -76,7 +80,7 @@ main {
 }
 
 h1 {
-  font-size: clamp(2em, 10vw, 3.2em);
+  font-size: clamp(2em, 10vw, 2.5em);
   line-height: 1.1;
 }
 
@@ -85,6 +89,19 @@ h1 {
   background-color: #333333;
   border-radius: 0.2rem;
   box-shadow: 0 5px 10px rgb(0 0 0 / .1);
+}
+
+.btn--create svg {
+  fill: #fff;
+  width: 1.5rem;
+  cursor: pointer;
+
+  transition: fill 150ms ease-in-out;
+}
+
+.btn--create:hover svg,
+.btn--create:focus-visible svg {
+  fill: #fa5252;
 }
 
 /* =============
@@ -103,15 +120,25 @@ h1 {
 .back-navigation {
   display: flex;
   gap: 1rem;
+  align-items: center;
 
   color: #fff;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
+.back-navigation:hover,
+.back-navigation:focus-visible {
+  color: #fa5252;
+}
+
 .back-navigation svg {
   fill: #fff;
-  width: 1rem;
+}
+
+.back-navigation:hover svg,
+.back-navigation:focus-visible svg {
+  fill: #fa5252;
 }
 
 /* @media (prefers-color-scheme: light) {

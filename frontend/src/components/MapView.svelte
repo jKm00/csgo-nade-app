@@ -90,6 +90,7 @@
 	.marker {
 		position: absolute;
 		border-radius: 100vw;
+		opacity: 0.8;
 	}
 
 	.throw {
