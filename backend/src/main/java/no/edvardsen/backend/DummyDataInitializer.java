@@ -173,7 +173,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					17.5,
 					31.5,
 					26.5,
-					"https://www.youtube.com/embed/lsSXAYqjCJU");
+					"https://www.youtube.com/embed/jtbrgGL90D4");
 
 			Lineup rightShort = new Lineup(
 					"Right short",
@@ -183,7 +183,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					20,
 					31.5,
 					21.5,
-					"https://www.youtube.com/embed/lsSXAYqjCJU");
+					"https://www.youtube.com/embed/WVIesHW5KxI");
 
 			Lineup bFlash = new Lineup(
 					"B site flash",
@@ -193,7 +193,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					19.5,
 					28,
 					18,
-					"https://www.youtube.com/embed/lsSXAYqjCJU");
+					"https://www.youtube.com/embed/vpUCFEwN40I");
 
 			Lineup bFlashRunning = new Lineup(
 					"B site flash",
@@ -203,9 +203,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					20,
 					25,
 					22,
-					"https://www.youtube.com/embed/lsSXAYqjCJU");
+					"https://www.youtube.com/embed/_6h2aOaLU1k");
 
-			Lineup car = new Lineup(
+			Lineup bench = new Lineup(
 					"Molotov bench",
 					"Molotoves bench on B site",
 					NadeType.MOLOTOV,
@@ -213,9 +213,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					16,
 					11,
 					24.5,
-					"https://www.youtube.com/embed/lsSXAYqjCJU");
+					"https://www.youtube.com/embed/dEYgeNPlqb0");
 
-			Lineup bench = new Lineup(
+			Lineup car = new Lineup(
 					"Molotove car",
 					"Molotoves car on B site",
 					NadeType.MOLOTOV,
@@ -223,7 +223,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					16.5,
 					18,
 					16,
-					"https://www.youtube.com/embed/lsSXAYqjCJU");
+					"https://www.youtube.com/embed/zLPLZ0LWVPg");
 
 			// Add lineups to strat
 			nip.addLineup(leftShort);
