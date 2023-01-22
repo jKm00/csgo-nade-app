@@ -45,7 +45,7 @@
 		{/each}
 	</div>
 	<p class="tip">
-		<span class="underline">Disclaimer:</span> All nade are thrown on 128 tick server.
+		<span class="underline">Disclaimer:</span> All nades are thrown on 128 tick server.
 		Nades requiering jump throw will not work on 64 tick
 	</p>
 </main>
