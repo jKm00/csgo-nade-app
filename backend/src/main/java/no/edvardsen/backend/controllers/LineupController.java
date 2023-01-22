@@ -1,7 +1,5 @@
 package no.edvardsen.backend.controllers;
 
-import java.io.IOException;
-
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

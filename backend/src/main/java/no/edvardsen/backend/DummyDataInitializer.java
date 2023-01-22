@@ -57,7 +57,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					30,
 					61,
 					38.5,
-					"");
+					"https://www.youtube.com/embed/7PKtAxC-0nE");
 			Lineup window1 = new Lineup(
 					"Window nade 1",
 					"Nades window from top mid",
@@ -66,7 +66,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					35,
 					38,
 					42,
-					"");
+					"https://www.youtube.com/embed/lgj7_5weMhI");
 			Lineup window2 = new Lineup(
 					"Window nade 2",
 					"Nades window from top mid",
@@ -75,7 +75,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					37,
 					38,
 					44,
-					"");
+					"https://www.youtube.com/embed/QGoP37P1S4k");
 			Lineup window3 = new Lineup(
 					"Window nade 3",
 					"Nades window from top mid",
@@ -84,7 +84,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					39,
 					38,
 					46,
-					"");
+					"https://www.youtube.com/embed/T73TAxR-0no");
 			// Add lineups
 			midNades.addLineup(topMid);
 			midNades.addLineup(window1);
@@ -102,7 +102,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					48,
 					43,
 					78,
-					"");
+					"https://www.youtube.com/embed/DbJnXweRkUY");
 
 			Lineup stairs = new Lineup(
 					"Stairs",
@@ -112,7 +112,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					55,
 					52,
 					62,
-					"");
+					"https://www.youtube.com/embed/Y9VOQG3kFS8");
 
 			Lineup jungle = new Lineup(
 					"Jungle",
@@ -122,7 +122,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					61,
 					47.9,
 					62,
-					"");
+					"https://www.youtube.com/embed/jtYcFnCjIQs");
 
 			Lineup rampFlash = new Lineup(
 					"Ramp",
@@ -132,7 +132,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					52,
 					65,
 					62,
-					"");
+					"https://www.youtube.com/embed/fqHEaLoGMqw");
 
 			Lineup darkMolly = new Lineup(
 					"Dark",
@@ -142,7 +142,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					75,
 					62,
 					70.5,
-					"");
+					"https://www.youtube.com/embed/4fPcSkHYu88");
 
 			Lineup triple = new Lineup(
 					"Back triple",
@@ -152,7 +152,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					54.5,
 					47,
 					71.5,
-					"");
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
 
 			// Add lineups to strat
 			aSmokes.addLineup(ct);
@@ -161,6 +161,77 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			aSmokes.addLineup(rampFlash);
 			aSmokes.addLineup(darkMolly);
 			aSmokes.addLineup(triple);
+
+			// NIP B Execute
+			Strat nip = new Strat("NIP B Execute", mirage);
+			// Lineups
+			Lineup leftShort = new Lineup(
+					"Left short",
+					"Smokes of left side of short",
+					NadeType.SMOKE,
+					71.5,
+					17.5,
+					31.5,
+					26.5,
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
+
+			Lineup rightShort = new Lineup(
+					"Right short",
+					"Smokes of right side of short",
+					NadeType.SMOKE,
+					71.5,
+					20,
+					31.5,
+					21.5,
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
+
+			Lineup bFlash = new Lineup(
+					"B site flash",
+					"Flashes B site from T apps",
+					NadeType.FLASH,
+					57,
+					19.5,
+					28,
+					18,
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
+
+			Lineup bFlashRunning = new Lineup(
+					"B site flash",
+					"While running through apps, flashes B site from T apps",
+					NadeType.FLASH,
+					42,
+					20,
+					25,
+					22,
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
+
+			Lineup car = new Lineup(
+					"Molotov bench",
+					"Molotoves bench on B site",
+					NadeType.MOLOTOV,
+					34,
+					16,
+					11,
+					24.5,
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
+
+			Lineup bench = new Lineup(
+					"Molotove car",
+					"Molotoves car on B site",
+					NadeType.MOLOTOV,
+					40.5,
+					16.5,
+					18,
+					16,
+					"https://www.youtube.com/embed/lsSXAYqjCJU");
+
+			// Add lineups to strat
+			nip.addLineup(leftShort);
+			nip.addLineup(rightShort);
+			nip.addLineup(bFlash);
+			nip.addLineup(bFlashRunning);
+			nip.addLineup(car);
+			nip.addLineup(bench);
 
 			// Save everything
 
@@ -178,6 +249,14 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			this.lineupRepository.save(darkMolly);
 			this.lineupRepository.save(triple);
 
+			// NIP B Execute
+			this.lineupRepository.save(leftShort);
+			this.lineupRepository.save(rightShort);
+			this.lineupRepository.save(bFlash);
+			this.lineupRepository.save(bFlashRunning);
+			this.lineupRepository.save(car);
+			this.lineupRepository.save(bench);
+
 			// Maps
 			this.mapRepository.save(inferno);
 			this.mapRepository.save(mirage);
@@ -194,6 +273,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
 			// Mid nades
 			this.stratRepository.save(midNades);
+
+			// NIP B Execute
+			this.stratRepository.save(nip);
 
 			log.info("Finished initializing the application");
 		} else {

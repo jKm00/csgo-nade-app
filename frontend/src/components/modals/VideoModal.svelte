@@ -52,12 +52,17 @@
 
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
 	<div class="video--wrapper">
-		<iframe
-			src={`${import.meta.env.VITE_API_BASE_URL}/lineups/${lineup.id}`}
-			frameborder="0"
-			title={`Video of ${lineup.name} lineup`}
-			style="width: 100%; height: 100%"
-		/>
+		{#if lineup.videoPath !== undefined && lineup.videoPath.length !== 0}
+			<iframe
+				src={`${lineup.videoPath}?autoplay=1`}
+				allow="accelerometer; autoplay;"
+				frameborder="0"
+				title={`Video of ${lineup.name} lineup`}
+				style="width: 100%; height: 100%"
+			/>
+		{:else}
+			<p class="error-msg">Something went wrong. Could not load video😢</p>
+		{/if}
 	</div>
 	<div class="body">
 		<div class="body__header">
@@ -101,6 +106,9 @@
 	}
 
 	.video--wrapper {
+		display: grid;
+		place-items: center;
+
 		position: relative;
 		aspect-ratio: 16 / 9;
 		border-bottom: 2px solid var(--clr-accent);
