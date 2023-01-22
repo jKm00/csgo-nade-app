@@ -47,7 +47,7 @@
 				></span
 			>Back</a
 		>
-		<h1>No map found with name: {mapName}</h1>
+		<h1 class="title">No map found with name: {mapName}</h1>
 	</div>
 {:else}
 	<!-- Main wrapper -->

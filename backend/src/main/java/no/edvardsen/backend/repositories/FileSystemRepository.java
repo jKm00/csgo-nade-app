@@ -41,11 +41,11 @@ public class FileSystemRepository {
    * @param location of the file
    * @return the file as stream
    */
-  public FileSystemResource findInFileSystem(String location) {
+  public FileSystemResource findInFileSystem(String location) throws Exception {
     try {
       return new FileSystemResource(Paths.get(location));
     } catch (Exception e) {
-      throw new RuntimeException();
+      throw e;
     }
   }
 

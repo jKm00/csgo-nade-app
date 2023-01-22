@@ -31,11 +31,15 @@ public class LineupService {
    * @param id of the lineup to get video of
    * @return video as stream
    */
-  public FileSystemResource findVideo(Long id) {
+  public FileSystemResource findVideo(Long id) throws Exception {
     Lineup lineup = this.lineupRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-    return this.fileSystemRepository.findInFileSystem(lineup.getVideoPath());
+    try {
+      return this.fileSystemRepository.findInFileSystem(lineup.getVideoPath());
+    } catch (Exception e) {
+      throw e;
+    }
   }
 
   /**
@@ -55,7 +59,8 @@ public class LineupService {
       lineup = _lineup.get();
     }
 
-    String videoPath = this.fileSystemRepository.save(videoContent, lineup.getName() + "_" + lineup.getId() + ".mp4");
+    String videoPath = this.fileSystemRepository.save(videoContent,
+        lineup.getId() + "_" + lineup.getName().toLowerCase() + ".mp4");
 
     lineup.setVideoPath(videoPath);
 

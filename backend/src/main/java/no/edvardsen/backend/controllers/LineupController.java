@@ -1,5 +1,7 @@
 package no.edvardsen.backend.controllers;
 
+import java.io.IOException;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +24,12 @@ public class LineupController {
   private final LineupService lineupService;
 
   @GetMapping(path = "/{id}", produces = "video/mp4")
-  public FileSystemResource downloadVideo(@PathVariable(value = "id") Long id) {
-    return this.lineupService.findVideo(id);
+  public ResponseEntity<FileSystemResource> downloadVideo(@PathVariable(value = "id") Long id) {
+    try {
+      return new ResponseEntity<>(this.lineupService.findVideo(id), HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
   @PostMapping(path = "/{id}", consumes = "multipart/form-data")

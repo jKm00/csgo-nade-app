@@ -4,6 +4,8 @@
 	const dispatch = createEventDispatcher();
 	const close = () => dispatch('close');
 
+	export let lineup;
+
 	let modal;
 
 	const handle_keydown = (e) => {
@@ -40,15 +42,32 @@
 
 <svelte:window on:keydown={handle_keydown} />
 
-<div class="modal-background" on:click={close} />
+<div
+	class="modal-background"
+	on:click={close}
+	on:keydown={handle_keydown}
+	on:keyup={handle_keydown}
+	on:keypress={handle_keydown}
+/>
 
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
-	<div class="header">
-		<slot name="header" />
-		<button class="btn" autofocus on:click={close}>close modal</button>
-	</div>
 	<div class="video--wrapper">
-		<slot />
+		<iframe
+			src={`${import.meta.env.VITE_API_BASE_URL}/lineups/${lineup.id}`}
+			frameborder="0"
+			title={`Video of ${lineup.name} lineup`}
+			style="width: 100%; height: 100%"
+		/>
+	</div>
+	<div class="body">
+		<div class="body__header">
+			<h2 class="title">{lineup.name}</h2>
+			<span class={`tag ${lineup.nade.toLowerCase()}`}>{lineup.nade}</span>
+		</div>
+		<p class="text">{lineup.desc}</p>
+		<div class="body__footer">
+			<button class="btn--modal" on:click={close}>Close</button>
+		</div>
 	</div>
 </div>
 
@@ -76,19 +95,54 @@
 		max-width: 50vw;
 		overflow: auto;
 		transform: translate(-50%, -50%);
-		padding: 1.5rem;
 		border-radius: 0.2em;
 		background: #242424;
 		text-align: left;
 	}
 
-	.header {
-		display: flex;
-		justify-content: space-between;
-	}
-
 	.video--wrapper {
 		position: relative;
 		aspect-ratio: 16 / 9;
+		border-bottom: 2px solid var(--clr-accent);
+	}
+
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+	}
+
+	.body__header {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	.body__footer {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.smoke {
+		--color: var(--smoke);
+	}
+
+	.flash {
+		--color: var(--flash);
+	}
+
+	.molotov {
+		--color: var(--molotov);
+	}
+
+	.he {
+		--color: var(--he);
+	}
+
+	.tag {
+		color: var(--color);
+		border-color: var(--color);
 	}
 </style>

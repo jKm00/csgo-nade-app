@@ -20,7 +20,7 @@
 	<div class="img--wrapper">
 		<img src={map.radar} alt={`Map over ${map.name}`} class="map__img" />
 		{#if activeStrat !== undefined}
-			{#each activeStrat.lineups as lineup}
+			{#each activeStrat.lineups as lineup, index}
 				<button
 					on:click={() => handleLineupClick(lineup)}
 					class={lineup.nade === 'SMOKE'
@@ -35,7 +35,7 @@
 						><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
 							d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
 						/></svg
-					></button
+					><span class="id">{index + 1}</span></button
 				>
 				<button
 					on:click={() => handleLineupClick(lineup)}
@@ -47,7 +47,8 @@
 						? 'marker molotov-marker bg-molotov'
 						: 'marker he-marker bg-he'}
 					style={`top: ${lineup.landCoordinateY}%; left: ${lineup.landCoordinateX}%`}
-				/>
+					>{index + 1}</button
+				>
 			{/each}
 		{/if}
 	</div>
@@ -58,25 +59,12 @@
 		<p class="label"><span class="color-showcase bg-he" /> HE grenade</p>
 	</div>
 	{#if showModal}
-		<VideoModal on:close={() => (showModal = false)}>
-			<h2 slot="header">{modalLineup?.name}</h2>
-			<iframe
-				src={`http://localhost:8080/api/lineups/${modalLineup.id}`}
-				frameborder="0"
-				title={`Video of ${modalLineup.name} lineup`}
-				style="width: 100%; height: 100%"
-			/>
-		</VideoModal>
+		<VideoModal on:close={() => (showModal = false)} lineup={modalLineup} />
 	{/if}
 </div>
 
 <style scoped>
 	.map {
-		--smoke: #be4bdb;
-		--flash: #4c6ef5;
-		--molotov: #fd7e14;
-		--he: #12b886;
-
 		height: 100%;
 	}
 
@@ -115,6 +103,13 @@
 
 	.throw {
 		width: 1rem;
+	}
+
+	.throw .id {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 	.bg-smoke {
