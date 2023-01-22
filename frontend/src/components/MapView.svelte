@@ -1,9 +1,19 @@
 <script lang="ts">
 	import type { CsgoMap } from '@/types/CsgoMap';
 	import type { Strat } from '@/types/Strat';
+	import type { Lineup } from '@/types/Lineup';
+	import VideoModal from './modals/VideoModal.svelte';
 
 	export let map: CsgoMap;
 	export let activeStrat: Strat | undefined;
+
+	let showModal = false;
+	let modalLineup: Lineup;
+
+	const handleLineupClick = (lineup: Lineup) => {
+		modalLineup = lineup;
+		showModal = true;
+	};
 </script>
 
 <div class="map">
@@ -12,7 +22,7 @@
 		{#if activeStrat !== undefined}
 			{#each activeStrat.lineups as lineup}
 				<button
-					on:click={() => console.log(lineup.desc)}
+					on:click={() => handleLineupClick(lineup)}
 					class={lineup.nade === 'SMOKE'
 						? 'marker throw fill-smoke'
 						: lineup.nade === 'FLASH'
@@ -28,7 +38,7 @@
 					></button
 				>
 				<button
-					on:click={() => console.log(lineup.desc)}
+					on:click={() => handleLineupClick(lineup)}
 					class={lineup.nade === 'SMOKE'
 						? 'marker smoke-marker bg-smoke'
 						: lineup.nade === 'FLASH'
@@ -47,6 +57,17 @@
 		<p class="label"><span class="color-showcase bg-molotov" /> Molotov</p>
 		<p class="label"><span class="color-showcase bg-he" /> HE grenade</p>
 	</div>
+	{#if showModal}
+		<VideoModal on:close={() => (showModal = false)}>
+			<h2 slot="header">{modalLineup?.name}</h2>
+			<iframe
+				src={`http://localhost:8080/api/lineups/${modalLineup.id}`}
+				frameborder="0"
+				title={`Video of ${modalLineup.name} lineup`}
+				style="width: 100%; height: 100%"
+			/>
+		</VideoModal>
+	{/if}
 </div>
 
 <style scoped>
@@ -89,6 +110,7 @@
 		position: absolute;
 		border-radius: 100vw;
 		opacity: 0.8;
+		cursor: pointer;
 	}
 
 	.throw {

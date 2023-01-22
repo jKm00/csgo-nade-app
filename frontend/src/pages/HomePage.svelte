@@ -9,8 +9,6 @@
 	onMount(async () => {
 		maps = await Api.get('/maps');
 	});
-
-	$: console.log(maps);
 </script>
 
 <main class="content">
@@ -46,6 +44,10 @@
 			{/if}
 		{/each}
 	</div>
+	<p class="tip">
+		<span class="underline">Disclaimer:</span> All nade are thrown on 128 tick server.
+		Nades requiering jump throw will not work on 64 tick
+	</p>
 </main>
 
 <style scoped>

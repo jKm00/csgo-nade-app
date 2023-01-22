@@ -46,8 +46,8 @@
 				<li class="list__item">
 					<button
 						class={activeStrat === strat.id
-							? `card btn card--active`
-							: `card btn`}
+							? `card btn--custom card--active`
+							: `card btn--custom`}
 						on:click={() => updateActiveStrat(strat.id)}
 					>
 						{strat.name}
@@ -90,7 +90,7 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.btn {
+	.btn--custom {
 		display: block;
 		width: 100%;
 		text-align: left;
@@ -99,6 +99,7 @@
 
 	.card--active {
 		background-color: #fa5252;
+		color: #fff;
 	}
 
 	.tip {

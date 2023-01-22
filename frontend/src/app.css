@@ -79,34 +79,14 @@ main {
   width: 100%;
 }
 
+/* =============
+  Typography
+  ============== */
+
 h1 {
   font-size: clamp(2em, 10vw, 2.5em);
   line-height: 1.1;
 }
-
-.card {
-  padding: 1em;
-  background-color: #333333;
-  border-radius: 0.2rem;
-  box-shadow: 0 5px 10px rgb(0 0 0 / .1);
-}
-
-.btn--create svg {
-  fill: #fff;
-  width: 1.5rem;
-  cursor: pointer;
-
-  transition: fill 150ms ease-in-out;
-}
-
-.btn--create:hover svg,
-.btn--create:focus-visible svg {
-  fill: #fa5252;
-}
-
-/* =============
-  Typography
-  ============== */
 
 .title {
   color: #fff;
@@ -155,6 +135,35 @@ h1 {
 /* =============
   Utils
   ============== */
+
+.card {
+  padding: 1em;
+  background-color: #333333;
+  border-radius: 0.2rem;
+  box-shadow: 0 5px 10px rgb(0 0 0 / .1);
+}
+
+.btn {
+  background-color: #fff;
+  color: #242424;
+  padding: 0.5em 1em;
+  border-radius: 0.2rem;
+  box-shadow: 0 5px 10px rgb(0 0 0 / .1);
+  cursor: pointer;
+}
+
+.btn--create svg {
+  fill: #fff;
+  width: 1.5rem;
+  cursor: pointer;
+
+  transition: fill 150ms ease-in-out;
+}
+
+.btn--create:hover svg,
+.btn--create:focus-visible svg {
+  fill: #fa5252;
+}
 
 .highlighted {
   color: #fa5252;

@@ -26,7 +26,7 @@ public class LineupController {
     return this.lineupService.findVideo(id);
   }
 
-  @PostMapping(path = "/{id}", consumes = { "multipart/form-data" })
+  @PostMapping(path = "/{id}", consumes = "multipart/form-data")
   public ResponseEntity<String> addVideoToLineup(@PathVariable(value = "id") Long id,
       @RequestParam MultipartFile video) {
     ResponseEntity<String> respone;

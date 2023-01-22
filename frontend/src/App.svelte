@@ -63,6 +63,6 @@
 		<HomePage />
 	</Route>
 	<Route path="/maps/:map" let:params>
-		<MapPage mapName={params.map} {maps} />
+		<MapPage mapName={params.map} />
 	</Route>
 </Router>
