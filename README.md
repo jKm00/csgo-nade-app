@@ -12,14 +12,27 @@ A web app displaying a list of strats for each map in the competitive map pool, 
 
 ### Back-end
 
+**Step 1:** 
+
 From terminal run:
+
 ```
 mvn spring-boot:run
 ```
 
-Optionally if you're using vs code; install spring boot extension and run from vscode interface
+_Optionally if you're using vs code; install spring boot extension and run from vscode interface_
 
 ### Front-end
+
+**Step 1:** 
+
+Add `.env` file to root of frontend directory with variables:
+
+- `VITE_API_BASE_URL`
+
+_look `frontend -> .env.example` for reference_
+
+**Step 2:** 
 
 From terminal run:
 ```
