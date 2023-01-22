@@ -1,24 +1,49 @@
 <script lang="ts">
 	import PageTransition from '@/components/PageTransition.svelte';
+	import Api from '@/services/Api';
 	import type { CsgoMap } from '@/types/CsgoMap';
+	import { onMount } from 'svelte';
 
-	export let maps: CsgoMap[];
+	let maps: CsgoMap[] = [];
+
+	onMount(async () => {
+		maps = await Api.get('/maps');
+	});
+
+	$: console.log(maps);
 </script>
 
 <main class="content">
 	<h1 class="title">CSGO Strats</h1>
 	<div class="grid">
 		{#each maps as map}
-			<a href={`/maps/${map.name}`} sapper:prefetch>
+			{#if map.available}
+				<a href={`/maps/${map.name.toLowerCase()}`}>
+					<div class="box">
+						<h2 class="title">{map.name}</h2>
+						{#if !map.available}
+							<h3 class="highlighted">Coming soon</h3>
+						{/if}
+						<img
+							src={map.thumbnail}
+							alt={`image of ${map.name}`}
+							class="box__bg"
+						/>
+					</div>
+				</a>
+			{:else}
 				<div class="box">
 					<h2 class="title">{map.name}</h2>
+					{#if !map.available}
+						<h3 class="highlighted">Coming soon</h3>
+					{/if}
 					<img
 						src={map.thumbnail}
 						alt={`image of ${map.name}`}
 						class="box__bg"
 					/>
 				</div>
-			</a>
+			{/if}
 		{/each}
 	</div>
 </main>
@@ -39,6 +64,7 @@
 
 	.box {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		aspect-ratio: 16 / 9;

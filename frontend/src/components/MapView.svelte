@@ -4,8 +4,6 @@
 
 	export let map: CsgoMap;
 	export let activeStrat: Strat | undefined;
-
-	$: console.log(activeStrat);
 </script>
 
 <div class="map">

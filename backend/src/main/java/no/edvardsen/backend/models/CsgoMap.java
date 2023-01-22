@@ -43,16 +43,21 @@ public class CsgoMap {
     @Column(name = "radar")
     private String radar;
 
+    // Wether or not the map is available
+    @Column(name = "available")
+    private boolean isAvailable;
+
     @OneToMany(mappedBy = "map")
     private List<Strat> strats = new ArrayList<>();
 
     public CsgoMap() {
     }
 
-    public CsgoMap(String name, String thumbnail, String radar) {
+    public CsgoMap(String name, String thumbnail, String radar, boolean isAvailable) {
         this.name = name;
         this.thumbnail = thumbnail;
         this.radar = radar;
+        this.isAvailable = isAvailable;
     }
 
     public void addStrat(Strat strat) {

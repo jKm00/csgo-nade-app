@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +25,13 @@ public class MapController {
 
   private final CsgoMapService mapService;
 
+  @CrossOrigin
   @GetMapping
   public ResponseEntity<List<CsgoMap>> findAllMaps() {
     return new ResponseEntity<>(this.mapService.findAll(), HttpStatus.OK);
   }
 
+  @CrossOrigin
   @GetMapping("/{mapName}")
   public ResponseEntity<CsgoMap> findMapByName(@PathVariable(value = "mapName") String mapName) {
     ResponseEntity<CsgoMap> response;

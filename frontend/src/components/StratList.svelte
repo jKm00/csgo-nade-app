@@ -38,20 +38,24 @@
 		> -->
 		<p class="desc">Click on a strat to see lineups</p>
 	</div>
-	<ul class="list">
-		{#each strats as strat (strat.id)}
-			<li class="list__item">
-				<button
-					class={activeStrat === strat.id
-						? `card btn card--active`
-						: `card btn`}
-					on:click={() => updateActiveStrat(strat.id)}
-				>
-					{strat.name}
-				</button>
-			</li>
-		{/each}
-	</ul>
+	{#if strats.length === 0}
+		<p class="error-msg">No strats available 😢</p>
+	{:else}
+		<ul class="list">
+			{#each strats as strat (strat.id)}
+				<li class="list__item">
+					<button
+						class={activeStrat === strat.id
+							? `card btn card--active`
+							: `card btn`}
+						on:click={() => updateActiveStrat(strat.id)}
+					>
+						{strat.name}
+					</button>
+				</li>
+			{/each}
+		</ul>
+	{/if}
 </div>
 
 <style scoped>
@@ -78,6 +82,10 @@
 		text-align: left;
 	}
 
+	.error-msg {
+		text-align: left;
+	}
+
 	.list__item:not(:last-child) {
 		margin-bottom: 0.5rem;
 	}
@@ -91,5 +99,9 @@
 
 	.card--active {
 		background-color: #fa5252;
+	}
+
+	.tip {
+		text-align: left;
 	}
 </style>

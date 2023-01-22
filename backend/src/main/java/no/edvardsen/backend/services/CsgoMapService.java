@@ -46,7 +46,8 @@ public class CsgoMapService {
     this.repository.save(new CsgoMap(
         map.getName(),
         map.getThumbnail(),
-        map.getRadar()));
+        map.getRadar(),
+        map.isAvailable()));
   }
 
 }

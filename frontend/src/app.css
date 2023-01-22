@@ -117,6 +117,12 @@ h1 {
   outline: none;
 }
 
+.tip {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  line-height: 1.2rem;
+}
+
 .back-navigation {
   display: flex;
   gap: 1rem;
@@ -139,6 +145,23 @@ h1 {
 .back-navigation:hover svg,
 .back-navigation:focus-visible svg {
   fill: #fa5252;
+}
+
+.error-msg {
+  font-size: 0.8rem;
+  color: #fa5252;
+}
+
+/* =============
+  Utils
+  ============== */
+
+.highlighted {
+  color: #fa5252;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 /* @media (prefers-color-scheme: light) {
