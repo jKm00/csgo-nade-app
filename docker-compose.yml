@@ -1,24 +1,13 @@
 version: '3.8'
 
 services:
-  nginx:
-    image: nginx:1.20.2-alpine
-    container_name: nginx_c
-    volumes:
-      - ./container-config/global-nginx-proxy.conf:/etc/nginx/nginx.conf
-    ports:
-      - '80:80'
-    depends_on:
-      - api
-      - svelte
-    networks:
-      - default
-
   api:
     container_name: api_c
     build:
       context: ./backend
       dockerfile: Dockerfile
+    ports:
+      - 8080:8080
     networks:
       - default
 
@@ -30,6 +19,8 @@ services:
     restart: unless-stopped
     networks:
       - default
+    ports:
+      - 80:80
     depends_on:
       - api
 
