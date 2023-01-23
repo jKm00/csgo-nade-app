@@ -1,0 +1,224 @@
+/* =============
+  Resets
+  ============== */
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul {
+	list-style-type: none;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+}
+
+svg {
+	width: 1rem;
+}
+
+/* =============
+		Globals
+		============== */
+
+:root {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+
+	--clr-accent: #fa5252;
+
+	--smoke: #be4bdb;
+	--flash: #4c6ef5;
+	--molotov: #fd7e14;
+	--he: #12b886;
+}
+
+a {
+	font-weight: 500;
+	color: #fff;
+	text-decoration: inherit;
+}
+
+a:hover,
+a:focus {
+	color: #fa5252;
+}
+
+a:hover svg,
+a:focus svg {
+	fill: #fa5252;
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+}
+
+#app {
+	width: clamp(500px, 90vw, 1000px);
+	margin: 2rem auto;
+	padding-inline: 1rem;
+	text-align: center;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+}
+
+/* =============
+		Typography
+		============== */
+
+h1 {
+	font-size: clamp(2em, 10vw, 2.5em);
+	line-height: 1.1;
+}
+
+.title {
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.title:focus {
+	outline: none;
+}
+
+.text {
+	font-size: 0.8rem;
+}
+
+.tip {
+	font-size: 0.8rem;
+	opacity: 0.8;
+	line-height: 1.2rem;
+}
+
+.back-navigation {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.back-navigation:hover,
+.back-navigation:focus-visible {
+	color: #fa5252;
+}
+
+.back-navigation svg {
+	fill: #fff;
+}
+
+.back-navigation:hover svg,
+.back-navigation:focus-visible svg {
+	fill: #fa5252;
+}
+
+.error-msg {
+	font-size: 0.8rem;
+	color: #fa5252;
+}
+
+/* =============
+		Utils
+		============== */
+
+.card {
+	padding: 1em;
+	background-color: #333333;
+	border-radius: 0.2rem;
+	box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+}
+
+.btn {
+	background-color: #fff;
+	color: #242424;
+	padding: 0.5em 1em;
+	border-radius: 0.2rem;
+	box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+	cursor: pointer;
+}
+
+.btn--modal {
+	font-weight: bold;
+	text-transform: uppercase;
+
+	background-color: #1a1a1a;
+	color: #fff;
+	padding: 0.5em 1em;
+	border-radius: 0.2rem;
+	cursor: pointer;
+}
+
+.btn--modal {
+	fill: #fff;
+}
+
+.btn--create svg {
+	fill: #fff;
+	width: 1.5rem;
+	cursor: pointer;
+
+	transition: fill 150ms ease-in-out;
+}
+
+.btn--create:hover svg,
+.btn--create:focus-visible svg {
+	fill: #fa5252;
+}
+
+.tag {
+	display: flex;
+	place-items: center;
+	font-size: 0.75rem;
+	border: 1px solid;
+	padding: 0 1em;
+	border-radius: 100vw;
+}
+
+.highlighted {
+	color: #fa5252;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+/* @media (prefers-color-scheme: light) {
+		:root {
+			color: #213547;
+			background-color: #ffffff;
+		}
+	
+		a:hover {
+			color: #747bff;
+		}
+	
+		button {
+			background-color: #f9f9f9;
+		}
+	} */
