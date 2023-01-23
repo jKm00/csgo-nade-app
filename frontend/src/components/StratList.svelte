@@ -95,6 +95,7 @@
 		width: 100%;
 		text-align: left;
 		cursor: pointer;
+		color: #fff;
 	}
 
 	.card--active {

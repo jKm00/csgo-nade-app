@@ -99,6 +99,7 @@
 		border-radius: 100vw;
 		opacity: 0.8;
 		cursor: pointer;
+		color: #fff;
 	}
 
 	.throw {
