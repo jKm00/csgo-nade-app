@@ -14,7 +14,7 @@ services:
   svelte:
     container_name: svelte_c
     build:
-      context: ./frontend
+      context: ./sveltekit
       dockerfile: Dockerfile
     restart: unless-stopped
     networks:
