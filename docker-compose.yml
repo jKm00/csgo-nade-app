@@ -20,7 +20,7 @@ services:
     networks:
       - default
     ports:
-      - 80:80
+      - 8081:80
     depends_on:
       - api
 
