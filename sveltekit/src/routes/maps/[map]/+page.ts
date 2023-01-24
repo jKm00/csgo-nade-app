@@ -1,5 +1,5 @@
 import API from '@/services/Api';
-import type { PageLoad, PageServerData } from './$types';
+import type { PageLoad } from './$types';
 import type { CsgoMap } from '@/types/CsgoMap';
 
 type OutputProps = { map: CsgoMap };
@@ -12,4 +12,4 @@ export const load: PageLoad<OutputProps> = async ({ params, data }) => {
 	};
 };
 
-export const ssr = false;
+export const ssr = true;
