@@ -40,7 +40,7 @@ _Optionally if you're using vs code; install spring boot extension and run from 
 
 ### Front-end
 
-**Use `sveltekit` for frontend. The `frontend` project used svelte and is depricated. It will soon be deleted.**
+**Use the `sveltekit` directory (not `frontend`) for the frontend. The `frontend` directory is a project using just svelte and is depricated. It will soon be deleted.**
 
 **Step 1:**
 
