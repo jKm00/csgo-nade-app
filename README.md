@@ -57,3 +57,17 @@ From terminal run:
 ```
 npm run dev
 ```
+
+## Feedback
+
+If you have any suggestions or comments, kindly open a new issue and provide a detailed description of your feedback.
+
+[Give feedback](https://github.com/jKm00/csgo-nade-app/issues)
+
+## Contribution
+
+If you wish to make contributions to the project, kindly fork the repository, make the desired modifications, and submit a pull request to incorporate your changes.
+
+### Support Me
+
+<a href="https://www.buymeacoffee.com/joakimedvam">:coffee: Buy me a coffee</a>
