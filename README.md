@@ -13,7 +13,7 @@ A web app displaying a list of strats for each map in the competitive map pool, 
 │
 ├── sveltekit                               # frontend application
 │   ├── src                                 # source code
-│   └── src                                 # static elements, like assets etc...
+│   └── static                              # static elements, like assets etc...
 │
 └── frontent                                # DEPRECATED: Old frontend, soon to be removed
 ```
