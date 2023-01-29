@@ -11,11 +11,9 @@ A web app displaying a list of strats for each map in the competitive map pool, 
 │           ├── java/no/edvardse/backend    # source code
 │           └── resources                   # app properties etc...
 │
-├── sveltekit                               # frontend application
-│   ├── src                                 # source code
-│   └── static                              # static elements, like assets etc...
-│
-└── frontent                                # DEPRECATED: Old frontend, soon to be removed
+└── sveltekit                               # frontend application
+    ├── src                                 # source code
+    └── static                              # static elements, like assets etc...
 ```
 
 ## Getting started
@@ -40,13 +38,11 @@ _Optionally if you're using vs code; install spring boot extension and run from 
 
 ### Front-end
 
-**Use the `sveltekit` directory (not `frontend`) for the frontend. The `frontend` directory is a project using just svelte and is depricated. It will soon be deleted.**
-
 **Step 1:**
 
-Add `.env` file to root of frontend directory with variables:
+Add `.env` file to root of `sveltekit` directory with variables:
 
-- `VITE_API_BASE_URL`
+- `VITE_API_BASE_URL=url-to-local-api`
 
 _look `frontend -> .env.example` for reference_
 
