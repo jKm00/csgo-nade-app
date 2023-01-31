@@ -69,6 +69,7 @@
 		selectedlineupIndex++;
 	};
 
+	// TODO: This does not work. need to re-thing how im storing the strat info
 	const removeLineup = (index: number) => {
 		if (strat.lineups.length === 1) return;
 
