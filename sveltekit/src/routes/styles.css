@@ -23,6 +23,10 @@ svg {
 	width: 1rem;
 }
 
+img {
+	width: 100%;
+}
+
 /* =============
 		Globals
 		============== */
@@ -84,6 +88,60 @@ main {
 	flex-direction: column;
 	gap: 1rem;
 	width: 100%;
+}
+
+/* =============
+		Laout
+		============== */
+
+.grid-2-col {
+	display: grid;
+	grid-template-columns: 1fr 17rem;
+	gap: 1rem;
+}
+
+.form {
+	display: grid;
+	gap: 1rem;
+}
+
+.form__section {
+	display: grid;
+	gap: 0.25rem;
+}
+
+.form__btn-row {
+	display: flex;
+	justify-content: space-evenly;
+	box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+}
+
+.form__btn {
+	width: 100%;
+	padding: 1rem;
+	background-color: #333333;
+}
+
+.form__btn:nth-child(1) {
+	border-radius: 0.2rem 0 0 0.2rem;
+}
+
+.form__btn:nth-last-child(1) {
+	border-radius: 0 0.2rem 0.2rem 0;
+}
+
+.form__btn[data-active="true"] {
+	background-color: #fff;
+	color: #000;
+}
+
+.form__label {
+	text-align: left;
+}
+
+.form__input {
+	padding: 0.5rem;
+	resize: none;
 }
 
 /* =============
@@ -155,12 +213,31 @@ h1 {
 }
 
 .btn {
-	background-color: #fff;
-	color: #242424;
+	background-color: #333333;
+	color: #fff;
 	padding: 0.5em 1em;
 	border-radius: 0.2rem;
 	box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
 	cursor: pointer;
+}
+
+.btn[data-active="true"] {
+	background-color: #fff;
+	color: #000;
+}
+
+.btn--accent {
+	background-color: var(--clr-accent);
+	color: #fff;
+}
+
+.btn--inverted {
+	background-color: #fff;
+	color: #333;
+}
+
+.btn--large {
+	padding: 1em;
 }
 
 .btn--modal {

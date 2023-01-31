@@ -1,8 +1,10 @@
+import type { Nade } from "@/types/Nade";
+
 export type Lineup = {
 	id: number;
 	name: string;
 	desc: string;
-	nade: 'SMOKE' | 'FLASH' | 'MOLOTOV' | 'HE';
+	nade: Nade;
 	throwCoordinateX: number;
 	throwCoordinateY: number;
 	landCoordinateX: number;

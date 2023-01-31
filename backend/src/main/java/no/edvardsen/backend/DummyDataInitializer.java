@@ -53,36 +53,36 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Top mid",
 					"Smokes of top mid from T spawn",
 					NadeType.SMOKE,
-					90,
+					91,
 					30,
-					61,
+					62,
 					38.5,
 					"https://www.youtube.com/embed/7PKtAxC-0nE");
 			Lineup window1 = new Lineup(
 					"Window nade 1",
 					"Nades window from top mid",
 					NadeType.HE,
-					66,
+					68,
 					35,
-					38,
+					40,
 					42,
 					"https://www.youtube.com/embed/lgj7_5weMhI");
 			Lineup window2 = new Lineup(
 					"Window nade 2",
 					"Nades window from top mid",
 					NadeType.HE,
-					66,
+					68,
 					37,
-					38,
+					40,
 					44,
 					"https://www.youtube.com/embed/QGoP37P1S4k");
 			Lineup window3 = new Lineup(
 					"Window nade 3",
 					"Nades window from top mid",
 					NadeType.HE,
-					66,
+					68,
 					39,
-					38,
+					40,
 					46,
 					"https://www.youtube.com/embed/T73TAxR-0no");
 			// Add lineups
@@ -98,19 +98,19 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"CT",
 					"Smokes of CT on A site",
 					NadeType.SMOKE,
-					86.6,
+					87.6,
 					48,
-					43,
-					78,
+					45,
+					77.5,
 					"https://www.youtube.com/embed/DbJnXweRkUY");
 
 			Lineup stairs = new Lineup(
 					"Stairs",
 					"Smokes of stairs on A site",
 					NadeType.SMOKE,
-					85,
+					86,
 					55,
-					52,
+					54,
 					62,
 					"https://www.youtube.com/embed/Y9VOQG3kFS8");
 
@@ -118,9 +118,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Jungle",
 					"Smokes of jungle on A site",
 					NadeType.SMOKE,
-					78,
+					79,
 					61,
-					47.9,
+					49.9,
 					62,
 					"https://www.youtube.com/embed/jtYcFnCjIQs");
 
@@ -128,7 +128,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Ramp",
 					"Flashes just above ramp to not blind teammates",
 					NadeType.FLASH,
-					78,
+					79,
 					52,
 					65,
 					62,
@@ -138,19 +138,19 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Dark",
 					"Molotoves dark",
 					NadeType.MOLOTOV,
-					73.2,
+					74.2,
 					75,
-					62,
-					70.5,
+					64,
+					69.5,
 					"https://www.youtube.com/embed/4fPcSkHYu88");
 
 			Lineup triple = new Lineup(
 					"Back triple",
 					"Molotoves behind triple on A site",
 					NadeType.MOLOTOV,
-					79.5,
+					80.5,
 					54.5,
-					47,
+					49,
 					71.5,
 					"https://www.youtube.com/embed/lsSXAYqjCJU");
 
@@ -169,9 +169,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Left short",
 					"Smokes of left side of short",
 					NadeType.SMOKE,
-					71.5,
+					72.5,
 					17.5,
-					31.5,
+					33.5,
 					26.5,
 					"https://www.youtube.com/embed/jtbrgGL90D4");
 
@@ -179,9 +179,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Right short",
 					"Smokes of right side of short",
 					NadeType.SMOKE,
-					71.5,
+					72.5,
 					20,
-					31.5,
+					33.5,
 					21.5,
 					"https://www.youtube.com/embed/WVIesHW5KxI");
 
@@ -209,9 +209,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Molotov bench",
 					"Molotoves bench on B site",
 					NadeType.MOLOTOV,
-					34,
+					35,
 					16,
-					11,
+					13,
 					24.5,
 					"https://www.youtube.com/embed/dEYgeNPlqb0");
 
@@ -219,9 +219,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"Molotove car",
 					"Molotoves car on B site",
 					NadeType.MOLOTOV,
-					40.5,
+					41.5,
 					16.5,
-					18,
+					20,
 					16,
 					"https://www.youtube.com/embed/zLPLZ0LWVPg");
 
