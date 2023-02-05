@@ -1,5 +1,7 @@
 package no.edvardsen.backend.controllers;
 
+import java.util.List;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import no.edvardsen.backend.dtos.LineupDto;
+import no.edvardsen.backend.models.CsgoMap;
+import no.edvardsen.backend.models.Lineup;
+import no.edvardsen.backend.services.CsgoMapService;
 import no.edvardsen.backend.services.LineupService;
 
 @RestController
@@ -24,6 +29,7 @@ import no.edvardsen.backend.services.LineupService;
 public class LineupController {
 
   private final LineupService lineupService;
+  private final CsgoMapService mapService;
 
   @GetMapping(path = "/{id}", produces = "video/mp4")
   public ResponseEntity<FileSystemResource> downloadVideo(@PathVariable(value = "id") Long id) {
@@ -32,6 +38,24 @@ public class LineupController {
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
+
+  @GetMapping("/{mapName}")
+  public ResponseEntity<List<Lineup>> getLineupsForMap(@PathVariable(value = "mapName") String mapName) {
+    ResponseEntity<List<Lineup>> response;
+
+    try {
+
+      CsgoMap map = this.mapService.findMapByName(mapName);
+      List<Lineup> lineups = this.lineupService.findLineupsForMap(map);
+
+      response = new ResponseEntity<>(lineups, HttpStatus.OK);
+
+    } catch (EntityNotFoundException e) {
+      response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    return response;
   }
 
   @PostMapping()

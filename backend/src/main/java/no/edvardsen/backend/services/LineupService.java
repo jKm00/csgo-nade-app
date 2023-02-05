@@ -1,5 +1,6 @@
 package no.edvardsen.backend.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.core.io.FileSystemResource;
@@ -92,5 +93,15 @@ public class LineupService {
 
     Lineup lineup = new Lineup(map.get(), name, desc, nade, throwX, throwY, landX, landY, videoPath);
     this.lineupRepository.save(lineup);
+  }
+
+  /**
+   * Returns a list of lineups for a specific csgo map
+   * 
+   * @param map to find the lineups for
+   * @return a list of lineups
+   */
+  public List<Lineup> findLineupsForMap(CsgoMap map) {
+    return this.lineupRepository.findByMap(map);
   }
 }

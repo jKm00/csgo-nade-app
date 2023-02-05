@@ -12,7 +12,7 @@
 	let strats: Strat[] = [];
 
 	$: map = data.map;
-	$: strats = map !== undefined ? map.strats : [];
+	$: strats = data.strats;
 
 	let activeStrat: Strat | undefined;
 

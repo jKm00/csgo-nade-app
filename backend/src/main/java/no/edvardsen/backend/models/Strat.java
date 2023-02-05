@@ -47,7 +47,6 @@ public class Strat {
     @JoinTable(name = "strat_lineups", joinColumns = @JoinColumn(name = Strat.PRIMARY_KEY), inverseJoinColumns = @JoinColumn(name = Lineup.PRIMARY_KEY))
     private List<Lineup> lineups = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = CsgoMap.PRIMARY_KEY)
     private CsgoMap map;

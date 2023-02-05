@@ -3,6 +3,8 @@ package no.edvardsen.backend.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,9 +49,11 @@ public class CsgoMap {
     @Column(name = "available")
     private boolean isAvailable;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "map")
     private List<Strat> strats = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "map")
     private List<Lineup> lineups = new ArrayList<>();
 
