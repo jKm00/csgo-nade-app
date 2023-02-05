@@ -1,6 +1,7 @@
 package no.edvardsen.backend.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,17 @@ public class CsgoMapService {
 
   public List<CsgoMap> findAll() {
     return this.repository.findAll();
+  }
+
+  /**
+   * Returns a map based on the id given
+   * 
+   * @param id of the map to find
+   * @return optional containing the map. If no map is found, the optional is
+   *         empty
+   */
+  public Optional<CsgoMap> findMapById(Long id) {
+    return this.repository.findById(id);
   }
 
   /**

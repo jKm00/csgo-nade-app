@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -61,11 +64,18 @@ public class Lineup {
     @ManyToMany(mappedBy = "lineups")
     private List<Strat> strats = new ArrayList<>();
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = CsgoMap.PRIMARY_KEY)
+    private CsgoMap map;
+
     public Lineup() {
     }
 
-    public Lineup(String name, String desc, NadeType nade, double throwX, double throwY, double landX, double landY,
+    public Lineup(CsgoMap map, String name, String desc, NadeType nade, double throwX, double throwY, double landX,
+            double landY,
             String videoPath) {
+        this.map = map;
         this.name = name;
         this.desc = desc;
         this.nade = nade;

@@ -50,6 +50,9 @@ public class CsgoMap {
     @OneToMany(mappedBy = "map")
     private List<Strat> strats = new ArrayList<>();
 
+    @OneToMany(mappedBy = "map")
+    private List<Lineup> lineups = new ArrayList<>();
+
     public CsgoMap() {
     }
 
@@ -62,5 +65,9 @@ public class CsgoMap {
 
     public void addStrat(Strat strat) {
         this.strats.add(strat);
+    }
+
+    public void addLineup(Lineup lineup) {
+        this.lineups.add(lineup);
     }
 }

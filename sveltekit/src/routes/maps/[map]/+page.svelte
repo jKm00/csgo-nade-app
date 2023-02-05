@@ -74,11 +74,4 @@
 	.back-navigation {
 		justify-self: start;
 	}
-
-	@media only screen and (max-width: 800px) {
-		.content {
-			display: flex;
-			flex-direction: column;
-		}
-	}
 </style>

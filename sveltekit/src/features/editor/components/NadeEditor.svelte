@@ -1,7 +1,9 @@
 <script lang="ts">
+	import FeedbackBanner from '@/components/feedback/FeedbackBanner.svelte';
 	import MapView from '@/components/MapView.svelte';
+	import API from '@/services/Api';
 	import type { CsgoMap } from '@/types/CsgoMap';
-	import type { Lineup } from '@/types/Lineup';
+	import { FeedbackType } from '@/types/FeedbackType';
 	import { Nade } from '@/types/Nade';
 
 	enum markerType {
@@ -11,141 +13,135 @@
 
 	export let map: CsgoMap;
 
-	let strat = {
+	let lineup = {
 		id: 0,
 		name: '',
-		lineups: [
-			{
-				id: 0,
-				name: '',
-				desc: '',
-				nade: Nade.SMOKE,
-				throwCoordinateX: 0,
-				throwCoordinateY: 0,
-				landCoordinateX: 0,
-				landCoordinateY: 0,
-				videoPath: ''
-			}
-		]
+		desc: '',
+		nade: Nade.SMOKE,
+		throwCoordinateX: 0,
+		throwCoordinateY: 0,
+		landCoordinateX: 0,
+		landCoordinateY: 0,
+		videoPath: ''
 	};
-
-	let selectedlineupIndex = 0;
-
 	let marker: markerType | undefined;
 
 	let radarWidth: number;
 	let radarHeight: number;
 
+	let displayFeedback = false;
+	let feedbackMsg = '';
+	let feedbackType = FeedbackType.SUCCESS;
+
 	const setMarker = (event: MouseEvent) => {
 		let x = Math.round(((100 * event.offsetX) / radarWidth) * 100) / 100;
 		let y = Math.round(((100 * event.offsetY) / radarHeight) * 100) / 100;
 		if (marker === markerType.THROW) {
-			strat.lineups[selectedlineupIndex].throwCoordinateX = x;
-			strat.lineups[selectedlineupIndex].throwCoordinateY = y;
+			lineup.throwCoordinateX = x;
+			lineup.throwCoordinateY = y;
 		}
 		if (marker === markerType.LAND) {
-			strat.lineups[selectedlineupIndex].landCoordinateX = x;
-			strat.lineups[selectedlineupIndex].landCoordinateY = y;
+			lineup.landCoordinateX = x;
+			lineup.landCoordinateY = y;
 		}
 		marker = undefined;
 	};
 
-	const addLineup = () => {
-		// TODO: error handling
-		strat.lineups = [
-			...strat.lineups,
-			{
-				id: 0,
-				name: '',
-				desc: '',
-				nade: Nade.SMOKE,
-				throwCoordinateX: 0,
-				throwCoordinateY: 0,
-				landCoordinateX: 0,
-				landCoordinateY: 0,
-				videoPath: ''
-			}
-		];
-		selectedlineupIndex++;
+	const addLineup = async () => {
+		// TODO: send call to api
+		if (
+			lineup.name.length === 0 ||
+			lineup.throwCoordinateX === 0 ||
+			lineup.throwCoordinateY === 0 ||
+			lineup.landCoordinateX === 0 ||
+			lineup.landCoordinateY === 0 ||
+			lineup.videoPath.length === 0
+		) {
+			toggleBanner('Fill out all fields before submitting', 2000, FeedbackType.ERROR);
+		} else {
+			API.post('/lineups', {
+				mapId: map.id,
+				name: lineup.name,
+				desc: lineup.desc,
+				nade: lineup.nade,
+				throwCoordinateX: lineup.throwCoordinateX,
+				throwCoordinateY: lineup.landCoordinateY,
+				landCoordinateX: lineup.landCoordinateX,
+				landCoordinateY: lineup.landCoordinateY,
+				videoPath: lineup.videoPath
+			})
+				.then((res) => {
+					toggleBanner('Lineup added', 2000, FeedbackType.SUCCESS);
+				})
+				.catch((err) => {
+					toggleBanner('Something went wrong. Please try again...', 2000, FeedbackType.ERROR);
+				});
+		}
 	};
 
-	// TODO: This does not work. need to re-thing how im storing the strat info
-	const removeLineup = (index: number) => {
-		if (strat.lineups.length === 1) return;
-
-		let tmp = strat.lineups;
-		tmp.splice(index, 1);
-		strat.lineups = tmp;
+	/**
+	 * Toggles the feedback banner for a duration
+	 *
+	 * @param msg the message to be displayed
+	 * @param duration how long the message should be displayed for
+	 * @param type type of feedback, success or error
+	 */
+	const toggleBanner = (msg: string, duration: number, type: FeedbackType) => {
+		feedbackMsg = msg;
+		feedbackType = type;
+		displayFeedback = true;
+		setTimeout(() => {
+			displayFeedback = false;
+		}, duration);
 	};
 </script>
 
 <div class="grid-2-col">
+	<FeedbackBanner display={displayFeedback} type={feedbackType}>{feedbackMsg}</FeedbackBanner>
 	<section bind:clientWidth={radarWidth} bind:clientHeight={radarHeight} on:mousedown={setMarker}>
-		<MapView {map} lineups={strat.lineups} enableModal={false} />
+		<MapView {map} lineups={[lineup]} enableModal={false} />
 	</section>
 	<section>
-		<form class="form">
-			<div class="form__section">
-				<label for="stratName" class="form__label">Name of strat</label>
-				<input class="form__input" type="text" id="stratName" bind:value={strat.name} />
-			</div>
+		<form class="form" on:submit|preventDefault={addLineup}>
 			<div class="form__section">
 				<label for="lineupName" class="form__label">Lineup name</label>
-				<input
-					class="form__input"
-					type="text"
-					id="lineupName"
-					bind:value={strat.lineups[selectedlineupIndex].name}
-				/>
+				<input class="form__input" type="text" id="lineupName" bind:value={lineup.name} />
 			</div>
 			<div class="form__section">
 				<label for="lineupDesc" class="form__label">Lineup desc</label>
-				<textarea
-					class="form__input"
-					id="lineupDesc"
-					rows="5"
-					bind:value={strat.lineups[selectedlineupIndex].desc}
-				/>
+				<textarea class="form__input" id="lineupDesc" rows="5" bind:value={lineup.desc} />
 			</div>
 			<div class="form__btn-row">
 				<button
 					type="button"
 					class="form__btn"
-					data-active={strat.lineups[selectedlineupIndex].nade === Nade.SMOKE ? true : false}
-					on:click={() => (strat.lineups[selectedlineupIndex].nade = Nade.SMOKE)}>Smoke</button
+					data-active={lineup.nade === Nade.SMOKE ? true : false}
+					on:click={() => (lineup.nade = Nade.SMOKE)}>Smoke</button
 				>
 				<button
 					type="button"
 					class="form__btn"
-					data-active={strat.lineups[selectedlineupIndex].nade === Nade.FLASH ? true : false}
-					on:click={() => (strat.lineups[selectedlineupIndex].nade = Nade.FLASH)}>Flash</button
+					data-active={lineup.nade === Nade.FLASH ? true : false}
+					on:click={() => (lineup.nade = Nade.FLASH)}>Flash</button
 				>
 				<button
 					type="button"
 					class="form__btn"
-					data-active={strat.lineups[selectedlineupIndex].nade === Nade.MOLOTOV ? true : false}
-					on:click={() => (strat.lineups[selectedlineupIndex].nade = Nade.MOLOTOV)}>Molotov</button
+					data-active={lineup.nade === Nade.MOLOTOV ? true : false}
+					on:click={() => (lineup.nade = Nade.MOLOTOV)}>Molotov</button
 				>
 				<button
 					type="button"
 					class="form__btn"
-					data-active={strat.lineups[selectedlineupIndex].nade === Nade.HE ? true : false}
-					on:click={() => (strat.lineups[selectedlineupIndex].nade = Nade.HE)}>He</button
+					data-active={lineup.nade === Nade.HE ? true : false}
+					on:click={() => (lineup.nade = Nade.HE)}>He</button
 				>
 			</div>
 			<div class="form__section">
 				<p class="form__label">Throw marker</p>
 				<div class="grid-3-col">
-					<input
-						type="number"
-						step=".01"
-						bind:value={strat.lineups[selectedlineupIndex].throwCoordinateX}
-					/>
-					<input
-						type="number"
-						step=".01"
-						bind:value={strat.lineups[selectedlineupIndex].throwCoordinateY}
-					/>
+					<input type="number" step=".01" bind:value={lineup.throwCoordinateX} />
+					<input type="number" step=".01" bind:value={lineup.throwCoordinateY} />
 					<button
 						type="button"
 						class="btn"
@@ -157,16 +153,8 @@
 			<div class="form__section">
 				<p class="form__label">Land marker</p>
 				<div class="grid-3-col">
-					<input
-						type="number"
-						step=".01"
-						bind:value={strat.lineups[selectedlineupIndex].landCoordinateX}
-					/>
-					<input
-						type="number"
-						step=".01"
-						bind:value={strat.lineups[selectedlineupIndex].landCoordinateY}
-					/>
+					<input type="number" step=".01" bind:value={lineup.landCoordinateX} />
+					<input type="number" step=".01" bind:value={lineup.landCoordinateY} />
 					<button
 						type="button"
 						class="btn"
@@ -177,25 +165,9 @@
 			</div>
 			<div class="form__section">
 				<label for="videoPath" class="form__label">Lineup video URL</label>
-				<input
-					class="form__input"
-					type="text"
-					id="videoPath"
-					bind:value={strat.lineups[selectedlineupIndex].videoPath}
-				/>
+				<input class="form__input" type="text" id="videoPath" bind:value={lineup.videoPath} />
 			</div>
-			<button type="button" class="btn btn--inverted btn--large" on:click={addLineup}
-				>Add lineup</button
-			>
-			<ul class="lineups-list">
-				{#each strat.lineups as lineup, index}
-					<li class="lineups-item">
-						<button type="button" class="card"
-							>{lineup.name.length === 0 ? '...' : lineup.name}</button
-						><button type="button" class="card" on:click={() => removeLineup(index)}>x</button>
-					</li>
-				{/each}
-			</ul>
+			<button class="btn btn--accent btn--large">Add lineup</button>
 		</form>
 	</section>
 </div>
@@ -209,16 +181,5 @@
 
 	.grid-3-col input {
 		width: 100%;
-	}
-
-	.lineups-list {
-		display: grid;
-		gap: inherit;
-	}
-
-	.lineups-item {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		gap: 1rem;
 	}
 </style>

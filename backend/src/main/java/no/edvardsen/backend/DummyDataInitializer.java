@@ -50,6 +50,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			Strat midNades = new Strat("Mid nades", mirage);
 			// Lineups for mid nades
 			Lineup topMid = new Lineup(
+					mirage,
 					"Top mid",
 					"Smokes of top mid from T spawn",
 					NadeType.SMOKE,
@@ -59,6 +60,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					38.5,
 					"https://www.youtube.com/embed/7PKtAxC-0nE");
 			Lineup window1 = new Lineup(
+					mirage,
 					"Window nade 1",
 					"Nades window from top mid",
 					NadeType.HE,
@@ -68,6 +70,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					42,
 					"https://www.youtube.com/embed/lgj7_5weMhI");
 			Lineup window2 = new Lineup(
+					mirage,
 					"Window nade 2",
 					"Nades window from top mid",
 					NadeType.HE,
@@ -77,6 +80,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					44,
 					"https://www.youtube.com/embed/QGoP37P1S4k");
 			Lineup window3 = new Lineup(
+					mirage,
 					"Window nade 3",
 					"Nades window from top mid",
 					NadeType.HE,
@@ -95,6 +99,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			Strat aSmokes = new Strat("A smokes", mirage);
 			// Lineup for a smokes nades
 			Lineup ct = new Lineup(
+					mirage,
 					"CT",
 					"Smokes of CT on A site",
 					NadeType.SMOKE,
@@ -105,6 +110,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/DbJnXweRkUY");
 
 			Lineup stairs = new Lineup(
+					mirage,
 					"Stairs",
 					"Smokes of stairs on A site",
 					NadeType.SMOKE,
@@ -115,6 +121,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/Y9VOQG3kFS8");
 
 			Lineup jungle = new Lineup(
+					mirage,
 					"Jungle",
 					"Smokes of jungle on A site",
 					NadeType.SMOKE,
@@ -125,6 +132,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/jtYcFnCjIQs");
 
 			Lineup rampFlash = new Lineup(
+					mirage,
 					"Ramp",
 					"Flashes just above ramp to not blind teammates",
 					NadeType.FLASH,
@@ -135,6 +143,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/fqHEaLoGMqw");
 
 			Lineup darkMolly = new Lineup(
+					mirage,
 					"Dark",
 					"Molotoves dark",
 					NadeType.MOLOTOV,
@@ -145,6 +154,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/4fPcSkHYu88");
 
 			Lineup triple = new Lineup(
+					mirage,
 					"Back triple",
 					"Molotoves behind triple on A site",
 					NadeType.MOLOTOV,
@@ -166,6 +176,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			Strat nip = new Strat("NIP B Execute", mirage);
 			// Lineups
 			Lineup leftShort = new Lineup(
+					mirage,
 					"Left short",
 					"Smokes of left side of short",
 					NadeType.SMOKE,
@@ -176,6 +187,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/jtbrgGL90D4");
 
 			Lineup rightShort = new Lineup(
+					mirage,
 					"Right short",
 					"Smokes of right side of short",
 					NadeType.SMOKE,
@@ -186,6 +198,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/WVIesHW5KxI");
 
 			Lineup bFlash = new Lineup(
+					mirage,
 					"B site flash",
 					"Flashes B site from T apps",
 					NadeType.FLASH,
@@ -196,6 +209,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/vpUCFEwN40I");
 
 			Lineup bFlashRunning = new Lineup(
+					mirage,
 					"B site flash",
 					"While running through apps, flashes B site from T apps",
 					NadeType.FLASH,
@@ -206,6 +220,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/_6h2aOaLU1k");
 
 			Lineup bench = new Lineup(
+					mirage,
 					"Molotov bench",
 					"Molotoves bench on B site",
 					NadeType.MOLOTOV,
@@ -216,6 +231,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 					"https://www.youtube.com/embed/dEYgeNPlqb0");
 
 			Lineup car = new Lineup(
+					mirage,
 					"Molotove car",
 					"Molotoves car on B site",
 					NadeType.MOLOTOV,
@@ -234,6 +250,14 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			nip.addLineup(bench);
 
 			// Save everything
+			// Maps
+			this.mapRepository.save(inferno);
+			this.mapRepository.save(mirage);
+			this.mapRepository.save(nuke);
+			this.mapRepository.save(overpass);
+			this.mapRepository.save(vertigo);
+			this.mapRepository.save(ancient);
+			this.mapRepository.save(anubis);
 
 			// Mid nade lineups
 			this.lineupRepository.save(topMid);
@@ -256,15 +280,6 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 			this.lineupRepository.save(bFlashRunning);
 			this.lineupRepository.save(car);
 			this.lineupRepository.save(bench);
-
-			// Maps
-			this.mapRepository.save(inferno);
-			this.mapRepository.save(mirage);
-			this.mapRepository.save(nuke);
-			this.mapRepository.save(overpass);
-			this.mapRepository.save(vertigo);
-			this.mapRepository.save(ancient);
-			this.mapRepository.save(anubis);
 
 			// Strats
 

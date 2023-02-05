@@ -50,6 +50,7 @@ public class StratService {
 
     for (LineupDto lineup : strat.getLineups()) {
       Lineup _lineup = new Lineup(
+          map,
           lineup.getName(),
           lineup.getDesc(),
           lineup.getNade(),

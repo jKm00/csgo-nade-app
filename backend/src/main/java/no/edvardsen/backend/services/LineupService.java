@@ -7,9 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import no.edvardsen.backend.models.CsgoMap;
 import no.edvardsen.backend.models.Lineup;
+import no.edvardsen.backend.models.NadeType;
 import no.edvardsen.backend.repositories.FileSystemRepository;
 import no.edvardsen.backend.repositories.LineupRepository;
 
@@ -22,6 +25,7 @@ import no.edvardsen.backend.repositories.LineupRepository;
 @RequiredArgsConstructor
 public class LineupService {
 
+  private final CsgoMapService csgoMapService;
   private final LineupRepository lineupRepository;
   private final FileSystemRepository fileSystemRepository;
 
@@ -68,4 +72,25 @@ public class LineupService {
 
   }
 
+  /**
+   * Adds a lineup to a map
+   * 
+   * @param lineupDto
+   */
+  public void addLineup(Long mapId, String name, String desc, NadeType nade, double throwX, double throwY, double landX,
+      double landY, String videoPath) throws EntityNotFoundException, EntityExistsException {
+    Optional<CsgoMap> map = this.csgoMapService.findMapById(mapId);
+
+    if (map.isEmpty()) {
+      throw new EntityNotFoundException("Could not find map with id: " + mapId);
+    }
+
+    Optional<Lineup> _lineup = this.lineupRepository.findByNameIgnoreCase(name);
+    if (_lineup.isPresent()) {
+      throw new EntityExistsException("Lineup allready exists: " + _lineup.get().toString());
+    }
+
+    Lineup lineup = new Lineup(map.get(), name, desc, nade, throwX, throwY, landX, landY, videoPath);
+    this.lineupRepository.save(lineup);
+  }
 }

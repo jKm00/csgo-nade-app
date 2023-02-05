@@ -6,12 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import no.edvardsen.backend.dtos.LineupDto;
 import no.edvardsen.backend.services.LineupService;
 
 @RestController
@@ -28,6 +32,22 @@ public class LineupController {
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
+
+  @PostMapping()
+  public ResponseEntity<String> addLineup(@RequestBody LineupDto lineupDto) {
+    try {
+      this.lineupService.addLineup(lineupDto.getMapId(), lineupDto.getName(), lineupDto.getDesc(), lineupDto.getNade(),
+          lineupDto.getThrowCoordinateX(), lineupDto.getThrowCoordinateY(), lineupDto.getLandCoordinateX(),
+          lineupDto.getLandCoordinateY(), lineupDto.getVideoPath());
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.badRequest()
+          .body("Could not add lineup because the map with id " + lineupDto.getMapId() + " does not exist");
+    } catch (EntityExistsException e) {
+      return ResponseEntity.badRequest().body("Failed to add lineup because it already exist");
+
+    }
+    return ResponseEntity.ok("Lineup added");
   }
 
   @PostMapping(path = "/{id}", consumes = "multipart/form-data")

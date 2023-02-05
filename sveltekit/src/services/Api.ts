@@ -4,7 +4,7 @@ const axiosAPI = axios.create({
 	baseURL: import.meta.env.VITE_API_BASE_URL
 });
 
-const apiRequest = (method: any, url: any, request: any) => {
+const apiRequest = <T>(method: any, url: string, body: T) => {
 	const headers = {
 		authorization: ''
 	};
@@ -12,7 +12,7 @@ const apiRequest = (method: any, url: any, request: any) => {
 	return axiosAPI({
 		method,
 		url,
-		data: request,
+		data: body,
 		headers
 	})
 		.then((res) => {
@@ -23,10 +23,13 @@ const apiRequest = (method: any, url: any, request: any) => {
 		});
 };
 
-const get = (url: any) => apiRequest('get', url, null);
+const get = (url: string) => apiRequest('get', url, null);
+
+const post = <T>(url: string, body: T) => apiRequest<T>('post', url, body);
 
 const API = {
-	get
+	get,
+	post
 };
 
 export default API;

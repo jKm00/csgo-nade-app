@@ -91,13 +91,20 @@ main {
 }
 
 /* =============
-		Laout
+		Layout
 		============== */
 
 .grid-2-col {
 	display: grid;
 	grid-template-columns: 1fr 17rem;
 	gap: 1rem;
+}
+
+@media only screen and (max-width: 800px) {
+	.grid-2-col {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 .form {
@@ -131,8 +138,8 @@ main {
 }
 
 .form__btn[data-active="true"] {
-	background-color: #fff;
-	color: #000;
+	background-color: var(--clr-accent);
+	color: #fff;
 }
 
 .form__label {

@@ -97,7 +97,7 @@
 
 	.marker {
 		position: absolute;
-		transform: translateX(-50%);
+		transform: translateX(-50%) translateY(-30%);
 		border-radius: 100vw;
 		opacity: 0.8;
 		cursor: pointer;

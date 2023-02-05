@@ -7,6 +7,7 @@ import no.edvardsen.backend.models.NadeType;
 @AllArgsConstructor
 @Data
 public class LineupDto {
+  private Long mapId;
   private String name;
   private String desc;
   private NadeType nade;
@@ -15,4 +16,7 @@ public class LineupDto {
   private double landCoordinateX;
   private double landCoordinateY;
   private String videoPath;
+
+  public LineupDto() {
+  }
 }
