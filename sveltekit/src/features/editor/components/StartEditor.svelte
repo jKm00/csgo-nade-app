@@ -1,3 +1,99 @@
-<script lang="ts"></script>
+<script lang="ts">
+	import DropdownSearch from '@/components/inputs/DropdownSearch.svelte';
+	import MapView from '@/components/MapView.svelte';
+	import API from '@/services/Api';
+	import type { CsgoMap } from '@/types/CsgoMap';
+	import type { Lineup } from '@/types/Lineup';
+	import { Nade } from '@/types/Nade';
+	import { onMount } from 'svelte';
 
-<h2>Start editor</h2>
+	export let map: CsgoMap;
+
+	let strat = {
+		name: '',
+		lineups: [] as Lineup[]
+	};
+
+	let lineups: Lineup[] = [];
+	onMount(async () => {
+		lineups = await API.get(`/lineups/${map.name}`);
+	});
+
+	let nadeType = Nade.SMOKE;
+	$: filteredLineups = lineups.filter((l) => l.nade === nadeType);
+
+	const handleSelect = (event: CustomEvent<String>) => {
+		const lineup = lineups.find((l) => l.name === event.detail);
+		if (lineup !== undefined) {
+			strat.lineups = [...strat.lineups, lineup];
+		}
+	};
+
+	const handleSumbit = () => {
+		// TODO: implement...
+		console.log('Submitting...');
+	};
+</script>
+
+<div class="grid-2-col">
+	<MapView {map} lineups={strat.lineups} enableModal={false} />
+	<section>
+		<form class="form" on:submit|preventDefault={handleSumbit}>
+			<div class="form__section">
+				<label for="stratName" class="form__label">Strat name</label>
+				<input class="form__input" type="text" id="stratName" bind:value={strat.name} />
+			</div>
+			<div class="form__btn-row">
+				<button
+					type="button"
+					class="form__btn"
+					data-active={nadeType === Nade.SMOKE ? true : false}
+					on:click={() => (nadeType = Nade.SMOKE)}>Smoke</button
+				>
+				<button
+					type="button"
+					class="form__btn"
+					data-active={nadeType === Nade.FLASH ? true : false}
+					on:click={() => (nadeType = Nade.FLASH)}>Flash</button
+				>
+				<button
+					type="button"
+					class="form__btn"
+					data-active={nadeType === Nade.MOLOTOV ? true : false}
+					on:click={() => (nadeType = Nade.MOLOTOV)}>Molotov</button
+				>
+				<button
+					type="button"
+					class="form__btn"
+					data-active={nadeType === Nade.HE ? true : false}
+					on:click={() => (nadeType = Nade.HE)}>He</button
+				>
+			</div>
+			<div class="form__section">
+				<label for="" class="form__label">All lineups</label>
+				<DropdownSearch
+					data={filteredLineups.map((l) => {
+						return l.name;
+					})}
+					on:select={handleSelect}
+				/>
+			</div>
+			<ul class="lineup-list">
+				{#each strat.lineups as lineup}
+					<li class="lineup-list__item">
+						<span class="card">{lineup.name}</span><button class="card" type="button">x</button>
+					</li>
+				{/each}
+			</ul>
+		</form>
+	</section>
+</div>
+
+<style scoped>
+	.lineup-list__item {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 1rem;
+		justify-content: space-between;
+	}
+</style>

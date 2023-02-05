@@ -27,7 +27,7 @@
 	{#if showNadeEditor}
 		<NadeEditor map={data.map} />
 	{:else}
-		<StartEditor />
+		<StartEditor map={data.map} />
 	{/if}
 </section>
 

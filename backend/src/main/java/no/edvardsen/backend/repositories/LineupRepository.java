@@ -9,7 +9,7 @@ import no.edvardsen.backend.models.Lineup;
 import no.edvardsen.backend.models.CsgoMap;
 
 public interface LineupRepository extends JpaRepository<Lineup, Long> {
-  Optional<Lineup> findByNameIgnoreCase(String name);
+  Optional<Lineup> findByNameIgnoreCaseAndMap(String name, CsgoMap map);
 
   List<Lineup> findByMap(CsgoMap map);
 }

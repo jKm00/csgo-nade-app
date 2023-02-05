@@ -65,7 +65,7 @@
 				desc: lineup.desc,
 				nade: lineup.nade,
 				throwCoordinateX: lineup.throwCoordinateX,
-				throwCoordinateY: lineup.landCoordinateY,
+				throwCoordinateY: lineup.throwCoordinateY,
 				landCoordinateX: lineup.landCoordinateX,
 				landCoordinateY: lineup.landCoordinateY,
 				videoPath: lineup.videoPath

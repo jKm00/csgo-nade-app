@@ -86,7 +86,7 @@ public class LineupService {
       throw new EntityNotFoundException("Could not find map with id: " + mapId);
     }
 
-    Optional<Lineup> _lineup = this.lineupRepository.findByNameIgnoreCase(name);
+    Optional<Lineup> _lineup = this.lineupRepository.findByNameIgnoreCaseAndMap(name, map.get());
     if (_lineup.isPresent()) {
       throw new EntityExistsException("Lineup allready exists: " + _lineup.get().toString());
     }
