@@ -29,6 +29,10 @@
 		}
 	};
 
+	const removeLineup = (lineup: Lineup) => {
+		strat.lineups = strat.lineups.filter((l) => l.id !== lineup.id);
+	};
+
 	const handleSumbit = () => {
 		// TODO: implement...
 		console.log('Submitting...');
@@ -36,7 +40,7 @@
 </script>
 
 <div class="grid-2-col">
-	<MapView {map} lineups={strat.lineups} enableModal={false} />
+	<MapView {map} lineups={strat.lineups} enableEditor={true} />
 	<section>
 		<form class="form" on:submit|preventDefault={handleSumbit}>
 			<div class="form__section">
@@ -81,7 +85,11 @@
 			<ul class="lineup-list">
 				{#each strat.lineups as lineup}
 					<li class="lineup-list__item">
-						<span class="card">{lineup.name}</span><button class="card" type="button">x</button>
+						<span class="card card--small">{lineup.name}</span><button
+							on:click={() => removeLineup(lineup)}
+							class="card card--small"
+							type="button">x</button
+						>
 					</li>
 				{/each}
 			</ul>
@@ -90,10 +98,28 @@
 </div>
 
 <style scoped>
+	.lineup-list {
+		display: grid;
+		gap: 1rem;
+	}
+
 	.lineup-list__item {
 		display: grid;
 		grid-template-columns: 1fr auto;
 		gap: 1rem;
 		justify-content: space-between;
+	}
+
+	button {
+		cursor: pointer;
+	}
+
+	button:hover,
+	button:focus-visible {
+		background-color: #1a1a1a;
+	}
+
+	button:active {
+		background-color: #000000;
 	}
 </style>

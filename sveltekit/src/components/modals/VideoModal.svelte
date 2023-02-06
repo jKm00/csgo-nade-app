@@ -96,8 +96,7 @@
 		left: 50%;
 		top: 50%;
 		z-index: 1000;
-		width: calc(100vw - 4em);
-		max-width: 50vw;
+		width: clamp(15rem, 90vw, 70rem);
 		overflow: auto;
 		transform: translate(-50%, -50%);
 		border-radius: 0.2em;

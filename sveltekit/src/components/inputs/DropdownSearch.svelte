@@ -20,9 +20,16 @@
 	 * @param item the item stoed in the button that was clicked
 	 */
 	const handleClick = (item: string) => {
-		search = item;
+		search = '';
 		selected = true;
 		dispatch('select', item);
+	};
+
+	const handleCloseMenu = (event: KeyboardEvent) => {
+		const keyPressed = event.key;
+		if (keyPressed === 'Escape') {
+			focused = false;
+		}
 	};
 </script>
 
@@ -33,6 +40,7 @@
 		bind:value={search}
 		on:input={() => (selected = false)}
 		on:focusin={() => (focused = true)}
+		on:keydown={handleCloseMenu}
 	/>
 	{#if showDropdown}
 		<ul>

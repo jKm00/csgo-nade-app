@@ -33,9 +33,9 @@
 	let feedbackMsg = '';
 	let feedbackType = FeedbackType.SUCCESS;
 
-	const setMarker = (event: MouseEvent) => {
+	const moveMarker = (event: MouseEvent) => {
 		let x = Math.round(((100 * event.offsetX) / radarWidth) * 100) / 100;
-		let y = Math.round(((100 * event.offsetY) / radarHeight) * 100) / 100;
+		let y = Math.round(((100 * event.offsetY) / radarWidth) * 100) / 100;
 		if (marker === markerType.THROW) {
 			lineup.throwCoordinateX = x;
 			lineup.throwCoordinateY = y;
@@ -44,6 +44,9 @@
 			lineup.landCoordinateX = x;
 			lineup.landCoordinateY = y;
 		}
+	};
+
+	const setMarker = () => {
 		marker = undefined;
 	};
 
@@ -98,8 +101,13 @@
 
 <div class="grid-2-col">
 	<FeedbackBanner display={displayFeedback} type={feedbackType}>{feedbackMsg}</FeedbackBanner>
-	<section bind:clientWidth={radarWidth} bind:clientHeight={radarHeight} on:mousedown={setMarker}>
-		<MapView {map} lineups={[lineup]} enableModal={false} />
+	<section
+		bind:clientWidth={radarWidth}
+		bind:clientHeight={radarHeight}
+		on:mousedown={setMarker}
+		on:mousemove={moveMarker}
+	>
+		<MapView {map} lineups={[lineup]} enableEditor={true} />
 	</section>
 	<section>
 		<form class="form" on:submit|preventDefault={addLineup}>

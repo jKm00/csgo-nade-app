@@ -21,11 +21,7 @@
 						{#if !map.available}
 							<h3 class="highlighted">Coming soon</h3>
 						{/if}
-						<img
-							src={map.thumbnail}
-							alt={`image of ${map.name}`}
-							class="box__bg"
-						/>
+						<img src={map.thumbnail} alt={`image of ${map.name}`} class="box__bg" />
 					</div>
 				</a>
 			{:else}
@@ -34,19 +30,20 @@
 					{#if !map.available}
 						<h3 class="highlighted">Coming soon</h3>
 					{/if}
-					<img
-						src={map.thumbnail}
-						alt={`image of ${map.name}`}
-						class="box__bg"
-					/>
+					<img src={map.thumbnail} alt={`image of ${map.name}`} class="box__bg" />
 				</div>
 			{/if}
 		{/each}
 	</div>
-	<p class="tip">
-		<span class="underline">Disclaimer:</span> All nades are thrown on 128 tick server.
-		Nades requiering jump throw will not work on 64 tick
-	</p>
+	<footer class="footer">
+		<p class="tip">
+			<span class="underline">Disclaimer:</span> All nades are thrown on 128 tick server. Nades requiering
+			jump throw will not work on 64 tick
+		</p>
+		<p class="tip">
+			Support the site via <a href="https://www.buymeacoffee.com/joakimedvam">buymeacoffee☕</a>
+		</p>
+	</footer>
 </section>
 
 <style scoped>
@@ -113,5 +110,10 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
+	}
+
+	.footer {
+		display: grid;
+		gap: 0.5rem;
 	}
 </style>
