@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,34 @@ public class MapController {
   public ResponseEntity<String> addMap(@RequestBody CsgoMapDto map) {
     this.mapService.addMap(map);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @PutMapping("/{mapName}/enable")
+  public ResponseEntity<String> enableMap(@PathVariable(value = "mapName") String mapName) {
+    ResponseEntity<String> response;
+
+    try {
+      this.mapService.enableMap(mapName);
+      response = new ResponseEntity<>(HttpStatus.OK);
+    } catch (EntityNotFoundException e) {
+      response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    return response;
+  }
+
+  @PutMapping("/{mapName}/disable")
+  public ResponseEntity<String> disableMap(@PathVariable(value = "mapName") String mapName) {
+    ResponseEntity<String> response;
+
+    try {
+      this.mapService.disableMap(mapName);
+      response = new ResponseEntity<>(HttpStatus.OK);
+    } catch (EntityNotFoundException e) {
+      response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    return response;
   }
 
 }

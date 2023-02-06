@@ -17,6 +17,11 @@ public class CsgoMapService {
 
   private final CsgoMapRepository repository;
 
+  /**
+   * Returns a list of all csgo maps stored in the repository
+   * 
+   * @return a list of all csgo maps
+   */
   public List<CsgoMap> findAll() {
     return this.repository.findAll();
   }
@@ -40,13 +45,13 @@ public class CsgoMapService {
    * @throws EntityNotFoundException is thrown if no map is found
    */
   public CsgoMap findMapByName(String name) throws EntityNotFoundException {
-    CsgoMap map = this.repository.findByNameIgnoreCase(name);
+    Optional<CsgoMap> map = this.repository.findByNameIgnoreCase(name);
 
-    if (map == null) {
+    if (map.isEmpty()) {
       throw new EntityNotFoundException("Csgo map with name " + name + " was not found");
     }
 
-    return map;
+    return map.get();
   }
 
   /**
@@ -60,6 +65,38 @@ public class CsgoMapService {
         map.getThumbnail(),
         map.getRadar(),
         map.isAvailable()));
+  }
+
+  /**
+   * Makes a map available
+   * 
+   * @param name of the map to make available
+   */
+  public void enableMap(String name) {
+    this.updateMapAvailability(name, true);
+  }
+
+  /**
+   * Makes a map not available
+   * 
+   * @param name of the map to make not available
+   */
+  public void disableMap(String name) {
+    this.updateMapAvailability(name, false);
+  }
+
+  /**
+   * Updates the availability of a map
+   * 
+   * @param name      of the map to update
+   * @param available if it should be available or not. {@code true} available,
+   *                  {@code false} not available
+   */
+  private void updateMapAvailability(String name, boolean available) {
+    CsgoMap map = this.findMapByName(name);
+    map.setAvailable(available);
+
+    this.repository.save(map);
   }
 
 }
