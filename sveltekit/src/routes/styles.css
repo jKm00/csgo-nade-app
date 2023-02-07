@@ -127,6 +127,7 @@ main {
 	width: 100%;
 	padding: 1rem;
 	background-color: #333333;
+	color: #fff;
 }
 
 .form__btn:nth-child(1) {
@@ -137,7 +138,7 @@ main {
 	border-radius: 0 0.2rem 0.2rem 0;
 }
 
-.form__btn[data-active="true"] {
+.form__btn[data-active='true'] {
 	background-color: var(--clr-accent);
 	color: #fff;
 }
@@ -232,7 +233,7 @@ h1 {
 	cursor: pointer;
 }
 
-.btn[data-active="true"] {
+.btn[data-active='true'] {
 	background-color: #fff;
 	color: #000;
 }
