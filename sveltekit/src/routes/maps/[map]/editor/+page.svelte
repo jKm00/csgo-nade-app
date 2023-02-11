@@ -40,6 +40,7 @@
 	.nav__item {
 		font-size: 1rem;
 		cursor: pointer;
+		color: #fff;
 	}
 
 	.nav__item[data-active='true'] {
