@@ -1,0 +1,69 @@
+package no.edvardsen.backend.features.authentication.services;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import lombok.RequiredArgsConstructor;
+import no.edvardsen.backend.features.authentication.dtos.LoginRequest;
+import no.edvardsen.backend.features.authentication.dtos.LoginResponse;
+
+@RequiredArgsConstructor
+@Service
+public class AuthService {
+
+  private final RestTemplate restTemplate;
+
+  @Value("${keycloak-base-url}")
+  private String keycloakBaseUrl;
+
+  @Value("${keycloak-realm}")
+  private String keycloakRealm;
+
+  @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri}")
+  private String issueUrl;
+
+  @Value("${spring.security.oauth2.client.registration.oauth2-client-credentials.client-id}")
+  private String clientId;
+
+  @Value("${spring.security.oauth2.client.registration.oauth2-client-credentials.client-secret}")
+  private String clientSecret;
+
+  @Value("${spring.security.oauth2.client.registration.oauth2-client-credentials.authorization-grant-type}")
+  private String grantType;
+
+  /**
+   * Tries to sign in a user
+   * 
+   * @param credentials of the user
+   * @return a login response containing access token and refresh token if login
+   *         is successful
+   */
+  public LoginResponse login(LoginRequest credentials) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+    map.add("client_id", this.clientId);
+    map.add("client_secret", this.clientSecret);
+    map.add("grant_type", this.grantType);
+    map.add("username", credentials.getUsername());
+    map.add("password", credentials.getPassword());
+
+    HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(map, headers);
+
+    String LOGIN_URL = this.keycloakBaseUrl + "/realms/" + this.keycloakRealm + "/protocol/openid-connect/token";
+
+    ResponseEntity<LoginResponse> response = this.restTemplate.postForEntity(LOGIN_URL, httpEntity,
+        LoginResponse.class);
+
+    return response.getBody();
+  }
+
+}
