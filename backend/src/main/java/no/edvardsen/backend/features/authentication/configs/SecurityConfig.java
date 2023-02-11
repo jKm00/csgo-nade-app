@@ -31,10 +31,8 @@ public class SecurityConfig {
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .authorizeHttpRequests()
-        .requestMatchers("/test*")
-        .hasRole("USER")
-        .anyRequest()
-        .permitAll();
+        .requestMatchers("/test*").hasRole("USER")
+        .anyRequest().permitAll();
     http.oauth2Login()
         .and()
         .logout()
