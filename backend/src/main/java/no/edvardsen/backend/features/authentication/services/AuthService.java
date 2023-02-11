@@ -14,6 +14,11 @@ import lombok.RequiredArgsConstructor;
 import no.edvardsen.backend.features.authentication.dtos.LoginRequest;
 import no.edvardsen.backend.features.authentication.dtos.LoginResponse;
 
+/**
+ * Service for handling authorization
+ * 
+ * @author Joakim
+ */
 @RequiredArgsConstructor
 @Service
 public class AuthService {

@@ -16,17 +16,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * Exposes endpoints for authorization
+ * 
+ * reference: https://www.youtube.com/watch?v=YhYJYpSHTjA&ab_channel=CodeTech
+ * 
+ * @author Joakim
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
   private final AuthService authService;
-
-  @GetMapping("/test")
-  public String test() {
-    return "/api/auth/test";
-  }
 
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestBody LoginRequest credentials) {
