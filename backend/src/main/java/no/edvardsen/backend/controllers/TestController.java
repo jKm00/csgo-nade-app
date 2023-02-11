@@ -5,10 +5,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-  
+
   @GetMapping("/")
   public String version() {
     return "Csgo Nade Api: BETA v1.0";
+  }
+
+  @GetMapping("/test")
+  public String test() {
+    return "You have to role USER";
   }
 
 }

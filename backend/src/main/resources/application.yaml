@@ -14,6 +14,25 @@ spring:
     hibernate.ddl-auto: update
   h2:
     console.enabled: true
+  # Security
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: login-app
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/CsgoNade
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/CsgoNade
+
+server:
+  port: 8081
 
 # logging:
 #   level:
