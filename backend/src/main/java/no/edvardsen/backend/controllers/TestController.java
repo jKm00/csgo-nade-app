@@ -11,19 +11,14 @@ public class TestController {
     return "Csgo Nade Api: BETA v1.0";
   }
 
-  @GetMapping("/authenticated")
-  public String authenticated() {
-    return "Authenticated";
+  @GetMapping("/user")
+  public String user() {
+    return "You have the role USER";
   }
 
   @GetMapping("/admin")
   public String admin() {
     return "You have the role ADMIN";
-  }
-
-  @GetMapping("/user")
-  public String user() {
-    return "You have the role USER";
   }
 
 }

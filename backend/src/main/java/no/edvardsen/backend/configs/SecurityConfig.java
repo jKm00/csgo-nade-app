@@ -19,7 +19,6 @@ public class SecurityConfig {
         .csrf().disable()
         .authorizeHttpRequests(authorize -> authorize
             // Define mappings
-            .requestMatchers("/authenticated").authenticated()
             .requestMatchers("/admin").hasRole("ADMIN")
             .requestMatchers("/user").hasRole("USER")
             .anyRequest().permitAll())
