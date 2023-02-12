@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
+	import AUTH from '@/services/AuthService';
 
 	export let data: PageData;
 	$: previousPage = data.path;
@@ -11,14 +12,24 @@
 	let password = '';
 	let passwordActive = false;
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		// TODO: Handle login
 
-		if (previousPage !== null) {
-			goto(previousPage);
-		} else {
-			goto('/');
-		}
+		AUTH.login(username, password)
+			.then((res) => {
+				// TODO: Handle response
+				console.log(res);
+			})
+			.catch((err) => {
+				// TODO: Handle error
+				console.error(err);
+			});
+
+		// if (previousPage !== null) {
+		// 	goto(previousPage);
+		// } else {
+		// 	goto('/');
+		// }
 	};
 </script>
 
