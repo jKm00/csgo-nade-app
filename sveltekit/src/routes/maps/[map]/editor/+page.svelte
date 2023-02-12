@@ -2,6 +2,8 @@
 	import NadeEditor from '@/features/editor/components/NadeEditor.svelte';
 	import StartEditor from '@/features/editor/components/StartEditor.svelte';
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 

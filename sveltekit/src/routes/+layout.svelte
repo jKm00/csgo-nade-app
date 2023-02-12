@@ -24,7 +24,7 @@
 <style scoped>
 	.app {
 		width: clamp(500px, 90vw, 1000px);
-		margin: 2rem auto;
+		margin: auto;
 		padding-inline: 1rem;
 		text-align: center;
 	}

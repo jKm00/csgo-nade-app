@@ -48,11 +48,18 @@ img {
 	-webkit-text-size-adjust: 100%;
 
 	--clr-accent: #fa5252;
+	--clr-accent-hover: #f03e3e;
+	--clr-accent-active: #f03e3e;
+	--clr-card: #333;
 
 	--smoke: #be4bdb;
 	--flash: #4c6ef5;
 	--molotov: #fd7e14;
 	--he: #12b886;
+
+	--shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+
+	--border-radius: 0.2rem;
 }
 
 a {
@@ -209,6 +216,10 @@ h1 {
 	color: #fa5252;
 }
 
+.underline {
+	text-decoration: underline;
+}
+
 /* =============
 		Utils
 		============== */
@@ -241,6 +252,15 @@ h1 {
 .btn--accent {
 	background-color: var(--clr-accent);
 	color: #fff;
+}
+
+.btn--accent:hover,
+.btn--accent:focus-visible {
+	background-color: var(--clr-accent-hover);
+}
+
+.btn--accent:active {
+	background-color: var(--clr-accent-active);
 }
 
 .btn--inverted {
@@ -295,6 +315,19 @@ h1 {
 
 .underline {
 	text-decoration: underline;
+}
+
+.link {
+	font-weight: 500;
+	color: #fff;
+}
+
+.link:focus {
+	outline: none;
+}
+
+.link--thin {
+	font-weight: 400;
 }
 
 /* @media (prefers-color-scheme: light) {
