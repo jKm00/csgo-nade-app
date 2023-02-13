@@ -2,6 +2,9 @@
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
 	import AUTH from '@/services/AuthService';
+	import userToken from '@/stores/userToken';
+	import FeedbackBanner from '@/components/feedback/FeedbackBanner.svelte';
+	import { FeedbackType } from '@/types/FeedbackType';
 
 	export let data: PageData;
 	$: previousPage = data.path;
@@ -12,27 +15,37 @@
 	let password = '';
 	let passwordActive = false;
 
-	const handleSubmit = async () => {
-		// TODO: Handle login
+	let showErrorMsg = false;
+	let errorMsg = '';
 
-		AUTH.login(username, password)
-			.then((res) => {
-				// TODO: Handle response
-				console.log(res);
-			})
-			.catch((err) => {
-				// TODO: Handle error
-				console.error(err);
-			});
+	/**
+	 * Handles login submit event
+	 */
+	const handleSubmit = () => {
+		showErrorMsg = false;
+		// TODO: Validation
 
-		// if (previousPage !== null) {
-		// 	goto(previousPage);
-		// } else {
-		// 	goto('/');
-		// }
+		AUTH.login(username, password, previousPage !== null ? previousPage : '/', () => {
+			displayError('Something went wrong. Please try again!', 2000);
+		});
+	};
+
+	/**
+	 * Displays an error for a duration
+	 *
+	 * @param error to display
+	 * @param duration of how long to display the error
+	 */
+	const displayError = (error: string, duration: number) => {
+		errorMsg = error;
+		showErrorMsg = true;
+		setTimeout(() => {
+			showErrorMsg = false;
+		}, duration);
 	};
 </script>
 
+<FeedbackBanner display={showErrorMsg} type={FeedbackType.ERROR}>{errorMsg}</FeedbackBanner>
 <section class="auth-section">
 	<div class="content">
 		<header class="header">
@@ -108,7 +121,7 @@
 		display: grid;
 		gap: 3rem;
 		align-content: center;
-		padding-inline: 4rem;
+		padding: 4rem;
 	}
 
 	.header {
