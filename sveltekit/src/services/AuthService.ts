@@ -1,12 +1,13 @@
-import API from "./Api";
 import userToken from "@/stores/userToken";
 import { goto } from "$app/navigation";
 import type { UserTokens } from "@/types/UserTokens";
 import axios from 'axios';
+import API from "@/lib/AxiosApi";
 
 const KEYCLOAK_BASE_URL = import.meta.env.VITE_KEYCLOAK_BASE_URL;
 const KEYCLOAK_REALM = import.meta.env.VITE_KEYCLOAK_REALM;
 const KEYCLOAK_CLIENT_ID = import.meta.env.VITE_KEYCLOAK_CLIENT_ID;
+const KEYCLOAK_URL = `${KEYCLOAK_BASE_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/`
 
 let access_token: string;
 let refresh_token: string;
@@ -14,22 +15,6 @@ userToken.subscribe((token) => {
   access_token = token.access_token;
   refresh_token = token.refresh_token;
 })
-
-const axiosAuth = axios.create({
-  baseURL: `${KEYCLOAK_BASE_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/`
-})
-
-const authRequest = <T>(method: string, url: string, body: T) => {
-  return axiosAuth({
-    method,
-    url,
-    data: body,
-  }).then((res) => {
-    return Promise.resolve(res.data)
-  }).catch((err) => {
-    return Promise.reject(err);
-  });
-}
 
 /**
  * Tries to login a user with credentials
@@ -45,9 +30,8 @@ const login = async (
   successRedirect: string,
   onError: (error: string) => void
 ) => {
-  authRequest(
-    'post',
-    '/token',
+  API.post(
+    `${KEYCLOAK_URL}token`,
     new URLSearchParams({
       client_id: KEYCLOAK_CLIENT_ID,
       grant_type: 'password',
@@ -69,9 +53,8 @@ const login = async (
  * Logs out the user stored in the user token store
  */
 const logout = async () => {
-  authRequest(
-    'post',
-    '/logout',
+  API.post(
+    `${KEYCLOAK_URL}logout`,
     new URLSearchParams({
       client_id: KEYCLOAK_CLIENT_ID,
       refresh_token: refresh_token

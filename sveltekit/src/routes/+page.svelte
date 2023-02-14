@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Api from '@/services/Api';
+	import ApiService from '@/services/ApiService';
 	import type { CsgoMap } from '@/types/CsgoMap';
 	import { onMount } from 'svelte';
 
 	let maps: CsgoMap[] = [];
 
 	onMount(async () => {
-		maps = await Api.get('/maps');
+		maps = await ApiService.get('/maps');
 	});
 </script>
 

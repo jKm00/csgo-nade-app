@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DropdownSearch from '@/components/inputs/DropdownSearch.svelte';
 	import MapView from '@/components/MapView.svelte';
-	import API from '@/services/Api';
+	import ApiService from '@/services/ApiService';
 	import type { CsgoMap } from '@/types/CsgoMap';
 	import type { Lineup } from '@/types/Lineup';
 	import { Nade } from '@/types/Nade';
@@ -16,7 +16,7 @@
 
 	let lineups: Lineup[] = [];
 	onMount(async () => {
-		lineups = await API.get(`/lineups/${map.name}`);
+		lineups = await ApiService.get(`/lineups/${map.name}`);
 	});
 
 	let nadeType = Nade.SMOKE;

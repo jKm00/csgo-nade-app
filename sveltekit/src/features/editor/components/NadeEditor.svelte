@@ -2,10 +2,11 @@
 	import { goto } from '$app/navigation';
 	import FeedbackBanner from '@/components/feedback/FeedbackBanner.svelte';
 	import MapView from '@/components/MapView.svelte';
-	import API from '@/services/Api';
+	import ApiService from '@/services/ApiService';
 	import type { CsgoMap } from '@/types/CsgoMap';
 	import { FeedbackType } from '@/types/FeedbackType';
 	import { Nade } from '@/types/Nade';
+	import { HttpStatusCode } from 'axios';
 
 	enum markerType {
 		THROW,
@@ -63,27 +64,24 @@
 		) {
 			toggleBanner('Fill out all fields before submitting', 2000, FeedbackType.ERROR);
 		} else {
-			API.post(
-				'/lineups',
-				{
-					mapId: map.id,
-					name: lineup.name,
-					desc: lineup.desc,
-					nade: lineup.nade,
-					throwCoordinateX: lineup.throwCoordinateX,
-					throwCoordinateY: lineup.throwCoordinateY,
-					landCoordinateX: lineup.landCoordinateX,
-					landCoordinateY: lineup.landCoordinateY,
-					videoPath: lineup.videoPath
-				},
-				() => {
-					goto(`/login?path=maps/${map.name.toLocaleLowerCase()}/editor`);
-				}
-			)
+			ApiService.post('/lineups', {
+				mapId: map.id,
+				name: lineup.name,
+				desc: lineup.desc,
+				nade: lineup.nade,
+				throwCoordinateX: lineup.throwCoordinateX,
+				throwCoordinateY: lineup.throwCoordinateY,
+				landCoordinateX: lineup.landCoordinateX,
+				landCoordinateY: lineup.landCoordinateY,
+				videoPath: lineup.videoPath
+			})
 				.then((res) => {
 					toggleBanner('Lineup added', 2000, FeedbackType.SUCCESS);
 				})
 				.catch((err) => {
+					if (err.response.status === HttpStatusCode.Unauthorized) {
+						goto(`/login?path=maps/${map.name.toLocaleLowerCase()}/editor`);
+					}
 					toggleBanner('Something went wrong. Please try again...', 2000, FeedbackType.ERROR);
 				});
 		}
