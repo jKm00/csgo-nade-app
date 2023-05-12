@@ -1,0 +1,9 @@
+.vscode
+.DS_Store
+node_modules
+dist
+pnpm-lock.yaml
+.pnpm-debug.log
+package-lock.json
+yarn.lockvite.config.js.timestamp-*
+.env
