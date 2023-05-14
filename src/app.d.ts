@@ -11,7 +11,7 @@ declare global {
 			getSession(): Promise<Session | null>
 		}
 		interface PageData {
-			session: Session | null
+			session: import("@supabase/supabase-js").Session | null
 		}
 		// interface Platform {}
 	}

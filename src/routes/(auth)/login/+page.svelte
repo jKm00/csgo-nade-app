@@ -1,12 +1,32 @@
 <script lang="ts">
+	import { enhance, type SubmitFunction } from '$app/forms';
+	import type { Provider } from '@supabase/supabase-js';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { supabaseClient } from '$lib/supabase';
 
 	export let data;
 
-	const { form, errors, enhance } = superForm(data.form);
+	const { form, errors, enhance: superEnhance } = superForm(data.form);
+
+	const submitSocialLogin: SubmitFunction = async ({ action, cancel }) => {
+		switch (action.searchParams.get('provider')) {
+			case 'github':
+				await signInWithProvider('github');
+				break;
+			default:
+				break;
+		}
+		cancel();
+	};
+
+	const signInWithProvider = async (provider: Provider) => {
+		const { data, error } = await supabaseClient.auth.signInWithOAuth({
+			provider: provider,
+		});
+	};
 </script>
 
-<form class="grid gap-4 w-80" action="?/login" method="POST" use:enhance>
+<form class="grid gap-4 w-80" action="?/login" method="POST" use:superEnhance>
 	<h1 class="font-bold uppercase text-center text-3xl">Login</h1>
 	<div class="grid gap-1">
 		<label class="text-neutral-400 text-sm" for="email">Email:</label>
@@ -46,4 +66,20 @@
 			href="/register">Sign up here</a
 		>
 	</p>
+</form>
+<form
+	class="grid justify-center mt-8"
+	method="POST"
+	action="/login/github"
+	use:enhance={submitSocialLogin}
+>
+	<button
+		class="flex items-center gap-2 bg-black p-2 rounded"
+		formaction="?/login&provider=github"
+		><img
+			class="invert h-6 aspect-square"
+			src="assets/images/logos/github-logo.png"
+			alt="GitHub logo"
+		/>Sign in with GitHub</button
+	>
 </form>

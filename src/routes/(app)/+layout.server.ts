@@ -1,3 +1,5 @@
+import { prisma } from '$lib/server/prisma.js';
+
 export const load = async ({ parent }) => {
   const { session } = await parent()
 
@@ -16,13 +18,21 @@ export const load = async ({ parent }) => {
           }
         }
       })
+
+      if (!user) {
+        await prisma.user.create({
+          data: {
+            email: session.user.email!,
+            username: session.user.email!
+          }
+        })
+      }
     } catch (err) {
       console.error(err)
     }
   }
 
   return {
-    session,
     user
   }
 };

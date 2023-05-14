@@ -1,7 +1,9 @@
 import { loginSchema } from '$lib/validations/loginSchema.js';
-import { AuthApiError } from '@supabase/supabase-js';
+import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
+
+const OAUTH_PROVIDERS = ["github"]
 
 export const load = async ({ locals }) => {
   const session = await locals.getSession()
@@ -16,7 +18,24 @@ export const load = async ({ locals }) => {
 };
 
 export const actions = {
-  login: async ({ request, locals }) => {
+  login: async ({ request, locals, url }) => {
+    const provider = url.searchParams.get('provder') as Provider
+
+    if (provider) {
+      if (!OAUTH_PROVIDERS.includes(provider)) {
+        return fail(400, { error: 'Provider not supported'})
+      }
+      const { data, error: err } = await locals.supabase.auth.signInWithOAuth({
+        provider: provider
+      })
+
+      if (err) {
+        return fail(400, { message: 'Something went wrong' })
+      }
+
+      throw redirect(303, data.url)
+    }
+
     const form = await superValidate(request, loginSchema)
 
     if (!form.valid) {
