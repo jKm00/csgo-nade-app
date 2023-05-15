@@ -2,24 +2,21 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import { onMount } from 'svelte';
 	import '../app.css';
-	import type { LayoutData } from './$types';
 	import { invalidate } from '$app/navigation';
+	import NavBar from '$lib/components/layout/NavBar.svelte';
 
-	export let data: LayoutData;
+	export let data;
 
-	$: ({ supabase, session, version } = data);
+	$: ({ version, supabase, session } = data);
 
-	// Subscribe to supabase to listen for auth change
 	onMount(() => {
-		const {
-			data: { subscription },
-		} = supabase.auth.onAuthStateChange((event, _session) => {
+		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
 		});
 
-		return () => subscription.unsubscribe();
+		return () => data.subscription.unsubscribe();
 	});
 </script>
 

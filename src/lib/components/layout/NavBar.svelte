@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { User } from '@prisma/client';
+	import type { Session } from '@supabase/supabase-js';
 
-	export let user: User | null;
+	export let session: Session | null;
 </script>
 
 <nav class="flex justify-between p-4">
@@ -9,16 +9,13 @@
 		<h1 class="font-bold uppercase"><a href="/">Csgo Strats</a></h1>
 	</div>
 	<ul class="flex gap-2">
-		{#if user}
-			<li><a href="/users/{user.username}">{user.username}</a></li>
-			<li>
-				<form action="/logout" method="POST">
-					<button type="submit">Logout</button>
-				</form>
-			</li>
-		{:else}
-			<li><a href="/login">Login</a></li>
-			<li><a href="/register">Register</a></li>
-		{/if}
+		<li><a href="/users/">{session?.user.user_metadata.username}</a></li>
+		<li>
+			<form action="/logout" method="POST">
+				<button type="submit">Logout</button>
+			</form>
+		</li>
+		<li><a href="/login">Login</a></li>
+		<li><a href="/register">Register</a></li>
 	</ul>
 </nav>

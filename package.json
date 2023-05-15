@@ -19,7 +19,6 @@
 		"postcss": "^8.4.23",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"prisma": "^4.14.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
 		"sveltekit-superforms": "^0.8.6",
@@ -32,6 +31,8 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "4.14.0",
-		"@supabase/auth-helpers-sveltekit": "^0.9.4"
+		"@supabase/auth-helpers-sveltekit": "^0.9.4",
+		"@supabase/auth-ui-shared": "^0.1.6",
+		"@supabase/auth-ui-svelte": "^0.2.2"
 	}
 }

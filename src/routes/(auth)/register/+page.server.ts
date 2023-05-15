@@ -1,4 +1,3 @@
-import { prisma } from "$lib/server/prisma";
 import { registerSchema } from "$lib/validations/registerSchema.js";
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, redirect } from "@sveltejs/kit";
@@ -27,12 +26,18 @@ export const actions = {
       })
     }
 
-    const { email, username, password } = form.data as Record<string, string>
+    const { username, fullName, email, password } = form.data as Record<string, string>
 
-    // Try to create user
     const { error: err } = await locals.supabase.auth.signUp({
       email,
-      password
+      password,
+      options: {
+        data: {
+          email,
+          fullName,
+          username
+        }
+      }
     })
 
     if (err) {
@@ -42,29 +47,6 @@ export const actions = {
       return fail(500, { error: 'Server error. Please try again later' })
     }
 
-    // Add user to database
-    try {
-      await prisma.user.create({
-        data: {
-          email,
-          username,
-          roles: {
-            create: [
-              {
-                role: {
-                  connect: {
-                    name: 'USER'
-                  }
-                }
-              }
-            ]
-          }
-        }
-      })
-    } catch (err) {
-      return fail(500, { message: 'Failed to save user' })
-    }
-
-    throw redirect(302, '/')
+    throw redirect(302, '/login')
   }
 };

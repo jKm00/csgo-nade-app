@@ -6,6 +6,10 @@ export const registerSchema = z.object({
     .min(1, 'Username is required')
     .max(64, 'Username must be less than 64 characters')
     .trim(),
+  fullName: z
+    .string({ required_error: 'Name is required' })
+    .min(1, 'Name is required')
+    .trim(),
   email: z
     .string({ required_error: 'Email is required' })
     .email({ message: 'Email must be a valid email address' }),

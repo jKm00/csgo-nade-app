@@ -2,28 +2,10 @@
 	import { enhance, type SubmitFunction } from '$app/forms';
 	import type { Provider } from '@supabase/supabase-js';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { supabaseClient } from '$lib/supabase';
 
 	export let data;
 
 	const { form, errors, enhance: superEnhance } = superForm(data.form);
-
-	const submitSocialLogin: SubmitFunction = async ({ action, cancel }) => {
-		switch (action.searchParams.get('provider')) {
-			case 'github':
-				await signInWithProvider('github');
-				break;
-			default:
-				break;
-		}
-		cancel();
-	};
-
-	const signInWithProvider = async (provider: Provider) => {
-		const { data, error } = await supabaseClient.auth.signInWithOAuth({
-			provider: provider,
-		});
-	};
 </script>
 
 <form class="grid gap-4 w-80" action="?/login" method="POST" use:superEnhance>
@@ -67,12 +49,7 @@
 		>
 	</p>
 </form>
-<form
-	class="grid justify-center mt-8"
-	method="POST"
-	action="/login/github"
-	use:enhance={submitSocialLogin}
->
+<form class="grid justify-center mt-8" method="POST" action="">
 	<button
 		class="flex items-center gap-2 bg-black p-2 rounded"
 		formaction="?/login&provider=github"

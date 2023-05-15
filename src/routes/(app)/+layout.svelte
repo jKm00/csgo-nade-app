@@ -3,10 +3,10 @@
 
 	export let data;
 
-	$: ({ user } = data);
+	$: ({ session } = data);
 </script>
 
-<NavBar {user} />
+<NavBar {session} />
 
 <div class="flex-1 max-w-6xl m-auto">
 	<slot />

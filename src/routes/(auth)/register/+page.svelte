@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	export let data;
 
@@ -21,6 +20,20 @@
 		/>
 		{#if $errors.username}
 			<p class="text-xs text-red-400 text-left">{$errors.username[0]}</p>
+		{/if}
+	</div>
+	<div class="grid gal-1">
+		<label class="text-neutral-400 text-sm" for="username">Full name:</label>
+		<input
+			class="bg-neutral-700 p-2 rounded"
+			type="text"
+			id="fullName"
+			name="fullName"
+			placeholder="myName"
+			bind:value={$form.fullName}
+		/>
+		{#if $errors.fullName}
+			<p class="text-xs text-red-400 text-left">{$errors.fullName[0]}</p>
 		{/if}
 	</div>
 	<div class="grid gal-1">
