@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { Chasing } from 'svelte-loading-spinners';
 
 	export let data;
 
-	const { form, errors, enhance: superEnhance } = superForm(data.form);
+	const { form, errors, enhance: superEnhance, delayed } = superForm(data.form);
 </script>
 
 <form class="grid gap-4 w-80" action="?/login" method="POST" use:superEnhance>
@@ -49,8 +50,14 @@
 	{/if}
 	<button
 		class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 p-2 rounded mt-2"
-		type="submit">Login</button
+		type="submit"
+		disabled={$delayed}>Login</button
 	>
+	{#if $delayed}
+		<div class="grid justify-center">
+			<Chasing size="60" color="#F87171" unit="px" duration="1s" />
+		</div>
+	{/if}
 	<p class="text-sm text-neutral-400 text-center">
 		Don't have an account? <a
 			class="underline hover:text-white focus-within:text-white"
@@ -58,14 +65,17 @@
 		>
 	</p>
 </form>
-<form class="grid justify-center mt-8" method="POST" action="">
-	<button
-		class="flex items-center gap-2 bg-black p-2 rounded"
-		formaction="?/login&provider=github"
-		><img
-			class="invert h-6 aspect-square"
-			src="assets/images/logos/github-logo.png"
-			alt="GitHub logo"
-		/>Sign in with GitHub</button
-	>
-</form>
+<!-- TODO: Hide github sign in until fixed -->
+{#if false}
+	<form class="grid justify-center mt-8" method="POST" action="">
+		<button
+			class="flex items-center gap-2 bg-black p-2 rounded"
+			formaction="?/login&provider=github"
+			><img
+				class="invert h-6 aspect-square"
+				src="assets/images/logos/github-logo.png"
+				alt="GitHub logo"
+			/>Sign in with GitHub</button
+		>
+	</form>
+{/if}

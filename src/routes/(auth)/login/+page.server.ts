@@ -29,7 +29,7 @@ export const actions = {
 
     const { email, password } = form.data as Record<string, string>
 
-    const { data, error: err } = await locals.supabase.auth.signInWithPassword({
+    const { error: err } = await locals.supabase.auth.signInWithPassword({
       email,
       password
     })

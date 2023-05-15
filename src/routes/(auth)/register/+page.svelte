@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
+	import { Chasing } from 'svelte-loading-spinners';
 
 	export let data;
 
-	const { form, errors, enhance } = superForm(data.form);
+	const { form, errors, enhance, delayed } = superForm(data.form);
 </script>
 
 <form class="grid gap-4 w-80" action="?/registerUser" method="POST" use:enhance>
@@ -81,9 +82,15 @@
 	<button
 		class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 p-2 rounded mt-2"
 		type="submit"
+		disabled={$delayed}
 	>
 		Register
 	</button>
+	{#if $delayed}
+		<div class="grid justify-center">
+			<Chasing size="60" color="#F87171" unit="px" duration="1s" />
+		</div>
+	{/if}
 	<p class="text-sm text-neutral-400 text-center">
 		Already have an account? <a
 			class="underline hover:text-white focus-within:text-white"

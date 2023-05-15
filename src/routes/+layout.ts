@@ -15,6 +15,7 @@ export const load = async ({ fetch, data, depends }) => {
     data: { session },
   } = await supabase.auth.getSession()
 
+  // FIXME: Calling this method breaks the authentication
   const fetchVersion = async () => {
     const res = await fetch('/api/versions')
     const version = await res.json()
@@ -22,8 +23,7 @@ export const load = async ({ fetch, data, depends }) => {
   }
 
   return {
-    version: fetchVersion(),
     supabase,
-    ...data
+    session
   }
 };

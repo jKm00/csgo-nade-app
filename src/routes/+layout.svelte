@@ -7,7 +7,9 @@
 
 	export let data;
 
-	$: ({ version, supabase, session } = data);
+	$: ({ supabase, session } = data);
+
+	// $: console.log(session);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
@@ -22,5 +24,5 @@
 
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<slot />
-	<Footer {version} />
+	<Footer version={'0.1.0'} />
 </div>

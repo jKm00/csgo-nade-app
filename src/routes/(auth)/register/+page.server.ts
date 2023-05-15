@@ -49,6 +49,6 @@ export const actions = {
       return fail(500, { error: 'Server error. Please try again later' })
     }
 
-    throw redirect(302, '/login')
+    throw redirect(302, '/verify')
   }
 };

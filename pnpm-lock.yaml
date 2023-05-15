@@ -42,6 +42,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.0.1
     version: 3.0.1(postcss@8.4.23)(svelte@3.54.0)
+  svelte-loading-spinners:
+    specifier: ^0.3.4
+    version: 0.3.4
   sveltekit-superforms:
     specifier: ^0.8.6
     version: 0.8.6(@sveltejs/kit@1.5.0)(svelte@3.54.0)(zod@3.21.4)
@@ -1320,6 +1323,10 @@ packages:
       svelte: '>=3.19.0'
     dependencies:
       svelte: 3.54.0
+
+  /svelte-loading-spinners@0.3.4:
+    resolution: {integrity: sha512-vKaW71QMCBcTNijAGc0mUl8k3DQ66iYmp6MB8BMGCXyWk82bTrcLy8FOnSm9fE+8q6TwzD6PLUoYFHt0II93Xw==}
+    dev: true
 
   /svelte-preprocess@5.0.3(postcss@8.4.23)(svelte@3.54.0)(typescript@4.9.5):
     resolution: {integrity: sha512-GrHF1rusdJVbOZOwgPWtpqmaexkydznKzy5qIC2FabgpFyKN57bjMUUUqPRfbBXK5igiEWn1uO/DXsa2vJ5VHA==}
