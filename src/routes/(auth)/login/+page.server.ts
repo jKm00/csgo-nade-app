@@ -29,16 +29,22 @@ export const actions = {
 
     const { email, password } = form.data as Record<string, string>
 
-    const { error: err } = await locals.supabase.auth.signInWithPassword({
+    const { data, error: err } = await locals.supabase.auth.signInWithPassword({
       email,
       password
     })
 
     if (err) {
       if (err instanceof AuthApiError && err.status === 400) {
-        return fail(400, { error: 'Invalid credentials'})
+        return fail(400, { 
+          form, 
+          error: 'Invalid credentials'
+        })
       }
-      return fail(500, { error: 'Server error. Please try again later' })
+      return fail(500, { 
+        form, 
+        error: 'Server error. Please try again later' 
+      })
     }
 
     throw redirect(302, '/')

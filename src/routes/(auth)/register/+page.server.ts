@@ -28,7 +28,7 @@ export const actions = {
 
     const { username, fullName, email, password } = form.data as Record<string, string>
 
-    const { error: err } = await locals.supabase.auth.signUp({
+    const { data, error: err } = await locals.supabase.auth.signUp({
       email,
       password,
       options: {
@@ -39,6 +39,8 @@ export const actions = {
         }
       }
     })
+
+    console.log(data)
 
     if (err) {
       if (err instanceof AuthApiError && err.status === 400) {

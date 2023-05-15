@@ -9,13 +9,16 @@
 		<h1 class="font-bold uppercase"><a href="/">Csgo Strats</a></h1>
 	</div>
 	<ul class="flex gap-2">
-		<li><a href="/users/">{session?.user.user_metadata.username}</a></li>
-		<li>
-			<form action="/logout" method="POST">
-				<button type="submit">Logout</button>
-			</form>
-		</li>
-		<li><a href="/login">Login</a></li>
-		<li><a href="/register">Register</a></li>
+		{#if session}
+			<li><a href="/users/">{session?.user.user_metadata.username}</a></li>
+			<li>
+				<form action="/logout" method="POST">
+					<button type="submit">Logout</button>
+				</form>
+			</li>
+		{:else}
+			<li><a href="/login">Login</a></li>
+			<li><a href="/register">Register</a></li>
+		{/if}
 	</ul>
 </nav>

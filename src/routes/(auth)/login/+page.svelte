@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { enhance, type SubmitFunction } from '$app/forms';
-	import type { Provider } from '@supabase/supabase-js';
+	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
@@ -38,6 +37,16 @@
 			<p class="text-xs text-red-400 text-left">{$errors.password[0]}</p>
 		{/if}
 	</div>
+	{#if $page.status === 400}
+		<p class="text-sm text-red-400">
+			{'Invalid credentials. Please try again'}
+		</p>
+	{/if}
+	{#if $page.status === 500}
+		<p class="text-sm text-red-400">
+			{'Server error. Please try again later'}
+		</p>
+	{/if}
 	<button
 		class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 p-2 rounded mt-2"
 		type="submit">Login</button
