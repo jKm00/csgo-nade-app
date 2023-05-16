@@ -1,12 +1,8 @@
 <script lang="ts">
 	import NavBar from '$lib/components/layout/NavBar.svelte';
-
-	export let data;
-
-	$: ({ session } = data);
 </script>
 
-<NavBar {session} />
+<NavBar />
 
 <div class="flex-1 max-w-6xl m-auto">
 	<slot />

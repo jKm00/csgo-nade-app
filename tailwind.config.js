@@ -5,6 +5,9 @@ export default {
     extend: {
       gridTemplateColumns: {
         'main': 'repeat(auto-fit, minmax(18rem, 1fr))'
+      },
+      width: {
+        'default': 'min(100vw, 72rem)'
       }
     },
   },

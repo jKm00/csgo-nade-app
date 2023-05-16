@@ -1,11 +1,11 @@
 import { loginSchema } from '$lib/validations/loginSchema.js';
 import { AuthApiError, type Provider } from '@supabase/supabase-js';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 
 const OAUTH_PROVIDERS = ["github"]
 
-export const load = async ({ locals }) => {
+export const load: ServerLoad = async ({ locals }) => {
   const session = await locals.getSession()
   if (session) {
     throw redirect(302, '/')

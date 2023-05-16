@@ -3,13 +3,10 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import { invalidate } from '$app/navigation';
-	import NavBar from '$lib/components/layout/NavBar.svelte';
 
 	export let data;
 
-	$: ({ supabase, session } = data);
-
-	// $: console.log(session);
+	$: ({ supabase, session, user } = data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
