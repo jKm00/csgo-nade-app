@@ -19,6 +19,23 @@ export const load = async ({ locals }) => {
 
 export const actions = {
   login: async ({ request, locals, url }) => {
+    const provider = url.searchParams.get('provider') as Provider
+
+    if (provider) {
+      if (!OAUTH_PROVIDERS.includes(provider)) {
+        return fail(400, { error: 'Provider not supported'})
+      }
+      const { data, error: err } = await locals.supabase.auth.signInWithOAuth({
+        provider: provider
+      })
+
+      if (err) {
+        return fail(400, { message: 'Something went wrong' })
+      }
+
+      throw redirect(303, data.url)
+    }
+
     const form = await superValidate(request, loginSchema)
 
     if (!form.valid) {
