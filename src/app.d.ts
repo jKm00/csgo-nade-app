@@ -3,13 +3,14 @@
 
 import type { PrismaClient } from "@prisma/client";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "./schema";
 
 // for information about these interfaces
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			supabase: SupabaseClient
+			supabase: SupabaseClient<Database>
 			getSession(): Promise<Session | null>
 		}
 		interface PageData {

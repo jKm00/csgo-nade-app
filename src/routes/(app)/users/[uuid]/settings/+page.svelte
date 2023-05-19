@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let data;
 
-	$: ({ user } = data);
+	$: ({ profile } = data);
 </script>
 
 <div />
@@ -13,7 +13,7 @@
 			type="text"
 			id="name"
 			name="name"
-			placeholder={user?.name}
+			placeholder={profile?.name}
 		/>
 	</div>
 	<div class="grid">
@@ -23,7 +23,7 @@
 			type="text"
 			id="username"
 			name="username"
-			placeholder={user?.username}
+			placeholder={profile?.username}
 		/>
 	</div>
 	<button
@@ -40,7 +40,7 @@
 			type="text"
 			id="email"
 			name="email"
-			placeholder={user?.email}
+			placeholder={profile?.email}
 		/>
 	</div>
 	<button

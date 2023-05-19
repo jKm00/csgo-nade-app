@@ -6,7 +6,7 @@
 
 	export let data;
 
-	$: ({ supabase, session, user } = data);
+	$: ({ supabase, session } = data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {

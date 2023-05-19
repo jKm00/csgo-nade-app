@@ -48,7 +48,21 @@ export const actions = {
     }
 
     // Create user profile
-    // TODO: ...
+    const { error: userError } = await locals.supabase.from('profiles').insert({
+        uuid: data.user!.id,
+        name: fullName,
+        username: username,
+        email: email,
+      })
+
+    if (userError) {
+      console.log(userError)
+      console.log()
+      return fail(400, {
+        form,
+        error: 'Failed to create user'
+      })
+    }
 
     throw redirect(302, '/verify')
   }

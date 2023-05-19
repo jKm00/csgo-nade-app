@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Table from '$lib/components/containers/Table.svelte';
-	import Toast from '$lib/components/toasts/Toast.svelte';
 
 	export let data;
 
@@ -31,16 +30,8 @@
 </script>
 
 <div class="w-default px-4 mt-10">
-	{#if session && !profile && session.user.id === data.uuid}
-		<Toast uuid={session.user.id}>
-			Your account page is not ready.
-			<a class="underline" href="/users/{session.user.id}/settings">
-				Go to account settings
-			</a>
-			to finish setting up your profile
-		</Toast>
-	{:else if !profile}
-		<p>
+	{#if !profile}
+		<p class="text-center">
 			This user is not available. <a class="underline" href="/">Back to home</a>
 		</p>
 	{:else}

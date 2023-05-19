@@ -75,6 +75,12 @@ npx supabase db diff --use-migra -f [migration_name]
 npx db reset
 ```
 
+**Updating typescript types**
+
+```
+npx supabase gen types typescript --local > ./src/schema.ts
+```
+
 **Link to remote project**
 
 ```
