@@ -1,7 +1,7 @@
 import { registerSchema } from "$lib/validations/registerSchema.js";
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, redirect } from "@sveltejs/kit";
-import { superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
 
 export const load = async ({ locals }) => {
   const session = await locals.getSession()
@@ -20,9 +20,7 @@ export const actions = {
     const form = await superValidate(request, registerSchema)
 
     if (!form.valid) {
-      return fail(400, {
-        form
-      })
+      return message(form, 'Invalid form')
     }
 
     const { username, fullName, email, password } = form.data as Record<string, string>
@@ -33,17 +31,17 @@ export const actions = {
       password,
     })
 
+    console.log(err)
+
     // Catch any errors
     if (err) {
       if (err instanceof AuthApiError && err.status === 400) {
-        return fail(400, { 
-          form,
-          error: 'Invalid email or password' 
+        return message(form, err.message, {
+          status: 400
         })
       }
-      return fail(500, { 
-        form, 
-        error: 'Server error. Please try again later' 
+      return message(form, 'Server error. Please try again later', {
+        status: 500
       })
     }
 
@@ -56,11 +54,8 @@ export const actions = {
       })
 
     if (userError) {
-      console.log(userError)
-      console.log()
-      return fail(400, {
-        form,
-        error: 'Failed to create user'
+      return message(form, 'Failed to create user. Please try again later', {
+        status: 500
       })
     }
 

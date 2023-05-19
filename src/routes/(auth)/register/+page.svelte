@@ -4,7 +4,7 @@
 
 	export let data;
 
-	const { form, errors, enhance, delayed } = superForm(data.form);
+	const { form, errors, enhance, delayed, message } = superForm(data.form);
 </script>
 
 <form class="grid gap-4 w-80" action="?/registerUser" method="POST" use:enhance>
@@ -86,6 +86,15 @@
 	>
 		Register
 	</button>
+	{#if $message}
+		<p
+			class="{$message.status === 200
+				? 'text-green-400'
+				: 'text-red-400'} text-sm text-center"
+		>
+			{$message}
+		</p>
+	{/if}
 	{#if $delayed}
 		<div class="grid justify-center">
 			<Chasing size="60" color="#F87171" unit="px" duration="1s" />
