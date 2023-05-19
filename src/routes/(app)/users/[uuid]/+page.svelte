@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Card from '$lib/components/containers/Card.svelte';
 	import Table from '$lib/components/containers/Table.svelte';
 	import Toast from '$lib/components/toasts/Toast.svelte';
 
@@ -54,7 +53,7 @@
 					<p class="text-neutral-400">@{profile.username}</p>
 				</div>
 				{#if session?.user.id === profile.uuid}
-					<a href="/users/{session.user.id}/settings"
+					<a href="/users/{session?.user.id}/settings"
 						><svg
 							class="w-5 fill-white"
 							xmlns="http://www.w3.org/2000/svg"

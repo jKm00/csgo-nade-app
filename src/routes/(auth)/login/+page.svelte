@@ -65,14 +65,3 @@
     >
   </p>
 </form>
-<form class="grid justify-center mt-8" method="POST" action="">
-  <button
-    class="flex items-center gap-2 bg-black p-2 rounded"
-    formaction="?/login&provider=github"
-    ><img
-      class="invert h-6 aspect-square"
-      src="assets/images/logos/github-logo.png"
-      alt="GitHub logo"
-    />Sign in with GitHub</button
-  >
-</form>

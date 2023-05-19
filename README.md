@@ -1,38 +1,57 @@
-# create-svelte
+# Supabase cheatsheet
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+**Login to supabase CLI**
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```
+npx supabase login
 ```
 
-## Developing
+**Start local supabase**
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```
+npx supabase start
 ```
 
-## Building
+**Stop local supabase**
 
-To create a production version of your app:
-
-```bash
-npm run build
+```
+npx supabase stop
 ```
 
-You can preview the production build with `npm run preview`.
+**Create new migration**
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```
+npx supabase migration new [migration_name]
+```
+
+**Create migartion based on diff after editing from browser**
+
+```
+npx supabase db diff --use-migra -f [migration_name]
+```
+
+**Reset local db**
+
+```
+npx db reset
+```
+
+**Link to remote project**
+
+```
+npx supabase link --project-ref [project-id]
+```
+
+**Capture any changes made to remote database**
+
+```
+npx supabase db remote commit
+
+# If you have not made any changes to the remote database, skip this step
+```
+
+**Deploy changes**
+
+```
+npx supabase db push
+```

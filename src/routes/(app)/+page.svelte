@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import MapThumbnail from '$lib/components/containers/MapThumbnail.svelte';
 	import Toast from '$lib/components/toasts/Toast.svelte';
 

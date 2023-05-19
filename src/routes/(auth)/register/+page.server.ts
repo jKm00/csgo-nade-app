@@ -2,7 +2,6 @@ import { registerSchema } from "$lib/validations/registerSchema.js";
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, redirect } from "@sveltejs/kit";
 import { superValidate } from 'sveltekit-superforms/server';
-import { prisma } from "$lib/server/prisma.js";
 
 export const load = async ({ locals }) => {
   const session = await locals.getSession()
@@ -49,31 +48,7 @@ export const actions = {
     }
 
     // Create user profile
-    try {
-      await prisma.user.create({
-        data: {
-          uuid: data.user?.id ?? '',
-          name: fullName,
-          username: username,
-          email: email,
-          roles: {
-            create: [{
-              role: {
-                connect: {
-                  name: 'USER'
-                }
-              }
-            }]
-          }
-        }
-      })
-    } catch (err) {
-      console.log(err)
-      return fail(400, {
-        form,
-        error: 'Failed to generate profile'
-      })
-    }
+    // TODO: ...
 
     throw redirect(302, '/verify')
   }
