@@ -4,10 +4,13 @@
 	$: ({ session } = data);
 </script>
 
-<div class="grid gap-4 w-default px-4" style="grid-template-columns: 10rem 1fr">
+<div
+	class="grid gap-4 w-default px-4 mt-5"
+	style="grid-template-columns: 10rem 1fr"
+>
 	<aside>
 		<a
-			class="flex items-center gap-2 text-sm mb-5 underline"
+			class="flex items-center gap-2 text-sm mb-10 underline"
 			href="/users/{session?.user.id}"
 			><svg
 				class="w-2 fill-white"

@@ -1,7 +1,7 @@
-import { loginSchema } from '$lib/validations/loginSchema.js';
+import { loginSchema } from '$lib/validations/zodShemas';
 import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
 
 export const load: ServerLoad = async ({ locals }) => {
   const session = await locals.getSession()
@@ -20,9 +20,7 @@ export const actions = {
     const form = await superValidate(request, loginSchema)
 
     if (!form.valid) {
-      return fail(400, {
-        form
-      })
+      return message(form, 'Invalid form')
     }
 
     const { email, password } = form.data as Record<string, string>
@@ -34,14 +32,12 @@ export const actions = {
 
     if (err) {
       if (err instanceof AuthApiError && err.status === 400) {
-        return fail(400, { 
-          form, 
-          error: 'Invalid credentials'
+        return message(form, 'Invalid credentials', {
+          status: 400
         })
       }
-      return fail(500, { 
-        form, 
-        error: 'Server error. Please try again later' 
+      return message(form, 'Server error. Please try again later.', {
+        status: 500
       })
     }
 

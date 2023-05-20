@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import { Chasing } from 'svelte-loading-spinners';
+	import TextInput from '$lib/components/inputs/TextInput.svelte';
+	import FormMessage from '$lib/components/feedback/FormMessage.svelte';
+	import { page } from '$app/stores';
 
 	export let data;
 
@@ -9,76 +12,48 @@
 
 <form class="grid gap-4 w-80" action="?/registerUser" method="POST" use:enhance>
 	<h1 class="font-bold uppercase text-center text-3xl">Register</h1>
-	<div class="grid gal-1">
-		<label class="text-neutral-400 text-sm" for="username">Username:</label>
-		<input
-			class="bg-neutral-700 p-2 rounded"
-			type="text"
-			id="username"
-			name="username"
-			placeholder="myUsername"
-			bind:value={$form.username}
-		/>
-		{#if $errors.username}
-			<p class="text-xs text-red-400 text-left">{$errors.username[0]}</p>
-		{/if}
-	</div>
-	<div class="grid gal-1">
-		<label class="text-neutral-400 text-sm" for="username">Full name:</label>
-		<input
-			class="bg-neutral-700 p-2 rounded"
-			type="text"
-			id="fullName"
-			name="fullName"
-			placeholder="myName"
-			bind:value={$form.fullName}
-		/>
-		{#if $errors.fullName}
-			<p class="text-xs text-red-400 text-left">{$errors.fullName[0]}</p>
-		{/if}
-	</div>
-	<div class="grid gal-1">
-		<label class="text-neutral-400 text-sm" for="email">Email:</label>
-		<input
-			class="bg-neutral-700 p-2 rounded"
-			type="email"
-			id="email"
-			name="email"
-			placeholder="email@example.com"
-			bind:value={$form.email}
-		/>
-		{#if $errors.email}
-			<p class="text-xs text-red-400 text-left">{$errors.email[0]}</p>
-		{/if}
-	</div>
-	<div class="grid gal-1">
-		<label class="text-neutral-400 text-sm" for="password">Password:</label>
-		<input
-			class="bg-neutral-700 p-2 rounded"
-			type="password"
-			id="password"
-			name="password"
-			placeholder="#Averysecretpassword123"
-		/>
-		{#if $errors.password}
-			<p class="text-xs text-red-400 text-left">{$errors.password[0]}</p>
-		{/if}
-	</div>
-	<div class="grid gal-1">
-		<label class="text-neutral-400 text-sm" for="passwordConfirm"
-			>Confirm password:</label
-		>
-		<input
-			class="bg-neutral-700 p-2 rounded"
-			type="password"
-			id="passwordConfirm"
-			name="passwordConfirm"
-			placeholder="#Averysecretpassword123"
-		/>
-		{#if $errors.passwordConfirm}
-			<p class="text-xs text-red-400 text-left">{$errors.passwordConfirm[0]}</p>
-		{/if}
-	</div>
+	<TextInput
+		id="username"
+		name="username"
+		label="Username:"
+		placeholder="myUsername"
+		bind:value={$form.username}
+		errors={$errors.username}
+	/>
+	<TextInput
+		id="fullName"
+		name="fullName"
+		label="Full name:"
+		placeholder="myName"
+		bind:value={$form.fullName}
+		errors={$errors.fullName}
+	/>
+	<TextInput
+		id="email"
+		name="email"
+		label="Email:"
+		placeholder="email@example.com"
+		bind:value={$form.email}
+		errors={$errors.email}
+	/>
+	<TextInput
+		id="password"
+		name="password"
+		label="Password:"
+		placeholder="#Averysecretpassword123"
+		bind:value={$form.password}
+		errors={$errors.password}
+		isPassword={true}
+	/>
+	<TextInput
+		id="passwordConfirm"
+		name="passwordConfirm"
+		label="Confirm password:"
+		placeholder="#Averysecretpassword123"
+		bind:value={$form.passwordConfirm}
+		errors={$errors.passwordConfirm}
+		isPassword={true}
+	/>
 	<button
 		class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 p-2 rounded mt-2"
 		type="submit"
@@ -86,15 +61,7 @@
 	>
 		Register
 	</button>
-	{#if $message}
-		<p
-			class="{$message.status === 200
-				? 'text-green-400'
-				: 'text-red-400'} text-sm text-center"
-		>
-			{$message}
-		</p>
-	{/if}
+	<FormMessage message={$message} status={$page.status} />
 	{#if $delayed}
 		<div class="grid justify-center">
 			<Chasing size="60" color="#F87171" unit="px" duration="1s" />

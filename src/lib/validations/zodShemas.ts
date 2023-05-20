@@ -1,4 +1,19 @@
-import { z } from 'zod'
+import { z } from "zod"
+
+export const emailSchema = z.object({
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email({ message: 'Email must be a valid email address' }),
+})
+
+export const loginSchema = z.object({
+  email: z
+    .string({ required_error: 'Email is requred'})
+    .email({ message: 'Must be a valid email'}),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(1, 'Password is required')
+})
 
 export const registerSchema = z.object({
   username: z
@@ -32,4 +47,15 @@ export const registerSchema = z.object({
       path: ['passwordConfirm']
     })
   }
+})
+
+export const updateUserDetailsSchema = z.object({
+  fullName: z
+    .string({ required_error: 'Name is required' })
+    .min(1, 'Name is required')
+    .trim(),
+  username: z
+    .string({ required_error: 'Username is required'})
+    .min(1, 'Username is required')
+    .trim()
 })

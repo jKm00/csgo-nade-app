@@ -7,7 +7,7 @@ export default {
         'main': 'repeat(auto-fit, minmax(18rem, 1fr))'
       },
       width: {
-        'default': 'min(100vw, 72rem)'
+        'default': 'min(95vw, 72rem)'
       }
     },
   },

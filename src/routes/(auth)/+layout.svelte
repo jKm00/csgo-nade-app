@@ -2,7 +2,7 @@
 	<h1 class="text-4xl font-bold uppercase text-red-400">
 		<a href="/">Csgo strats</a>
 	</h1>
-	<main class="bg-neutral-800 rounded shadow p-10">
+	<main class="p-10">
 		<slot />
 	</main>
 </div>

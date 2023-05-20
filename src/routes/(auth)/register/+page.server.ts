@@ -1,4 +1,4 @@
-import { registerSchema } from "$lib/validations/registerSchema.js";
+import { registerSchema } from "$lib/validations/zodShemas";
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, redirect } from "@sveltejs/kit";
 import { message, superValidate } from 'sveltekit-superforms/server';
@@ -30,8 +30,6 @@ export const actions = {
       email,
       password,
     })
-
-    console.log(err)
 
     // Catch any errors
     if (err) {
