@@ -59,3 +59,29 @@ export const updateUserDetailsSchema = z.object({
     .min(1, 'Username is required')
     .trim()
 })
+
+export const changePasswordSchema = z.object({
+  currentPassword: z
+    .string({ required_error: 'Need to enter the old password' })
+    .min(1, 'Need to enter the old password')
+    .trim(),
+  newPassword: z
+    .string({ required_error: 'A new password is required' })
+    .regex(new RegExp("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$"), 'One uppercase, one lower, one special character, and a number required'),
+  newPasswordConfirm: z
+    .string({ required_error: 'Need to confirm the new password' })
+    .regex(new RegExp("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$"), 'One uppercase, one lower, one special character, and a number required')
+}).superRefine(({ newPassword, newPasswordConfirm }, ctx) => {
+  if (newPassword !== newPasswordConfirm) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Password and confirm password must match',
+      path: ['newPassword']
+    })
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Password and confirm password must match',
+      path: ['newPasswordConfirm']
+    })
+  }
+})

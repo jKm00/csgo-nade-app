@@ -3,7 +3,8 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import { invalidate } from '$app/navigation';
-	import { SvelteToast } from '@zerodevx/svelte-toast'
+	import { Toaster } from 'svelte-french-toast';
+	import { page } from '$app/stores';
 
 	export let data;
 
@@ -20,8 +21,8 @@
 	});
 </script>
 
-<SvelteToast />
+<Toaster />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<slot />
-	<Footer version={'0.2.1'} />
+	<Footer version={'0.3.1'} />
 </div>

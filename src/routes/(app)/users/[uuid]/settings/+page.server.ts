@@ -1,6 +1,6 @@
-import { emailSchema, updateUserDetailsSchema } from "$lib/validations/zodShemas";
-import { AuthApiError } from "@supabase/supabase-js";
-import { message, superValidate } from "sveltekit-superforms/server";
+import { changePasswordSchema, emailSchema, updateUserDetailsSchema } from "$lib/validations/zodShemas";
+import { AuthApiError, type Session } from "@supabase/supabase-js";
+import { message, setError, superValidate } from "sveltekit-superforms/server";
 
 export const load = async ({ parent }) => {
   const { profile } = await parent()
@@ -16,9 +16,14 @@ export const load = async ({ parent }) => {
   })
   emailForm.data.email = profile?.email ?? ''
 
+  const passwordForm = await superValidate(changePasswordSchema, {
+    id: 'updatePassword'
+  })
+
   return {
     userDetailsForm,
-    emailForm
+    emailForm,
+    passwordForm
   }
 };
 
@@ -64,8 +69,6 @@ export const actions = {
   updateEmail: async ({ request, locals }) => {
     const session = await locals.getSession()
 
-    console.log(session)
-
     // Validate form
     const emailForm = await superValidate(request, emailSchema, {
       id: 'emailForm'
@@ -98,6 +101,42 @@ export const actions = {
     }
 
     return message(emailForm, 'Verification link sent to the new email', {
+      status: 200
+    })
+  },
+  updatePassword: async ({ request, locals }) => {
+    // Validate form
+    const passwordForm = await superValidate(request, changePasswordSchema, {
+      id: 'updatePassword'
+    })
+    
+    if (!passwordForm.valid) { 
+      return message(passwordForm, 'Invalid form')
+    }
+
+    const { currentPassword, newPassword } = passwordForm.data as Record<string, string>
+
+    // Try to update password
+    const { error: err} = await locals.supabase.rpc('change_user_password', {
+      current_plain_password: currentPassword,
+      new_plain_password: newPassword
+    })
+
+    // Catch errors after trying
+    if (err) {
+      if (err.code === 'P0001') {
+        setError(passwordForm, 'currentPassword', 'Incorrect password')
+        return message(passwordForm, 'Incorrect password', {
+          status: 400
+        })
+      }
+      return message(passwordForm, 'Server error. Please try again later', {
+        status: 500
+      })
+    }
+
+    // Password changed
+    return message(passwordForm, 'Password has been changed', {
       status: 200
     })
   }
