@@ -44,7 +44,7 @@
 </form>
 
 <form
-	action=""
+	action="?/updateEmail"
 	method="POST"
 	class="grid gap-4 max-w-sm m-auto mb-16"
 	use:emailEnhance
@@ -56,6 +56,7 @@
 		bind:value={$emailForm.email}
 		errors={$emailErrors.email}
 	/>
+	<FormMessage message={$emailMessage} status={$page.status} />
 	<button
 		class="bg-green-400 px-2 py-1 rounded justify-self-end text-neutral-950 text-sm"
 		type="submit">Change email</button

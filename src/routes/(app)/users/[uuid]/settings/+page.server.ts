@@ -60,5 +60,45 @@ export const actions = {
     return message(userDetailsForm, 'User details updated', {
       status: 200
     })
+  },
+  updateEmail: async ({ request, locals }) => {
+    const session = await locals.getSession()
+
+    console.log(session)
+
+    // Validate form
+    const emailForm = await superValidate(request, emailSchema, {
+      id: 'emailForm'
+    })
+
+    if (!emailForm.valid) {
+      return message(emailForm, 'Invalid form')
+    }
+
+    const { email } = emailForm.data as Record<string, string>
+
+    if (session.user.email === email) {
+      return message(emailForm, 'Can not change to the same email!', {
+        status: 400
+      })
+    }
+
+    // Update auth user
+    const { error: err } = await locals.supabase.auth.updateUser({email})
+
+    if (err) {
+      if (err instanceof AuthApiError && err.status === 400) {
+        return message(emailForm, err.message, {
+          status: 400
+        })
+      }
+      return message(emailForm, 'Server error. Please try again later', {
+        status: 500
+      })
+    }
+
+    return message(emailForm, 'Verification link sent to the new email', {
+      status: 200
+    })
   }
 };

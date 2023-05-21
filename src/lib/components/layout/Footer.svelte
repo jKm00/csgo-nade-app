@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { toast } from "@zerodevx/svelte-toast";
+  import { success } from "../feedback/customToast";
+
 	export let version: string;
 </script>
 

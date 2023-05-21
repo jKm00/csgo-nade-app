@@ -72,7 +72,7 @@ npx supabase db diff --use-migra -f [migration_name]
 **Reset local db**
 
 ```
-npx db reset
+npx supabase db reset
 ```
 
 **Updating typescript types**
