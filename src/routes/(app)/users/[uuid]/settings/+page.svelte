@@ -7,6 +7,8 @@
 
 	export let data;
 
+	let dialog: HTMLDialogElement;
+
 	const { form, errors, enhance, message } = superForm(data.userDetailsForm);
 
 	const {
@@ -125,10 +127,35 @@
 	>
 </form>
 
-<form action="" class="grid gap-4 max-w-sm m-auto mb-16">
+<div class="grid gap-4 max-w-sm m-auto mb-16">
 	<h2 class="font-bold text-red-400">Danger zone</h2>
 	<button
+		on:click={() => dialog.showModal()}
 		class="bg-red-400/20 border-2 p-2 border-red-400 rounded text-red-400 hover:bg-red-400 hover:text-white focus-within:bg-red-400 focus-within:text-white transition-colors"
 		>Delete account</button
 	>
-</form>
+</div>
+
+<dialog
+	bind:this={dialog}
+	class="bg-neutral-800 text-white rounded shadow backdrop:bg-neutral-950/90"
+>
+	<div class="grid">
+		<h2 class="text-xl font-bold">Delete account</h2>
+		<p class="mb-10">
+			Are you sure you want to delete your account? This action cannot be
+			undone!
+		</p>
+		<form class="justify-self-end" method="POST">
+			<button
+				type="button"
+				class="bg-white/20 border-2 p-2 border-white rounded text-white hover:bg-white hover:text-neutral-950 focus-within:bg-white focus-within:text-neutral-950 transition-colors"
+				on:click={() => dialog.close()}>Cancel</button
+			>
+			<button
+				class="bg-red-400/20 border-2 p-2 border-red-400 rounded text-red-400 hover:bg-red-400 hover:text-white focus-within:bg-red-400 focus-within:text-white transition-colors"
+				formaction="?/deleteUser">Delete account</button
+			>
+		</form>
+	</div>
+</dialog>

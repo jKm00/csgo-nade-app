@@ -1,5 +1,6 @@
 import { changePasswordSchema, emailSchema, updateUserDetailsSchema } from "$lib/validations/zodShemas";
 import { AuthApiError, type Session } from "@supabase/supabase-js";
+import { error, fail, redirect } from "@sveltejs/kit";
 import { message, setError, superValidate } from "sveltekit-superforms/server";
 
 export const load = async ({ parent }) => {
@@ -139,5 +140,24 @@ export const actions = {
     return message(passwordForm, 'Password has been changed', {
       status: 200
     })
+  },
+  deleteUser: async ({ locals }) => {
+    const session = await locals.getSession()
+
+    // Delete user
+    const { error: err } = await locals.supabaseAdmin.auth.admin.deleteUser(
+      session.user.id
+    )
+
+    // Return any errors
+    if (err) {
+      return fail(400, { message: 'Something went wrong. Please try again later' })
+    }
+
+    // Log out user
+    await locals.supabase.auth.signOut()
+
+    // Redirect to home page
+    throw redirect(302, '/')
   }
 };
