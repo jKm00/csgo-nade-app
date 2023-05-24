@@ -1,6 +1,5 @@
 <script lang="ts">
 	import MapThumbnail from '$lib/components/containers/MapThumbnail.svelte';
-  import toast from 'svelte-french-toast';
 
 	const MAPS = [
 		{

@@ -1,87 +1,122 @@
-import { z } from "zod"
+import { z } from 'zod';
 
 export const emailSchema = z.object({
-  email: z
-    .string({ required_error: 'Email is required' })
-    .email({ message: 'Email must be a valid email address' }),
-})
+	email: z
+		.string({ required_error: 'Email is required' })
+		.email({ message: 'Email must be a valid email address' }),
+});
 
 export const loginSchema = z.object({
-  email: z
-    .string({ required_error: 'Email is requred'})
-    .email({ message: 'Must be a valid email'}),
-  password: z
-    .string({ required_error: 'Password is required' })
-    .min(1, 'Password is required')
-})
+	email: z
+		.string({ required_error: 'Email is requred' })
+		.email({ message: 'Must be a valid email' }),
+	password: z
+		.string({ required_error: 'Password is required' })
+		.min(1, 'Password is required'),
+});
 
-export const registerSchema = z.object({
-  username: z
-    .string({ required_error: 'Username is required' })
-    .min(1, 'Username is required')
-    .max(64, 'Username must be less than 64 characters')
-    .trim(),
-  fullName: z
-    .string({ required_error: 'Name is required' })
-    .min(1, 'Name is required')
-    .trim(),
-  email: z
-    .string({ required_error: 'Email is required' })
-    .email({ message: 'Email must be a valid email address' }),
-  password: z
-    .string({ required_error: 'Password is required' })
-    .regex(new RegExp("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$"), 'One uppercase, one lower, one special character, and a number required'),
-  passwordConfirm: z
-    .string({ required_error: 'Need to confirm password' })
-    .regex(new RegExp("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$"), 'One uppercase, one lower, one special character, and a number required')
-}).superRefine(({ passwordConfirm, password }, ctx) => {
-  if (passwordConfirm !== password) {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Password and confirm password must match',
-      path: ['password']
-    })
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Password and confirm password must match',
-      path: ['passwordConfirm']
-    })
-  }
-})
+export const registerSchema = z
+	.object({
+		username: z
+			.string({ required_error: 'Username is required' })
+			.min(1, 'Username is required')
+			.max(64, 'Username must be less than 64 characters')
+			.trim(),
+		fullName: z
+			.string({ required_error: 'Name is required' })
+			.min(1, 'Name is required')
+			.trim(),
+		email: z
+			.string({ required_error: 'Email is required' })
+			.email({ message: 'Email must be a valid email address' }),
+		password: z
+			.string({ required_error: 'Password is required' })
+			.regex(
+				new RegExp(
+					'^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$'
+				),
+				'One uppercase, one lower, one special character, and a number required'
+			),
+		passwordConfirm: z
+			.string({ required_error: 'Need to confirm password' })
+			.regex(
+				new RegExp(
+					'^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$'
+				),
+				'One uppercase, one lower, one special character, and a number required'
+			),
+	})
+	.superRefine(({ passwordConfirm, password }, ctx) => {
+		if (passwordConfirm !== password) {
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Password and confirm password must match',
+				path: ['password'],
+			});
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Password and confirm password must match',
+				path: ['passwordConfirm'],
+			});
+		}
+	});
 
 export const updateUserDetailsSchema = z.object({
-  fullName: z
-    .string({ required_error: 'Name is required' })
-    .min(1, 'Name is required')
-    .trim(),
-  username: z
-    .string({ required_error: 'Username is required'})
-    .min(1, 'Username is required')
-    .trim()
-})
+	fullName: z
+		.string({ required_error: 'Name is required' })
+		.min(1, 'Name is required')
+		.trim(),
+	username: z
+		.string({ required_error: 'Username is required' })
+		.min(1, 'Username is required')
+		.trim(),
+});
 
-export const changePasswordSchema = z.object({
-  currentPassword: z
-    .string({ required_error: 'Need to enter the old password' })
-    .min(1, 'Need to enter the old password')
-    .trim(),
-  newPassword: z
-    .string({ required_error: 'A new password is required' })
-    .regex(new RegExp("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$"), 'One uppercase, one lower, one special character, and a number required'),
-  newPasswordConfirm: z
-    .string({ required_error: 'Need to confirm the new password' })
-    .regex(new RegExp("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$"), 'One uppercase, one lower, one special character, and a number required')
-}).superRefine(({ newPassword, newPasswordConfirm }, ctx) => {
-  if (newPassword !== newPasswordConfirm) {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Password and confirm password must match',
-      path: ['newPassword']
-    })
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Password and confirm password must match',
-      path: ['newPasswordConfirm']
-    })
-  }
-})
+export const changePasswordSchema = z
+	.object({
+		currentPassword: z
+			.string({ required_error: 'Need to enter the old password' })
+			.min(1, 'Need to enter the old password')
+			.trim(),
+		newPassword: z
+			.string({ required_error: 'A new password is required' })
+			.regex(
+				new RegExp(
+					'^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$'
+				),
+				'One uppercase, one lower, one special character, and a number required'
+			),
+		newPasswordConfirm: z
+			.string({ required_error: 'Need to confirm the new password' })
+			.regex(
+				new RegExp(
+					'^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$'
+				),
+				'One uppercase, one lower, one special character, and a number required'
+			),
+	})
+	.superRefine(({ newPassword, newPasswordConfirm }, ctx) => {
+		if (newPassword !== newPasswordConfirm) {
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Password and confirm password must match',
+				path: ['newPassword'],
+			});
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Password and confirm password must match',
+				path: ['newPasswordConfirm'],
+			});
+		}
+	});
+
+export const profileDetailsSchema = z.object({
+	name: z
+		.string({ required_error: 'Name is required' })
+		.min(1, 'Name is required')
+		.trim(),
+	username: z
+		.string({ required_error: 'Username is required' })
+		.min(1, 'Username is required')
+		.trim(),
+});

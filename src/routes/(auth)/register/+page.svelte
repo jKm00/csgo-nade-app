@@ -4,6 +4,7 @@
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import FormMessage from '$lib/components/feedback/FormMessage.svelte';
 	import { page } from '$app/stores';
+	import FormButton from '$lib/components/buttons/FormButton.svelte';
 
 	export let data;
 
@@ -54,13 +55,7 @@
 		errors={$errors.passwordConfirm}
 		isPassword={true}
 	/>
-	<button
-		class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 p-2 rounded mt-2"
-		type="submit"
-		disabled={$delayed}
-	>
-		Register
-	</button>
+	<FormButton disabled={$delayed}>Register</FormButton>
 	<FormMessage message={$message} status={$page.status} />
 	{#if $delayed}
 		<div class="grid justify-center">
