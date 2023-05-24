@@ -65,7 +65,7 @@
 </script>
 
 <header
-	class="grid items-center relative w-default overflow-hidden p-4 rounded mb-10"
+	class="grid items-center relative w-default overflow-hidden p-4 rounded my-10"
 >
 	<img
 		class="absolute"

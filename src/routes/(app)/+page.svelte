@@ -1,5 +1,6 @@
 <script lang="ts">
 	import MapThumbnail from '$lib/components/containers/MapThumbnail.svelte';
+	import { onMount } from 'svelte';
 
 	const MAPS = [
 		{
@@ -33,7 +34,7 @@
 	];
 </script>
 
-<main class="grid gap-4 grid-cols-main mt-20 px-4">
+<main class="grid gap-4 grid-cols-main mt-10 px-4">
 	{#each MAPS as map}
 		<MapThumbnail
 			img={map.thumbnail}
