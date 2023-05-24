@@ -120,3 +120,13 @@ export const profileDetailsSchema = z.object({
 		.min(1, 'Username is required')
 		.trim(),
 });
+
+export const stratSchema = z.object({
+	name: z
+		.string({ required_error: 'Name is required' })
+		.min(1, 'Name is required')
+		.trim(),
+	description: z.string().optional(),
+	privacy: z.enum(['PUBLIC', 'PRIVATE']),
+	team: z.string().optional(),
+});

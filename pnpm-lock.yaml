@@ -13,6 +13,9 @@ dependencies:
   svelte-french-toast:
     specifier: 1.0.4-beta.0
     version: 1.0.4-beta.0(svelte@3.54.0)
+  svelte-use-click-outside:
+    specifier: ^1.0.0
+    version: 1.0.0
 
 devDependencies:
   '@supabase/supabase-js':
@@ -1487,6 +1490,10 @@ packages:
       svelte: 3.54.0
       typescript: 4.9.5
     dev: true
+
+  /svelte-use-click-outside@1.0.0:
+    resolution: {integrity: sha512-tOWeMPxeIoW9RshS0WbogRhdYdbxcJV0ebkzSh1lwR7Ihl0hSZMmB4YyCHHoXJK4xcbxCCFh0AnQ1vkzGZfLVQ==}
+    dev: false
 
   /svelte-writable-derived@3.0.1(svelte@3.54.0):
     resolution: {integrity: sha512-zBWCS5c3MA9o4NT/UJHP3KoPOhtmH2ZQ/QRK31w9LzLdPP7MNncUcBGIu4iH2RVt17iRfR6agm7nEqwNvsYuMw==}
