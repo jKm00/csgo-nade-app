@@ -130,3 +130,11 @@ export const stratSchema = z.object({
 	privacy: z.enum(['PUBLIC', 'PRIVATE']),
 	team: z.string().optional(),
 });
+
+export const teamSchema = z.object({
+	name: z
+		.string({ required_error: 'Team neam is required ' })
+		.min(1, 'Team name is required')
+		.trim(),
+	role: z.string().optional(),
+});
