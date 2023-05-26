@@ -24,5 +24,5 @@
 <Toaster />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<slot />
-	<Footer version={'0.3.2'} />
+	<Footer version={'0.3.3'} />
 </div>
