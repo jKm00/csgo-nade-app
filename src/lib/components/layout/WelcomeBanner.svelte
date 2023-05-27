@@ -67,11 +67,8 @@
 				</p>
 			</div>
 		</div>
-		<div class="flex items-center gap-4">
-			<MainLink link="/login">Login</MainLink>
-			<a class="hover:underline focus-within:underline" href="/register"
-				>Register</a
-			>
+		<div class="justify-self-start">
+			<MainLink link="/strats">Get started</MainLink>
 		</div>
 	</div>
 	<button on:click={handleClose} class="absolute z-20 top-4 right-4"
