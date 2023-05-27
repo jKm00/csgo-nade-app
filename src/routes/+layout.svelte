@@ -26,5 +26,5 @@
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<BetaBanner />
 	<slot />
-	<Footer version={'0.3.3'} />
+	<Footer />
 </div>
