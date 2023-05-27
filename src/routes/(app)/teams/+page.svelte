@@ -36,7 +36,12 @@
 	let selectedRole = '';
 </script>
 
-<form class="grid gap-4" action="?/createTeam" method="POST" use:enhance>
+<form
+	class="grid gap-4 my-10 w-default"
+	action="?/createTeam"
+	method="POST"
+	use:enhance
+>
 	<TextInput
 		id="name"
 		name="name"
@@ -45,11 +50,22 @@
 		errors={$errors.name}
 		placeholder="myTeam"
 	/>
-	<Dropdown
-		placeholder="Team role"
-		options={teamRoles}
-		on:update={(event) => (selectedRole = event.detail.value)}
+	<TextInput
+		id="org"
+		name="org"
+		label="Organization:"
+		value={$form.org}
+		errors={$errors.org}
+		placeholder="myOrganization"
 	/>
+	<div>
+		<p class="font-bold">Your team role:</p>
+		<Dropdown
+			placeholder="Team role"
+			options={teamRoles}
+			on:update={(event) => (selectedRole = event.detail.value)}
+		/>
+	</div>
 	<input type="hidden" name="role" bind:value={selectedRole} />
 	<FormMessage message={$message} status={$page.status} />
 	<FormButton>Create new team</FormButton>

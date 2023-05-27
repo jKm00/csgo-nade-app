@@ -133,8 +133,20 @@ export const stratSchema = z.object({
 
 export const teamSchema = z.object({
 	name: z
-		.string({ required_error: 'Team neam is required ' })
+		.string({ required_error: 'Team neam is required' })
 		.min(1, 'Team name is required')
 		.trim(),
+	org: z
+		.string({ required_error: 'Organization is required' })
+		.min(1, 'Organization is required')
+		.trim(),
 	role: z.string().optional(),
+});
+
+export const inviteUserSchema = z.object({
+	username: z
+		.string({ required_error: 'Username is required' })
+		.min(1, 'Username is required')
+		.trim(),
+	teamId: z.number({ required_error: 'Team id is required' }),
 });

@@ -3,30 +3,28 @@
 
 	export let data;
 
-	$: ({ profile, session } = data);
+	$: ({ profile, session, teams } = data);
 
 	const TEAM_TABLE_HEADERS = [
 		'Team name',
 		'Role',
 		'Nr. Members',
 		'Org',
-		'Created At',
+		'Joined At',
 	];
 
-	const TMP_TEAMS = [
-		{
-			data: ['Ninjas In Pyjamas', 'Main Awper', '8', 'NIP', '2015-03-16'],
-			link: 'ninjas-in-pyjamas',
-		},
-		{
-			data: ['Faze Clan', 'Coach', '23', 'FAZE', '2018-06-04'],
-			link: 'face-clan',
-		},
-		{
-			data: ['DOT', 'Entry Fragger', '7', 'DOT', '2021-01-01'],
-			link: 'dot',
-		},
-	];
+	$: teamData = teams?.map((t) => {
+		return {
+			data: [
+				t.team_name ?? '',
+				t.player_role ?? 'N/A',
+				`${t.total_players}` ?? '',
+				t.org ?? 'N/A',
+				t.joined_at ? new Date(t.joined_at).toDateString() : '',
+			],
+			link: t.team_name ? t.team_name.toLowerCase() : '',
+		};
+	});
 </script>
 
 <div class="w-default px-4 mt-10">
@@ -63,7 +61,7 @@
 						href="/teams">New team</a
 					>
 				{/if}
-				<Table headers={TEAM_TABLE_HEADERS} items={TMP_TEAMS} />
+				<Table headers={TEAM_TABLE_HEADERS} items={teamData ?? []} />
 			</main>
 		</div>
 	{/if}

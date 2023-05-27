@@ -21,13 +21,15 @@
 		{/each}
 	</div>
 	<!-- Rows -->
-	{#if !items}
-		<p class="grid place-items-center py-4">No data...</p>
+	{#if !items || items.length === 0}
+		<p class="grid place-items-center py-4 text-neutral-400 text-sm">
+			No data...
+		</p>
 	{:else}
 		{#each items as row, index}
 			<a href="/teams/{row.link}">
 				<div
-					class="grid items-center px-4 py-2 hover:bg-neutral-700 focus-within:bg-neutral-700 rounded
+					class="grid items-center text-sm px-4 py-2 hover:bg-neutral-700 focus-within:bg-neutral-700 rounded
       {index % 2 !== 0 ? 'bg-neutral-800' : ''}"
 					style={`grid-template-columns: repeat(${headers.length}, 1fr) 1rem`}
 				>

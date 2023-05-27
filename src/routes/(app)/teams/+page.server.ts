@@ -26,7 +26,7 @@ export const actions = {
 		}
 
 		const session = await locals.getSession();
-		const { name } = form.data as Record<string, string>;
+		const { name, org } = form.data as Record<string, string>;
 
 		// Fetch userid from session
 		const { data: userData } = await locals.supabase
@@ -43,6 +43,7 @@ export const actions = {
 			.from('teams')
 			.insert({
 				name: name,
+				organization: org,
 				team_leader: userData[0].id,
 			})
 			.select();
@@ -64,6 +65,7 @@ export const actions = {
 			});
 		}
 
+		// Create first team member
 		const { error: memberError } = await locals.supabase
 			.from('team_members')
 			.insert({
@@ -79,6 +81,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, `/teams/${name}`);
+		throw redirect(302, `/teams/${name.toLowerCase()}`);
 	},
 };

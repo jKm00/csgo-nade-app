@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import MainLink from '../buttons/MainLink.svelte';
 
@@ -7,25 +7,6 @@
 
 	const handleClose = () => {
 		dispatch('close', {});
-	};
-
-	let activeStep = 1;
-	let loopInterval: NodeJS.Timeout;
-
-	onMount(() => {
-		loopInterval = setInterval(loopSteps, 5000);
-	});
-
-	onDestroy(() => {
-		clearInterval(loopInterval);
-	});
-
-	const loopSteps = () => {
-		if (activeStep === 4) {
-			activeStep = 1;
-		} else {
-			activeStep = activeStep + 1;
-		}
 	};
 </script>
 

@@ -29,12 +29,6 @@
 					href="/users/{session?.user.id}/settings">Profile settings</a
 				>
 			</li>
-			<li>
-				<a
-					class="hover:underline focus-within:underline"
-					href="/users/{session?.user.id}/settings/teams">Team settings</a
-				>
-			</li>
 		</ul>
 	</aside>
 	<main>

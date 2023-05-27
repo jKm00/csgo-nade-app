@@ -5,6 +5,7 @@
 	import { invalidate } from '$app/navigation';
 	import { Toaster } from 'svelte-french-toast';
 	import { page } from '$app/stores';
+	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
 
 	export let data;
 
@@ -23,6 +24,7 @@
 
 <Toaster />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
+	<BetaBanner />
 	<slot />
 	<Footer version={'0.3.3'} />
 </div>
