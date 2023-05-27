@@ -6,10 +6,11 @@
 	import FormMessage from '$lib/components/feedback/FormMessage.svelte';
 	import { enhance, type SubmitFunction } from '$app/forms';
 	import type { Provider } from '@supabase/supabase-js';
+	import { redirect } from '@sveltejs/kit';
 
 	export let data;
 
-	$: ({ supabase } = data);
+	$: ({ supabase, redirectTo } = data);
 
 	const {
 		form,
@@ -30,6 +31,9 @@
 			case 'github':
 				await signInWithProvider('github');
 				break;
+			case 'discord':
+				await signInWithProvider('discord');
+				break;
 			default:
 				break;
 		}
@@ -38,7 +42,12 @@
 </script>
 
 <!-- Default form -->
-<form class="grid gap-4 w-80" action="?/login" method="POST" use:superEnhance>
+<form
+	class="grid gap-4 w-80"
+	action="?/login{redirectTo ? `&redirectTo=${redirectTo}` : ''}"
+	method="POST"
+	use:superEnhance
+>
 	<h1 class="font-bold uppercase text-center text-3xl">Login</h1>
 	<TextInput
 		id="email"
@@ -83,7 +92,7 @@
 				/>GitHub</button
 			>
 			<button
-				formaction="?/login&provider=github"
+				formaction="?/login&provider=discord"
 				class="flex items-center justify-center gap-2 bg-indigo-500 rounded p-2 w-full"
 				><img
 					class="w-5"

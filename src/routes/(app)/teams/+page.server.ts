@@ -1,6 +1,6 @@
 import { teamSchema } from '$lib/validations/zodShemas.js';
 import { AuthApiError } from '@supabase/supabase-js';
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export const load = async ({ locals }) => {
@@ -22,11 +22,14 @@ export const actions = {
 		const form = await superValidate(request, teamSchema);
 
 		if (!form.valid) {
-			return message(form, 'Invalid form');
+			return fail(400, {
+				form,
+				error: 'Invalid form',
+			});
 		}
 
 		const session = await locals.getSession();
-		const { name, org } = form.data as Record<string, string>;
+		const { name, org, role } = form.data as Record<string, string>;
 
 		// Fetch userid from session
 		const { data: userData } = await locals.supabase
@@ -35,7 +38,10 @@ export const actions = {
 			.eq('uuid', session.user.id);
 
 		if (userData === null) {
-			return message(form, 'Could not find user to assign as leader');
+			return fail(400, {
+				form,
+				error: 'Could not find user to assign as leader',
+			});
 		}
 
 		// Create team
@@ -51,17 +57,20 @@ export const actions = {
 		// Check for errors when creating team
 		if (err) {
 			if (err.code === '23505') {
-				return message(form, 'Team name already taken', {
-					status: 400,
+				return fail(400, {
+					form,
+					error: 'Team name already taken',
 				});
 			}
 			if (err instanceof AuthApiError && err.status === 400) {
-				return message(form, err.message, {
-					status: 400,
+				return fail(400, {
+					form,
+					error: err.message,
 				});
 			}
-			return message(form, 'Server error. Please try again later', {
-				status: 500,
+			return fail(500, {
+				form,
+				error: 'Server error. Please try again later',
 			});
 		}
 
@@ -71,13 +80,13 @@ export const actions = {
 			.insert({
 				team_id: data[0].id,
 				player_id: userData[0].id,
-				role: form.data.role,
+				role,
 			});
 
 		if (memberError) {
-			console.log(memberError);
-			return message(form, 'Failed to add member', {
-				status: 400,
+			return fail(400, {
+				form,
+				error: 'Failed to add member',
 			});
 		}
 

@@ -2,7 +2,7 @@
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
-	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
+	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
 
 	enum FormSteps {
 		INFO,
@@ -12,13 +12,14 @@
 
 	export let data;
 
-	$: ({ map } = data);
+	$: ({ maps, teams } = data);
 
 	let activeStep = FormSteps.INFO;
 
 	const { form, errors, enhance, delayed } = superForm(data.form);
-	let selectedPrivacy = '';
-	let selectedTeam = '';
+
+	let selectedMap = '';
+	$: mapRadar = maps?.find((m) => m.name === selectedMap)?.radar;
 
 	const goBack = () => {
 		switch (activeStep) {
@@ -47,9 +48,9 @@
 	};
 </script>
 
-<main class="w-default my-10">
+<main class="w-default">
 	<!-- Form steps -->
-	<ol class="flex mb-10">
+	<ol class="flex mb-5">
 		<li
 			class="flex-grow text-center py-4 border-red-400 {activeStep ===
 			FormSteps.INFO
@@ -100,24 +101,55 @@
 				placeholder="Short description (optional)"
 			/>
 			<div class="flex gap-4">
-				<Dropdown
+				<FormDropdown
+					id="map"
+					name="map"
+					value={$form.map}
+					errors={$errors.map}
+					placeholder="Map"
+					options={maps
+						? maps.map((m) => {
+								return { value: m.name, label: m.name };
+						  })
+						: []}
+					on:update={(event) => (selectedMap = event.detail.value)}
+				/>
+				<FormDropdown
+					id="privacy"
+					name="privacy"
+					value={$form.privacy}
+					errors={$errors.privacy}
 					placeholder="Privacy"
 					options={[
 						{ label: 'Public', value: 'PUBLIC' },
 						{ label: 'Private', value: 'PRIVATE' },
 					]}
-					on:update={(event) => (selectedPrivacy = event.detail.value)}
 				/>
-				<Dropdown
+				<FormDropdown
+					id="team"
+					name="team"
+					value={$form.team}
+					errors={$errors.team}
 					placeholder="Team"
-					options={[
-						{ label: 'Faze', value: 'Faze' },
-						{ label: 'DOT Esport', value: 'DOT' },
-					]}
-					on:update={(event) => (selectedTeam = event.detail.value)}
+					options={teams
+						? teams.map((m) => {
+								return { value: `${m.team_id}`, label: m.team_name ?? '' };
+						  })
+						: []}
 				/>
 			</div>
 		</form>
+	{:else if activeStep === FormSteps.NADES}
+		<!-- Nade selector -->
+		{#if mapRadar && mapRadar !== ''}
+			<div class="w-1/2">
+				<img src={mapRadar} alt="Radar of {selectedMap}" />
+			</div>
+		{:else}
+			<p class="text-sm text-red-400 text-center">
+				No map selected! Go back and select a map first
+			</p>
+		{/if}
 	{/if}
 
 	<!-- Back and forth buttons -->

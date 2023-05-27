@@ -127,8 +127,9 @@ export const stratSchema = z.object({
 		.min(1, 'Name is required')
 		.trim(),
 	description: z.string().optional(),
+	map: z.string(),
 	privacy: z.enum(['PUBLIC', 'PRIVATE']),
-	team: z.string().optional(),
+	team: z.string(),
 });
 
 export const teamSchema = z.object({
@@ -140,7 +141,10 @@ export const teamSchema = z.object({
 		.string({ required_error: 'Organization is required' })
 		.min(1, 'Organization is required')
 		.trim(),
-	role: z.string().optional(),
+	role: z
+		.string({ required_error: 'Need to select a role' })
+		.min(1, 'Need to select a role')
+		.trim(),
 });
 
 export const invitePlayerSchema = z.object({

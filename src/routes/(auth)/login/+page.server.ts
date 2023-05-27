@@ -3,17 +3,20 @@ import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
-const OAUTH_PROVIDER = ['github', 'facebook'];
+const OAUTH_PROVIDER = ['github', 'discord'];
 
-export const load: ServerLoad = async ({ locals }) => {
+export const load: ServerLoad = async ({ locals, url }) => {
 	const session = await locals.getSession();
 	if (session) {
 		throw redirect(302, '/');
 	}
 
+	const redirectTo = url.searchParams.get('redirectTo');
+
 	const form = await superValidate(loginSchema);
 	return {
 		form,
+		redirectTo,
 	};
 };
 
@@ -67,6 +70,8 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/');
+		const redirectTo = url.searchParams.get('redirectTo') ?? '/';
+
+		throw redirect(302, redirectTo);
 	},
 };

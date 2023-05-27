@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { clickOutside } from 'svelte-use-click-outside';
 	import ErrorMessage from '../feedback/ErrorMessage.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	interface Option {
 		value: string;
@@ -13,6 +14,8 @@
 	export let placeholder: string;
 	export let options: Option[];
 	export let errors: string[] | undefined = undefined;
+
+	const dispatch = createEventDispatcher<{ update: { value: string } }>();
 
 	let selected: Option | null = null;
 
@@ -31,6 +34,8 @@
 		selected = option;
 		showDropDown = false;
 	};
+
+	$: dispatch('update', { value });
 </script>
 
 <input type="hidden" {id} {name} bind:value />
@@ -59,7 +64,7 @@
 	<div
 		class="{showDropDown
 			? ''
-			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full shadow z-10"
+			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full max-h-52 overflow-y-auto shadow z-10"
 	>
 		<button
 			class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"

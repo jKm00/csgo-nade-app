@@ -1,39 +1,27 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
-	import FormMessage from '$lib/components/feedback/FormMessage.svelte';
-	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
+	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
+	import { TEAM_ROLES } from '$lib/shared/teamRoles.js';
+	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
+	export let form;
 
-	const { form, errors, enhance, delayed, message } = superForm(data.form);
+	const {
+		form: teamForm,
+		errors,
+		enhance,
+		delayed,
+		message,
+	} = superForm(data.form);
 
-	const teamRoles = [
-		{
-			label: 'Main AWPer',
-			value: 'Main AWPer',
-		},
-		{
-			label: 'Secondary AWPer',
-			value: 'Secondary AWPer',
-		},
-		{
-			label: 'Entry fragger',
-			value: 'Entry fragger',
-		},
-		{
-			label: 'Coach',
-			value: 'Coach',
-		},
-		{
-			label: 'Support player',
-			value: 'Support player',
-		},
-	];
-
-	let selectedRole = '';
+	$: if (form?.error) {
+		toast.error(form.error, {
+			style: 'background: #333; color:#fff',
+		});
+	}
 </script>
 
 <form
@@ -46,7 +34,7 @@
 		id="name"
 		name="name"
 		label="Team name:"
-		value={$form.name}
+		value={$teamForm.name}
 		errors={$errors.name}
 		placeholder="myTeam"
 	/>
@@ -54,19 +42,20 @@
 		id="org"
 		name="org"
 		label="Organization:"
-		value={$form.org}
+		value={$teamForm.org}
 		errors={$errors.org}
 		placeholder="myOrganization"
 	/>
 	<div>
 		<p class="font-bold">Your team role:</p>
-		<Dropdown
+		<FormDropdown
+			id="role"
+			name="role"
+			value={$teamForm.role}
+			errors={$errors.role}
 			placeholder="Team role"
-			options={teamRoles}
-			on:update={(event) => (selectedRole = event.detail.value)}
+			options={TEAM_ROLES}
 		/>
 	</div>
-	<input type="hidden" name="role" bind:value={selectedRole} />
-	<FormMessage message={$message} status={$page.status} />
 	<FormButton>Create new team</FormButton>
 </form>
