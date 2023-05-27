@@ -55,7 +55,7 @@ export const actions = {
 			});
 		}
 
-		return { success: 'Invitation successfully declined' };
+		return { success: 'Invitation declined' };
 	},
 	accept: async ({ request, locals }) => {
 		const invitationId = (await request.formData()).get('invitationId');

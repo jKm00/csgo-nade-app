@@ -9,11 +9,15 @@
 	export let form;
 
 	$: if (form?.error) {
-		toast.error(form.error);
+		toast.error(form.error, {
+			style: 'background: #333; color:#fff',
+		});
 	}
 
 	$: if (form?.success) {
-		toast.success(form.success);
+		toast.success(form.success, {
+			style: 'background: #333; color:#fff',
+		});
 	}
 
 	$: ({ invitations, supabase, authUser } = data);
