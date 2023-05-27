@@ -19,9 +19,7 @@
 </script>
 
 {#if showBanner}
-	<div
-		class="relative z-10 bg-yellow-400/10 border border-yellow-400 rounded p-2"
-	>
+	<div class="relative z-10 bg-yellow-400/20 p-2">
 		<p class="text-center text-yellow-400 text-sm">
 			Warning: This website is currently in beta. Any data or creations made may
 			be subject to loss or instability
