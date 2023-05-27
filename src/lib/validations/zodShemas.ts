@@ -143,10 +143,16 @@ export const teamSchema = z.object({
 	role: z.string().optional(),
 });
 
-export const inviteUserSchema = z.object({
+export const invitePlayerSchema = z.object({
 	username: z
 		.string({ required_error: 'Username is required' })
 		.min(1, 'Username is required')
 		.trim(),
 	teamId: z.number({ required_error: 'Team id is required' }),
+	role: z
+		.string({ required_error: 'Role is required ' })
+		.min(1, 'Role is required')
+		.trim(),
 });
+
+export type InvitePlayerSchema = typeof invitePlayerSchema;

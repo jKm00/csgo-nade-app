@@ -9,16 +9,26 @@ export const load = async ({ locals, params }) => {
 
 	const uuid = params.uuid;
 
+	const { data: userData } = await locals.supabase
+		.from('profiles')
+		.select('id')
+		.eq('uuid', session.user.id);
+
+	if (!userData || userData.length === 0) {
+		throw redirect(302, '/');
+	}
+
 	const { data } = await locals.supabase
 		.from('team_invitations')
 		.select(
 			`
       id,
-      profiles ( uuid ),
+			player_id,
+			team_role,
       teams ( name, organization )
     `
 		)
-		.eq('profiles.uuid', uuid);
+		.eq('player_id', userData[0].id);
 
 	return {
 		invitations: data,

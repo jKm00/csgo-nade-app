@@ -35,7 +35,6 @@
 					filter: `player_id=eq.${playerId}`,
 				},
 				(payload: any) => {
-					console.log(payload);
 					const eventType = payload.eventType;
 					if (eventType === 'INSERT') {
 						numberOfAlerts = numberOfAlerts + 1;

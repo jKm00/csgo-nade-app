@@ -1,11 +1,11 @@
-import { inviteUserSchema } from '$lib/validations/zodShemas.js';
+import { invitePlayerSchema } from '$lib/validations/zodShemas.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export const load = async ({ params, locals }) => {
 	const teamName = params.team;
 
-	const form = superValidate(inviteUserSchema);
+	const form = superValidate(invitePlayerSchema);
 
 	const team = await locals.supabase
 		.from('teams')
@@ -42,15 +42,19 @@ export const load = async ({ params, locals }) => {
 };
 
 export const actions = {
-	invitePlayer: async ({ request, locals, url }) => {
-		const form = await superValidate(request, inviteUserSchema);
+	invitePlayer: async ({ request, locals }) => {
+		const form = await superValidate(request, invitePlayerSchema);
+
+		console.log(form);
 
 		// Validate form
 		if (!form.valid) {
 			return message(form, 'Invalid form');
 		}
 
-		const { username, teamId } = form.data;
+		const { username, teamId, role } = form.data;
+
+		console.log(username, teamId, role);
 
 		// Fetch user id based on username
 		const { data: userData } = await locals.supabase
@@ -84,6 +88,7 @@ export const actions = {
 		const { error } = await locals.supabase.from('team_invitations').insert({
 			team_id: Number(teamId),
 			player_id: userData[0].id,
+			team_role: role,
 		});
 
 		if (error) {

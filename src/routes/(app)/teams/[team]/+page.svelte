@@ -1,6 +1,10 @@
 <script lang="ts">
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
+	import ErrorMessage from '$lib/components/feedback/ErrorMessage.svelte';
+	import InvitePlayerForm from '$lib/components/forms/InvitePlayerForm.svelte';
+	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
+	import { TEAM_ROLES } from '$lib/shared/teamRoles.js';
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 
@@ -8,13 +12,6 @@
 	export let form;
 
 	$: ({ team, teamMembers, session } = data);
-
-	const {
-		form: inviteForm,
-		errors: inviteErrors,
-		enhance: inviteEnhance,
-		message: inviteMessage,
-	} = superForm(data.form);
 
 	$: if (form?.message) {
 		toast.error(form.message, {
@@ -44,6 +41,11 @@
 	let dialog: HTMLDialogElement;
 	let memberToKick: { id: string; name: string } | null = null;
 
+	/**
+	 * Handles the event when a user is to be kicked
+	 *
+	 * @param member to me kicked
+	 */
 	const handleKick = (member: any) => {
 		memberToKick = {
 			id: member.profiles.id,
@@ -52,6 +54,9 @@
 		dialog.showModal();
 	};
 
+	/**
+	 * Closes the dialog
+	 */
 	const closeDialog = () => {
 		dialog.close();
 	};
@@ -112,26 +117,7 @@
 		</div>
 		<!-- Show invite form if user is team leader -->
 		{#if isTeamLeader}
-			<form
-				class="grid gap-2 items-center mb-6"
-				action="?/invitePlayer"
-				method="POST"
-				use:inviteEnhance
-			>
-				<TextInput
-					id="username"
-					name="username"
-					label="Invite player:"
-					placeholder="Username"
-					value={$inviteForm.username}
-					errors={$inviteErrors.username}
-				/>
-
-				<input type="hidden" name="teamId" value={team.id} />
-				<div class="justify-self-start">
-					<FormButton>Invite player</FormButton>
-				</div>
-			</form>
+			<InvitePlayerForm data={data.form} teamId={team.id} />
 		{/if}
 		<h2 class="text-lg font-bold mb-2">Members</h2>
 		<div class="flex gap-4">
