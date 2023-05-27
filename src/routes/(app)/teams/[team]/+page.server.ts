@@ -45,16 +45,12 @@ export const actions = {
 	invitePlayer: async ({ request, locals }) => {
 		const form = await superValidate(request, invitePlayerSchema);
 
-		console.log(form);
-
 		// Validate form
 		if (!form.valid) {
 			return message(form, 'Invalid form');
 		}
 
 		const { username, teamId, role } = form.data;
-
-		console.log(username, teamId, role);
 
 		// Fetch user id based on username
 		const { data: userData } = await locals.supabase
@@ -116,7 +112,7 @@ export const actions = {
 			return fail(401, { message: 'Unauthorized' });
 		}
 
-		return { success: 'Player was kicked ' };
+		return { success: 'Player was kicked' };
 	},
 	leaveTeam: async ({ request, locals, url }) => {
 		const session = await locals.getSession();
@@ -144,13 +140,12 @@ export const actions = {
 			.eq('player_id', data && data.length > 0 ? data[0].id : -1);
 
 		if (err) {
-			console.log(err);
 			if (err.code === '22P02') {
 				return fail(400, { message: 'Invalid user' });
 			}
 			return fail(401, { message: 'Unauthorized' });
 		}
 
-		throw redirect(300, url.pathname);
+		throw redirect(302, url.pathname);
 	},
 };

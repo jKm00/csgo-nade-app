@@ -60,6 +60,21 @@
 	const closeDialog = () => {
 		dialog.close();
 	};
+
+	/**
+	 * Takes in either an array of profiles or a single profile and converts it to a single profile
+	 * @param profile to convert
+	 */
+	const getProfile = (
+		profile:
+			| { uuid: string; username: string; email?: string }
+			| { uuid: string; username: string; email?: string }[]
+	) => {
+		if (profile instanceof Array) {
+			return profile[0];
+		}
+		return profile;
+	};
 </script>
 
 <main class="grid gap-4 w-default my-10">
@@ -69,7 +84,7 @@
 				{team.name}
 			</h1>
 			<!-- Show leave button is user is in team -->
-			{#if membersIds?.includes(userId)}
+			{#if membersIds?.includes(userId) && !isTeamLeader}
 				<form action="?/leaveTeam" method="POST">
 					<input type="hidden" />
 					<input type="hidden" name="teamId" value={team.id} />
@@ -104,14 +119,8 @@
 			</div>
 			<div>
 				<h3 class="font-bold">Team Leader:</h3>
-				<a
-					href="/users/{team.profiles && team.profiles instanceof Array
-						? team.profiles[0].uuid
-						: team.profiles?.uuid}"
-				>
-					{team.profiles && team.profiles instanceof Array
-						? team.profiles[0].username
-						: team.profiles?.username}
+				<a href="/users/{team.profiles ? getProfile(team.profiles).uuid : ''}">
+					{team.profiles ? getProfile(team.profiles).username : 'n/a'}
 				</a>
 			</div>
 		</div>
@@ -124,33 +133,33 @@
 			{#if teamMembers !== null}
 				{#each teamMembers as member}
 					<a
-						href="/users/{member.profiles && member.profiles instanceof Array
-							? member.profiles[0].uuid
-							: member.profiles?.uuid}"
+						href="/users/{member.profiles
+							? getProfile(member.profiles).uuid
+							: ''}"
 					>
-						<div class="grid bg-neutral-800 rounded shadow p-4">
-							<h3 class="font-bold">
-								{member.profiles && member.profiles instanceof Array
-									? member.profiles[0].username
-									: member.profiles?.username}
-							</h3>
-							<p class="text-sm text-neutral-400 mb-4">
-								{member.profiles && member.profiles instanceof Array
-									? member.profiles[0].email
-									: member.profiles?.email}
-							</p>
-							<p class="flex gap-10 justify-between text-sm">
-								<span class="font-bold">Role:</span>{member.role ?? 'n/a'}
-							</p>
-							<p class="flex gap-10 justify-between text-sm">
-								<span class="font-bold">Joined At:</span>{new Date(
-									member.inserted_at
-								).toDateString()}
-							</p>
-							{#if isTeamLeader}
+						<div class="grid gap-4 bg-neutral-800 h-full rounded shadow p-4">
+							<div>
+								<h3 class="font-bold">
+									{member.profiles ? getProfile(member.profiles).username : ''}
+								</h3>
+								<p class="text-sm text-neutral-400">
+									{member.profiles ? getProfile(member.profiles).email : ''}
+								</p>
+							</div>
+							<div>
+								<p class="flex gap-10 justify-between text-sm">
+									<span class="font-bold">Role:</span>{member.role ?? 'n/a'}
+								</p>
+								<p class="flex gap-10 justify-between text-sm">
+									<span class="font-bold">Joined At:</span>{new Date(
+										member.inserted_at
+									).toDateString()}
+								</p>
+							</div>
+							{#if isTeamLeader && (member.profiles ? getProfile(member.profiles).uuid !== userId : true)}
 								<button
 									on:click|preventDefault={() => handleKick(member)}
-									class="text-sm text-red-400 mt-6 hover:underline focus-within:underline"
+									class="text-sm text-red-400 hover:underline focus-within:underline"
 									>Kick from team</button
 								>
 							{/if}

@@ -8,6 +8,7 @@ An application for teams and users the create and share csgo strategies
 
 - Node: 18.13.0
 - Docker
+- Supabase CLI
 
 ### Steps
 
