@@ -19,8 +19,10 @@
 </script>
 
 {#if showBanner}
-	<div class="relative z-10 bg-red-400/20 border border-red-400 rounded p-2">
-		<p class="text-center text-red-400 text-sm">
+	<div
+		class="relative z-10 bg-yellow-400/10 border border-yellow-400 rounded p-2"
+	>
+		<p class="text-center text-yellow-400 text-sm">
 			Warning: This website is currently in beta. Any data or creations made may
 			be subject to loss or instability
 		</p>
@@ -28,7 +30,7 @@
 			class="absolute right-4 top-1/2 -translate-y-1/2"
 			on:click={closeBanner}
 			><svg
-				class="w-3 fill-red-400 hover:fill-white focus-within:fill-white transition-colors"
+				class="w-3 fill-yellow-400 hover:fill-white focus-within:fill-white transition-colors"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 384 512"
 				><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
