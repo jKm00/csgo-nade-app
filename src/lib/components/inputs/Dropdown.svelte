@@ -56,7 +56,7 @@
 	<div
 		class="{showDropDown
 			? ''
-			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full shadow"
+			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full shadow z-10"
 	>
 		<button
 			class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"

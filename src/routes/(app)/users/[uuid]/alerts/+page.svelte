@@ -68,10 +68,12 @@
 <h1 class="text-xl text-red-400 font-bold mb-6">Notification Center</h1>
 <h2 class="text-lg font-bold mb-2">Invitations ({invitations?.length})</h2>
 {#if invitations && invitations.length > 0}
-	<ul>
+	<ul class="grid gap-4">
 		<li class="grid grid-cols-5 gap-4 text-sm font-bold">
 			<span>Team name</span>
 			<span>Organization</span>
+			<span>Team role</span>
+			<span>Accept / Decline</span>
 		</li>
 		{#each invitations as inv}
 			<li class="grid grid-cols-5 gap-4">
@@ -89,7 +91,7 @@
 						: inv.teams?.organization}</span
 				>
 				<Dropdown placeholder="Team role" options={teamRoles} />
-				<div class="flex justify-self-end gap-2">
+				<div class="flex gap-2">
 					<button
 						class="bg-neutral-800 hover:bg-red-400 focus-within:bg-red-400 transition-colors p-2 rounded"
 						><svg

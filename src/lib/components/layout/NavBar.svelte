@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import type { RealtimeChannel } from '@supabase/supabase-js';
 	import { onDestroy, onMount } from 'svelte';
+	import toast from 'svelte-french-toast';
 	import { clickOutside } from 'svelte-use-click-outside';
 
 	$: ({ session, supabase, authUser } = $page.data);
@@ -34,9 +35,14 @@
 					filter: `player_id=eq.${playerId}`,
 				},
 				(payload: any) => {
+					console.log(payload);
 					const eventType = payload.eventType;
 					if (eventType === 'INSERT') {
 						numberOfAlerts = numberOfAlerts + 1;
+						toast('You got a new invite', {
+							icon: '📩',
+							style: 'background: #333; color:#fff',
+						});
 					} else if (eventType === 'DELETE') {
 						numberOfAlerts = numberOfAlerts - 1;
 					}

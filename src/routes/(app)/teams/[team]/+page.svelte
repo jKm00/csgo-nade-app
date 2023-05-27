@@ -134,7 +134,7 @@
 			</form>
 		{/if}
 		<h2 class="text-lg font-bold mb-2">Members</h2>
-		<div class="flex">
+		<div class="flex gap-4">
 			{#if teamMembers !== null}
 				{#each teamMembers as member}
 					<a
