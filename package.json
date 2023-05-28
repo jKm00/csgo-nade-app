@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@supabase/supabase-js": "^2.21.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-netlify": "1.0.0-next.88",
 		"@sveltejs/kit": "^1.5.0",
 		"autoprefixer": "^10.4.14",
 		"postcss": "^8.4.23",
