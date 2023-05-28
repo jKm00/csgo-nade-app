@@ -1,69 +1,103 @@
-# CSGO Nade Application
+# Csgo Nade App
 
-A web app displaying a list of strats for each map in the competitive map pool, along with videos of how to throw the nades required in the strat.
-
-## Project Structure
-
-```
-├── backend                                 # API
-│   └── src
-│       └── main
-│           ├── java/no/edvardse/backend    # source code
-│           └── resources                   # app properties etc...
-│
-└── sveltekit                               # frontend application
-    ├── src                                 # source code
-    └── static                              # static elements, like assets etc...
-```
+An application for teams and users the create and share csgo strategies
 
 ## Getting started
 
 ### Prerequisite
 
-- Java 17
-- Maven 3.6.3
-- Node v14.21.1
+- Node: 18.13.0
+- Docker
+- Supabase CLI
 
-### Back-end
+### Steps
 
-**Step 1:**
-
-From terminal run:
+1. Clone repo
+2. Log into supabase
 
 ```
-mvn spring-boot:run
+npx supabase login
 ```
 
-_Optionally if you're using vs code; install spring boot extension and run from vscode interface_
+3. Start local supabase server
 
-### Front-end
+```
+npx supabase start
+```
 
-**Step 1:**
+4. Add env file, _see .env.example for list of all variables needed_
+5. Install dependencies
 
-Add `.env` file to root of `sveltekit` directory with variables:
+```
+npm install
+```
 
-- `VITE_API_BASE_URL=url-to-local-api`
-
-_look `frontend -> .env.example` for reference_
-
-**Step 2:**
-
-From terminal run:
+6. Run application
 
 ```
 npm run dev
 ```
 
-## Feedback
+## Supabase cheatsheet
 
-If you have any suggestions or comments, kindly open a new issue and provide a detailed description of your feedback.
+**Login to supabase CLI**
 
-[Give feedback](https://github.com/jKm00/csgo-nade-app/issues)
+```
+npx supabase login
+```
 
-## Contribution
+**Start local supabase**
 
-If you wish to make contributions to the project, kindly fork the repository, make the desired modifications, and submit a pull request to incorporate your changes.
+```
+npx supabase start
+```
 
-### Support Me
+**Stop local supabase**
 
-<a href="https://www.buymeacoffee.com/joakimedvam">:coffee: Buy me a coffee</a>
+```
+npx supabase stop
+```
+
+**Create new migration**
+
+```
+npx supabase migration new [migration_name]
+```
+
+**Create migartion based on diff after editing from browser**
+
+```
+npx supabase db diff --use-migra -f [migration_name]
+```
+
+**Reset local db**
+
+```
+npx supabase db reset
+```
+
+**Updating typescript types**
+
+```
+npx supabase gen types typescript --local > ./src/schema.ts
+```
+
+**Link to remote project**
+
+```
+npx supabase link --project-ref [project-id]
+```
+
+**Capture any changes made to remote database**
+
+```
+npx supabase db remote commit
+
+# If you have not made any changes to the remote database, skip this step
+```
+
+**Deploy changes**
+
+```
+npx supabase db push
+```
