@@ -53,6 +53,9 @@ export const actions = {
 		}
 
 		if (error) {
+			if (error.code === '23505') {
+				return message(form, 'Username already taken. Try another one');
+			}
 			if (error instanceof AuthApiError && error.status === 400) {
 				return message(form, error.message);
 			}
