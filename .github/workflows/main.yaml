@@ -16,7 +16,7 @@ jobs:
       PROJECT_ID: sokkxphtmqvokzkpjawj
 
       GITHUB_CLIENT_ID: ${{ secrets.HUB_CLIENT_ID }}
-      GITHUC_SECRET: ${{ secrets.HUB_SECRET }}
+      GITHUB_SECRET: ${{ secrets.HUB_SECRET }}
 
       DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
       DISCORD_SECRET: ${{ secrets.DISCORD_SECRET }}
