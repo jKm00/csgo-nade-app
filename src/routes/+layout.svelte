@@ -22,6 +22,15 @@
 	});
 </script>
 
+<svelte:head>
+	<link
+		rel="icon"
+		type="image/x-icon"
+		href="/assets/icons/favicons/favicon.ico"
+	/>
+	<title>CSGO Strats - BETA</title>
+</svelte:head>
+
 <Toaster />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<BetaBanner />
