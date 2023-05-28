@@ -16,11 +16,19 @@ export const TEAM_ROLES = [
 		value: 'Support player',
 	},
 	{
+		label: 'Lurker',
+		value: 'Lurker',
+	},
+	{
 		label: 'In-game leader',
 		value: 'In-game leader',
 	},
 	{
 		label: 'Coach',
 		value: 'Coach',
+	},
+	{
+		label: 'Baiter',
+		value: 'Baiter',
 	},
 ];
