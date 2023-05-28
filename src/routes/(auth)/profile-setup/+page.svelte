@@ -20,20 +20,20 @@
 		Please fill out the form to finish setting up your profile
 	</p>
 	<TextInput
-		id="name"
-		name="name"
-		label="Full name:"
-		placeholder="myName"
-		bind:value={$form.name}
-		errors={$errors.name}
-	/>
-	<TextInput
 		id="username"
 		name="username"
 		label="Username:"
 		placeholder="myUsername"
 		bind:value={$form.username}
 		errors={$errors.username}
+	/>
+	<TextInput
+		id="name"
+		name="name"
+		label="Full name:"
+		placeholder="myName"
+		bind:value={$form.name}
+		errors={$errors.name}
 	/>
 	<FormButton>Submit</FormButton>
 	<FormMessage message={$message} />
