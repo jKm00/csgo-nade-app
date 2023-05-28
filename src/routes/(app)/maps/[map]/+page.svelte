@@ -83,7 +83,12 @@
 		>
 	</div>
 	<div class="grid grid-cols-main-small gap-4">
-		{#each TMP_STRATS as strat}
+		<p class="text-neutral-400 text-sm text-center">
+			Here you will be able to see a list of all strats for {map?.name}. This is
+			not yet implemented, but come back soon and hopefully it has been added :)
+		</p>
+		<!-- TODO: Display proper strats when create strats are implemented -->
+		<!-- {#each TMP_STRATS as strat}
 			<a class="bg-neutral-800 rounded shadow p-4" href="/strats/{strat.id}">
 				<div class="grid">
 					<h3 class="font-bold">{strat.name}</h3>
@@ -96,6 +101,6 @@
 					<Nade type="smoke" amount={strat.smokes} />
 				</div>
 			</a>
-		{/each}
+		{/each} -->
 	</div>
 </div>
