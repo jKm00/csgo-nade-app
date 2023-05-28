@@ -59,8 +59,7 @@ export const actions = {
 			if (error instanceof AuthApiError && error.status === 400) {
 				return message(form, error.message);
 			}
-			return message(form, error.message);
-			// return message(form, 'Server error. Please try again later');
+			return message(form, 'Server error. Please try again later');
 		}
 
 		throw redirect(302, '/');
