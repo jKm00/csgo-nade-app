@@ -22,7 +22,6 @@ values
 insert into
 public.profile_pictures (filename)
 values
-('profile_1.png'),
 ('profile_2.png'),
 ('profile_3.png'),
 ('profile_4.png'),
