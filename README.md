@@ -4,19 +4,19 @@
 An application for teams and users the create and share csgo strategies
 </p>
 
-<a href="https://beta.csgostrats.com/" target="_blank">
+<a href="https://csgostrats.com/" target="_blank">
   <img src="./assets/images/home_page.PNG" alt="Home page" />
 </a>
 
 ## About
 
-_The current state of the application is hosted at: <a href="https://beta.csgostrats.com/" target="_blank">https://beta.csgostrats.com/</a>_
+_The current state of the application is hosted at: <a href="https://csgostrats.com/" target="_blank">https://csgostrats.com/</a>_
 
 The concept revolves around players developing strategies using various nade sets. These strategies can be shared either publicly with the community or privately within a specific team. When viewing a strategy, the map's radar is shown, indicating all the nades thrown as part of the strategy. By clicking on the nade, users can see images of lineups and landing points of each grenade. Additionaly, strategies can include descriptions describing what actions each player should execute.
 
 ## Contribution
 
-**Default flow:** Fork the repo, create a new branch from dev, develop the changes, send a pull request to dev branch in this repo.
+**Default flow:** Fork the repo, create a new branch from main. Give the new branch a name with the issue number followed by a short description of what you are working on in the branch: _20-implement-profile-pictures_. When everything is ready, create a merge request to the main branch of this repo.
 
 To get local environment up and running follow the steps mentioned in "Getting started" belov.
 
