@@ -1,7 +1,9 @@
 <script lang="ts">
+	import MainLink from '$lib/components/buttons/MainLink.svelte';
+
 	export let data;
 
-	$: ({ profile, session, teams, imgBaseUrl } = data);
+	$: ({ profile, session, teams } = data);
 </script>
 
 <div class="w-default px-4 mt-4">
@@ -13,7 +15,7 @@
 		<header class="flex gap-6 bg-neutral-800 rounded shadow p-5 mb-10">
 			<img
 				class="w-24 rounded-full border-4 border-red-400"
-				src={`${imgBaseUrl}/${profile.profile_picture}`}
+				src={`/assets/images/profile_pictures/${profile.profilePicture.filename}`}
 				alt="{profile.name}'s profile picture"
 			/>
 			<div class="flex items-center justify-between grow">
@@ -44,7 +46,7 @@
 						>Joined At:</label
 					>
 					<p class="font-bold" id="joinedAt">
-						{new Date(profile.inserted_at).toLocaleDateString()}
+						{new Date(profile.insertedAt).toLocaleDateString()}
 					</p>
 				</div>
 				<div>
@@ -61,8 +63,11 @@
 				</div>
 			</aside>
 			<main class="grow">
-				<h2 class="text-2xl font-bold mb-4">Teams</h2>
-				<div class="flex gap-4">
+				<div class="flex items-center justify-between mb-4">
+					<h2 class="text-2xl font-bold">Teams</h2>
+					<MainLink link="/teams">New team</MainLink>
+				</div>
+				<div class="flex flex-wrap gap-4">
 					{#if teams}
 						{#each teams as team}
 							<a href="/teams/{team.team_name}">
