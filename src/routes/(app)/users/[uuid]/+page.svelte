@@ -60,7 +60,7 @@
 			</aside>
 			<main class="grow">
 				<h2 class="text-2xl font-bold mb-4">Teams</h2>
-				<div class="flex">
+				<div class="flex gap-4">
 					{#if teams}
 						{#each teams as team}
 							<a href="/teams/{team.team_name}">
