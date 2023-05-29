@@ -1,16 +1,12 @@
 import { fail } from '@sveltejs/kit';
 
 export const load = async ({ locals }) => {
-	const { data } = await locals.supabase.storage
+	const { data } = await locals.supabase
 		.from('profile_pictures')
-		.list('', {
-			limit: 20,
-			offset: 0,
-			sortBy: { column: 'name', order: 'asc' },
-		});
+		.select('id, filename');
 
 	return {
-		imgLinks: data?.map((d) => d.name),
+		images: data,
 	};
 };
 
@@ -30,7 +26,7 @@ export const actions = {
 
 		const { error } = await locals.supabase
 			.from('profiles')
-			.update({ profile_picture: profilePicture })
+			.update({ profile_picture: Number(profilePicture) })
 			.eq('uuid', session.user.id);
 
 		if (error) {

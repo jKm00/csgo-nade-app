@@ -5,7 +5,7 @@
 	export let data;
 	export let form;
 
-	$: ({ imgLinks, profile, imgBaseUrl } = data);
+	$: ({ images, profile } = data);
 
 	$: if (form?.error) {
 		toast.error(form.error, {
@@ -26,17 +26,17 @@
 </script>
 
 <main>
-	{#if imgLinks}
+	{#if images}
 		<form class="flex flex-wrap gap-4" method="POST">
-			{#each imgLinks as img}
-				<button formaction="?/updateProfilePicture&picture={img}">
+			{#each images as image}
+				<button formaction="?/updateProfilePicture&picture={image.id}">
 					<img
-						class="rounded-full w-24 border-red-400 {profile?.profile_picture ===
-						img
+						class="rounded-full w-24 border-red-400 {profile?.profilePicture
+							.filename === image.filename
 							? 'border-8'
 							: ''}"
-						src={`${imgBaseUrl}/${img}`}
-						alt={img}
+						src={`/assets/images/profile_pictures/${image.filename}`}
+						alt={image.filename}
 					/>
 				</button>
 			{/each}

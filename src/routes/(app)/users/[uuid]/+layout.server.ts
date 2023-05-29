@@ -1,18 +1,29 @@
-import type { LayoutLoad, LayoutServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ params, locals }) => {
 	// TODO: Fetch profile from supabase
 	const { data } = await locals.supabase
 		.from('profiles')
-		.select()
+		.select('*, profile_picture ( filename )')
 		.eq('uuid', params.uuid);
 
-	const { data: url } = await locals.supabase.storage
-		.from('profile_picture')
-		.getPublicUrl('');
+	// Convert data to get proper typing on profile picture
+	const profile = data
+		? data.map((d) => {
+				return {
+					id: d.id,
+					uuid: d.uuid,
+					name: d.name,
+					username: d.username,
+					email: d.email,
+					insertedAt: d.inserted_at,
+					updatedAt: d.updated_at,
+					profilePicture: d.profile_picture as { filename: string },
+				};
+		  })[0]
+		: null;
 
 	return {
-		imgBaseUrl: `${url.publicUrl.slice(0, -1)}s`,
-		profile: data ? data[0] : null,
+		profile: profile,
 	};
 };
