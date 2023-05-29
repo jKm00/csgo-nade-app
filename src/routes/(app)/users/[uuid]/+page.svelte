@@ -13,7 +13,7 @@
 		<header class="flex gap-6 bg-neutral-800 rounded shadow p-5 mb-10">
 			<img
 				class="w-24 rounded-full border-4 border-red-400"
-				src="http://localhost:54321/storage/v1/object/public/profile_pictures/{profile.profile_picture}"
+				src="http://sokkxphtmqvokzkpjawj.supabase.co/storage/v1/object/public/profile_pictures/{profile.profile_picture}"
 				alt="{profile.name}'s profile picture"
 			/>
 			<div class="flex items-center justify-between grow">

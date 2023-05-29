@@ -35,7 +35,7 @@
 						img
 							? 'border-8'
 							: ''}"
-						src="http://localhost:54321/storage/v1/object/public/profile_pictures/{img}"
+						src="http://sokkxphtmqvokzkpjawj.supabase.co/storage/v1/object/public/profile_pictures/{img}"
 						alt={img}
 					/>
 				</button>
