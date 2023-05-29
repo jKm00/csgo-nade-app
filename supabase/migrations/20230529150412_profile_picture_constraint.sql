@@ -8,6 +8,8 @@ create table "public"."profile_pictures" (
     "filename" text not null
 );
 
+insert into "public"."profile_pictures" (filename)
+values ('profile_1.png');
 
 alter table "public"."profile_pictures" enable row level security;
 
