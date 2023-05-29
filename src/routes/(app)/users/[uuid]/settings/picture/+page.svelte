@@ -5,7 +5,7 @@
 	export let data;
 	export let form;
 
-	$: ({ img_links, profile } = data);
+	$: ({ imgLinks, profile, imgBaseUrl } = data);
 
 	$: if (form?.error) {
 		toast.error(form.error, {
@@ -26,16 +26,16 @@
 </script>
 
 <main>
-	{#if img_links}
+	{#if imgLinks}
 		<form class="flex flex-wrap gap-4" method="POST">
-			{#each img_links as img}
+			{#each imgLinks as img}
 				<button formaction="?/updateProfilePicture&picture={img}">
 					<img
 						class="rounded-full w-24 border-red-400 {profile?.profile_picture ===
 						img
 							? 'border-8'
 							: ''}"
-						src="http://sokkxphtmqvokzkpjawj.supabase.co/storage/v1/object/public/profile_pictures/{img}"
+						src={`${imgBaseUrl}/${img}`}
 						alt={img}
 					/>
 				</button>
