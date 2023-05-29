@@ -10,7 +10,7 @@ export const load = async ({ locals }) => {
 		});
 
 	return {
-		img_links: data?.map((d) => d.name),
+		imgLinks: data?.map((d) => d.name),
 	};
 };
 
