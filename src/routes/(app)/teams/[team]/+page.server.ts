@@ -101,7 +101,7 @@ export const actions = {
 		const playerId = form.get('playerId');
 		const teamId = form.get('teamId');
 
-		const { data, error: err } = await locals.supabase
+		const { error: err } = await locals.supabase
 			.from('team_members')
 			.delete()
 			.eq('team_id', teamId)
@@ -147,5 +147,35 @@ export const actions = {
 		}
 
 		throw redirect(302, url.pathname);
+	},
+	transferLeader: async ({ request, locals }) => {
+		const session = await locals.getSession();
+
+		const form = await request.formData();
+		const teamId = form.get('teamId');
+		const playerId = form.get('playerId');
+
+		if (teamId === null || playerId === null) {
+			return fail(400, { message: 'Something went wrong. Please try again!' });
+		}
+
+		const { error } = await locals.supabase
+			.from('teams')
+			.update({
+				team_leader: Number(playerId),
+			})
+			.eq('id', teamId);
+
+		if (error) {
+			console.log(error);
+			if (error.code === '42501') {
+				return fail(401, { message: 'Unauthorized' });
+			}
+			return fail(400, {
+				message: 'Failed to transfer leader. Please try again!',
+			});
+		}
+
+		return { success: 'Leader transfered!' };
 	},
 };

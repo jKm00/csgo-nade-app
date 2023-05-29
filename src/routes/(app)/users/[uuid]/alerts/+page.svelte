@@ -1,9 +1,7 @@
 <script lang="ts">
-	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import type { RealtimeChannel } from '@supabase/supabase-js';
 	import { onDestroy, onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
-	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
 	export let form;
@@ -20,29 +18,43 @@
 		});
 	}
 
-	$: ({ invitations, supabase, authUser } = data);
+	$: ({ invitations, supabase, session } = data);
 
-	$: playerId = authUser === null ? '-1' : authUser.id;
+	let user: { id: number; profilePicture: { filename: string } } | null = null;
 
 	let showRefreshMsg = false;
 
 	let invitationSubscription: RealtimeChannel;
-	onMount(() => {
-		invitationSubscription = supabase
-			.channel('table_db_changes')
-			.on(
-				'postgres_changes',
-				{
-					event: '*',
-					schema: 'public',
-					table: 'team_invitations',
-					filter: `player_id=eq.${playerId}`,
-				},
-				() => {
-					showRefreshMsg = true;
-				}
-			)
-			.subscribe();
+	onMount(async () => {
+		if (session !== null) {
+			const { data: userData } = await supabase
+				.from('profiles')
+				.select('id, profile_picture ( filename )')
+				.eq('uuid', session.user.id);
+
+			if (userData) {
+				user = {
+					id: userData[0].id,
+					profilePicture: userData[0].profile_picture as { filename: string },
+				};
+
+				invitationSubscription = supabase
+					.channel('table_db_changes')
+					.on(
+						'postgres_changes',
+						{
+							event: '*',
+							schema: 'public',
+							table: 'team_invitations',
+							filter: `player_id=eq.${user?.id}`,
+						},
+						() => {
+							showRefreshMsg = true;
+						}
+					)
+					.subscribe();
+			}
+		}
 	});
 
 	onDestroy(() => {

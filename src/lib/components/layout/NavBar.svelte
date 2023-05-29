@@ -16,46 +16,48 @@
 	let invitationSubscription: RealtimeChannel;
 
 	onMount(async () => {
-		const { data: userData } = await supabase
-			.from('profiles')
-			.select('id, profile_picture ( filename )')
-			.eq('uuid', session.user.id);
+		if (session !== null) {
+			const { data: userData } = await supabase
+				.from('profiles')
+				.select('id, profile_picture ( filename )')
+				.eq('uuid', session.user.id);
 
-		user = userData[0];
+			user = userData[0];
 
-		// Fetch all invitations
-		const { data } = await supabase
-			.from('team_invitations')
-			.select('*', { count: 'exact' })
-			.eq('player_id', user.id);
+			// Fetch all invitations
+			const { data } = await supabase
+				.from('team_invitations')
+				.select('*', { count: 'exact' })
+				.eq('player_id', user.id);
 
-		numberOfAlerts = data?.length ?? 0;
+			numberOfAlerts = data?.length ?? 0;
 
-		// Subscribe to any further changes to invitations
-		invitationSubscription = await supabase
-			.channel('table_db_changes')
-			.on(
-				'postgres_changes',
-				{
-					event: '*',
-					schema: 'public',
-					table: 'team_invitations',
-					filter: `player_id=eq.${user.id}`,
-				},
-				(payload: any) => {
-					const eventType = payload.eventType;
-					if (eventType === 'INSERT') {
-						numberOfAlerts = numberOfAlerts + 1;
-						toast('You got a new invite', {
-							icon: '📩',
-							style: 'background: #333; color:#fff',
-						});
-					} else if (eventType === 'DELETE') {
-						numberOfAlerts = numberOfAlerts - 1;
+			// Subscribe to any further changes to invitations
+			invitationSubscription = await supabase
+				.channel('table_db_changes')
+				.on(
+					'postgres_changes',
+					{
+						event: '*',
+						schema: 'public',
+						table: 'team_invitations',
+						filter: `player_id=eq.${user.id}`,
+					},
+					(payload: any) => {
+						const eventType = payload.eventType;
+						if (eventType === 'INSERT') {
+							numberOfAlerts = numberOfAlerts + 1;
+							toast('You got a new invite', {
+								icon: '📩',
+								style: 'background: #333; color:#fff',
+							});
+						} else if (eventType === 'DELETE') {
+							numberOfAlerts = numberOfAlerts - 1;
+						}
 					}
-				}
-			)
-			.subscribe();
+				)
+				.subscribe();
+		}
 	});
 
 	onDestroy(() => {
