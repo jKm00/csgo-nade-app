@@ -9,9 +9,7 @@ values ('profile_1.png');
 
 alter table "public"."profiles" drop column "profile_picture";
 
-alter table "public"."profiles" add column "profile_picture" bigint not null;
-
-alter table "public"."profiles" alter column "profile_picture" set default '1'::bigint;
+alter table "public"."profiles" add column "profile_picture" bigint not null default 1;
 
 alter table "public"."profile_pictures" enable row level security;
 
