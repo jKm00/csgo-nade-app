@@ -1,12 +1,10 @@
 <script lang="ts">
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
-	import ErrorMessage from '$lib/components/feedback/ErrorMessage.svelte';
+	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
+	import Drawer from '$lib/components/containers/Drawer.svelte';
 	import InvitePlayerForm from '$lib/components/forms/InvitePlayerForm.svelte';
-	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
-	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import { TEAM_ROLES } from '$lib/shared/teamRoles.js';
+	import TransferLeaderForm from '$lib/components/forms/TransferLeaderForm.svelte';
 	import toast from 'svelte-french-toast';
-	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
 	export let form;
@@ -40,6 +38,9 @@
 
 	let dialog: HTMLDialogElement;
 	let memberToKick: { id: string; name: string } | null = null;
+
+	let showTransfer = false;
+	let showInvite = false;
 
 	/**
 	 * Handles the event when a user is to be kicked
@@ -75,18 +76,60 @@
 		}
 		return profile;
 	};
+
+	const disableFeature = false;
 </script>
 
 <main class="grid gap-4 w-default my-10">
 	{#if team}
+		<!-- general team info -->
 		<div class="flex justify-between items-center">
 			<h1 class="text-xl text-red-400 font-bold">
 				{team.name}
 			</h1>
-			<!-- Show leave button is user is in team -->
-			{#if membersIds?.includes(userId) && !isTeamLeader}
+			{#if isTeamLeader}
+				<!-- show team leader options -->
+				<div class="flex items-center gap-2">
+					{#if disableFeature}
+						<SecondaryButton on:click={() => (showTransfer = true)}
+							><svg
+								class="w-4 fill-white"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 512 512"
+								><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+									d="M32 96l320 0V32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 352c17.7 0 32 14.3 32 32s-14.3 32-32 32H160v64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64H480z"
+								/></svg
+							>Transfer leader</SecondaryButton
+						>
+					{/if}
+					<SecondaryButton on:click={() => (showInvite = true)}
+						><svg
+							class="w-4 fill-white"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 640 512"
+							><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+								d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+							/></svg
+						>Invite player</SecondaryButton
+					>
+					{#if disableFeature}
+						<form action="" method="POST">
+							<FormButton
+								><svg
+									class="w-4 fill-white"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 448 512"
+									><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+										d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+									/></svg
+								>Delete team</FormButton
+							>
+						</form>
+					{/if}
+				</div>
+			{:else if membersIds?.includes(userId)}
+				<!-- team member options -->
 				<form action="?/leaveTeam" method="POST">
-					<input type="hidden" />
 					<input type="hidden" name="teamId" value={team.id} />
 					<button
 						class="flex gap-2 items-center bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 py-1 px-2 rounded"
@@ -124,10 +167,7 @@
 				</a>
 			</div>
 		</div>
-		<!-- Show invite form if user is team leader -->
-		{#if isTeamLeader}
-			<InvitePlayerForm data={data.form} teamId={team.id} />
-		{/if}
+		<!-- team members -->
 		<h2 class="text-lg font-bold mb-2">Members</h2>
 		<div class="flex flex-wrap gap-4">
 			{#if teamMembers !== null}
@@ -168,9 +208,10 @@
 				{/each}
 			{/if}
 		</div>
+		<!-- Confirm kick dialog -->
 		<dialog
 			bind:this={dialog}
-			class="bg-neutral-800 rounded text-white text-sm backdrop:bg-neutral-950/90"
+			class="bg-neutral-900 rounded text-white text-sm backdrop:bg-neutral-950/90"
 		>
 			{#if memberToKick !== null}
 				<div class="grid">
@@ -201,3 +242,13 @@
 		</p>
 	{/if}
 </main>
+{#if team && isTeamLeader && session !== null}
+	<!-- Transfer team leader drawer -->
+	<Drawer bind:show={showTransfer}>
+		<TransferLeaderForm {teamMembers} teamId={team.id} {session} />
+	</Drawer>
+	<!-- Invite player drawer -->
+	<Drawer bind:show={showInvite}>
+		<InvitePlayerForm data={data.form} teamId={team.id} />
+	</Drawer>
+{/if}

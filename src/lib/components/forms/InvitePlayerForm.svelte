@@ -14,7 +14,7 @@
 </script>
 
 <form
-	class="grid gap-2 items-center mb-6"
+	class="grid gap-4 items-center mb-6"
 	action="?/invitePlayer"
 	method="POST"
 	use:enhance
@@ -28,15 +28,13 @@
 		value={$form.username}
 		errors={$errors.username}
 	/>
-	<div class="flex items-start gap-2">
-		<FormDropdown
-			id="role"
-			name="role"
-			placeholder="Team role"
-			options={TEAM_ROLES}
-			value={$form.role}
-			errors={$errors.role}
-		/>
-		<FormButton>Invite player</FormButton>
-	</div>
+	<FormDropdown
+		id="role"
+		name="role"
+		placeholder="Team role"
+		options={TEAM_ROLES}
+		value={$form.role}
+		errors={$errors.role}
+	/>
+	<FormButton>Invite player</FormButton>
 </form>

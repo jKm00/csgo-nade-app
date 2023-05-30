@@ -8,7 +8,8 @@ export default {
         'main-small': 'repeat(auto-fit, minmax(14rem, 1fr))'
       },
       width: {
-        'default': 'min(95vw, 72rem)'
+        'default': 'min(95vw, 72rem)',
+        'drawer': 'min(95vw, 40rem)'
       }
     },
   },
