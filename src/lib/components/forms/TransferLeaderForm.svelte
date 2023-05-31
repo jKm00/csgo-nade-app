@@ -24,8 +24,8 @@
 	};
 </script>
 
-<div class="grid gap-4">
-	<h1 class="text-xl font-bold px-4">Team members</h1>
+<div class="grid">
+	<h1 class="text-xl font-bold mb-4 px-4">Team members</h1>
 	{#if filteredMembers && filteredMembers.length > 0}
 		{#each filteredMembers as member, index}
 			<div
