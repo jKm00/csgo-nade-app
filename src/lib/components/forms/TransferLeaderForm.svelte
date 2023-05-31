@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Session } from '@supabase/supabase-js';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
+	import MainButton from '../buttons/MainButton.svelte';
 
 	export let teamMembers: any;
 	export let teamId: number;
@@ -23,15 +24,17 @@
 	};
 </script>
 
-<div>
-	<h1 class="text-xl font-bold mb-4">Team members</h1>
+<div class="grid gap-4">
+	<h1 class="text-xl font-bold px-4">Team members</h1>
 	{#if filteredMembers && filteredMembers.length > 0}
-		{#each filteredMembers as member}
-			<div class="flex items-center justify-between">
+		{#each filteredMembers as member, index}
+			<div
+				class="flex items-center justify-between px-4 py-2 {index % 2 === 0
+					? 'bg-neutral-800'
+					: ''}"
+			>
 				{member.profiles.username}
-				<SecondaryButton on:click={() => openDialog(member)}
-					>Make leader</SecondaryButton
-				>
+				<MainButton on:click={() => openDialog(member)}>Make leader</MainButton>
 			</div>
 		{/each}
 	{:else}
