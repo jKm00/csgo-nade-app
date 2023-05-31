@@ -72,8 +72,6 @@
 		}
 		return profile;
 	};
-
-	const disableFeature = false;
 </script>
 
 <main class="grid gap-4 w-default my-10">
