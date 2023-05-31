@@ -167,7 +167,6 @@ export const actions = {
 			.eq('id', teamId);
 
 		if (error) {
-			console.log(error);
 			if (error.code === '42501') {
 				return fail(401, { message: 'Unauthorized' });
 			}
@@ -177,5 +176,29 @@ export const actions = {
 		}
 
 		return { success: 'Leader transfered!' };
+	},
+	deleteTeam: async (event) => {
+		const { request, locals } = event;
+
+		const form = await request.formData();
+		const teamId = form.get('teamId');
+
+		if (teamId === null) {
+			return fail(400, { message: 'Something went wrong. Please try again! ' });
+		}
+
+		const { error } = await locals.supabase
+			.from('teams')
+			.delete()
+			.eq('id', teamId);
+
+		if (error) {
+			console.log(error);
+			return fail(400, {
+				message: 'Failed to delete team. Plesae try again!',
+			});
+		}
+
+		throw redirect(302, '/');
 	},
 };
