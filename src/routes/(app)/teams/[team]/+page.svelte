@@ -1,5 +1,6 @@
 <script lang="ts">
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
+	import MainButton from '$lib/components/buttons/MainButton.svelte';
 	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
 	import Drawer from '$lib/components/containers/Drawer.svelte';
 	import InvitePlayerForm from '$lib/components/forms/InvitePlayerForm.svelte';
@@ -36,8 +37,10 @@
 				: userId === team.profiles.uuid
 			: false;
 
-	let dialog: HTMLDialogElement;
+	let confirmKickDialog: HTMLDialogElement;
 	let memberToKick: { id: string; name: string } | null = null;
+
+	let deleteTeamDialog: HTMLDialogElement;
 
 	let showTransfer = false;
 	let showInvite = false;
@@ -52,14 +55,7 @@
 			id: member.profiles.id,
 			name: member.profiles.username,
 		};
-		dialog.showModal();
-	};
-
-	/**
-	 * Closes the dialog
-	 */
-	const closeDialog = () => {
-		dialog.close();
+		confirmKickDialog.showModal();
 	};
 
 	/**
@@ -110,20 +106,9 @@
 							/></svg
 						>Invite player</SecondaryButton
 					>
-					{#if disableFeature}
-						<form action="" method="POST">
-							<FormButton
-								><svg
-									class="w-4 fill-white"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 448 512"
-									><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-										d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
-									/></svg
-								>Delete team</FormButton
-							>
-						</form>
-					{/if}
+					<MainButton on:click={() => deleteTeamDialog.showModal()}
+						>Delete team</MainButton
+					>
 				</div>
 			{:else if membersIds?.includes(userId)}
 				<!-- team member options -->
@@ -208,7 +193,7 @@
 		</div>
 		<!-- Confirm kick dialog -->
 		<dialog
-			bind:this={dialog}
+			bind:this={confirmKickDialog}
 			class="bg-neutral-900 rounded text-white text-sm backdrop:bg-neutral-950/90"
 		>
 			{#if memberToKick !== null}
@@ -220,7 +205,7 @@
 						> from the team?
 					</p>
 					<div class="flex gap-2 justify-end">
-						<button on:click={closeDialog}>Cancel</button>
+						<button on:click={() => confirmKickDialog.close()}>Cancel</button>
 						<form action="?/kickPlayer" method="POST">
 							<input type="hidden" name="playerId" value={memberToKick.id} />
 							<input type="hidden" name="teamId" value={team.id} />
@@ -233,6 +218,23 @@
 					</div>
 				</div>
 			{/if}
+		</dialog>
+		<!-- Delete team dialog -->
+		<dialog
+			class="bg-neutral-900 rounded text-white text-sm backdrop:bg-neutral-950/90"
+			bind:this={deleteTeamDialog}
+		>
+			<div class="grid">
+				<h1 class="text-lg text-red-400 font-bold">Delete team</h1>
+				<p class="mb-10">Are you sure you want to delete the team?</p>
+				<div class="flex gap-2 justify-end">
+					<button on:click={() => deleteTeamDialog.close()}>Cancel</button>
+					<form action="?/deleteTeam" method="POST">
+						<input type="hidden" name="teamId" value={team.id} />
+						<FormButton>Delete team</FormButton>
+					</form>
+				</div>
+			</div>
 		</dialog>
 	{:else}
 		<p class="text-sm text-neutral-400 text-center">
