@@ -12,12 +12,12 @@
 	/>
 {/if}
 <div
-	class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 p-4 {show
+	class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 {show
 		? 'translate-x-0'
 		: 'translate-x-full'} transition-transform"
 	use:clickOutside={() => (show = false)}
 >
-	<div class="mb-6">
+	<div class="mb-6 p-4">
 		<button
 			class="flex items-center gap-2 text-sm"
 			on:click={() => (show = false)}

@@ -14,7 +14,7 @@
 </script>
 
 <form
-	class="grid gap-4 items-center mb-6"
+	class="grid gap-4 items-center mb-6 p-4"
 	action="?/invitePlayer"
 	method="POST"
 	use:enhance
