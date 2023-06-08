@@ -17,8 +17,6 @@
 	$: mapRadar = maps?.find((m) => m.name === selectedMap)?.radar;
 
 	let nades: Nade[] = [];
-
-	$: console.log(nades);
 </script>
 
 <StratEditorNavigation>
