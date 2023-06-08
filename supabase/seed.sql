@@ -11,7 +11,7 @@ insert into
 public.maps (name, thumbnail, radar)
 values
 ('Ancient', '/assets/images/thumbnails/ancient_compressed.webp', '/assets/images/radars/de_ancient.webp'),
-('Anubis', '/assets/images/thumbnails/anubis_compressed.webp', '/assets/images/radars/anubis.webp'),
+('Anubis', '/assets/images/thumbnails/anubis_compressed.webp', '/assets/images/radars/de_anubis.webp'),
 ('Inferno', '/assets/images/thumbnails/inferno_compressed.webp', '/assets/images/radars/de_inferno.webp'),
 ('Mirage', '/assets/images/thumbnails/mirage_compressed.webp', '/assets/images/radars/de_mirage.webp'),
 ('Nuke', '/assets/images/thumbnails/nuke_compressed.webp', '/assets/images/radars/de_nuke.webp'),
