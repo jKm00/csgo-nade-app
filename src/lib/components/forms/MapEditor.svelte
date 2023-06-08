@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { NadeType, type Nade } from '$lib/shared/nade';
+	import toast from 'svelte-french-toast';
 	import MainButton from '../buttons/MainButton.svelte';
 	import NadeColorMeaning from '../feedback/NadeColorMeaning.svelte';
 	import Dropdown from '../inputs/Dropdown.svelte';
@@ -26,6 +27,13 @@
 		}
 		// @ts-ignore
 		if (e.target?.ariaLabel === 'marker') return;
+
+		if (nades.length >= 20 && markerType === MarkerType.LINEUP) {
+			toast.error('A team can maximum throw 20 nades in one round!', {
+				style: 'background: #333; color:#fff',
+			});
+			return;
+		}
 
 		const mouseX = e.offsetX;
 		const mouseY = e.offsetY;
@@ -139,13 +147,15 @@
 		<NadeColorMeaning />
 	</div>
 	<!-- Right element -->
-	<ul class="grid gap-4 items-start content-start">
+	<ul
+		class="grid gap-4 items-start content-start overflow-y-auto max-h-[560px]"
+	>
 		{#if nades.length === 0}
 			<p class="text-neutral-400 text-center">Click on the map to add a nade</p>
 		{:else}
 			{#each nades as nade, index}
 				<li class="flex items-center gap-4">
-					<span>{index + 1}.</span>
+					<span class="w-6">{index + 1}.</span>
 					<input
 						class="text-sm bg-neutral-800 rounded shadow p-2"
 						type="text"

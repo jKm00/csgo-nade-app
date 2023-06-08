@@ -1,4 +1,4 @@
-<div class="flex justify-between py-2">
+<div class="flex flex-wrap justify-between py-2">
 	<div class="flex gap-2 items-center">
 		<span class="block w-4 aspect-square rounded bg-red-400" />Smoke
 	</div>
