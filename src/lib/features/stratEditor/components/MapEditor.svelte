@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { NadeType, type Nade } from '$lib/shared/nade';
+	import { NadeType, type Nade } from '$lib/features/stratEditor/util/nade';
 	import toast from 'svelte-french-toast';
-	import MainButton from '../buttons/MainButton.svelte';
-	import NadeColorMeaning from '../feedback/NadeColorMeaning.svelte';
-	import Dropdown from '../inputs/Dropdown.svelte';
+	import MainButton from '../../../components/buttons/MainButton.svelte';
+	import NadeColorMeaning from './NadeColorMeaning.svelte';
+	import Dropdown from '../../../components/inputs/Dropdown.svelte';
+	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
 
 	enum MarkerType {
 		LINEUP,
@@ -46,7 +47,7 @@
 				...nades,
 				{
 					name: '',
-					type: 'SMOKE',
+					type: '',
 					lineupX: markerPosX,
 					lineupY: markerPosY,
 					impactPointX: -1,
@@ -76,6 +77,7 @@
 
 <!-- Main grid -->
 <div class="grid grid-cols-2 gap-4">
+	<input type="hidden" name="nades" bind:value={nades} />
 	<!-- Left element -->
 	<div>
 		<!-- Image wrapper -->
@@ -102,6 +104,7 @@
 						: 'rgb(248 113 113)'}
 				<!-- Lineup marker -->
 				<button
+					on:click|preventDefault
 					class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2"
 					style="left: {nade.lineupX}%; top: {nade.lineupY}%"
 					aria-label="marker"
@@ -121,6 +124,7 @@
 				{#if nade.impactPointX >= 0 && nade.impactPointY >= 0}
 					<!-- Impact point marker -->
 					<button
+						on:click|preventDefault
 						class="absolute grid place-items-center text-xs w-5 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2"
 						style="background-color: {color}; left: {nade.impactPointX}%; top: {nade.impactPointY}%"
 						aria-label="marker">{index + 1}</button
@@ -148,7 +152,7 @@
 	</div>
 	<!-- Right element -->
 	<ul
-		class="grid gap-4 items-start content-start overflow-y-auto max-h-[560px]"
+		class="grid gap-4 items-start content-start overflow-y-auto max-h-[560px] pt-1"
 	>
 		{#if nades.length === 0}
 			<p class="text-neutral-400 text-center">Click on the map to add a nade</p>
@@ -162,7 +166,10 @@
 						bind:value={nade.name}
 						placeholder="Name of nade"
 					/>
-					<Dropdown
+					<FormDropdown
+						id={`${index}`}
+						name={`${index}`}
+						bind:value={nade.type}
 						placeholder="Nade type"
 						options={[
 							{ label: 'Smoke', value: NadeType.SMOKE },
@@ -171,7 +178,6 @@
 							{ label: 'HE', value: NadeType.HE },
 							{ label: 'Decoy', value: NadeType.DECOY },
 						]}
-						on:update={(e) => (nade.type = e.detail.value)}
 					/>
 					<MainButton on:click={() => removeNade(index)}
 						><svg

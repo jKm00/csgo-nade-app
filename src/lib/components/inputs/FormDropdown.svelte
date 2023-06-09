@@ -14,10 +14,12 @@
 	export let placeholder: string;
 	export let options: Option[];
 	export let errors: string[] | undefined = undefined;
+	export let defaultOptions: string | undefined = undefined;
 
 	const dispatch = createEventDispatcher<{ update: { value: string } }>();
 
-	let selected: Option | null = null;
+	let selected: Option | null =
+		options.find((opt) => opt.value === value) ?? null;
 
 	$: value = selected?.value ?? '';
 
@@ -68,7 +70,8 @@
 	>
 		<button
 			class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-			on:click|preventDefault={() => updateSelected(null)}>No value</button
+			on:click|preventDefault={() => updateSelected(null)}
+			>{defaultOptions ?? 'No value'}</button
 		>
 		{#each options as option}
 			<button
