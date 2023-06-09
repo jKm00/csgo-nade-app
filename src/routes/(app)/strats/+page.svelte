@@ -11,47 +11,29 @@
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
 
 	export let data;
+	export let form;
 
 	$: ({ maps, teams } = data);
 
-	let stratName = 'A smokes';
-	let stratDesc = 'Full a smokes execute on Mirage';
-	let mapName = 'Mirage';
-	let stratPos = 'A site';
-	let privacy = 'PUBLIC';
-	let team = '';
-	let nades: Nade[] = [
-		{
-			name: 'CT Smoke',
-			type: 'SMOKE',
-			lineupX: 84.33,
-			lineupY: 53.52,
-			impactPointX: 44.89,
-			impactPointY: 79.03,
-		},
-		{
-			name: 'Pop flash',
-			type: 'FLASH',
-			lineupX: 42.33,
-			lineupY: 67.52,
-			impactPointX: 20.89,
-			impactPointY: 89.03,
-		},
-		{
-			name: 'Default Molotov',
-			type: 'MOLOTOV',
-			lineupX: 23.33,
-			lineupY: 53.52,
-			impactPointX: 53.89,
-			impactPointY: 75.03,
-		},
-	];
+	$: if (form?.message) {
+		toast.error(form.message, {
+			style: 'background: #333; color:#fff',
+		});
+	}
 
-	$: mapRadar = '/assets/images/radars/de_mirage.webp'; // maps?.find((m) => m.name === mapName)?.radar;
+	let stratName = '';
+	let stratDesc = '';
+	let mapName = '';
+	let stratPos = '';
+	let privacy = '';
+	let team = '';
+	let nades: Nade[] = [];
+
+	$: mapRadar = maps?.find((m) => m.name === mapName)?.radar;
 	$: mapId = maps?.find((m) => m.name === mapName)?.id;
 	$: teamId = teams?.find((t) => t.team_name === team)?.team_id;
 
-	let activeFormStep = FormSteps.OVERVIEW;
+	let activeFormStep = FormSteps.INFO;
 
 	const goToStep = (step: FormSteps) => {
 		switch (step) {

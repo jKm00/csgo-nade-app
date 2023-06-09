@@ -1,5 +1,5 @@
 import { stratSchema } from '$lib/validations/zodShemas';
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 
 export const load = async ({ url, locals }) => {
@@ -36,21 +36,42 @@ export const actions = {
 		const nades = form.get('nades');
 		const playerId = form.get('playerId');
 
-		// TODO: Validate...
+		if (
+			name === '' ||
+			desc === '' ||
+			mapId === '' ||
+			position === '' ||
+			privacy === '' ||
+			nades?.length === 0 ||
+			playerId === ''
+		) {
+			return fail(400, {
+				message: 'Something went wrong. Please try again!',
+			});
+		}
 
-		const { error } = await locals.supabase.from('strats').insert({
-			name,
-			description: desc,
-			strat_position: position,
-			privacy: privacy,
-			map_id: mapId,
-			player_id: playerId,
-			team_id: teamId === '' ? null : teamId,
-		});
+		const { data, error } = await locals.supabase
+			.from('strats')
+			.insert({
+				name,
+				description: desc,
+				strat_position: position,
+				privacy: privacy,
+				map_id: mapId,
+				player_id: playerId,
+				team_id: teamId === '' ? null : teamId,
+			})
+			.select('id');
 
-		// TODO: Handle errors...
-		console.log(error);
+		if (error) {
+			console.log(error);
+			return fail(400, {
+				message: 'Something went wrong. Please try again later!',
+			});
+		}
 
-		// TODO: Redirect to the newly created strat
+		// TODO: Insert nades
+
+		throw redirect(301, `/strats/${data[0].id}`);
 	},
 };
