@@ -1,3 +1,4 @@
+import type Nade from '$lib/components/containers/Nade.svelte';
 import { stratSchema } from '$lib/validations/zodShemas';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
@@ -33,7 +34,7 @@ export const actions = {
 		const position = form.get('position');
 		const privacy = form.get('privacy');
 		const teamId = form.get('teamId');
-		const nades = form.get('nades');
+		const nadesString = form.get('nades');
 		const playerId = form.get('playerId');
 
 		if (
@@ -42,7 +43,8 @@ export const actions = {
 			mapId === '' ||
 			position === '' ||
 			privacy === '' ||
-			nades?.length === 0 ||
+			nadesString === null ||
+			nadesString === '' ||
 			playerId === ''
 		) {
 			return fail(400, {
@@ -58,7 +60,7 @@ export const actions = {
 				strat_position: position,
 				privacy: privacy,
 				map_id: mapId,
-				player_id: playerId,
+				author_id: playerId,
 				team_id: teamId === '' ? null : teamId,
 			})
 			.select('id');
@@ -70,7 +72,29 @@ export const actions = {
 			});
 		}
 
-		// TODO: Insert nades
+		const nades = JSON.parse(`${nadesString}`);
+		const nadesForInsert = nades.map((nade: Nade) => {
+			return {
+				name: nade.name,
+				type: nade.type,
+				lineup_x: nade.lineupX,
+				lineup_y: nade.lineupY,
+				impact_x: nade.impactPointX,
+				impact_y: nade.impactPointY,
+				strat_id: data[0].id,
+			};
+		});
+
+		const { error: nadeError } = await locals.supabase
+			.from('nades')
+			.insert(nadesForInsert);
+
+		if (nadeError) {
+			console.log(nadeError);
+			return fail(400, {
+				message: 'Something went wrong. Please try again later!',
+			});
+		}
 
 		throw redirect(301, `/strats/${data[0].id}`);
 	},

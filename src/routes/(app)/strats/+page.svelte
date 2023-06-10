@@ -32,6 +32,7 @@
 	$: mapRadar = maps?.find((m) => m.name === mapName)?.radar;
 	$: mapId = maps?.find((m) => m.name === mapName)?.id;
 	$: teamId = teams?.find((t) => t.team_name === team)?.team_id;
+	$: nadesString = JSON.stringify(nades);
 
 	let activeFormStep = FormSteps.INFO;
 
@@ -107,7 +108,7 @@
 	<input type="hidden" name="position" bind:value={stratPos} />
 	<input type="hidden" name="privacy" bind:value={privacy} />
 	<input type="hidden" name="teamId" bind:value={teamId} />
-	<input type="hidden" name="nades" bind:value={nades} />
+	<input type="hidden" name="nades" bind:value={nadesString} />
 	<input type="hidden" name="playerId" value={data.authUser?.id} />
 	{#if activeFormStep === FormSteps.INFO}
 		<TextInput
