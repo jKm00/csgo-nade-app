@@ -14,9 +14,6 @@
 					/></svg
 				>
 			</div>
-			<p class="bg-neutral-700 rounded">
-				Full A site execution with smokes and mollies
-			</p>
 			<div class="flex gap-4 justify-between text-sm">
 				<p class="bg-neutral-700 rounded">Creator:</p>
 				<p class="bg-neutral-700 rounded">Created at:</p>

@@ -4,18 +4,6 @@
 	export let data;
 </script>
 
-<header
-	class="grid items-center relative w-default overflow-hidden p-4 rounded my-10"
->
-	<img
-		class="absolute"
-		src="/assets/images/thumbnails/{data.thumbnail}"
-		alt={data.mapName}
-	/>
-	<div class="absolute h-full w-full bg-neutral-950/40 z-10" />
-	<h1 class="relative text-3xl font-bold text-center z-10">{data.mapName}</h1>
-</header>
-
 <div>
 	<!-- Header -->
 	<div class="flex justify-between mb-4">
@@ -38,7 +26,7 @@
 					<!-- Dummy card -->
 					<a
 						class="grid gap-4 bg-neutral-800 rounded shadow p-4"
-						href="/strats/{strat.id}"
+						href="/maps/{data.mapName}/strats/{strat.id}"
 					>
 						<div class="flex justify-between items-center">
 							<h3 class="text-xl font-bold">{strat.name}</h3>
@@ -52,7 +40,6 @@
 								/></svg
 							>
 						</div>
-						<p>{strat.desc}</p>
 						<div class="flex gap-4 justify-between text-sm text-neutral-400">
 							<p>
 								Creator: <a class="underline" href="/users/{strat.authorUuid}"

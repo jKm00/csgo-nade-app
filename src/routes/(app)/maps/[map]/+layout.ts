@@ -1,5 +1,7 @@
 export const load = async ({ params }) => {
+	const mapName = params.map;
+
 	return {
-		stratId: params.id,
+		mapName,
 	};
 };

@@ -1,15 +1,6 @@
 <script lang="ts">
 	import MapThumbnail from '$lib/components/containers/MapThumbnail.svelte';
-
-	const maps = [
-		{ name: 'Ancient', thumbnail: 'ancient_compressed.webp' },
-		{ name: 'Anubis', thumbnail: 'anubis_compressed.webp' },
-		{ name: 'Inferno', thumbnail: 'inferno_compressed.webp' },
-		{ name: 'Mirage', thumbnail: 'mirage_compressed.webp' },
-		{ name: 'Nuke', thumbnail: 'nuke_compressed.webp' },
-		{ name: 'Overpass', thumbnail: 'overpass_compressed.webp' },
-		{ name: 'Vertigo', thumbnail: 'vertigo_compressed.webp' },
-	];
+	import { maps } from '$lib/shared/maps';
 </script>
 
 <main class="grid gap-4 grid-cols-main my-10 px-4">
