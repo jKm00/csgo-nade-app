@@ -31,6 +31,7 @@ export const actions = {
 		const name = form.get('name');
 		const desc = form.get('description');
 		const mapId = form.get('mapId');
+		const mapName = form.get('mapName');
 		const position = form.get('position');
 		const privacy = form.get('privacy');
 		const teamId = form.get('teamId');
@@ -41,6 +42,7 @@ export const actions = {
 			name === '' ||
 			desc === '' ||
 			mapId === '' ||
+			mapName === '' ||
 			position === '' ||
 			privacy === '' ||
 			nadesString === null ||
@@ -96,6 +98,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(301, `/strats/${data[0].id}`);
+		throw redirect(301, `/maps/${mapName}/strats/${data[0].id}`);
 	},
 };

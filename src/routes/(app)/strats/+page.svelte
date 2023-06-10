@@ -105,6 +105,7 @@
 	<input type="hidden" name="name" bind:value={stratName} />
 	<input type="hidden" name="description" bind:value={stratDesc} />
 	<input type="hidden" name="mapId" bind:value={mapId} />
+	<input type="hidden" name="mapName" bind:value={mapName} />
 	<input type="hidden" name="position" bind:value={stratPos} />
 	<input type="hidden" name="privacy" bind:value={privacy} />
 	<input type="hidden" name="teamId" bind:value={teamId} />
