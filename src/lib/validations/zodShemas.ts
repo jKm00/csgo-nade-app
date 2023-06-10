@@ -128,6 +128,7 @@ export const stratSchema = z.object({
 		.trim(),
 	description: z.string().optional(),
 	map: z.string(),
+	position: z.string(),
 	privacy: z.enum(['PUBLIC', 'PRIVATE']),
 	team: z.string(),
 });
