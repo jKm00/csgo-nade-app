@@ -2,4 +2,4 @@
 	export let data;
 </script>
 
-<p>{data.stratId}</p>
+<p>Soon you will be able to see strat details here!</p>

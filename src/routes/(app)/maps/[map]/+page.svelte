@@ -1,80 +1,23 @@
 <script lang="ts">
-	import Nade from '$lib/components/containers/Nade.svelte';
+	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
 
 	export let data;
-
-	$: map = data.map ? data.map[0] : null;
-
-	const TMP_STRATS = [
-		{
-			id: 0,
-			name: 'A smokes',
-			author: 'jKm',
-			playersRequired: 3,
-			smokes: 3,
-			flashes: 2,
-			molotoves: 2,
-			he: 0,
-			decoys: 0,
-		},
-		{
-			id: 1,
-			name: 'B smokes',
-			author: 'Andy',
-			playersRequired: 2,
-			smokes: 2,
-			flashes: 4,
-			molotoves: 2,
-			he: 0,
-			decoys: 0,
-		},
-		{
-			id: 3,
-			name: 'B split',
-			author: 'Sebba',
-			playersRequired: 4,
-			smokes: 2,
-			flashes: 5,
-			molotoves: 0,
-			he: 3,
-			decoys: 0,
-		},
-		{
-			id: 4,
-			name: 'Around the world',
-			author: 'jKm',
-			playersRequired: 5,
-			smokes: 0,
-			flashes: 0,
-			molotoves: 0,
-			he: 0,
-			decoys: 5,
-		},
-		{
-			id: 0,
-			name: 'Full mid control',
-			author: 'Hans Nieman',
-			playersRequired: 4,
-			smokes: 2,
-			flashes: 2,
-			molotoves: 1,
-			he: 3,
-			decoys: 0,
-		},
-	];
 </script>
 
 <header
 	class="grid items-center relative w-default overflow-hidden p-4 rounded my-10"
 >
-	<img class="absolute" src={map ? map.thumbnail : ''} alt="Nuke" />
+	<img
+		class="absolute"
+		src="/assets/images/thumbnails/{data.thumbnail}"
+		alt={data.mapName}
+	/>
 	<div class="absolute h-full w-full bg-neutral-950/40 z-10" />
-	<h1 class="relative text-3xl font-bold text-center z-10">
-		{map?.name ?? 'Unknown'}
-	</h1>
+	<h1 class="relative text-3xl font-bold text-center z-10">{data.mapName}</h1>
 </header>
 
 <div>
+	<!-- Header -->
 	<div class="flex justify-between mb-4">
 		<h2 class="font-bold uppercase">Strats</h2>
 		<a
@@ -82,25 +25,54 @@
 			href="/strats">Create new strat</a
 		>
 	</div>
-	<div class="grid grid-cols-main-small gap-4">
-		<p class="text-neutral-400 text-sm text-center">
-			Here you will be able to see a list of all strats for {map?.name}. This is
-			not yet implemented, but come back soon and hopefully it has been added :)
-		</p>
-		<!-- TODO: Display proper strats when create strats are implemented -->
-		<!-- {#each TMP_STRATS as strat}
-			<a class="bg-neutral-800 rounded shadow p-4" href="/strats/{strat.id}">
-				<div class="grid">
-					<h3 class="font-bold">{strat.name}</h3>
+	{#await data.streamed.strats}
+		<MapSkeleton />
+	{:then strats}
+		<div class="grid grid-cols-main-small gap-4">
+			{#if strats === null || strats.length === 0}
+				<p class="text-neutral-400 text-center">
+					No strats available for {data.mapName}
+				</p>
+			{:else}
+				{#each strats as strat}
+					<!-- Dummy card -->
 					<a
-						class="text-sm text-neutral-500 underline"
-						href="/users/{strat.author}">{strat.author}</a
+						class="grid gap-4 bg-neutral-800 rounded shadow p-4"
+						href="/strats/{strat.id}"
 					>
-				</div>
-				<div class="flex flex-wrap">
-					<Nade type="smoke" amount={strat.smokes} />
-				</div>
-			</a>
-		{/each} -->
-	</div>
+						<div class="flex justify-between items-center">
+							<h3 class="text-xl font-bold">{strat.name}</h3>
+							<svg
+								class="fill-white"
+								xmlns="http://www.w3.org/2000/svg"
+								height="1em"
+								viewBox="0 0 320 512"
+								><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+									d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+								/></svg
+							>
+						</div>
+						<p>{strat.desc}</p>
+						<div class="flex gap-4 justify-between text-sm text-neutral-400">
+							<p>
+								Creator: <a class="underline" href="/users/{strat.authorUuid}"
+									>{strat.authorName}</a
+								>
+							</p>
+							<p>
+								Created at: {new Date(strat.createdAt).toLocaleDateString()}
+							</p>
+							{#if strat.teamName !== null}
+								<p>
+									Team: <a class="underline" href="/teams/{strat.teamName}"
+										>{strat.teamName}</a
+									>
+								</p>
+							{/if}
+						</div>
+					</a>
+				{/each}
+			{/if}
+		</div>
+	{/await}
 </div>
