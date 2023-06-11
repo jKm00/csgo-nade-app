@@ -1,5 +1,5 @@
 <div class="grid grid-cols-main-small gap-4 text-transparent animate-pulse">
-	{#each { length: 12 } as _}
+	{#each { length: 10 } as _}
 		<!-- Dummy card -->
 		<div class="grid gap-4 bg-neutral-800 rounded shadow p-4">
 			<div class="flex justify-between items-center">

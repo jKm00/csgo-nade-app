@@ -8,7 +8,7 @@
 </script>
 
 <header
-	class="grid items-center relative w-default overflow-hidden p-4 rounded my-10"
+	class="grid items-center relative w-default overflow-hidden p-4 rounded mt-10"
 >
 	<img
 		class="absolute"

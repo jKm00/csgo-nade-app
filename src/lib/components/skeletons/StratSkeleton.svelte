@@ -17,3 +17,28 @@
 		<p class="bg-neutral-800 rounded">yo</p>
 	</div>
 </div>
+
+<div
+	class="col-span-2 flex gap-4 justify-around bg-neutral-800 rounded shadow py-4 text-transparent animate-pulse"
+>
+	<span class="flex rounded">
+		<div class="w-16 aspect-square" />
+		<p>1</p>
+	</span>
+	<span class="flex rounded">
+		<div class="w-16 aspect-square" />
+		<p>1</p>
+	</span>
+	<span class="flex rounded">
+		<div class="w-16 aspect-square" />
+		<p>1</p>
+	</span>
+	<span class="flex rounded">
+		<div class="w-16 aspect-square" />
+		<p>1</p>
+	</span>
+	<span class="flex rounded">
+		<div class="w-16 aspect-square" />
+		<p>1</p>
+	</span>
+</div>
