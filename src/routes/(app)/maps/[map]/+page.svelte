@@ -4,7 +4,7 @@
 	export let data;
 </script>
 
-<div>
+<div class="mt-10">
 	<!-- Header -->
 	<div class="flex justify-between mb-4">
 		<h2 class="font-bold uppercase">Strats</h2>
