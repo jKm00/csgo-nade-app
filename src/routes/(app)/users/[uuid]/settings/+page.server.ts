@@ -158,6 +158,21 @@ export const actions = {
 	deleteUser: async ({ locals }) => {
 		const session = await locals.getSession();
 
+		// Check if user is a team leader
+		const { data } = await locals.supabase
+			.from('teams')
+			.select(`*, profiles (uuid)`)
+			.eq('profiles.uuid', session.user.id)
+			.single();
+
+		console.log(data);
+
+		if (data) {
+			return fail(400, {
+				message: 'Could not delete the account as you are a leader for a team',
+			});
+		}
+
 		// Delete user
 		const { error: err } = await locals.supabaseAdmin.auth.admin.deleteUser(
 			session.user.id
