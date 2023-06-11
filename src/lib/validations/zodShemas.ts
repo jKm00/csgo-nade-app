@@ -168,3 +168,14 @@ export const invitePlayerSchema = z.object({
 });
 
 export type InvitePlayerSchema = typeof invitePlayerSchema;
+
+export const reportBugSchema = z.object({
+	title: z
+		.string({ required_error: 'Title is required' })
+		.min(1, 'Title is required')
+		.trim(),
+	description: z
+		.string({ required_error: 'Description is required' })
+		.min(1, 'Descriptions is required')
+		.trim(),
+});
