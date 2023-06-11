@@ -10,6 +10,7 @@ export const load = async ({ params, parent }) => {
 			.from('strats')
 			.select(
 				`
+				id,
 				name,
 				description,
 				strat_position,
@@ -24,38 +25,60 @@ export const load = async ({ params, parent }) => {
 				nades (*)
 			`
 			)
-			.eq('id', id);
+			.eq('id', id)
+			.single();
 
-		if (data.length === 0) {
+		if (data === null) {
 			return null;
 		}
 
 		return {
-			name: data[0].name,
-			desc: data[0].description,
-			position: data[0].strat_position,
-			createAt: data[0].inserted_at,
-			authorUuid: data[0].profiles.uuid,
-			authorName: data[0].profiles.username,
-			teamName: data[0].teams === null ? null : data[0].teams.name,
-			nades: data[0].nades.map((nade) => {
-				return {
-					name: nade.name,
-					type: nade.type,
-					lineupX: nade.lineup_x,
-					lineupY: nade.lineup_y,
-					impactX: nade.impact_x,
-					impactY: nade.impact_y,
-					lineupImg: nade.lineup_img,
-					impactImg: nade.impact_img,
-				};
-			}),
+			id: data.id,
+			name: data.name,
+			desc: data.description,
+			position: data.strat_position,
+			createAt: data.inserted_at,
+			authorUuid:
+				data.profiles instanceof Array
+					? data.profiles[0].uuid
+					: data.profiles?.uuid,
+			authorName:
+				data.profiles instanceof Array
+					? data.profiles[0].username
+					: data.profiles?.username,
+			teamName:
+				data.teams instanceof Array
+					? data.teams[0].name
+					: data.teams?.name ?? null,
+			nades: data.nades?.map(
+				(nade: {
+					name: string;
+					type: string;
+					lineup_x: number;
+					lineup_y: number;
+					impact_x: number;
+					impact_y: number;
+					lineup_img: string;
+					impact_img: string;
+				}) => {
+					return {
+						name: nade.name,
+						type: nade.type,
+						lineupX: nade.lineup_x,
+						lineupY: nade.lineup_y,
+						impactX: nade.impact_x,
+						impactY: nade.impact_y,
+						lineupImg: nade.lineup_img,
+						impactImg: nade.impact_img,
+					};
+				}
+			),
 		};
 	};
 
 	return {
 		lazy: {
-			strat: fetchStrat(stratId),
+			strat: fetchStrat(Number(stratId)),
 		},
 	};
 };
