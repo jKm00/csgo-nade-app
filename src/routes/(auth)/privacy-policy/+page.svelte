@@ -43,6 +43,16 @@
 	<h2 class="font-bold mb-4">7. Contact Us</h2>
 	<p class="mb-10">
 		If you have any questions or suggestions about our Privacy Policy, do not
-		hesitate to contact us.
+		hesitate to contact us via <a
+			class="underline"
+			href="mailto: joakimedvardsen2000@gmail.com">email</a
+		>
+		or create an issue at
+		<a
+			class="underline"
+			href="https://github.com/jKm00/csgo-nade-app/issues"
+			target="_blank"
+			rel="noreferrer">github</a
+		>.
 	</p>
 </div>
