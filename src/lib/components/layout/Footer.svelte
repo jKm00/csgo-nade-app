@@ -1,7 +1,19 @@
 <footer class="text-neutral-500 text-sm text-center py-4 mt-10">
 	<p>Joakim Edvardsen &copy; 2023. All rights reserved</p>
 	<p>
-		Version 0.5.2 |
+		Version 0.5.3 |
+		<a
+			class="hover:underline focus-within:underline"
+			href="/terms-of-service"
+			target="_blank">Terms of service</a
+		>
+		|
+		<a
+			class="hover:underline focus-within:underline"
+			href="privacy-policy"
+			target="_blank">Privacy policy</a
+		>
+		|
 		<a
 			class="hover:underline focus-within:underline"
 			href="https://github.com/jKm00/csgo-nade-app"

@@ -15,6 +15,8 @@ export const loginSchema = z.object({
 		.min(1, 'Password is required'),
 });
 
+export type LoginSchema = typeof loginSchema;
+
 export const registerSchema = z
 	.object({
 		username: z
@@ -45,6 +47,9 @@ export const registerSchema = z
 				),
 				'One uppercase, one lower, one special character, and a number required'
 			),
+		termsOfService: z.literal(true, {
+			required_error: 'Need to accept terms of service',
+		}),
 	})
 	.superRefine(({ passwordConfirm, password }, ctx) => {
 		if (passwordConfirm !== password) {
@@ -60,6 +65,8 @@ export const registerSchema = z
 			});
 		}
 	});
+
+export type RegisterSchema = typeof registerSchema;
 
 export const updateUserDetailsSchema = z.object({
 	fullName: z

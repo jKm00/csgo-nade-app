@@ -1,6 +1,6 @@
 import { registerSchema } from '$lib/validations/zodShemas';
 import { AuthApiError } from '@supabase/supabase-js';
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export const load = async ({ locals }) => {
@@ -23,10 +23,20 @@ export const actions = {
 			return message(form, 'Invalid form');
 		}
 
-		const { username, fullName, email, password } = form.data as Record<
-			string,
-			string
-		>;
+		const { username, fullName, email, password } = form.data;
+
+		// Make sure username is available
+		const { data: user } = await locals.supabase
+			.from('profiles')
+			.select('*')
+			.eq('username', username)
+			.single();
+
+		if (user) {
+			return message(form, 'Username already taken. Try another!', {
+				status: 400,
+			});
+		}
 
 		// Sign up to supabase auth
 		const { data, error: err } = await locals.supabase.auth.signUp({
