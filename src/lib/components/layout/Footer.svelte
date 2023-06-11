@@ -1,4 +1,4 @@
-<footer class="text-neutral-500 text-sm text-center py-4">
+<footer class="text-neutral-500 text-sm text-center py-4 mt-10">
 	<p>Joakim Edvardsen &copy; 2023. All rights reserved</p>
 	<p>
 		Version 0.5.2 |
