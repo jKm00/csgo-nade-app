@@ -4,12 +4,21 @@
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
+	import Dialog from '$lib/components/containers/Dialog.svelte';
+	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
+	import FormButton from '$lib/components/buttons/FormButton.svelte';
 
 	export let data;
+	export let form;
 
-	let dialog: HTMLDialogElement;
+	let showDeleteAccountDialog = false;
 
-	const { form, errors, enhance, message } = superForm(data.userDetailsForm);
+	const {
+		form: userDetailsForm,
+		errors,
+		enhance,
+		message,
+	} = superForm(data.userDetailsForm);
 
 	const {
 		form: emailForm,
@@ -28,17 +37,29 @@
 	$: if ($message !== undefined) {
 		const statusOk = String($page.status).charAt(0) === '2';
 		if (statusOk) {
-			toast.success($message);
+			toast.success($message, {
+				style: 'background: #333; color:#fff',
+			});
 		} else {
-			toast.error($message);
+			toast.error($message, {
+				style: 'background: #333; color:#fff',
+			});
 		}
 	}
 
 	$: if ($passwordMessage !== undefined) {
 		const statusOk = String($page.status).charAt(0) === '2';
 		if (statusOk) {
-			toast.success($passwordMessage);
+			toast.success($passwordMessage, {
+				style: 'background: #333; color:#fff',
+			});
 		}
+	}
+
+	$: if (form?.message) {
+		toast.error(form.message, {
+			style: 'background: #333; color:#fff',
+		});
 	}
 </script>
 
@@ -52,14 +73,14 @@
 		id="name"
 		name="fullName"
 		label="Name:"
-		bind:value={$form.fullName}
+		bind:value={$userDetailsForm.fullName}
 		errors={$errors.fullName}
 	/>
 	<TextInput
 		id="username"
 		name="username"
 		label="Username:"
-		bind:value={$form.username}
+		bind:value={$userDetailsForm.username}
 		errors={$errors.username}
 	/>
 	<button
@@ -130,32 +151,31 @@
 <div class="grid gap-4 max-w-sm m-auto mb-16">
 	<h2 class="font-bold text-red-400">Danger zone</h2>
 	<button
-		on:click={() => dialog.showModal()}
+		on:click={() => (showDeleteAccountDialog = true)}
 		class="bg-red-400/20 border-2 p-2 border-red-400 rounded text-red-400 hover:bg-red-400 hover:text-white focus-within:bg-red-400 focus-within:text-white transition-colors"
 		>Delete account</button
 	>
 </div>
 
-<dialog
-	bind:this={dialog}
-	class="bg-neutral-800 text-white rounded shadow backdrop:bg-neutral-950/90"
->
-	<div class="grid">
-		<h2 class="text-xl font-bold">Delete account</h2>
-		<p class="mb-10">
-			Are you sure you want to delete your account? This action cannot be
-			undone!
+<!-- Delete account dialog -->
+<Dialog show={showDeleteAccountDialog} title="Delete account">
+	<div slot="body">
+		<p class="mb-4">
+			Are you sure you want to delete you account? All strats you have created
+			will also be deleted! This action cannot be undone!
 		</p>
-		<form class="justify-self-end" method="POST">
-			<button
-				type="button"
-				class="bg-white/20 border-2 p-2 border-white rounded text-white hover:bg-white hover:text-neutral-950 focus-within:bg-white focus-within:text-neutral-950 transition-colors"
-				on:click={() => dialog.close()}>Cancel</button
-			>
-			<button
-				class="bg-red-400/20 border-2 p-2 border-red-400 rounded text-red-400 hover:bg-red-400 hover:text-white focus-within:bg-red-400 focus-within:text-white transition-colors"
-				formaction="?/deleteUser">Delete account</button
-			>
+		<p class="italic">
+			<span class="underline">NB:</span> You cannot delete your account if you are
+			a team leader. You can go to the team you are a leader for and transfer the
+			leadership to another player or delete them team!
+		</p>
+	</div>
+	<div class="flex gap-2 justify-end" slot="form">
+		<SecondaryButton on:click={() => (showDeleteAccountDialog = false)}
+			>Cancel</SecondaryButton
+		>
+		<form action="?/deleteUser" method="POST">
+			<FormButton>Delete account</FormButton>
 		</form>
 	</div>
-</dialog>
+</Dialog>
