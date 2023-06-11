@@ -88,7 +88,7 @@
 						{/if}
 					</div>
 				</header>
-				<p class="whitespace-pre">{strat.desc}</p>
+				<p class="whitespace-pre-wrap">{strat.desc}</p>
 			</div>
 		{/if}
 	{/await}
