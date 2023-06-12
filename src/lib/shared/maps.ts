@@ -19,7 +19,11 @@ export const maps = [
 		thumbnail: 'mirage_compressed.webp',
 		radar: 'de_mirage.webp',
 	},
-	{ name: 'Nuke', thumbnail: 'nuke_compressed.webp', radar: 'de_nuke.webp' },
+	{
+		name: 'Nuke',
+		thumbnail: 'nuke_compressed.webp',
+		radar: 'de_nuke.webp',
+	},
 	{
 		name: 'Overpass',
 		thumbnail: 'overpass_compressed.webp',

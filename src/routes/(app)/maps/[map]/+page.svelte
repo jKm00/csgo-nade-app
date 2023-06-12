@@ -23,39 +23,48 @@
 				</p>
 			{:else}
 				{#each strats as strat}
-					<!-- Dummy card -->
 					<a
-						class="grid gap-4 bg-neutral-800 rounded shadow p-4"
+						class="bg-neutral-800 rounded shadow overflow-hidden group"
 						href="/maps/{data.mapName}/strats/{strat.id}"
 					>
-						<div class="flex justify-between items-center">
-							<h3 class="text-xl font-bold">{strat.name}</h3>
-							<svg
-								class="fill-white"
-								xmlns="http://www.w3.org/2000/svg"
-								height="1em"
-								viewBox="0 0 320 512"
-								><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-									d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
-								/></svg
-							>
-						</div>
-						<div class="flex gap-4 justify-between text-sm text-neutral-400">
-							<p>
-								Creator: <a class="underline" href="/users/{strat.authorUuid}"
-									>{strat.authorName}</a
-								>
-							</p>
-							<p>
-								Created at: {new Date(strat.createdAt).toLocaleDateString()}
-							</p>
-							{#if strat.teamName !== null}
-								<p>
-									Team: <a class="underline" href="/teams/{strat.teamName}"
-										>{strat.teamName}</a
+						<img
+							class="aspect-[16/6] w-full object-cover"
+							src="/assets/images/maps/ancient/a_site.webp"
+							alt="Thumbnail for ancient a site"
+						/>
+						<div class="grid p-4">
+							<h2 class="text-2xl font-bold">{strat.name}</h2>
+							<ul class="flex flex-wrap gap-x-8 text-sm text-neutral-400">
+								<li>
+									<a class="underline" href="/users/{strat.authorUuid}"
+										>{strat.authorName}</a
 									>
-								</p>
-							{/if}
+								</li>
+								{#if !strat.teamName}
+									<li class="list-disc">
+										<a class="underline" href="/teams/{strat.teamName}"
+											>{strat.teamName}</a
+										>
+									</li>
+								{/if}
+								<li class="list-disc">
+									{new Date(strat.createdAt).toLocaleDateString()}
+								</li>
+							</ul>
+							<p class="mt-4">{strat.desc}</p>
+							<a
+								class="flex items-center gap-2 justify-self-end text-sm group group-hover:text-red-400 group-focus-within:text-red-400 transition-colors"
+								href="/maps/{data.mapName}/strats/{strat.id}"
+								>Check it out <svg
+									class="fill-white group-hover:fill-red-400 group-focus-within:fill-red-400 transition-colors"
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 320 512"
+									><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+										d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+									/></svg
+								></a
+							>
 						</div>
 					</a>
 				{/each}
