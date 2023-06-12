@@ -1,4 +1,5 @@
 <script lang="ts">
+	import StratCard from '$lib/components/containers/StratCard.svelte';
 	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
 
 	export let data;
@@ -27,59 +28,18 @@
 				</p>
 			{:else}
 				{#each strats as strat}
-					<a
-						class="bg-neutral-800 rounded shadow overflow-hidden group"
-						href="/maps/{data.mapName}/strats/{strat.id}"
-					>
-						{#if strat.positionImage && strat.positionName}
-							<img
-								class="aspect-[16/6] w-full object-cover"
-								src="/assets/images/maps/{mapName.toLowerCase()}/{strat.positionImage}"
-								alt="Overview over {strat.positionName}"
-							/>
-						{:else}
-							<div
-								class="grid text-center items-center content-center aspect-[16/6] bg-neutral-700 text-neutral-300"
-							>
-								<p class="font-bold">CSGO Strats</p>
-								<p>No image to display</p>
-							</div>
-						{/if}
-						<div class="grid p-4">
-							<h2 class="text-2xl font-bold">{strat.name}</h2>
-							<p class="text-neutral-400">
-								<a class="underline" href="/users/{strat.authorUuid}"
-									>{strat.authorName}</a
-								>
-								- {new Date(strat.createdAt).toLocaleDateString()}
-								{#if strat.teamName !== null}
-									- <a href="/teams/{strat.teamName}">{strat.teamName}</a>
-								{/if}
-							</p>
-							<div class="flex gap-2 mt-6">
-								{#if strat.teamSide === 'CT'}
-									<p
-										class="bg-blue-400/10 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
-									>
-										{strat.teamSide}
-									</p>
-								{:else}
-									<p
-										class="bg-red-400/10 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
-									>
-										{strat.teamSide}
-									</p>
-								{/if}
-								{#if strat.positionName}
-									<p
-										class="bg-yellow-400/10 border border-yellow-400 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-white group-focus-within:bg-yellow-400 group-focus-within:text-white transition-colors rounded-full px-4"
-									>
-										{strat.positionName}
-									</p>
-								{/if}
-							</div>
-						</div>
-					</a>
+					<StratCard
+						map={mapName}
+						stratId={strat.id}
+						stratName={strat.name}
+						authorId={strat.authorUuid}
+						authorName={strat.authorName}
+						createdAt={strat.createdAt}
+						teamSide={strat.teamSide}
+						team={strat.teamName}
+						positionImage={strat.positionImage}
+						positionName={strat.positionName}
+					/>
 				{/each}
 			{/if}
 		{/await}
