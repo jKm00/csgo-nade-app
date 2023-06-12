@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Tag from './Tag.svelte';
+
 	export let map: string;
 	export let stratId: string;
 	export let stratName: string;
@@ -40,24 +42,12 @@
 		</p>
 		<div class="flex gap-2 mt-6">
 			{#if teamSide === 'CT'}
-				<p
-					class="bg-blue-400/10 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
-				>
-					{teamSide}
-				</p>
+				<Tag color="blue">{teamSide}</Tag>
 			{:else}
-				<p
-					class="bg-red-400/10 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
-				>
-					{teamSide}
-				</p>
+				<Tag color="red">{teamSide}</Tag>
 			{/if}
 			{#if positionName}
-				<p
-					class="bg-yellow-400/10 border border-yellow-400 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-white group-focus-within:bg-yellow-400 group-focus-within:text-white transition-colors rounded-full px-4"
-				>
-					{positionName}
-				</p>
+				<Tag color="purple">{positionName}</Tag>
 			{/if}
 		</div>
 	</div>

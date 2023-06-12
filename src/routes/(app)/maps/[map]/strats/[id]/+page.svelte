@@ -5,10 +5,11 @@
 	import Dialog from '$lib/components/containers/Dialog.svelte';
 	import NadeSummary from '$lib/components/containers/NadeSummary.svelte';
 	import StratSkeleton from '$lib/components/skeletons/StratSkeleton.svelte';
-	import NadeColorMeaning from '$lib/features/stratEditor/components/NadeColorMeaning.svelte';
-	import { NadeType } from '$lib/features/stratEditor/util/nade.js';
 	import { maps } from '$lib/shared/maps.js';
 	import toast from 'svelte-french-toast';
+	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
+	import { NadeType } from '$lib/features/stratEditor/util/nade.js';
+	import Tag from '$lib/components/containers/Tag.svelte';
 
 	export let data;
 	export let form;
@@ -168,24 +169,12 @@
 				</header>
 				<div class="flex gap-2 mb-6">
 					{#if strat.teamSide === 'CT'}
-						<p
-							class="bg-blue-400/10 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
-						>
-							{strat.teamSide}
-						</p>
+						<Tag color="blue">{strat.teamSide}</Tag>
 					{:else}
-						<p
-							class="bg-red-400/10 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
-						>
-							{strat.teamSide}
-						</p>
+						<Tag color="red">{strat.teamSide}</Tag>
 					{/if}
 					{#if strat.position}
-						<p
-							class="bg-yellow-400/10 border border-yellow-400 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-white group-focus-within:bg-yellow-400 group-focus-within:text-white transition-colors rounded-full px-4"
-						>
-							{strat.position}
-						</p>
+						<Tag color="purple">{strat.position}</Tag>
 					{/if}
 				</div>
 				<p class="whitespace-pre-wrap">{strat.desc}</p>
