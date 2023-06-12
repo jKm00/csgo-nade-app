@@ -150,7 +150,7 @@
 			<div>
 				<header>
 					<h2 class="text-3xl font-bold">{strat.name}</h2>
-					<div class="flex gap-4 justify-between text-neutral-400 text-sm mb-6">
+					<div class="flex gap-4 justify-between text-neutral-400 text-sm mb-4">
 						<p>
 							Author: <a class="underline" href="/users/{strat.authorUuid}"
 								>{strat.authorName}</a
@@ -166,6 +166,28 @@
 						{/if}
 					</div>
 				</header>
+				<div class="flex gap-2 mb-6">
+					{#if strat.teamSide === 'CT'}
+						<p
+							class="bg-blue-400/10 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
+						>
+							{strat.teamSide}
+						</p>
+					{:else}
+						<p
+							class="bg-red-400/10 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
+						>
+							{strat.teamSide}
+						</p>
+					{/if}
+					{#if strat.position}
+						<p
+							class="bg-yellow-400/10 border border-yellow-400 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-white group-focus-within:bg-yellow-400 group-focus-within:text-white transition-colors rounded-full px-4"
+						>
+							{strat.position}
+						</p>
+					{/if}
+				</div>
 				<p class="whitespace-pre-wrap">{strat.desc}</p>
 			</div>
 			<div class="col-span-2">

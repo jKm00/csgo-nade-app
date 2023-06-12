@@ -13,8 +13,11 @@ export const load = async ({ params, parent }) => {
 				id,
 				name,
 				description,
-				strat_position,
 				inserted_at,
+				team_side,
+				positions (
+					name
+				),
 				profiles (
 					uuid,
 					username
@@ -36,7 +39,8 @@ export const load = async ({ params, parent }) => {
 			id: data.id,
 			name: data.name,
 			desc: data.description,
-			position: data.strat_position,
+			teamSide: data.team_side,
+			position: data.positions.name,
 			createAt: data.inserted_at,
 			authorUuid:
 				data.profiles instanceof Array

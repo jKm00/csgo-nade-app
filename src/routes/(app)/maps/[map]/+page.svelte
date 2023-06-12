@@ -22,7 +22,7 @@
 			<MapSkeleton />
 		{:then strats}
 			{#if strats === null || strats.length === 0}
-				<p class="text-neutral-400 text-center">
+				<p class="text-neutral-400 text-center col-span-full">
 					No strats available for {data.mapName}
 				</p>
 			{:else}
@@ -56,23 +56,23 @@
 									- <a href="/teams/{strat.teamName}">{strat.teamName}</a>
 								{/if}
 							</p>
-							<div class="flex gap-4 mt-6">
+							<div class="flex gap-2 mt-6">
 								{#if strat.teamSide === 'CT'}
 									<p
-										class="bg-blue-400/20 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
+										class="bg-blue-400/10 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
 									>
 										{strat.teamSide}
 									</p>
 								{:else}
 									<p
-										class="bg-red-400/20 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
+										class="bg-red-400/10 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
 									>
 										{strat.teamSide}
 									</p>
 								{/if}
 								{#if strat.positionName}
 									<p
-										class="bg-green-400/20 border border-green-400 text-green-400 group-hover:bg-green-400 group-hover:text-white group-focus-within:bg-green-400 group-focus-within:text-white transition-colors rounded-full px-4"
+										class="bg-yellow-400/10 border border-yellow-400 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-white group-focus-within:bg-yellow-400 group-focus-within:text-white transition-colors rounded-full px-4"
 									>
 										{strat.positionName}
 									</p>
