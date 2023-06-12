@@ -2,9 +2,11 @@
 	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
 
 	export let data;
+
+	$: ({ mapName } = data);
 </script>
 
-<div class="mt-10">
+<div class="w-default mt-10">
 	<!-- Header -->
 	<div class="flex justify-between mb-4">
 		<h2 class="font-bold uppercase">Strats</h2>
@@ -13,10 +15,12 @@
 			href="/strats">Create new strat</a
 		>
 	</div>
-	{#await data.streamed.strats}
-		<MapSkeleton />
-	{:then strats}
-		<div class="grid grid-cols-main-small gap-4">
+	<div
+		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
+	>
+		{#await data.streamed.strats}
+			<MapSkeleton />
+		{:then strats}
 			{#if strats === null || strats.length === 0}
 				<p class="text-neutral-400 text-center">
 					No strats available for {data.mapName}
@@ -27,48 +31,57 @@
 						class="bg-neutral-800 rounded shadow overflow-hidden group"
 						href="/maps/{data.mapName}/strats/{strat.id}"
 					>
-						<img
-							class="aspect-[16/6] w-full object-cover"
-							src="/assets/images/maps/ancient/a_site.webp"
-							alt="Thumbnail for ancient a site"
-						/>
+						{#if strat.positionImage && strat.positionName}
+							<img
+								class="aspect-[16/6] w-full object-cover"
+								src="/assets/images/maps/{mapName.toLowerCase()}/{strat.positionImage}"
+								alt="Overview over {strat.positionName}"
+							/>
+						{:else}
+							<div
+								class="grid text-center items-center content-center aspect-[16/6] bg-neutral-700 text-neutral-300"
+							>
+								<p class="font-bold">CSGO Strats</p>
+								<p>No image to display</p>
+							</div>
+						{/if}
 						<div class="grid p-4">
 							<h2 class="text-2xl font-bold">{strat.name}</h2>
-							<ul class="flex flex-wrap gap-x-8 text-sm text-neutral-400">
-								<li>
-									<a class="underline" href="/users/{strat.authorUuid}"
-										>{strat.authorName}</a
-									>
-								</li>
-								{#if !strat.teamName}
-									<li class="list-disc">
-										<a class="underline" href="/teams/{strat.teamName}"
-											>{strat.teamName}</a
-										>
-									</li>
+							<p class="text-neutral-400">
+								<a class="underline" href="/users/{strat.authorUuid}"
+									>{strat.authorName}</a
+								>
+								- {new Date(strat.createdAt).toLocaleDateString()}
+								{#if strat.teamName !== null}
+									- <a href="/teams/{strat.teamName}">{strat.teamName}</a>
 								{/if}
-								<li class="list-disc">
-									{new Date(strat.createdAt).toLocaleDateString()}
-								</li>
-							</ul>
-							<p class="mt-4">{strat.desc}</p>
-							<a
-								class="flex items-center gap-2 justify-self-end text-sm group group-hover:text-red-400 group-focus-within:text-red-400 transition-colors"
-								href="/maps/{data.mapName}/strats/{strat.id}"
-								>Check it out <svg
-									class="fill-white group-hover:fill-red-400 group-focus-within:fill-red-400 transition-colors"
-									xmlns="http://www.w3.org/2000/svg"
-									height="1em"
-									viewBox="0 0 320 512"
-									><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-										d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
-									/></svg
-								></a
-							>
+							</p>
+							<div class="flex gap-4 mt-6">
+								{#if strat.teamSide === 'CT'}
+									<p
+										class="bg-blue-400/20 border border-blue-400 text-blue-400 group-hover:bg-blue-400 group-hover:text-white group-focus-within:bg-blue-400 group-focus-within:text-white transition-colors rounded-full px-4"
+									>
+										{strat.teamSide}
+									</p>
+								{:else}
+									<p
+										class="bg-red-400/20 border border-red-400 text-red-400 group-hover:bg-red-400 group-hover:text-white group-focus-within:bg-red-400 group-focus-within:text-white transition-colors rounded-full px-4"
+									>
+										{strat.teamSide}
+									</p>
+								{/if}
+								{#if strat.positionName}
+									<p
+										class="bg-green-400/20 border border-green-400 text-green-400 group-hover:bg-green-400 group-hover:text-white group-focus-within:bg-green-400 group-focus-within:text-white transition-colors rounded-full px-4"
+									>
+										{strat.positionName}
+									</p>
+								{/if}
+							</div>
 						</div>
 					</a>
 				{/each}
 			{/if}
-		</div>
-	{/await}
+		{/await}
+	</div>
 </div>

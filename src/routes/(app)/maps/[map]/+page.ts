@@ -12,6 +12,11 @@ export const load = async ({ params, parent }) => {
 				name, 
 				description,
 				inserted_at,
+				team_side,
+				positions (
+					name,
+					img
+				),
 				profiles (
 					uuid,
 					username
@@ -21,14 +26,18 @@ export const load = async ({ params, parent }) => {
 				)
 			)`
 			)
-			.eq('name', mapName);
+			.eq('name', mapName)
+			.single();
 
-		return data[0].strats.map((strat) => {
+		return data.strats.map((strat) => {
 			return {
 				id: strat.id,
 				name: strat.name,
 				desc: strat.description,
 				createdAt: strat.inserted_at,
+				teamSide: strat.team_side,
+				positionName: strat.positions.name,
+				positionImage: strat.positions.img,
 				authorUuid: strat.profiles.uuid,
 				authorName: strat.profiles.username,
 				teamName: strat.teams === null ? null : strat.teams.name,
