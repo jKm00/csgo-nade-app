@@ -21,7 +21,7 @@
 	const dispatch = createEventDispatcher<{ update: { value: T | null } }>();
 
 	let selected: Option | null =
-		options.find((opt) => opt.value === value) ?? null;
+		options?.find((opt) => opt.value === value) ?? null;
 
 	$: value = selected?.value ?? null;
 
@@ -33,6 +33,8 @@
 			showDropDown = false;
 		}
 	};
+
+	$: console.log(options);
 
 	const updateSelected = (option: Option | null) => {
 		selected = option;
@@ -75,13 +77,15 @@
 			on:click|preventDefault={() => updateSelected(null)}
 			>{defaultOptions ?? 'No value'}</button
 		>
-		{#each options as option}
-			<button
-				on:click|preventDefault={() => updateSelected(option)}
-				class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-				>{option.label}</button
-			>
-		{/each}
+		{#if options}
+			{#each options as option}
+				<button
+					on:click|preventDefault={() => updateSelected(option)}
+					class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+					>{option.label}</button
+				>
+			{/each}
+		{/if}
 	</div>
 	{#if errors}
 		<ErrorMessage>{errors[0]}</ErrorMessage>

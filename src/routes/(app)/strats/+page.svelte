@@ -21,6 +21,9 @@
 		});
 	}
 
+	$: console.log(maps);
+	$: console.log(teams);
+
 	let stratName = '';
 	let stratDesc = '';
 	let mapName = '';
