@@ -5,14 +5,15 @@
 	export let name: string;
 	export let desc: string;
 	export let map: string;
+	export let teamSide: string;
 	export let position: string;
 	export let privacy: string;
 	export let team: string;
 	export let nades: Nade[];
 </script>
 
-<div class="grid gap-4 grid-cols-5 mb-10">
-	<h2 class="font-bold text-red-400 text-3xl col-span-5">General info:</h2>
+<div class="grid gap-4 grid-cols-6 mb-10">
+	<h2 class="font-bold text-red-400 text-3xl col-span-6">General info:</h2>
 	<div>
 		<h3 class="text-sm font-bold">Name</h3>
 		<p>{name}</p>
@@ -20,6 +21,10 @@
 	<div>
 		<h3 class="text-sm font-bold">Map</h3>
 		<p>{map}</p>
+	</div>
+	<div>
+		<h3 class="text-sm font-bold">Team side</h3>
+		<p>{teamSide}</p>
 	</div>
 	<div>
 		<h3 class="text-sm font-bold">Strat Position</h3>
@@ -33,7 +38,7 @@
 		<h3 class="text-sm font-bold">Team</h3>
 		<p>{team === '' ? 'N/A' : team}</p>
 	</div>
-	<div class="col-span-5">
+	<div class="col-span-6">
 		<h3 class="text-sm font-bold">Description</h3>
 		<p class="whitespace-pre-wrap">{desc}</p>
 	</div>

@@ -21,15 +21,12 @@
 		});
 	}
 
-	$: console.log(maps);
-	$: console.log(teams);
-
 	let stratName = '';
 	let stratDesc = '';
-	let mapName = '';
-	let teamSide = '';
+	let mapName: string | null = null;
+	let teamSide: string | null = null;
 	let position: { id: number; name: string } | null = null;
-	let privacy = '';
+	let privacy: string | null = null;
 	let team = '';
 	let nades: Nade[] = [];
 
@@ -78,10 +75,10 @@
 		}
 
 		if (
-			mapName === '' ||
-			teamSide === '' ||
+			mapName === null ||
+			teamSide === null ||
 			position === null ||
-			privacy === ''
+			privacy === null
 		) {
 			toast.error(
 				'Need to select a value for map name, team site, position, and privacy',
@@ -174,7 +171,7 @@
 				name="position"
 				bind:value={position}
 				placeholder="Position"
-				defaultOptions={mapName === '' ? 'Select map first' : 'No value'}
+				defaultOptions={mapName === null ? 'Select map first' : 'No value'}
 				options={mapName === '' ? [] : mapPositions}
 			/>
 			<FormDropdown
@@ -203,15 +200,16 @@
 	{:else if activeFormStep === FormSteps.NADES}
 		<!-- Nade selector -->
 		<div>
-			<MapEditor bind:nades {mapName} mapRadar={mapRadar ?? ''} />
+			<MapEditor bind:nades mapName={mapName ?? ''} mapRadar={mapRadar ?? ''} />
 		</div>
 	{:else if activeFormStep === FormSteps.OVERVIEW}
 		<StratOverview
 			name={stratName}
 			desc={stratDesc}
-			map={mapName}
-			position={'tmp'}
-			{privacy}
+			map={mapName ?? ''}
+			teamSide={teamSide ?? ''}
+			position={position?.name ?? ''}
+			privacy={privacy ?? ''}
 			{team}
 			{nades}
 		/>
