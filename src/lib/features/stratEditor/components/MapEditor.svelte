@@ -2,9 +2,8 @@
 	import { NadeType, type Nade } from '$lib/features/stratEditor/util/nade';
 	import toast from 'svelte-french-toast';
 	import MainButton from '../../../components/buttons/MainButton.svelte';
-	import NadeColorMeaning from './NadeColorMeaning.svelte';
-	import Dropdown from '../../../components/inputs/Dropdown.svelte';
 	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
+	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
 
 	enum MarkerType {
 		LINEUP,

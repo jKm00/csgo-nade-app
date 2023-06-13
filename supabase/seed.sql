@@ -41,3 +41,76 @@ values
 ('profile_18.png'),
 ('profile_19.png'),
 ('profile_20.png');
+
+-- Insert positions
+-- Ancient
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 1),
+('B site', 'b_site.webp', 1),
+('Banan', 'banan.webp', 1),
+('Mid', 'mid.webp', 1);
+
+-- Anubis
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 2),
+('B site', 'b_site.webp', 2),
+('Mid', 'mid.webp', 2),
+('Water', 'water.webp', 2);
+
+-- Inferno
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 3),
+('B site', 'b_site.webp', 3),
+('Banan', 'banan.webp', 3),
+('Top mid', 'top_mid.webp', 3),
+('Apps', 'apps.webp', 3);
+
+-- Mirage
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 4),
+('B site', 'b_site.webp', 4),
+('Mid', 'mid.webp', 4),
+('Palace', 'palace.webp', 4),
+('B apps', 'b_apps.webp', 4),
+('Short', 'short.webp', 4);
+
+-- Nuke
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 5),
+('B site', 'b_site.webp', 5),
+('Outside', 'outside.webp', 5),
+('Lobby', 'lobby.webp', 5),
+('Ramp', 'ramp.webp', 5);
+
+-- Overpass
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 6),
+('B site', 'b_site.webp', 6),
+('Long', 'long.webp', 6),
+('Banan', 'banan.webp', 6),
+('Fountain', 'fountain.webp', 6),
+('Connector', 'connector.webp', 6),
+('Monster entrance', 'monster_entrance.webp', 6),
+('Sewage', 'sewage.webp', 6);
+
+-- Vertigo
+insert into
+public.positions (name, img, map_id)
+values
+('A site', 'a_site.webp', 7),
+('B site', 'b_site.webp', 7),
+('A ramp', 'a_ramp.webp', 7),
+('B ramp', 'b_ramp.webp', 7),
+('Mid', 'mid.webp', 7);

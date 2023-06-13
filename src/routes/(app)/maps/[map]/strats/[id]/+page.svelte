@@ -5,10 +5,11 @@
 	import Dialog from '$lib/components/containers/Dialog.svelte';
 	import NadeSummary from '$lib/components/containers/NadeSummary.svelte';
 	import StratSkeleton from '$lib/components/skeletons/StratSkeleton.svelte';
-	import NadeColorMeaning from '$lib/features/stratEditor/components/NadeColorMeaning.svelte';
-	import { NadeType } from '$lib/features/stratEditor/util/nade.js';
 	import { maps } from '$lib/shared/maps.js';
 	import toast from 'svelte-french-toast';
+	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
+	import { NadeType } from '$lib/features/stratEditor/util/nade.js';
+	import Tag from '$lib/components/containers/Tag.svelte';
 
 	export let data;
 	export let form;
@@ -150,7 +151,7 @@
 			<div>
 				<header>
 					<h2 class="text-3xl font-bold">{strat.name}</h2>
-					<div class="flex gap-4 justify-between text-neutral-400 text-sm mb-6">
+					<div class="flex gap-4 justify-between text-neutral-400 text-sm mb-4">
 						<p>
 							Author: <a class="underline" href="/users/{strat.authorUuid}"
 								>{strat.authorName}</a
@@ -166,6 +167,16 @@
 						{/if}
 					</div>
 				</header>
+				<div class="flex gap-2 mb-6">
+					{#if strat.teamSide === 'CT'}
+						<Tag color="blue">{strat.teamSide}</Tag>
+					{:else}
+						<Tag color="red">{strat.teamSide}</Tag>
+					{/if}
+					{#if strat.position}
+						<Tag color="purple">{strat.position}</Tag>
+					{/if}
+				</div>
 				<p class="whitespace-pre-wrap">{strat.desc}</p>
 			</div>
 			<div class="col-span-2">

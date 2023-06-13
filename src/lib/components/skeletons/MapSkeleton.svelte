@@ -1,24 +1,20 @@
-<div class="grid grid-cols-main-small gap-4 text-transparent animate-pulse">
-	{#each { length: 10 } as _}
-		<!-- Dummy card -->
-		<div class="grid gap-4 bg-neutral-800 rounded shadow p-4">
-			<div class="flex justify-between items-center">
-				<h3 class="text-xl font-bold bg-neutral-700 rounded">A smokes</h3>
-				<svg
-					class="fill-transparent"
-					xmlns="http://www.w3.org/2000/svg"
-					height="1em"
-					viewBox="0 0 320 512"
-					><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-						d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
-					/></svg
-				>
-			</div>
-			<div class="flex gap-4 justify-between text-sm">
-				<p class="bg-neutral-700 rounded">Creator:</p>
-				<p class="bg-neutral-700 rounded">Created at:</p>
-				<p class="bg-neutral-700 rounded">Team:</p>
+{#each { length: 10 } as _}
+	<div
+		class="bg-neutral-800 rounded shadow overflow-hidden text-transparent animate-pulse"
+	>
+		<div class="aspect-[16/6] bg-neutral-700" />
+		<div class="grid p-4">
+			<h2 class="text-2xl bg-neutral-700 rounded">A strat title</h2>
+			<p class="text-transparent">dummy</p>
+			<div class="flex gap-4 mt-6">
+				<p class="bg-neutral-700 border border-neutral-700 rounded-full px-4">
+					CT
+				</p>
+
+				<p class="bg-neutral-700 border border-neutral-700 rounded-full px-4">
+					A site
+				</p>
 			</div>
 		</div>
-	{/each}
-</div>
+	</div>
+{/each}

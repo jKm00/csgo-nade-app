@@ -12,14 +12,24 @@ export const load = async ({ url, locals }) => {
 
 	const { data: maps } = await locals.supabase
 		.from('maps')
-		.select('id, name, radar');
+		.select('id, name, radar, positions ( id, name )');
 	const { data: teams } = await locals.supabase
 		.from('profile_teams')
 		.select('team_id, team_name')
 		.eq('profile_uuid', session.user.id);
 
 	return {
-		maps,
+		maps: maps.map((map) => {
+			return {
+				...map,
+				positions: map.positions.map((position) => {
+					return {
+						id: position.id,
+						name: position.name,
+					};
+				}),
+			};
+		}),
 		teams,
 	};
 };
@@ -32,7 +42,8 @@ export const actions = {
 		const desc = form.get('description');
 		const mapId = form.get('mapId');
 		const mapName = form.get('mapName');
-		const position = form.get('position');
+		const teamSide = form.get('teamSide');
+		const positionId = form.get('positionId');
 		const privacy = form.get('privacy');
 		const teamId = form.get('teamId');
 		const nadesString = form.get('nades');
@@ -42,8 +53,9 @@ export const actions = {
 			name === '' ||
 			desc === '' ||
 			mapId === '' ||
+			teamSide === '' ||
 			mapName === '' ||
-			position === '' ||
+			positionId === '' ||
 			privacy === '' ||
 			nadesString === null ||
 			nadesString === '' ||
@@ -59,11 +71,12 @@ export const actions = {
 			.insert({
 				name,
 				description: desc,
-				strat_position: position,
 				privacy: privacy,
 				map_id: mapId,
 				author_id: playerId,
 				team_id: teamId === '' ? null : teamId,
+				position_id: Number(positionId),
+				team_side: teamSide,
 			})
 			.select('id');
 

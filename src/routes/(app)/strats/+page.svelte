@@ -24,15 +24,27 @@
 	let stratName = '';
 	let stratDesc = '';
 	let mapName = '';
-	let stratPos = '';
+	let teamSide = '';
+	let position: { id: number; name: string } | null = null;
 	let privacy = '';
 	let team = '';
 	let nades: Nade[] = [];
+
+	// Positions based on selected map
+	$: mapPositions = maps
+		.find((map) => map.name === mapName)
+		?.positions?.map((pos: { id: number; name: string }) => {
+			return {
+				label: pos.name,
+				value: pos,
+			};
+		});
 
 	$: mapRadar = maps?.find((m) => m.name === mapName)?.radar;
 	$: mapId = maps?.find((m) => m.name === mapName)?.id;
 	$: teamId = teams?.find((t) => t.team_name === team)?.team_id;
 	$: nadesString = JSON.stringify(nades);
+	$: positionId = position?.id ?? null;
 
 	let activeFormStep = FormSteps.INFO;
 
@@ -62,9 +74,14 @@
 			return false;
 		}
 
-		if (mapName === '' || stratPos === '' || privacy === '') {
+		if (
+			mapName === '' ||
+			teamSide === '' ||
+			position === null ||
+			privacy === ''
+		) {
 			toast.error(
-				'Need to select a value for map name, position, and privacy',
+				'Need to select a value for map name, team site, position, and privacy',
 				{
 					style: 'background: #333; color:#fff',
 				}
@@ -106,7 +123,8 @@
 	<input type="hidden" name="description" bind:value={stratDesc} />
 	<input type="hidden" name="mapId" bind:value={mapId} />
 	<input type="hidden" name="mapName" bind:value={mapName} />
-	<input type="hidden" name="position" bind:value={stratPos} />
+	<input type="hidden" name="teamSide" bind:value={teamSide} />
+	<input type="hidden" name="positionId" bind:value={positionId} />
 	<input type="hidden" name="privacy" bind:value={privacy} />
 	<input type="hidden" name="teamId" bind:value={teamId} />
 	<input type="hidden" name="nades" bind:value={nadesString} />
@@ -139,15 +157,22 @@
 					: []}
 			/>
 			<FormDropdown
+				id="side"
+				name="side"
+				bind:value={teamSide}
+				placeholder="Team side"
+				options={[
+					{ label: 'CT', value: 'CT' },
+					{ label: 'T', value: 'T' },
+				]}
+			/>
+			<FormDropdown
 				id="position"
 				name="position"
-				bind:value={stratPos}
+				bind:value={position}
 				placeholder="Position"
-				options={[
-					{ label: 'A site', value: 'A site' },
-					{ label: 'B site', value: 'B site' },
-					{ label: 'Mid', value: 'Mid' },
-				]}
+				defaultOptions={mapName === '' ? 'Select map first' : 'No value'}
+				options={mapName === '' ? [] : mapPositions}
 			/>
 			<FormDropdown
 				id="privacy"
@@ -182,7 +207,7 @@
 			name={stratName}
 			desc={stratDesc}
 			map={mapName}
-			position={stratPos}
+			position={'tmp'}
 			{privacy}
 			{team}
 			{nades}
