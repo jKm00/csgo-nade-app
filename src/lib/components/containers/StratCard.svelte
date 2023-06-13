@@ -37,7 +37,7 @@
 			<a class="underline" href="/users/{authorId}">{authorName}</a>
 			- {new Date(createdAt).toLocaleDateString()}
 			{#if team !== null}
-				- <a href="/teams/{team}">{team}</a>
+				- <a class="underline" href="/teams/{team}">{team}</a>
 			{/if}
 		</p>
 		<div class="flex gap-2 mt-6">
