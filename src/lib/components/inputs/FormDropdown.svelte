@@ -34,8 +34,6 @@
 		}
 	};
 
-	$: console.log(options);
-
 	const updateSelected = (option: Option | null) => {
 		selected = option;
 		showDropDown = false;
