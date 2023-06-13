@@ -75,7 +75,7 @@ export const actions = {
 				map_id: mapId,
 				author_id: playerId,
 				team_id: teamId === '' ? null : teamId,
-				position_id: positionId,
+				position_id: Number(positionId),
 				team_side: teamSide,
 			})
 			.select('id');

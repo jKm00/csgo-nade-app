@@ -25,7 +25,7 @@
 	let stratDesc = '';
 	let mapName = '';
 	let teamSide = '';
-	let position = '';
+	let position: { id: number; name: string } | null = null;
 	let privacy = '';
 	let team = '';
 	let nades: Nade[] = [];
@@ -36,7 +36,7 @@
 		?.positions?.map((pos: { id: number; name: string }) => {
 			return {
 				label: pos.name,
-				value: pos.name,
+				value: pos,
 			};
 		});
 
@@ -44,12 +44,7 @@
 	$: mapId = maps?.find((m) => m.name === mapName)?.id;
 	$: teamId = teams?.find((t) => t.team_name === team)?.team_id;
 	$: nadesString = JSON.stringify(nades);
-	// TODO: Find out why I need to define type
-	$: positionId = maps
-		.find((m) => m.name === mapName)
-		?.positions.find(
-			(pos: { id: number; name: string }) => pos.name === position
-		)?.id;
+	$: positionId = position?.id ?? null;
 
 	let activeFormStep = FormSteps.INFO;
 
@@ -82,7 +77,7 @@
 		if (
 			mapName === '' ||
 			teamSide === '' ||
-			position === '' ||
+			position === null ||
 			privacy === ''
 		) {
 			toast.error(
@@ -212,7 +207,7 @@
 			name={stratName}
 			desc={stratDesc}
 			map={mapName}
-			{position}
+			position={'tmp'}
 			{privacy}
 			{team}
 			{nades}

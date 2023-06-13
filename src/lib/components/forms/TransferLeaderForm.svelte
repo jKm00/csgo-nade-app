@@ -38,7 +38,9 @@
 			</div>
 		{/each}
 	{:else}
-		<p class="text-sm text-neutral-400">No other team members in the team...</p>
+		<p class="text-sm text-neutral-400 px-4">
+			No other team members in the team...
+		</p>
 	{/if}
 </div>
 
