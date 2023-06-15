@@ -1,4 +1,4 @@
-# Contributing
+# 🤝 Contributing
 
 Every contribution is much appreciated. This guide will help you get up to speed on how to contribute to the project, making the experience better and more efficient for both parties😇
 
