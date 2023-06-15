@@ -2,4 +2,4 @@
   command = "npm run build"
   publish = "build"
   # This should ignore the workflow if changes are only related to documentation
-  ignore = "bash -c 'if git diff --quiet HEAD^ --name-only | grep -q \"^docs/\"; then exit 0; else exit 1; fi'"
+  ignore = "bash -c 'if git diff --quiet HEAD^ -- docs/; then exit 0; else exit 1; fi'"
