@@ -17,7 +17,7 @@ Every contribution is much appreciated. This guide will help you get up to speed
 3. Describe the feature as thoroughly as possible in the issue description.
 4. Assign the issue the label `feature`.
 
-_Use [this template](../.github/ISSUE_TEMPLATE/feature_request.md)_
+_Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=feature&projects=&template=feature_request.md&title=)_
 
 ## ⚡ Suggest improvements
 
@@ -29,7 +29,7 @@ _Use [this template](../.github/ISSUE_TEMPLATE/feature_request.md)_
    - Why you think it would be an improvement.
 4. Assign the issue the label `enhancement`.
 
-_Use [this template](../.github/ISSUE_TEMPLATE/improvements-request.md)_
+_Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=enhancement&projects=&template=improvements-request.md&title=)_
 
 ## 🐛 Report a bug
 
@@ -41,7 +41,7 @@ _Use [this template](../.github/ISSUE_TEMPLATE/improvements-request.md)_
    - If something is not working properly, explain <em>why</em> you think it is not working properly, <em>how</em> you think it should work, and provide a suggested solution if you have one.
 4. Assign the issue the label `bug`.
 
-_Use [this template](../.github/ISSUE_TEMPLATE/bug_report.md)_
+_Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=)_
 
 ## 📝 Making changes to the codebase
 
