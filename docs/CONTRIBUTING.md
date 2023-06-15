@@ -12,16 +12,14 @@ Every contribution is much appreciated. This guide will help you get up to speed
 
 ## 💡 Suggest new features
 
-1. Open an issue at [https://github.com/jKm00/csgo-nade-app/issues](https://github.com/jKm00/csgo-nade-app/issues).
+1. Open an issue at [https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=feature&projects=&template=feature_request.md&title=](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=feature&projects=&template=feature_request.md&title=).
 2. Give the issue an appropriate title.
 3. Describe the feature as thoroughly as possible in the issue description.
 4. Assign the issue the label `feature`.
 
-_Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=feature&projects=&template=feature_request.md&title=)_
-
 ## ⚡ Suggest improvements
 
-1. Open an issue at [https://github.com/jKm00/csgo-nade-app/issues](https://github.com/jKm00/csgo-nade-app/issues).
+1. Open an issue at [https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=enhancement&projects=&template=improvements-request.md&title=](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=enhancement&projects=&template=improvements-request.md&title=).
 2. Give the issue an appropriate title.
 3. Describe the suggested improvements:
    - What needs to be improved.
@@ -29,19 +27,15 @@ _Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees
    - Why you think it would be an improvement.
 4. Assign the issue the label `enhancement`.
 
-_Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=enhancement&projects=&template=improvements-request.md&title=)_
-
 ## 🐛 Report a bug
 
-1. Open an issue at [https://github.com/jKm00/csgo-nade-app/issues](https://github.com/jKm00/csgo-nade-app/issues).
+1. Open an issue at [https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=).
 2. Give it an appropriate title.
 3. Describe the bug:
    - Provide a step-by-step guide to reproduce the bug or a minimal code example demonstrating the bug.
    - If you have a solution for the issue, please provide it.
    - If something is not working properly, explain <em>why</em> you think it is not working properly, <em>how</em> you think it should work, and provide a suggested solution if you have one.
 4. Assign the issue the label `bug`.
-
-_Use [this template](https://github.com/jKm00/csgo-nade-app/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=)_
 
 ## 📝 Making changes to the codebase
 
