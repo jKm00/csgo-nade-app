@@ -8,17 +8,17 @@ An application for teams and users the create and share csgo strategies
   <img src="../assets/images/home_page.PNG" alt="Home page" />
 </a>
 
-## About
+## 📕 About
 
 _The current state of the application is hosted at: <a href="https://csgostrats.com/" target="_blank">https://csgostrats.com/</a>_
 
 The concept revolves around players developing strategies using various nade sets. These strategies can be shared either publicly with the community or privately within a specific team. When viewing a strategy, the map's radar is shown, indicating all the nades thrown as part of the strategy. By clicking on the nade, users can see images of lineups and landing points of each grenade. Additionaly, strategies can include descriptions describing what actions each player should execute.
 
-## Contribution
+## 🤝 Contribution
 
 Any contribution are greatly appreciated. Please refer to the [contribution guide](./CONTRIBUTING.md) for detailed instructions on how to contribute to this project.
 
-## Getting started
+## 🎬 Getting started
 
 ### Prerequisite
 
@@ -49,66 +49,6 @@ npm install
 npm run dev
 ```
 
-## Supabase cheatsheet
+## 💻 Supabase commands
 
-**Login to supabase CLI**
-
-```
-npx supabase login
-```
-
-**Start local supabase**
-
-```
-npx supabase start
-```
-
-**Stop local supabase**
-
-```
-npx supabase stop
-```
-
-**Create new migration**
-
-```
-npx supabase migration new [migration_name]
-```
-
-**Create migartion based on diff after editing from browser**
-
-```
-npx supabase db diff --use-migra -f [migration_name]
-```
-
-**Reset local db**
-
-```
-npx supabase db reset
-```
-
-**Updating typescript types**
-
-```
-npx supabase gen types typescript --local > ./src/schema.ts
-```
-
-**Link to remote project**
-
-```
-npx supabase link --project-ref [project-id]
-```
-
-**Capture any changes made to remote database**
-
-```
-npx supabase db remote commit
-
-# If you have not made any changes to the remote database, skip this step
-```
-
-**Deploy changes**
-
-```
-npx supabase db push
-```
+For a list of useful Supabase commands, refer to the [Supabase Cheatsheet](./supabase-cheatsheet.md).
