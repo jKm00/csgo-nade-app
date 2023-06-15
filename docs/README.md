@@ -16,9 +16,7 @@ The concept revolves around players developing strategies using various nade set
 
 ## Contribution
 
-**Default flow:** Fork the repo, create a new branch from main. Give the new branch a name with the issue number followed by a short description of what you are working on in the branch: _20-implement-profile-pictures_. When everything is ready, create a merge request to the main branch of this repo.
-
-To get local environment up and running follow the steps mentioned in "Getting started" belov.
+Any contribution are greatly appreciated. Please refer to the [contribution guide](./CONTRIBUTING.md) for detailed instructions on how to contribute to this project.
 
 ## Getting started
 
