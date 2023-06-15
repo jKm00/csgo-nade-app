@@ -1,4 +1,4 @@
-# 🧪 Supabase Cheatsheet
+# Supabase Cheatsheet
 
 **Login to supabase CLI**
 
