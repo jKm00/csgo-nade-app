@@ -41,9 +41,11 @@ Every contribution is much appreciated. This guide will help you get up to speed
 
 1. Every change should be related to an issue. If the issue doesn't exist, create one before starting to work on the implementation.
 2. Fork the repository.
-3. Create a branch based on `main` with a name following the <a href="#branch-naming">branch naming convention</a> for this repository.
+3. Create a branch based on `main` with a name following the [branch naming convention](#branch-naming) for this repository.
 4. Implement the issue in your branch.
-5. When finished, create a pull request to `main` and wait for feedback.
+5. When finished, create a pull request to `main`.
+6. Assign it with an appropriate label based on the work you have implemented.
+7. Wait for comments/approval:
    - If it is approved, you don't have to do anything more.
    - If it's not approved, review the comments and fix the problems. Then wait for another approval.
 
