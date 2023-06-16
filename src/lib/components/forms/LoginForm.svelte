@@ -38,7 +38,7 @@
 		id="password"
 		name="password"
 		label="Password:"
-		placeholder="#Averysecrepassword123"
+		placeholder="#Averysecretpassword123"
 		bind:value={$form.password}
 		errors={$errors.password}
 		isPassword={true}

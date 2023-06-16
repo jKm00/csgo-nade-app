@@ -10,6 +10,7 @@
 	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
 	import { NadeType } from '$lib/features/stratEditor/util/nade.js';
 	import Tag from '$lib/components/containers/Tag.svelte';
+	import MarkerMeaning from '$lib/components/feedback/MarkerMeaning.svelte';
 
 	export let data;
 	export let form;
@@ -85,6 +86,7 @@
 <main class="grid gap-4 grid-cols-2 w-default mt-4">
 	<!-- Map radar -->
 	<div>
+		<MarkerMeaning />
 		<div class="relative aspect-square">
 			<img
 				class="absolute inset-0"
