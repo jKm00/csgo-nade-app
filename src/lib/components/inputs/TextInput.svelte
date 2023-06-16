@@ -2,7 +2,7 @@
 	export let value: string;
 	export let id: string;
 	export let name: string;
-	export let label: string;
+	export let label: string | undefined = undefined;
 	export let placeholder: string | undefined = undefined;
 	export let errors: string[] | undefined = undefined;
 
@@ -10,7 +10,9 @@
 </script>
 
 <div class="grid">
-	<label class="font-bold" for={id}>{label}</label>
+	{#if label}
+		<label class="font-bold" for={id}>{label}</label>
+	{/if}
 	{#if isPassword}
 		<input
 			class="bg-neutral-800 rounded-sm p-2"

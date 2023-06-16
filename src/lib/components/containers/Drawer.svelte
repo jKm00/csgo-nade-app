@@ -6,13 +6,14 @@
 </script>
 
 {#if show}
+	<!-- Backdrop -->
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 bottom-0 left-0 right-0 bg-neutral-950/80"
 	/>
 {/if}
 <div
-	class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 {show
+	class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 z-50 {show
 		? 'translate-x-0'
 		: 'translate-x-full'} transition-transform"
 	use:clickOutside={() => (show = false)}
