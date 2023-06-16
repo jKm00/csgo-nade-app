@@ -1,220 +1,23 @@
 <script lang="ts">
-	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
-	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
-	import MapEditor from '$lib/features/stratEditor/components/MapEditor.svelte';
-	import type { Nade } from '$lib/features/stratEditor/util/nade.js';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
-	import { FormSteps } from '$lib/features/stratEditor/util/formSteps.js';
-	import toast from 'svelte-french-toast';
-	import StratOverview from '$lib/features/stratEditor/components/StratOverview.svelte';
-	import FormButton from '$lib/components/buttons/FormButton.svelte';
+	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
+	import { FormSteps } from '$lib/features/stratEditor/util/formSteps';
 
-	export let data;
-	export let form;
-
-	$: ({ maps, teams } = data);
-
-	$: if (form?.message) {
-		toast.error(form.message, {
-			style: 'background: #333; color:#fff',
-		});
-	}
-
-	let stratName = '';
-	let stratDesc = '';
-	let mapName: string | null = null;
-	let teamSide: string | null = null;
-	let position: { id: number; name: string } | null = null;
-	let privacy: string | null = null;
-	let team = '';
-	let nades: Nade[] = [];
-
-	// Positions based on selected map
-	$: mapPositions = maps
-		.find((map) => map.name === mapName)
-		?.positions?.map((pos: { id: number; name: string }) => {
-			return {
-				label: pos.name,
-				value: pos,
-			};
-		});
-
-	$: mapRadar = maps?.find((m) => m.name === mapName)?.radar;
-	$: mapId = maps?.find((m) => m.name === mapName)?.id;
-	$: teamId = teams?.find((t) => t.team_name === team)?.team_id;
-	$: nadesString = JSON.stringify(nades);
-	$: positionId = position?.id ?? null;
-
-	let activeFormStep = FormSteps.INFO;
+	let activeStep = FormSteps.INFO;
 
 	const goToStep = (step: FormSteps) => {
-		switch (step) {
-			case FormSteps.INFO:
-				activeFormStep = step;
-				break;
-			case FormSteps.NADES:
-				if (validateFormInfo()) {
-					activeFormStep = step;
-				}
-				break;
-			case FormSteps.OVERVIEW:
-				if (validateFormInfo() && validateNades()) {
-					activeFormStep = step;
-				}
-				break;
-		}
-	};
+		// TODO: Validate forms
 
-	const validateFormInfo = () => {
-		if (stratName === '' || stratDesc === '') {
-			toast.error('Make sure no inputs are empty', {
-				style: 'background: #333; color:#fff',
-			});
-			return false;
-		}
-
-		if (
-			mapName === null ||
-			teamSide === null ||
-			position === null ||
-			privacy === null
-		) {
-			toast.error(
-				'Need to select a value for map name, team site, position, and privacy',
-				{
-					style: 'background: #333; color:#fff',
-				}
-			);
-			return false;
-		}
-
-		return true;
-	};
-
-	const validateNades = () => {
-		if (nades.length === 0) {
-			toast.error('A strat needs at least 1 nade!', {
-				style: 'background: #333; color:#fff',
-			});
-			return false;
-		}
-
-		const incompleteNade = nades.find(
-			(nade) => nade.name === '' || nade.type === ''
-		);
-		if (incompleteNade !== undefined) {
-			toast.error('Make sure all nades have a name and a type!', {
-				style: 'background: #333; color:#fff',
-			});
-			return false;
-		}
-
-		return true;
+		activeStep = step;
 	};
 </script>
 
-<form class="grid gap-4 w-default" action="" method="POST">
+<main class="w-default">
 	<StratEditorNav
-		bind:activeStep={activeFormStep}
+		bind:activeStep
 		on:updateFormStep={(event) => goToStep(event.detail.step)}
 	/>
-	<input type="hidden" name="name" bind:value={stratName} />
-	<input type="hidden" name="description" bind:value={stratDesc} />
-	<input type="hidden" name="mapId" bind:value={mapId} />
-	<input type="hidden" name="mapName" bind:value={mapName} />
-	<input type="hidden" name="teamSide" bind:value={teamSide} />
-	<input type="hidden" name="positionId" bind:value={positionId} />
-	<input type="hidden" name="privacy" bind:value={privacy} />
-	<input type="hidden" name="teamId" bind:value={teamId} />
-	<input type="hidden" name="nades" bind:value={nadesString} />
-	<input type="hidden" name="playerId" value={data.authUser?.id} />
-	{#if activeFormStep === FormSteps.INFO}
-		<TextInput
-			id="name"
-			name="name"
-			label="Name:"
-			bind:value={stratName}
-			placeholder="Name of strat"
-		/>
-		<TextAreaInput
-			id="description"
-			name="description"
-			label="Description:"
-			bind:value={stratDesc}
-			placeholder="Short description (optional)"
-		/>
-		<div class="flex gap-4">
-			<FormDropdown
-				id="map"
-				name="map"
-				bind:value={mapName}
-				placeholder="Map"
-				options={maps
-					? maps.map((m) => {
-							return { value: m.name, label: m.name };
-					  })
-					: []}
-			/>
-			<FormDropdown
-				id="side"
-				name="side"
-				bind:value={teamSide}
-				placeholder="Team side"
-				options={[
-					{ label: 'CT', value: 'CT' },
-					{ label: 'T', value: 'T' },
-				]}
-			/>
-			<FormDropdown
-				id="position"
-				name="position"
-				bind:value={position}
-				placeholder="Position"
-				defaultOptions={mapName === null ? 'Select map first' : 'No value'}
-				options={mapName === '' ? [] : mapPositions}
-			/>
-			<FormDropdown
-				id="privacy"
-				name="privacy"
-				bind:value={privacy}
-				placeholder="Privacy"
-				options={[
-					{ label: 'Public', value: 'PUBLIC' },
-					{ label: 'Private', value: 'PRIVATE' },
-				]}
-			/>
-			<FormDropdown
-				id="team"
-				name="team"
-				bind:value={team}
-				placeholder="Team"
-				defaultOptions={teams?.length === 0 ? 'No available teams' : undefined}
-				options={teams
-					? teams.map((m) => {
-							return { value: `${m.team_name}`, label: m.team_name ?? '' };
-					  })
-					: []}
-			/>
-		</div>
-	{:else if activeFormStep === FormSteps.NADES}
-		<!-- Nade selector -->
-		<div>
-			<MapEditor bind:nades mapName={mapName ?? ''} mapRadar={mapRadar ?? ''} />
-		</div>
-	{:else if activeFormStep === FormSteps.OVERVIEW}
-		<StratOverview
-			name={stratName}
-			desc={stratDesc}
-			map={mapName ?? ''}
-			teamSide={teamSide ?? ''}
-			position={position?.name ?? ''}
-			privacy={privacy ?? ''}
-			{team}
-			{nades}
-		/>
-		<div class="grid mt-10">
-			<FormButton>Create strat</FormButton>
-		</div>
+	{#if activeStep === FormSteps.INFO}
+		<StratInfo />
 	{/if}
-</form>
+</main>
