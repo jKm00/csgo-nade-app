@@ -65,16 +65,6 @@
 		input.value = '';
 	};
 
-	const handleDrag = (event: DragEvent) => {
-		event.preventDefault();
-		event.stopPropagation();
-		if (event.type === 'dragenter' || event.type === 'dragover') {
-			dragAcitve = true;
-		} else if (event.type === 'dragleave') {
-			dragAcitve = false;
-		}
-	};
-
 	const handleDrop = (event: DragEvent) => {
 		event.stopPropagation();
 		dragAcitve = false;
@@ -107,11 +97,11 @@
 			<!-- TODO: Handle drag and drop -->
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<button
-				class="grid place-items-center bg-neutral-800 rounded border border-neutral-700 text-neutral-400 border-dashed py-10 aspect-video"
+				class="grid place-items-center bg-neutral-800 rounded border border-neutral-700 text-neutral-400 border-dashed aspect-video"
 				on:click={openFileOption}
-				on:dragenter={handleDrag}
-				on:dragleave={handleDrag}
-				on:dragover={handleDrag}
+				on:dragenter|preventDefault|stopPropagation={() => (dragAcitve = true)}
+				on:dragover|preventDefault|stopPropagation={() => (dragAcitve = true)}
+				on:dragleave|preventDefault|stopPropagation={() => (dragAcitve = false)}
 				on:drop|preventDefault={handleDrop}
 				on:mouseenter={() => (dragAcitve = true)}
 				on:mouseleave={() => (dragAcitve = false)}
@@ -126,9 +116,9 @@
 				alt={file.name}
 				bind:this={output}
 				on:click={openFileOption}
-				on:dragenter={handleDrag}
-				on:dragleave={handleDrag}
-				on:dragover={handleDrag}
+				on:dragenter|preventDefault|stopPropagation={() => (dragAcitve = true)}
+				on:dragover|preventDefault|stopPropagation={() => (dragAcitve = true)}
+				on:dragleave|preventDefault|stopPropagation={() => (dragAcitve = false)}
 				on:drop|preventDefault={handleDrop}
 				on:mouseenter={() => (dragAcitve = true)}
 				on:mouseleave={() => (dragAcitve = false)}
