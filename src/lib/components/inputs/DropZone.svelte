@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher, tick } from 'svelte';
+	import toast from 'svelte-french-toast';
 	import { fade } from 'svelte/transition';
 
 	// Label displayed over the drop zone
@@ -16,6 +17,7 @@
 	let dragAcitve = false;
 	let input: HTMLInputElement;
 	let output: HTMLImageElement;
+	let allowedFileTypes = ['jpg', 'jpeg', 'png'];
 
 	/**
 	 * Opens the file explorer
@@ -32,6 +34,15 @@
 	};
 
 	const updateFile = async (newFile: File | undefined) => {
+		// Make sure it is and jpg or png
+		const ext = newFile?.name.split('.').pop();
+		if (ext && !allowedFileTypes.includes(ext.toLocaleLowerCase())) {
+			toast.error('Only jpg, jpeg, and png allowed!', {
+				style: 'background: #333; color:#fff',
+			});
+			return;
+		}
+
 		// Reset input value
 		if (input) {
 			input.value = '';
@@ -83,7 +94,7 @@
 
 <input
 	class="hidden"
-	accept="image/*"
+	accept="image/jpg, image/jpeg, image/png"
 	type="file"
 	multiple={false}
 	bind:this={input}
