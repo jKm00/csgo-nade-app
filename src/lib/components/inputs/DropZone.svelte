@@ -111,7 +111,7 @@
 		{:else}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<img
-				class="rounded aspect-video object-cover cursor-pointer"
+				class="rounded aspect-video object-cover cursor-pointer bg-neutral-800"
 				src="#"
 				alt={file.name}
 				bind:this={output}
