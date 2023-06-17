@@ -17,7 +17,7 @@
 </script>
 
 <form class="grid gap-4" on:submit|preventDefault={handleSubmit}>
-	<fieldset>
+	<fieldset class="grid gap-4">
 		<TextInput
 			id="title"
 			name="title"
