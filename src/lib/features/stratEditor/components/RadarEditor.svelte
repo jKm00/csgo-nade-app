@@ -1,11 +1,10 @@
 <script lang="ts">
 	import type { Nade } from '../types/nade';
+	import NadeMarker from './NadeMarker.svelte';
 
 	export let map: string;
 	export let nades: Nade[];
 	export let activeNade: Nade | undefined;
-
-	$: console.log(nades);
 
 	$: radarPath = `/assets/images/radars/de_${map}.webp`;
 
@@ -56,17 +55,12 @@
 			addNewNade = true;
 		}
 	};
-
-	// TODO: On nade click, emit the id of the nade
 </script>
 
 <!-- Radar wrapper -->
 <div class="relative">
-	<!-- TODO: On button (nade marker) drag, change its coordinates -->
-	{#each nades as nade}
-		<div class="grid gap-2">
-			<button on:click={() => (activeNade = nade)}>yo</button>
-		</div>
+	{#each nades as nade, index}
+		<NadeMarker {nade} {index} on:click={() => (activeNade = nade)} />
 	{/each}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
