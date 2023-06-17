@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { FormSteps } from '../util/formSteps';
+	import { FormSteps } from '../types/formSteps';
 
 	export let activeStep: FormSteps;
 

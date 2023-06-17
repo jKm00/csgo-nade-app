@@ -1,6 +1,6 @@
 <script lang="ts">
 	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
-	import { NadeType, type Nade } from '../util/nade';
+	import { NadeType, type Nade } from '../types/nade';
 
 	export let name: string;
 	export let desc: string;

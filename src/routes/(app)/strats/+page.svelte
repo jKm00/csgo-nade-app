@@ -1,9 +1,13 @@
 <script lang="ts">
+	import NadeEditor from '$lib/features/stratEditor/components/NadeEditor.svelte';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
 	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
-	import { FormSteps } from '$lib/features/stratEditor/util/formSteps';
+	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
+	import type { Nade } from '$lib/features/stratEditor/types/nade';
 
-	let activeStep = FormSteps.INFO;
+	let activeStep = FormSteps.NADES;
+
+	let nades: Nade[];
 
 	const goToStep = (step: FormSteps) => {
 		// TODO: Validate forms
@@ -19,5 +23,7 @@
 	/>
 	{#if activeStep === FormSteps.INFO}
 		<StratInfo />
+	{:else if activeStep === FormSteps.NADES}
+		<NadeEditor map="mirage" bind:nades />
 	{/if}
 </main>

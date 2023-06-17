@@ -2,6 +2,13 @@
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
+    screens: {
+      'sm': '600px',
+      'md': '900px',
+      'lg': '1100px',
+      'xl': '1250px',
+      '2xl': '1500px'
+    },
     extend: {
       gridTemplateColumns: {
         'main': 'repeat(auto-fit, minmax(18rem, 1fr))',
