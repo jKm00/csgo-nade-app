@@ -4,7 +4,7 @@
 
 	export let map: string;
 	export let nades: Nade[];
-	export let activeNade: Nade | undefined;
+	export let activeNade: Nade | undefined = undefined;
 
 	$: radarPath = `/assets/images/radars/de_${map}.webp`;
 
@@ -60,7 +60,15 @@
 <!-- Radar wrapper -->
 <div class="relative">
 	{#each nades as nade, index}
-		<NadeMarker {nade} {index} on:click={() => (activeNade = nade)} />
+		<NadeMarker
+			bind:nade
+			{index}
+			{radarWidth}
+			{radarHeight}
+			bind:mouseX={mousePosition.x}
+			bind:mouseY={mousePosition.y}
+			on:click={() => (activeNade = nade)}
+		/>
 	{/each}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
