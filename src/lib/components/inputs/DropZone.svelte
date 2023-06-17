@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { createEventDispatcher, tick } from 'svelte';
-	import { remove } from 'svelte-french-toast/dist/core/store';
 
 	export let label: string;
 	export let file: File | undefined;
@@ -25,6 +24,9 @@
 	};
 
 	const updateFile = async (newFile: File | undefined) => {
+		// Reset input value
+		input.value = '';
+
 		file = newFile;
 
 		if (file) {

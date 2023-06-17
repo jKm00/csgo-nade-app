@@ -46,7 +46,7 @@
 			bind:value={activeNade.notes}
 		/>
 		<div class="grid grid-cols-2 gap-4">
-			<!-- <DropZone
+			<DropZone
 				label="Lineup image:"
 				file={activeNade.lineupImg}
 				on:change={updateLineupImg}
@@ -55,7 +55,7 @@
 				label="Impact image:"
 				file={activeNade.impactImg}
 				on:change={updateImpactImg}
-			/> -->
+			/>
 		</div>
 	</div>
 {/if}
