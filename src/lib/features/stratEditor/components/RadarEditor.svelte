@@ -7,7 +7,7 @@
 	export let activeNade: Nade | undefined = undefined;
 	export let showTutorial: boolean;
 
-	$: radarPath = `/assets/images/radars/de_${map}.webp`;
+	$: radarPath = `/assets/images/radars/de_${map.toLocaleLowerCase()}.webp`;
 
 	let addNewNade = true;
 
@@ -63,40 +63,46 @@
 	};
 </script>
 
-<!-- Radar wrapper -->
-<div class="relative">
-	{#each nades as nade, index}
-		<NadeMarker
-			bind:nade
-			{index}
-			{radarWidth}
-			{radarHeight}
-			bind:mouseX={mousePosition.x}
-			bind:mouseY={mousePosition.y}
-			on:click={() => (activeNade = nade)}
-		/>
-	{/each}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div
-		class="cursor-pointer"
-		on:mousemove={handleMouseMove}
-		on:click={handleMapClick}
-		bind:clientWidth={radarWidth}
-		bind:clientHeight={radarHeight}
-	>
-		<img src={radarPath} alt={`Radar of ${map}`} />
-	</div>
-	{#if showTutorial}
-		<!-- Tutorial -->
+<div>
+	<!-- Radar wrapper -->
+	<div class="relative w-full aspect-square">
+		{#each nades as nade, index}
+			<NadeMarker
+				bind:nade
+				{index}
+				{radarWidth}
+				{radarHeight}
+				bind:mouseX={mousePosition.x}
+				bind:mouseY={mousePosition.y}
+				on:click={() => (activeNade = nade)}
+			/>
+		{/each}
+		<!-- Image wrapper -->
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div
-			class="grid place-items-center absolute inset-0 bg-neutral-950/80 text-neutral-400 pointer-events-none z-10"
+			class="cursor-pointer"
+			on:mousemove={handleMouseMove}
+			on:click={handleMapClick}
+			bind:clientWidth={radarWidth}
+			bind:clientHeight={radarHeight}
 		>
-			<ul>
-				<li>1. Click once on the map to add a lineup marker</li>
-				<li>2. Click once more to add a marker where the nade should land</li>
-				<li>3. Change name and nade type in the side menu</li>
-				<li>4. Repeat to add more nades</li>
-			</ul>
+			<img src={radarPath} alt={`Radar of ${map}`} />
 		</div>
-	{/if}
+		{#if showTutorial}
+			<!-- Tutorial overlay -->
+			<div
+				class="grid place-items-center absolute inset-0 px-4 bg-neutral-950/80 text-neutral-400 pointer-events-none z-10"
+			>
+				<ul>
+					<li>1. Click once on the map to add a lineup marker</li>
+					<li>2. Click once more to add a marker where the nade should land</li>
+					<li>3. Change name and nade type in the side menu</li>
+					<li>4. Repeat to add more nades</li>
+				</ul>
+			</div>
+		{/if}
+	</div>
+	<p class="text-center text-neutral-400 mt-4">
+		<span class="underline">Tips:</span> Click and drag a nade to move it
+	</p>
 </div>

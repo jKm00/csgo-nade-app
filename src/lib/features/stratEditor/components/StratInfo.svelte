@@ -3,27 +3,23 @@
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 
-	let title: string;
-	let description: string;
-	let map: string;
-	let side: string;
-	let position: string;
-	let privacy: string;
-	let team: string;
-
-	const handleSubmit = () => {
-		// TODO: handle submit ...
-	};
+	export let name: string;
+	export let description: string;
+	export let map: { id: number; name: string } | null;
+	export let side: string;
+	export let position: { id: number; name: string } | null;
+	export let privacy: string;
+	export let team: { id: number; name: string } | null;
 </script>
 
-<form class="grid gap-4" on:submit|preventDefault={handleSubmit}>
+<form class="grid gap-4" on:submit|preventDefault>
 	<fieldset class="grid gap-4">
 		<TextInput
-			id="title"
-			name="title"
-			label="Strat title:"
+			id="name"
+			name="name"
+			label="Strat name:"
 			placeholder="A site execute..."
-			bind:value={title}
+			bind:value={name}
 		/>
 		<TextAreaInput
 			id="description"
@@ -40,10 +36,10 @@
 			placeholder="Select map"
 			bind:value={map}
 			options={[
-				{ value: 'mirage', label: 'Mirage' },
-				{ value: 'overpass', label: 'Overpass' },
-				{ value: 'nuke', label: 'Nuke' },
-				{ value: 'ancient', label: 'Ancient' },
+				{ value: { id: 1, name: 'Mirage' }, label: 'Mirage' },
+				{ value: { id: 2, name: 'Overpass' }, label: 'Overpass' },
+				{ value: { id: 3, name: 'Nuke' }, label: 'Nuke' },
+				{ value: { id: 4, name: 'Ancient' }, label: 'Ancient' },
 			]}
 		/>
 		<FormDropdown
@@ -62,11 +58,11 @@
 			placeholder="Select position"
 			bind:value={position}
 			options={[
-				{ value: 'a_site', label: 'A site' },
-				{ value: 'b_site', label: 'B site' },
-				{ value: 'mid', label: 'Mid' },
-				{ value: 'connector', label: 'Connector' },
-				{ value: 'short', label: 'short' },
+				{ value: { id: 1, name: 'A site' }, label: 'A site' },
+				{ value: { id: 2, name: 'B site' }, label: 'B site' },
+				{ value: { id: 3, name: 'Mid' }, label: 'Mid' },
+				{ value: { id: 4, name: 'Connector' }, label: 'Connector' },
+				{ value: { id: 5, name: 'Short' }, label: 'short' },
 			]}
 		/>
 		<FormDropdown
@@ -85,8 +81,8 @@
 			placeholder="Select team"
 			bind:value={team}
 			options={[
-				{ value: 'dot_esport', label: 'DOT Esport' },
-				{ value: 'navi', label: 'NaVi' },
+				{ value: { id: 1, name: 'DOT Esport' }, label: 'DOT Esport' },
+				{ value: { id: 2, name: 'NaVi' }, label: 'NaVi' },
 			]}
 		/>
 	</fieldset>

@@ -84,7 +84,7 @@
 
 <input
 	class="hidden"
-	accept="image/jpg, image/jpeg, image/png"
+	accept="image/jpg, image/jpeg, image/png, image/webp"
 	type="file"
 	multiple={false}
 	bind:this={input}

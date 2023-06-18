@@ -1,6 +1,7 @@
 <script lang="ts">
 	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
 	import { NadeType, type Nade } from '../types/nade';
+	import StratOverviewNadeThumbnail from './StratOverviewNadeThumbnail.svelte';
 
 	export let name: string;
 	export let desc: string;
@@ -49,6 +50,8 @@
 	<div class="grid grid-cols-strat-overview-table gap-4 font-bold p-2">
 		<p>Nr.</p>
 		<p>Name of nade</p>
+		<p>Lineup image</p>
+		<p>Impact image</p>
 		<p>Nade type</p>
 	</div>
 	{#each nades as nade, index}
@@ -65,13 +68,17 @@
 				? 'rgb(45 212 191)'
 				: 'rgb(248 113 113)'}
 		<div
-			class="grid grid-cols-strat-overview-table gap-4 p-2 {index % 2 === 0
+			class="grid grid-cols-strat-overview-table items-center gap-4 p-2 {index %
+				2 ===
+			0
 				? 'bg-neutral-800'
 				: ''}"
 		>
 			<p>{index + 1}</p>
 			<p>{nade.name}</p>
-			<p class="flex items-center justify-between">
+			<StratOverviewNadeThumbnail image={nade.lineupImg} />
+			<StratOverviewNadeThumbnail image={nade.impactImg} />
+			<p class="flex items-center justify-between gap-4">
 				{nade.type}
 				<span
 					class="block w-4 aspect-square rounded"
