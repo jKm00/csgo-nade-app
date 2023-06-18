@@ -68,7 +68,7 @@
 <button
 	class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2 z-10"
 	style="left: {nade.lineupX}%; top: {nade.lineupY}%"
-	on:click
+	on:click|preventDefault
 	on:mousedown={() => handleMouseDown(MarkerType.LINEUP)}
 	on:mouseup={handleMouseUp}
 	><svg
@@ -86,7 +86,7 @@
 	<button
 		class="absolute grid place-items-center w-5 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 z-10"
 		style="background-color: {color}; left: {nade.impactPointX}%; top: {nade.impactPointY}%"
-		on:click
+		on:click|preventDefault
 		on:mousedown={() => handleMouseDown(MarkerType.IMPACT)}
 		on:mouseup={handleMouseUp}
 	>

@@ -98,7 +98,7 @@
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<button
 				class="grid place-items-center bg-neutral-800 rounded border border-neutral-700 text-neutral-400 border-dashed aspect-video"
-				on:click={openFileOption}
+				on:click|preventDefault={openFileOption}
 				on:dragenter|preventDefault|stopPropagation={() => (dragAcitve = true)}
 				on:dragover|preventDefault|stopPropagation={() => (dragAcitve = true)}
 				on:dragleave|preventDefault|stopPropagation={() => (dragAcitve = false)}
@@ -124,8 +124,11 @@
 				on:mouseleave={() => (dragAcitve = false)}
 			/>
 			<div class="flex flex-wrap gap-x-4">
-				<button class="underline" on:click={openFileOption}>Change image</button
-				><button class="underline" on:click={removeFile}>Remove image</button>
+				<button class="underline" on:click|preventDefault={openFileOption}
+					>Change image</button
+				><button class="underline" on:click|preventDefault={removeFile}
+					>Remove image</button
+				>
 			</div>
 		{/if}
 		{#if dragAcitve}
