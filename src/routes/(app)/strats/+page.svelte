@@ -67,9 +67,12 @@
 			(nade) => nade.name === '' || !nade.impactPointX || !nade.impactPointY
 		);
 		if (nade) {
-			toast.error('Make sure all nades have name, type and correct markers', {
-				style: 'background: #333; color:#fff',
-			});
+			toast.error(
+				'Make sure all nades have a name, a type and correct markers',
+				{
+					style: 'background: #333; color:#fff',
+				}
+			);
 			return false;
 		}
 		return true;
