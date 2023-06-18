@@ -6,8 +6,8 @@
 	import type { Nade } from '$lib/features/stratEditor/types/nade';
 
 	let activeStep = FormSteps.NADES;
-
 	let nades: Nade[];
+	let showTutorial = true;
 
 	const goToStep = (step: FormSteps) => {
 		// TODO: Validate forms
@@ -24,6 +24,6 @@
 	{#if activeStep === FormSteps.INFO}
 		<StratInfo />
 	{:else if activeStep === FormSteps.NADES}
-		<NadeEditor map="mirage" bind:nades />
+		<NadeEditor map="mirage" bind:nades bind:showTutorial />
 	{/if}
 </main>

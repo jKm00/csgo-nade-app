@@ -17,7 +17,7 @@
 	let dragAcitve = false;
 	let input: HTMLInputElement;
 	let output: HTMLImageElement;
-	let allowedFileTypes = ['jpg', 'jpeg', 'png'];
+	let allowedFileTypes = ['jpg', 'jpeg', 'png', 'webp'];
 
 	/**
 	 * Opens the file explorer

@@ -10,18 +10,17 @@
 		label: string;
 	}
 
-	export let value: T | null;
 	export let id: string;
 	export let name: string;
 	export let placeholder: string;
+	export let value: T | null = null;
 	export let options: Option[];
 	export let errors: string[] | undefined = undefined;
 	export let defaultOptions: string | undefined = undefined;
+	export let selected: Option | null =
+		options?.find((opt) => opt.value === value) ?? null;
 
 	const dispatch = createEventDispatcher<{ update: { value: T | null } }>();
-
-	let selected: Option | null =
-		options?.find((opt) => opt.value === value) ?? null;
 
 	$: value = selected?.value ?? null;
 

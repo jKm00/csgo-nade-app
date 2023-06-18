@@ -1,26 +1,74 @@
 <script lang="ts">
 	import DropZone from '$lib/components/inputs/DropZone.svelte';
+	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import type { Nade } from '../types/nade';
+	import { NadeType, type Nade } from '../types/nade';
 
 	export let activeNade: Nade | undefined;
 	export let nades: Nade[];
 
-	const updateLineupImg = (event: CustomEvent<{ value: File | undefined }>) => {
-		const nade = nades.find((nade) => nade.id === activeNade?.id);
+	const nadeTypes = [
+		{ label: 'Smoke', value: NadeType.SMOKE },
+		{ label: 'Flash', value: NadeType.FLASH },
+		{ label: 'Molotov', value: NadeType.MOLOTOV },
+		{ label: 'HE Nade', value: NadeType.HE },
+		{ label: 'Decoy', value: NadeType.DECOY },
+	];
 
-		if (nade) {
-			nade.lineupImg = event.detail.value;
-		}
+	$: selectedType = nadeTypes.find((opt) => opt.value === activeNade?.type);
+
+	$: {
+		updateActiveNade(activeNade);
+	}
+
+	const updateActiveNade = (nade: Nade | undefined) => {
+		if (!nade) return;
+
+		const { nadesBefore, nadeToUpdate, nadesAfter } = splitNades();
+		if (!nadeToUpdate) return;
+
+		nadeToUpdate.name = activeNade?.name ?? '';
+		nadeToUpdate.notes = activeNade?.notes ?? '';
+		nadeToUpdate.type = activeNade?.type;
+
+		mergeNades(nadesBefore, nadeToUpdate, nadesAfter);
+	};
+
+	const updateLineupImg = (event: CustomEvent<{ value: File | undefined }>) => {
+		const { nadesBefore, nadeToUpdate, nadesAfter } = splitNades();
+		if (!nadeToUpdate) return;
+
+		nadeToUpdate.lineupImg = event.detail.value;
+
+		mergeNades(nadesBefore, nadeToUpdate, nadesAfter);
 	};
 
 	const updateImpactImg = (event: CustomEvent<{ value: File | undefined }>) => {
-		const nade = nades.find((nade) => nade.id === activeNade?.id);
+		const { nadesBefore, nadeToUpdate, nadesAfter } = splitNades();
+		if (!nadeToUpdate) return;
 
-		if (nade) {
-			nade.impactImg = event.detail.value;
-		}
+		nadeToUpdate.impactImg = event.detail.value;
+
+		mergeNades(nadesBefore, nadeToUpdate, nadesAfter);
+	};
+
+	const splitNades = () => {
+		const nadeIndex = nades.findIndex((nade) => nade.id === activeNade?.id);
+
+		const nadesBefore = nades.slice(0, nadeIndex);
+		const nadeToUpdate = nades[nadeIndex];
+		const nadesAfter = nades.slice(nadeIndex + 1);
+
+		return {
+			nadesBefore,
+			nadeToUpdate,
+			nadesAfter,
+		};
+	};
+
+	const mergeNades = (nadesBefore: Nade[], nade: Nade, nadesAfter: Nade[]) => {
+		nades = [...nadesBefore, nade, ...nadesAfter];
 	};
 </script>
 
@@ -30,6 +78,7 @@
 	</p>
 {:else}
 	<div class="grid gap-4 content-start">
+		<!-- TODO: Update name and notes of proparly. Currently the nades list is not updated right -->
 		<TextInput
 			id="name"
 			name="name"
@@ -55,6 +104,16 @@
 				label="Impact image:"
 				file={activeNade.impactImg}
 				on:change={updateImpactImg}
+			/>
+		</div>
+		<div class="flex flex-wrap gap-2">
+			<FormDropdown
+				id="type"
+				name="type"
+				placeholder="Select nade type"
+				options={nadeTypes}
+				selected={selectedType}
+				bind:value={activeNade.type}
 			/>
 		</div>
 	</div>

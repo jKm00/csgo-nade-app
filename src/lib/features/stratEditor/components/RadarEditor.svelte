@@ -1,10 +1,11 @@
 <script lang="ts">
-	import type { Nade } from '../types/nade';
+	import { NadeType, type Nade } from '../types/nade';
 	import NadeMarker from './NadeMarker.svelte';
 
 	export let map: string;
 	export let nades: Nade[];
 	export let activeNade: Nade | undefined = undefined;
+	export let showTutorial: boolean;
 
 	$: radarPath = `/assets/images/radars/de_${map}.webp`;
 
@@ -20,6 +21,11 @@
 	};
 
 	const handleMapClick = () => {
+		if (showTutorial) {
+			showTutorial = false;
+			return;
+		}
+
 		const markerPosX =
 			Math.round(((100 * mousePosition.x) / radarWidth) * 100) / 100;
 		const markerPosY =
@@ -30,7 +36,7 @@
 				id: nades[nades.length - 1] ? nades[nades.length - 1].id + 1 : 0,
 				name: '',
 				notes: '',
-				type: undefined,
+				type: NadeType.SMOKE,
 				lineupX: markerPosX,
 				lineupY: markerPosY,
 				impactPointX: undefined,
@@ -72,6 +78,7 @@
 	{/each}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
+		class="cursor-pointer"
 		on:mousemove={handleMouseMove}
 		on:click={handleMapClick}
 		bind:clientWidth={radarWidth}
@@ -79,4 +86,17 @@
 	>
 		<img src={radarPath} alt={`Radar of ${map}`} />
 	</div>
+	{#if showTutorial}
+		<!-- Tutorial -->
+		<div
+			class="grid place-items-center absolute inset-0 bg-neutral-950/80 text-neutral-400 pointer-events-none z-10"
+		>
+			<ul>
+				<li>1. Click once on the map to add a lineup marker</li>
+				<li>2. Click once more to add a marker where the nade should land</li>
+				<li>3. Change name and nade type in the side menu</li>
+				<li>4. Repeat to add more nades</li>
+			</ul>
+		</div>
+	{/if}
 </div>

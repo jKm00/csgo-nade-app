@@ -10,7 +10,7 @@ export interface Nade {
 	id: number;
 	name: string;
 	notes: string;
-	type: string | undefined;
+	type: NadeType | undefined;
 	lineupX: number;
 	lineupY: number;
 	impactPointX: number | undefined;

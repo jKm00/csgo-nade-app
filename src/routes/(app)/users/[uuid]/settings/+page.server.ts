@@ -165,8 +165,6 @@ export const actions = {
 			.eq('profiles.uuid', session.user.id)
 			.single();
 
-		console.log(data);
-
 		if (data) {
 			return fail(400, {
 				message: 'Could not delete the account as you are a leader for a team',
