@@ -1,3 +1,4 @@
+import type { Nade } from '$lib/features/stratEditor/types/nade';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ url, locals }) => {
@@ -16,25 +17,53 @@ export const load = async ({ url, locals }) => {
 		.eq('profile_uuid', session.user.id);
 
 	return {
-		maps: maps?.map((map) => {
-			return {
-				...map,
-				positions:
-					map.positions instanceof Array
-						? map.positions?.map((position) => {
-								return {
-									id: position.id,
-									name: position.name,
-								};
-						  })
-						: [
-								{
-									id: map.positions?.id,
-									name: map.positions?.id,
-								},
-						  ],
-			};
-		}),
-		teams,
+		maps: maps
+			? maps.map((map) => {
+					return {
+						...map,
+						positions: map.positions
+							? map.positions instanceof Array
+								? map.positions.map((position) => {
+										return {
+											id: position.id,
+											name: position.name,
+										};
+								  })
+								: [
+										{
+											id: map.positions.id,
+											name: map.positions.name,
+										},
+								  ]
+							: [],
+					};
+			  })
+			: [],
+		teams:
+			teams !== null
+				? teams.map((team) => ({
+						id: team?.team_id ?? 0,
+						name: team?.team_name ?? '',
+				  }))
+				: null,
 	};
+};
+
+export const actions = {
+	createStrat: async ({ request }) => {
+		const formData = await request.formData();
+
+		const name = formData.get('name');
+		const description = formData.get('description');
+		const map = formData.get('map');
+		const side = formData.get('side');
+		const position = formData.get('position');
+		const privacy = formData.get('privacy');
+		const team = formData.get('team');
+		const nades = formData.get('nades') as unknown as Nade[];
+
+		nades.forEach((nade) => {
+			console.log(nade.name, nade.impactImg, nade.lineupImg);
+		});
+	},
 };

@@ -52,7 +52,7 @@
 	<button
 		class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
 		on:click|preventDefault={() => (showDropDown = !showDropDown)}
-		>{selected !== null ? selected.label : placeholder}<svg
+		>{selected && selected !== null ? selected.label : placeholder}<svg
 			class={`${
 				showDropDown ? '' : '-rotate-90'
 			} fill-neutral-400 h-3 transition-transform`}

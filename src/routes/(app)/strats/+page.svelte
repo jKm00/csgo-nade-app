@@ -10,9 +10,7 @@
 
 	export let data;
 
-	$: ({ maps } = data);
-
-	$: console.log(maps);
+	$: ({ maps, teams } = data);
 
 	let stratInfo = {
 		name: '',
@@ -71,7 +69,11 @@
 		}
 
 		const nade = nades.find(
-			(nade) => nade.name === '' || !nade.impactPointX || !nade.impactPointY
+			(nade) =>
+				nade.name === '' ||
+				!nade.impactPointX ||
+				!nade.impactPointY ||
+				!nade.type
 		);
 		if (nade) {
 			toast.error(
@@ -84,10 +86,31 @@
 		}
 		return true;
 	};
+
+	const tryCreateStrat = async () => {
+		try {
+			const response = await fetch('/api/strats', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					...stratInfo,
+					nades,
+				}),
+			});
+
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	$: console.log(nades);
 </script>
 
 <main class="w-default">
-	<form action="?/createStrat" method="POST">
+	<!-- <form action="?/createStrat" method="POST" bind:this={form}>
 		<input type="hidden" name="name" value={stratInfo.name} />
 		<input type="hidden" name="description" value={stratInfo.description} />
 		<input type="hidden" name="map" value={stratInfo.map?.id} />
@@ -95,55 +118,41 @@
 		<input type="hidden" name="position" value={stratInfo.position?.id} />
 		<input type="hidden" name="privacy" value={stratInfo.privacy} />
 		<input type="hidden" name="team" value={stratInfo.team?.id} />
-		<input type="hidden" name="nades" value={JSON.stringify(nades)} />
+		<input type="hidden" name="nades" value={nades} />
+	</form> -->
 
-		<StratEditorNav
-			bind:activeStep
-			on:updateFormStep={(event) => goToStep(event.detail.step)}
+	<StratEditorNav
+		bind:activeStep
+		on:updateFormStep={(event) => goToStep(event.detail.step)}
+	/>
+	{#if activeStep === FormSteps.INFO}
+		<!-- TODO: Fix maps, maybe as chat -->
+		<StratInfo
+			bind:name={stratInfo.name}
+			bind:description={stratInfo.description}
+			bind:map={stratInfo.map}
+			bind:side={stratInfo.side}
+			bind:position={stratInfo.position}
+			bind:privacy={stratInfo.privacy}
+			bind:team={stratInfo.team}
+			{maps}
+			{teams}
 		/>
-		{#if activeStep === FormSteps.INFO}
-			<!-- TODO: Fix maps, maybe as chat -->
-			<StratInfo
-				bind:name={stratInfo.name}
-				bind:description={stratInfo.description}
-				bind:map={stratInfo.map}
-				bind:side={stratInfo.side}
-				bind:position={stratInfo.position}
-				bind:privacy={stratInfo.privacy}
-				bind:team={stratInfo.team}
-				maps={maps
-					? maps?.map((m) => ({
-							id: m.id ?? 0,
-							name: m.name ?? 0,
-							positions: m.positions
-								? m.positions.map((pos) => ({
-										id: pos ? (pos.id ? 0 : 0) : 0,
-										name: pos ? (pos.name ? 's' : 's') : 's',
-								  }))
-								: [],
-					  }))
-					: []}
-			/>
-		{:else if activeStep === FormSteps.NADES}
-			<NadeEditor
-				map={stratInfo.map?.name ?? ''}
-				bind:nades
-				bind:showTutorial
-			/>
-		{:else if activeStep === FormSteps.OVERVIEW}
-			<StratOverview
-				name={stratInfo.name}
-				desc={stratInfo.description}
-				map={stratInfo.map?.name ?? 'N/A'}
-				teamSide={stratInfo.side}
-				position={stratInfo.position?.name ?? 'N/A'}
-				privacy={stratInfo.privacy}
-				team={stratInfo.team?.name ?? 'N/A'}
-				{nades}
-			/>
-			<div class="grid mt-4">
-				<MainButton on:click>Create strat</MainButton>
-			</div>
-		{/if}
-	</form>
+	{:else if activeStep === FormSteps.NADES}
+		<NadeEditor map={stratInfo.map?.name ?? ''} bind:nades bind:showTutorial />
+	{:else if activeStep === FormSteps.OVERVIEW}
+		<StratOverview
+			name={stratInfo.name}
+			desc={stratInfo.description}
+			map={stratInfo.map?.name ?? 'N/A'}
+			teamSide={stratInfo.side}
+			position={stratInfo.position?.name ?? 'N/A'}
+			privacy={stratInfo.privacy}
+			team={stratInfo.team?.name ?? 'N/A'}
+			{nades}
+		/>
+		<div class="grid mt-4">
+			<MainButton on:click={tryCreateStrat}>Create strat</MainButton>
+		</div>
+	{/if}
 </main>

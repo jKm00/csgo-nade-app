@@ -11,6 +11,7 @@
 			name: string;
 		}[];
 	}[];
+	export let teams: { id: number; name: string }[] | null;
 
 	export let name: string;
 	export let description: string;
@@ -36,7 +37,12 @@
 				};
 			}) ?? [];
 
-	$: console.log(maps);
+	$: teamOptions = teams
+		? teams.map((team) => ({
+				label: team.name,
+				value: { id: team.id, name: team.name },
+		  }))
+		: [];
 </script>
 
 <div class="grid gap-4">
@@ -70,8 +76,8 @@
 			placeholder="Select side"
 			bind:value={side}
 			options={[
-				{ value: 'ct', label: 'CT' },
-				{ value: 't', label: 'T' },
+				{ value: 'CT', label: 'CT' },
+				{ value: 'T', label: 'T' },
 			]}
 		/>
 		<FormDropdown
@@ -88,8 +94,8 @@
 			placeholder="Select privacy"
 			bind:value={privacy}
 			options={[
-				{ value: 'public', label: 'Public' },
-				{ value: 'private', label: 'Private' },
+				{ value: 'PUBLIC', label: 'Public' },
+				{ value: 'PRIVATE', label: 'Private' },
 			]}
 		/>
 		<FormDropdown
@@ -97,10 +103,7 @@
 			name="team"
 			placeholder="Select team"
 			bind:value={team}
-			options={[
-				{ value: { id: 1, name: 'DOT Esport' }, label: 'DOT Esport' },
-				{ value: { id: 2, name: 'NaVi' }, label: 'NaVi' },
-			]}
+			options={teamOptions}
 		/>
 	</div>
 </div>
