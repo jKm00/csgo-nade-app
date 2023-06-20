@@ -48,22 +48,3 @@ export const load = async ({ url, locals }) => {
 				: null,
 	};
 };
-
-export const actions = {
-	createStrat: async ({ request }) => {
-		const formData = await request.formData();
-
-		const name = formData.get('name');
-		const description = formData.get('description');
-		const map = formData.get('map');
-		const side = formData.get('side');
-		const position = formData.get('position');
-		const privacy = formData.get('privacy');
-		const team = formData.get('team');
-		const nades = formData.get('nades') as unknown as Nade[];
-
-		nades.forEach((nade) => {
-			console.log(nade.name, nade.impactImg, nade.lineupImg);
-		});
-	},
-};

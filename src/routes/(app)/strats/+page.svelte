@@ -87,17 +87,62 @@
 		return true;
 	};
 
-	const tryCreateStrat = async () => {
+	const handleCreateStrat = async () => {
+		if (stratInfo.map === null) {
+			toast.error('Map is not selected!', {
+				style: 'background: #333; color:#fff',
+			});
+			return;
+		}
+		if (stratInfo.position === null) {
+			toast.error('Position is not selected!', {
+				style: 'background: #333; color:#fff',
+			});
+			return;
+		}
+
+		// Create form data with general strat info
+		const formData = new FormData();
+
+		formData.append('name', stratInfo.name);
+		formData.append('description', stratInfo.description);
+		formData.append('map', `${stratInfo.map.id}`);
+		formData.append('side', stratInfo.side);
+		formData.append('position', `${stratInfo.position.id}`);
+		formData.append('privacy', stratInfo.privacy);
+		formData.append('team', `${stratInfo.team?.id}`);
+
+		// Add nades to form
+		formData.append('numberOfNades', `${nades.length}`);
+
+		nades.forEach((nade, index) => {
+			formData.append(`nadeName${index}`, nade.name);
+			formData.append(`nadeNotes${index}`, nade.notes);
+			formData.append(`nadeType${index}`, `${nade.type}`);
+			formData.append(`nadeLineupX${index}`, `${nade.lineupX}`);
+			formData.append(`nadeLineupY${index}`, `${nade.lineupY}`);
+			formData.append(`nadeImpactX${index}`, `${nade.impactPointX}`);
+			formData.append(`nadeImpactY${index}`, `${nade.impactPointY}`);
+			if (nade.lineupImg) {
+				formData.append(
+					`nadeLineupImg${index}`,
+					nade.lineupImg,
+					`${nade.lineupImg.name}`
+				);
+			}
+			if (nade.impactImg) {
+				formData.append(
+					`nadeImpactImg${index}`,
+					nade.impactImg,
+					`${nade.impactImg.name}`
+				);
+			}
+		});
+
 		try {
 			const response = await fetch('/api/strats', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					...stratInfo,
-					nades,
-				}),
+				body: formData,
 			});
 
 			console.log(response);
@@ -105,22 +150,9 @@
 			console.log(err);
 		}
 	};
-
-	$: console.log(nades);
 </script>
 
 <main class="w-default">
-	<!-- <form action="?/createStrat" method="POST" bind:this={form}>
-		<input type="hidden" name="name" value={stratInfo.name} />
-		<input type="hidden" name="description" value={stratInfo.description} />
-		<input type="hidden" name="map" value={stratInfo.map?.id} />
-		<input type="hidden" name="side" value={stratInfo.side} />
-		<input type="hidden" name="position" value={stratInfo.position?.id} />
-		<input type="hidden" name="privacy" value={stratInfo.privacy} />
-		<input type="hidden" name="team" value={stratInfo.team?.id} />
-		<input type="hidden" name="nades" value={nades} />
-	</form> -->
-
 	<StratEditorNav
 		bind:activeStep
 		on:updateFormStep={(event) => goToStep(event.detail.step)}
@@ -152,7 +184,22 @@
 			{nades}
 		/>
 		<div class="grid mt-4">
-			<MainButton on:click={tryCreateStrat}>Create strat</MainButton>
+			<!-- <form
+			action="?/createStrat"
+				method="POST"
+				enctype="multipart/form-data"
+				on:submit|preventDefault={handleCreateStrat}
+				bind:this={form}
+			>
+				<input type="hidden" name="name" value={stratInfo.name} />
+				<input type="hidden" name="description" value={stratInfo.description} />
+				<input type="hidden" name="map" value={stratInfo.map?.id} />
+				<input type="hidden" name="side" value={stratInfo.side} />
+				<input type="hidden" name="position" value={stratInfo.position?.id} />
+				<input type="hidden" name="privacy" value={stratInfo.privacy} />
+				<input type="hidden" name="team" value={stratInfo.team?.id} />
+			</form> -->
+			<MainButton on:click={handleCreateStrat}>Create strat</MainButton>
 		</div>
 	{/if}
 </main>
