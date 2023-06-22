@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { useMarkerColor } from '$lib/composables/useMarkerColor';
+	import { useMarkerPos } from '../composables/useMarkerPos';
 	import type { Nade } from '../types/nade';
 
 	enum MarkerType {
@@ -22,8 +23,12 @@
 	let markerType: MarkerType | undefined = undefined;
 
 	$: if (dragActive) {
-		const markerPosX = Math.round(((100 * mouseX) / radarWidth) * 100) / 100;
-		const markerPosY = Math.round(((100 * mouseY) / radarHeight) * 100) / 100;
+		const { markerPosX, markerPosY } = useMarkerPos(
+			mouseX,
+			mouseY,
+			radarWidth,
+			radarHeight
+		);
 
 		if (markerType === MarkerType.LINEUP) {
 			nade.lineupX = markerPosX;

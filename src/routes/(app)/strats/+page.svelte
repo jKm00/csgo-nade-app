@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import MainButton from '$lib/components/buttons/MainButton.svelte';
+	import LoadingIndicator from '$lib/components/feedback/LoadingIndicator.svelte';
 	import NadeEditor from '$lib/features/stratEditor/components/NadeEditor.svelte';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
 	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
@@ -197,11 +198,7 @@
 			<MainButton on:click={handleCreateStrat} disabled={isLoading}
 				>Create strat</MainButton
 			>
-			{#if isLoading}
-				<div class="grid justify-center">
-					<Chasing size="60" color="#F87171" unit="px" duration="1s" />
-				</div>
-			{/if}
+			<LoadingIndicator {isLoading} />
 		</div>
 	{/if}
 </main>
