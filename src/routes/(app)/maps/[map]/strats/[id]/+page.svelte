@@ -8,7 +8,7 @@
 	import { maps } from '$lib/shared/maps.js';
 	import toast from 'svelte-french-toast';
 	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
-	import { NadeType } from '$lib/features/stratEditor/util/nade.js';
+	import { NadeType } from '$lib/features/stratEditor/types/nade.js';
 	import Tag from '$lib/components/containers/Tag.svelte';
 	import MarkerMeaning from '$lib/components/feedback/MarkerMeaning.svelte';
 

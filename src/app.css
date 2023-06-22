@@ -1,5 +1,9 @@
 @tailwind base;
 
+html {
+	background: rgb(23 23 23);
+}
+
 /* Firefox */
 * {
 	scrollbar-width: thin;
@@ -8,16 +12,16 @@
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-	width: 5px;
+	width: 7px;
 }
 
 *::-webkit-scrollbar-track {
-	background: rgb(64 64 64);
+	background: rgb(10 10 10);
 	border-radius: 5px;
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: rgb(10 10 10);
+	background-color: rgb(64 64 64);
 	border-radius: 14px;
 	border: none;
 }

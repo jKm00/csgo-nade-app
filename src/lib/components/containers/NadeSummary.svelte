@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NadeType, type Nade } from '$lib/features/stratEditor/util/nade';
+	import { NadeType, type Nade } from '$lib/features/stratEditor/types/nade';
 
 	export let nades: Nade[];
 

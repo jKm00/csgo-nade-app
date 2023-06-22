@@ -7,10 +7,14 @@ export enum NadeType {
 }
 
 export interface Nade {
+	id: number;
 	name: string;
-	type: string;
+	notes: string;
+	type: NadeType | undefined;
 	lineupX: number;
 	lineupY: number;
-	impactPointX: number;
-	impactPointY: number;
+	impactPointX: number | undefined;
+	impactPointY: number | undefined;
+	lineupImg: File | undefined;
+	impactImg: File | undefined;
 }

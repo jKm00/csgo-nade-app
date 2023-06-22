@@ -10,18 +10,17 @@
 		label: string;
 	}
 
-	export let value: T | null;
 	export let id: string;
 	export let name: string;
 	export let placeholder: string;
+	export let value: T | null = null;
 	export let options: Option[];
 	export let errors: string[] | undefined = undefined;
 	export let defaultOptions: string | undefined = undefined;
+	export let selected: Option | null =
+		options?.find((opt) => opt.value === value) ?? null;
 
 	const dispatch = createEventDispatcher<{ update: { value: T | null } }>();
-
-	let selected: Option | null =
-		options?.find((opt) => opt.value === value) ?? null;
 
 	$: value = selected?.value ?? null;
 
@@ -53,7 +52,7 @@
 	<button
 		class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
 		on:click|preventDefault={() => (showDropDown = !showDropDown)}
-		>{selected !== null ? selected.label : placeholder}<svg
+		>{selected && selected !== null ? selected.label : placeholder}<svg
 			class={`${
 				showDropDown ? '' : '-rotate-90'
 			} fill-neutral-400 h-3 transition-transform`}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { FormSteps } from '../util/formSteps';
+	import { FormSteps } from '../types/formSteps';
 
 	export let activeStep: FormSteps;
 
@@ -65,6 +65,7 @@
 		FormSteps.INFO
 			? 'border-b-4 text-red-400'
 			: ''}"
+		data-hidden={activeStep !== FormSteps.INFO}
 	>
 		<button
 			class="py-4"
@@ -77,6 +78,7 @@
 		FormSteps.NADES
 			? 'border-b-4 text-red-400'
 			: ''}"
+		data-hidden={activeStep !== FormSteps.NADES}
 	>
 		<button
 			class="py-4"
@@ -89,6 +91,7 @@
 		FormSteps.OVERVIEW
 			? 'border-b-4 text-red-400'
 			: ''}"
+		data-hidden={activeStep !== FormSteps.OVERVIEW}
 	>
 		<button
 			class="py-4"
@@ -115,3 +118,11 @@
 		>
 	</li>
 </ol>
+
+<style scoped>
+	@media (max-width: 900px) {
+		li[data-hidden='true'] {
+			display: none;
+		}
+	}
+</style>

@@ -3,6 +3,7 @@
 	export let id: string;
 	export let name: string;
 	export let label: string;
+	export let rows: number = 6;
 	export let placeholder: string | undefined = undefined;
 	export let errors: string[] | undefined = undefined;
 </script>
@@ -13,7 +14,7 @@
 		class="bg-neutral-800 rounded-sm p-2 resize-y"
 		{name}
 		{id}
-		rows="6"
+		{rows}
 		placeholder={placeholder ?? ''}
 		bind:value
 	/>

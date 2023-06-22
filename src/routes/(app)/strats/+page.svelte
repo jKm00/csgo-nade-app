@@ -1,220 +1,204 @@
 <script lang="ts">
-	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
-	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
-	import MapEditor from '$lib/features/stratEditor/components/MapEditor.svelte';
-	import type { Nade } from '$lib/features/stratEditor/util/nade.js';
+	import { goto } from '$app/navigation';
+	import MainButton from '$lib/components/buttons/MainButton.svelte';
+	import LoadingIndicator from '$lib/components/feedback/LoadingIndicator.svelte';
+	import NadeEditor from '$lib/features/stratEditor/components/NadeEditor.svelte';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
-	import { FormSteps } from '$lib/features/stratEditor/util/formSteps.js';
-	import toast from 'svelte-french-toast';
+	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
 	import StratOverview from '$lib/features/stratEditor/components/StratOverview.svelte';
-	import FormButton from '$lib/components/buttons/FormButton.svelte';
+	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
+	import type { Nade } from '$lib/features/stratEditor/types/nade';
+	import toast from 'svelte-french-toast';
+	import { Chasing } from 'svelte-loading-spinners';
 
 	export let data;
-	export let form;
 
-	$: ({ maps, teams } = data);
+	$: ({ maps, teams, authUser } = data);
 
-	$: if (form?.message) {
-		toast.error(form.message, {
-			style: 'background: #333; color:#fff',
-		});
-	}
-
-	let stratName = '';
-	let stratDesc = '';
-	let mapName: string | null = null;
-	let teamSide: string | null = null;
-	let position: { id: number; name: string } | null = null;
-	let privacy: string | null = null;
-	let team = '';
-	let nades: Nade[] = [];
-
-	// Positions based on selected map
-	$: mapPositions = maps
-		.find((map) => map.name === mapName)
-		?.positions?.map((pos: { id: number; name: string }) => {
-			return {
-				label: pos.name,
-				value: pos,
-			};
-		});
-
-	$: mapRadar = maps?.find((m) => m.name === mapName)?.radar;
-	$: mapId = maps?.find((m) => m.name === mapName)?.id;
-	$: teamId = teams?.find((t) => t.team_name === team)?.team_id;
-	$: nadesString = JSON.stringify(nades);
-	$: positionId = position?.id ?? null;
-
-	let activeFormStep = FormSteps.INFO;
+	let stratInfo = {
+		name: '',
+		description: '',
+		map: null as null | { id: number; name: string },
+		side: '',
+		position: null as null | { id: number; name: string },
+		privacy: '',
+		team: null as null | { id: number; name: string },
+	};
+	let activeStep = FormSteps.INFO;
+	let nades: Nade[];
+	let showTutorial = true;
+	let isLoading = false;
 
 	const goToStep = (step: FormSteps) => {
 		switch (step) {
 			case FormSteps.INFO:
-				activeFormStep = step;
+				activeStep = step;
 				break;
 			case FormSteps.NADES:
-				if (validateFormInfo()) {
-					activeFormStep = step;
+				if (isValidInfo()) {
+					activeStep = step;
 				}
 				break;
 			case FormSteps.OVERVIEW:
-				if (validateFormInfo() && validateNades()) {
-					activeFormStep = step;
+				if (isValidInfo() && isValidNades()) {
+					activeStep = step;
 				}
 				break;
 		}
 	};
 
-	const validateFormInfo = () => {
-		if (stratName === '' || stratDesc === '') {
-			toast.error('Make sure no inputs are empty', {
+	const isValidInfo = () => {
+		if (
+			stratInfo.name === '' ||
+			stratInfo.description === '' ||
+			stratInfo.map === null ||
+			stratInfo.side === '' ||
+			stratInfo.position === null ||
+			stratInfo.privacy === ''
+		) {
+			toast.error('Need to fill out the form before continuing', {
+				style: 'background: #333; color:#fff',
+			});
+			return false;
+		}
+		return true;
+	};
+
+	const isValidNades = () => {
+		if (nades.length === 0) {
+			toast.error('Need at least one nade!', {
 				style: 'background: #333; color:#fff',
 			});
 			return false;
 		}
 
-		if (
-			mapName === null ||
-			teamSide === null ||
-			position === null ||
-			privacy === null
-		) {
+		const nade = nades.find(
+			(nade) =>
+				nade.name === '' ||
+				!nade.impactPointX ||
+				!nade.impactPointY ||
+				!nade.type
+		);
+		if (nade) {
 			toast.error(
-				'Need to select a value for map name, team site, position, and privacy',
+				'Make sure all nades have a name, a type and correct markers',
 				{
 					style: 'background: #333; color:#fff',
 				}
 			);
 			return false;
 		}
-
 		return true;
 	};
 
-	const validateNades = () => {
-		if (nades.length === 0) {
-			toast.error('A strat needs at least 1 nade!', {
+	const handleCreateStrat = async () => {
+		isLoading = true;
+		if (stratInfo.map === null) {
+			toast.error('Map is not selected!', {
 				style: 'background: #333; color:#fff',
 			});
-			return false;
+			return;
 		}
-
-		const incompleteNade = nades.find(
-			(nade) => nade.name === '' || nade.type === ''
-		);
-		if (incompleteNade !== undefined) {
-			toast.error('Make sure all nades have a name and a type!', {
+		if (stratInfo.position === null) {
+			toast.error('Position is not selected!', {
 				style: 'background: #333; color:#fff',
 			});
-			return false;
+			return;
 		}
 
-		return true;
+		// Create form data with general strat info
+		const formData = new FormData();
+
+		formData.append('name', stratInfo.name);
+		formData.append('description', stratInfo.description);
+		formData.append('mapId', `${stratInfo.map.id}`);
+		formData.append('side', stratInfo.side);
+		formData.append('positionId', `${stratInfo.position.id}`);
+		formData.append('privacy', stratInfo.privacy);
+		formData.append('teamId', `${stratInfo.team?.id}`);
+		formData.append('playerId', `${authUser?.id}`);
+
+		// Add nades to form
+		formData.append('numberOfNades', `${nades.length}`);
+
+		nades.forEach((nade, index) => {
+			formData.append(`nadeName${index}`, nade.name);
+			formData.append(`nadeNotes${index}`, nade.notes);
+			formData.append(`nadeType${index}`, `${nade.type}`);
+			formData.append(`nadeLineupX${index}`, `${nade.lineupX}`);
+			formData.append(`nadeLineupY${index}`, `${nade.lineupY}`);
+			formData.append(`nadeImpactX${index}`, `${nade.impactPointX}`);
+			formData.append(`nadeImpactY${index}`, `${nade.impactPointY}`);
+			if (nade.lineupImg) {
+				formData.append(
+					`nadeLineupImg${index}`,
+					nade.lineupImg,
+					`${nade.lineupImg.name}`
+				);
+			}
+			if (nade.impactImg) {
+				formData.append(
+					`nadeImpactImg${index}`,
+					nade.impactImg,
+					`${nade.impactImg.name}`
+				);
+			}
+		});
+
+		try {
+			const response = await fetch('/api/strats', {
+				method: 'POST',
+				body: formData,
+			});
+
+			if (response) {
+				const stratId = await response.json();
+				goto(`/maps/${stratInfo.map.name}/strats/${stratId}`);
+			}
+		} catch (err) {
+			console.log(err);
+		} finally {
+			isLoading = false;
+		}
 	};
 </script>
 
-<form class="grid gap-4 w-default" action="" method="POST">
+<main class="w-default">
 	<StratEditorNav
-		bind:activeStep={activeFormStep}
+		bind:activeStep
 		on:updateFormStep={(event) => goToStep(event.detail.step)}
 	/>
-	<input type="hidden" name="name" bind:value={stratName} />
-	<input type="hidden" name="description" bind:value={stratDesc} />
-	<input type="hidden" name="mapId" bind:value={mapId} />
-	<input type="hidden" name="mapName" bind:value={mapName} />
-	<input type="hidden" name="teamSide" bind:value={teamSide} />
-	<input type="hidden" name="positionId" bind:value={positionId} />
-	<input type="hidden" name="privacy" bind:value={privacy} />
-	<input type="hidden" name="teamId" bind:value={teamId} />
-	<input type="hidden" name="nades" bind:value={nadesString} />
-	<input type="hidden" name="playerId" value={data.authUser?.id} />
-	{#if activeFormStep === FormSteps.INFO}
-		<TextInput
-			id="name"
-			name="name"
-			label="Name:"
-			bind:value={stratName}
-			placeholder="Name of strat"
+	{#if activeStep === FormSteps.INFO}
+		<!-- TODO: Fix maps, maybe as chat -->
+		<StratInfo
+			bind:name={stratInfo.name}
+			bind:description={stratInfo.description}
+			bind:map={stratInfo.map}
+			bind:side={stratInfo.side}
+			bind:position={stratInfo.position}
+			bind:privacy={stratInfo.privacy}
+			bind:team={stratInfo.team}
+			{maps}
+			{teams}
 		/>
-		<TextAreaInput
-			id="description"
-			name="description"
-			label="Description:"
-			bind:value={stratDesc}
-			placeholder="Short description (optional)"
-		/>
-		<div class="flex gap-4">
-			<FormDropdown
-				id="map"
-				name="map"
-				bind:value={mapName}
-				placeholder="Map"
-				options={maps
-					? maps.map((m) => {
-							return { value: m.name, label: m.name };
-					  })
-					: []}
-			/>
-			<FormDropdown
-				id="side"
-				name="side"
-				bind:value={teamSide}
-				placeholder="Team side"
-				options={[
-					{ label: 'CT', value: 'CT' },
-					{ label: 'T', value: 'T' },
-				]}
-			/>
-			<FormDropdown
-				id="position"
-				name="position"
-				bind:value={position}
-				placeholder="Position"
-				defaultOptions={mapName === null ? 'Select map first' : 'No value'}
-				options={mapName === '' ? [] : mapPositions}
-			/>
-			<FormDropdown
-				id="privacy"
-				name="privacy"
-				bind:value={privacy}
-				placeholder="Privacy"
-				options={[
-					{ label: 'Public', value: 'PUBLIC' },
-					{ label: 'Private', value: 'PRIVATE' },
-				]}
-			/>
-			<FormDropdown
-				id="team"
-				name="team"
-				bind:value={team}
-				placeholder="Team"
-				defaultOptions={teams?.length === 0 ? 'No available teams' : undefined}
-				options={teams
-					? teams.map((m) => {
-							return { value: `${m.team_name}`, label: m.team_name ?? '' };
-					  })
-					: []}
-			/>
-		</div>
-	{:else if activeFormStep === FormSteps.NADES}
-		<!-- Nade selector -->
-		<div>
-			<MapEditor bind:nades mapName={mapName ?? ''} mapRadar={mapRadar ?? ''} />
-		</div>
-	{:else if activeFormStep === FormSteps.OVERVIEW}
+	{:else if activeStep === FormSteps.NADES}
+		<NadeEditor map={stratInfo.map?.name ?? ''} bind:nades bind:showTutorial />
+	{:else if activeStep === FormSteps.OVERVIEW}
 		<StratOverview
-			name={stratName}
-			desc={stratDesc}
-			map={mapName ?? ''}
-			teamSide={teamSide ?? ''}
-			position={position?.name ?? ''}
-			privacy={privacy ?? ''}
-			{team}
+			name={stratInfo.name}
+			desc={stratInfo.description}
+			map={stratInfo.map?.name ?? 'N/A'}
+			teamSide={stratInfo.side}
+			position={stratInfo.position?.name ?? 'N/A'}
+			privacy={stratInfo.privacy}
+			team={stratInfo.team?.name ?? 'N/A'}
 			{nades}
 		/>
-		<div class="grid mt-10">
-			<FormButton>Create strat</FormButton>
+		<div class="grid mt-4">
+			<MainButton on:click={handleCreateStrat} disabled={isLoading}
+				>Create strat</MainButton
+			>
+			<LoadingIndicator {isLoading} />
 		</div>
 	{/if}
-</form>
+</main>
