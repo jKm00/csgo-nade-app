@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import MainButton from '$lib/components/buttons/MainButton.svelte';
 	import NadeEditor from '$lib/features/stratEditor/components/NadeEditor.svelte';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
@@ -7,10 +8,11 @@
 	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
 	import type { Nade } from '$lib/features/stratEditor/types/nade';
 	import toast from 'svelte-french-toast';
+	import { Chasing } from 'svelte-loading-spinners';
 
 	export let data;
 
-	$: ({ maps, teams } = data);
+	$: ({ maps, teams, authUser } = data);
 
 	let stratInfo = {
 		name: '',
@@ -24,6 +26,7 @@
 	let activeStep = FormSteps.INFO;
 	let nades: Nade[];
 	let showTutorial = true;
+	let isLoading = false;
 
 	const goToStep = (step: FormSteps) => {
 		switch (step) {
@@ -88,6 +91,7 @@
 	};
 
 	const handleCreateStrat = async () => {
+		isLoading = true;
 		if (stratInfo.map === null) {
 			toast.error('Map is not selected!', {
 				style: 'background: #333; color:#fff',
@@ -106,11 +110,12 @@
 
 		formData.append('name', stratInfo.name);
 		formData.append('description', stratInfo.description);
-		formData.append('map', `${stratInfo.map.id}`);
+		formData.append('mapId', `${stratInfo.map.id}`);
 		formData.append('side', stratInfo.side);
-		formData.append('position', `${stratInfo.position.id}`);
+		formData.append('positionId', `${stratInfo.position.id}`);
 		formData.append('privacy', stratInfo.privacy);
-		formData.append('team', `${stratInfo.team?.id}`);
+		formData.append('teamId', `${stratInfo.team?.id}`);
+		formData.append('playerId', `${authUser?.id}`);
 
 		// Add nades to form
 		formData.append('numberOfNades', `${nades.length}`);
@@ -145,9 +150,14 @@
 				body: formData,
 			});
 
-			console.log(response);
+			if (response) {
+				const stratId = await response.json();
+				goto(`/maps/${stratInfo.map.name}/strats/${stratId}`);
+			}
 		} catch (err) {
 			console.log(err);
+		} finally {
+			isLoading = false;
 		}
 	};
 </script>
@@ -184,22 +194,14 @@
 			{nades}
 		/>
 		<div class="grid mt-4">
-			<!-- <form
-			action="?/createStrat"
-				method="POST"
-				enctype="multipart/form-data"
-				on:submit|preventDefault={handleCreateStrat}
-				bind:this={form}
+			<MainButton on:click={handleCreateStrat} disabled={isLoading}
+				>Create strat</MainButton
 			>
-				<input type="hidden" name="name" value={stratInfo.name} />
-				<input type="hidden" name="description" value={stratInfo.description} />
-				<input type="hidden" name="map" value={stratInfo.map?.id} />
-				<input type="hidden" name="side" value={stratInfo.side} />
-				<input type="hidden" name="position" value={stratInfo.position?.id} />
-				<input type="hidden" name="privacy" value={stratInfo.privacy} />
-				<input type="hidden" name="team" value={stratInfo.team?.id} />
-			</form> -->
-			<MainButton on:click={handleCreateStrat}>Create strat</MainButton>
+			{#if isLoading}
+				<div class="grid justify-center">
+					<Chasing size="60" color="#F87171" unit="px" duration="1s" />
+				</div>
+			{/if}
 		</div>
 	{/if}
 </main>

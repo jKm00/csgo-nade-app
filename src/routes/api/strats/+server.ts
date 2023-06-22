@@ -1,15 +1,42 @@
 import type { Nade, NadeType } from '$lib/features/stratEditor/types/nade';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
-export const POST = async ({ request }) => {
+export const POST = async ({ request, locals }) => {
+	const session = await locals.getSession();
+
+	if (!session) {
+		return new Response('Unauthorized', { status: 401 });
+	}
+
 	const form = await request.formData();
 
-	const name = form.get('name');
-	const descripiton = form.get('description');
-	const map = form.get('map');
-	const side = form.get('side');
-	const position = form.get('position');
-	const privacy = form.get('privacy');
-	const team = form.get('team');
+	const name = form.get('name') as unknown as string;
+	const descripiton = form.get('description') as unknown as string;
+	const mapId = form.get('mapId') as unknown as string;
+	const side = form.get('side') as unknown as string;
+	const positionId = form.get('positionId') as unknown as string;
+	const privacy = form.get('privacy') as unknown as string;
+	const teamId = form.get('teamId') as unknown as string;
+	const playerId = form.get('playerId') as unknown as string;
+
+	const { stratId, error } = await createStrat(
+		locals.supabase,
+		name,
+		descripiton,
+		mapId,
+		side,
+		positionId,
+		privacy,
+		teamId,
+		playerId
+	);
+
+	if (error) {
+		console.error(error);
+		return new Response('Something went wrong. Please try again!', {
+			status: 400,
+		});
+	}
 
 	const numberOfNades = form.get('numberOfNades') as unknown as number;
 	let nades: Nade[] = [];
@@ -42,13 +69,130 @@ export const POST = async ({ request }) => {
 		];
 	}
 
-	console.log(nades);
+	nades.forEach(async (nade) => {
+		// Upload lineup img
+		const { imgUrl: lineupImgUrl, error: lineupError } = await uploadImg(
+			locals.supabase,
+			stratId!,
+			nade.lineupImg,
+			'LINEUP'
+		);
 
-	// Create strat
+		console.log(lineupError);
 
-	// Create nades
+		// Upload impact img
+		const { imgUrl: impactImgUrl, error: impactError } = await uploadImg(
+			locals.supabase,
+			stratId!,
+			nade.impactImg,
+			'IMPACT'
+		);
 
-	// Upload images
+		console.log(impactError);
 
-	return new Response('OK', { status: 200 });
+		// Insert nade
+		const { error } = await locals.supabase.from('nades').insert({
+			name: nade.name,
+			type: `${nade.type}`,
+			lineup_x: nade.lineupX,
+			lineup_y: nade.lineupY,
+			impact_x: nade.impactPointX ?? 0,
+			impact_y: nade.impactPointY ?? 0,
+			strat_id: stratId!,
+			lineup_img: lineupImgUrl,
+			impact_img: impactImgUrl,
+		});
+
+		console.log(error);
+	});
+
+	return new Response(JSON.stringify(stratId!), { status: 200 });
+};
+
+const createStrat = async (
+	supabase: SupabaseClient,
+	name: string,
+	description: string,
+	mapId: string,
+	side: string,
+	positionId: string,
+	privacy: string,
+	teamId: string,
+	playerId: string
+) => {
+	let stratId: number | undefined = undefined;
+	let error: string | undefined = undefined;
+
+	if (
+		name === '' ||
+		mapId === '' ||
+		side === '' ||
+		positionId === '' ||
+		privacy === '' ||
+		teamId === '' ||
+		playerId === ''
+	) {
+		error = 'Invalid fields';
+	}
+
+	const { data, error: err } = await supabase
+		.from('strats')
+		.insert({
+			name,
+			description,
+			privacy,
+			map_id: mapId,
+			team_id: teamId ? null : teamId,
+			author_id: playerId,
+			position_id: Number(positionId),
+			team_side: side,
+		})
+		.select('id')
+		.single();
+
+	if (err) {
+		error = err.message;
+	} else {
+		stratId = data.id;
+	}
+
+	return {
+		stratId,
+		error,
+	};
+};
+
+const uploadImg = async (
+	supabase: SupabaseClient,
+	stratId: number,
+	img: File | undefined,
+	type: 'LINEUP' | 'IMPACT'
+) => {
+	let imgUrl: string | undefined = undefined;
+	let error: { status: number; message: string } | undefined = undefined;
+
+	if (!img) {
+		error = { status: 400, message: 'No image' };
+	}
+
+	if (img) {
+		const { data, error: err } = await supabase.storage
+			.from('strats')
+			.upload(`${stratId}/${type}-${img.name}`, img, {
+				upsert: true,
+			});
+
+		if (err) {
+			error = { status: 500, message: `Failed to upload image; ${img.name}` };
+		}
+
+		if (data) {
+			imgUrl = data?.path;
+		}
+	}
+
+	return {
+		imgUrl,
+		error,
+	};
 };
