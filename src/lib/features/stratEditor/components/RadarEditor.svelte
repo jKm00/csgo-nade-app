@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { NadeType, type Nade } from '../types/nade';
-	import NadeMarker from './NadeMarker.svelte';
+	import EditableNadeMarker from './EditableNadeMarker.svelte';
 
 	export let map: string;
 	export let nades: Nade[];
@@ -67,14 +67,15 @@
 	<!-- Radar wrapper -->
 	<div class="relative w-full aspect-square">
 		{#each nades as nade, index}
-			<NadeMarker
+			<EditableNadeMarker
 				bind:nade
 				{index}
 				{radarWidth}
 				{radarHeight}
-				bind:mouseX={mousePosition.x}
-				bind:mouseY={mousePosition.y}
+				mouseX={mousePosition.x}
+				mouseY={mousePosition.y}
 				on:click={() => (activeNade = nade)}
+				active={activeNade?.id === nade.id}
 			/>
 		{/each}
 		<!-- Image wrapper -->

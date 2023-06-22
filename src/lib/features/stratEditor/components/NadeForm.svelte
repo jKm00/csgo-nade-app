@@ -78,7 +78,6 @@
 	</p>
 {:else}
 	<div class="grid gap-4 content-start">
-		<!-- TODO: Update name and notes of proparly. Currently the nades list is not updated right -->
 		<TextInput
 			id="name"
 			name="name"

@@ -12,6 +12,9 @@
 	export let radarHeight: number;
 	export let mouseX: number;
 	export let mouseY: number;
+	export let active: boolean = false;
+
+	$: console.log(active);
 
 	let dragActive = false;
 	let mouseUp = false;
@@ -66,8 +69,10 @@
 </script>
 
 <button
-	class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2 z-10"
-	style="left: {nade.lineupX}%; top: {nade.lineupY}%"
+	class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2 z-10 aspect-square rounded"
+	style="left: {nade.lineupX}%; top: {nade.lineupY}%; {active
+		? 'border: 2px solid white'
+		: ''}"
 	on:click|preventDefault
 	on:mousedown={() => handleMouseDown(MarkerType.LINEUP)}
 	on:mouseup={handleMouseUp}
@@ -85,7 +90,9 @@
 {#if nade.impactPointX && nade.impactPointY}
 	<button
 		class="absolute grid place-items-center w-5 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 z-10"
-		style="background-color: {color}; left: {nade.impactPointX}%; top: {nade.impactPointY}%"
+		style="background-color: {color}; left: {nade.impactPointX}%; top: {nade.impactPointY}%; {active
+			? 'border: 2px solid white'
+			: ''}"
 		on:click|preventDefault
 		on:mousedown={() => handleMouseDown(MarkerType.IMPACT)}
 		on:mouseup={handleMouseUp}

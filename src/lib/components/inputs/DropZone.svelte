@@ -94,7 +94,6 @@
 	<p class="font-bold">{label}</p>
 	<div class="relative grid">
 		{#if !file}
-			<!-- TODO: Handle drag and drop -->
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<button
 				class="grid place-items-center bg-neutral-800 rounded border border-neutral-700 text-neutral-400 border-dashed aspect-video"
