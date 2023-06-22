@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { NadeType, type Nade } from '../types/nade';
+	import { useMarkerColor } from '$lib/composables/useMarkerColor';
+	import type { Nade } from '../types/nade';
 
 	enum MarkerType {
 		LINEUP,
@@ -33,18 +34,7 @@
 		}
 	}
 
-	$: color =
-		nade.type === NadeType.SMOKE
-			? 'rgb(248 113 113)'
-			: nade.type === NadeType.FLASH
-			? 'rgb(96 165 250)'
-			: nade.type === NadeType.MOLOTOV
-			? 'rgb(251 146 60)'
-			: nade.type === NadeType.HE
-			? 'rgb(74 222 128)'
-			: nade.type === NadeType.DECOY
-			? 'rgb(45 212 191)'
-			: 'rgb(248 113 113)';
+	$: color = useMarkerColor(nade.type);
 
 	const handleMouseDown = (type: MarkerType) => {
 		// Debounce mouse down, stopping move of marker on click
