@@ -2,6 +2,7 @@ import type { NadeType } from '$lib/features/stratEditor/types/nade';
 
 export interface Nade {
 	name: string;
+	notes: string;
 	type: NadeType;
 	lineupX: number;
 	lineupY: number;

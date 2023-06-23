@@ -97,6 +97,7 @@ export const POST = async ({ request, locals }) => {
 		// Insert nade
 		const { error } = await locals.supabase.from('nades').insert({
 			name: nade.name,
+			notes: nade.notes,
 			type: `${nade.type}`,
 			lineup_x: nade.lineupX,
 			lineup_y: nade.lineupY,

@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
-	import Dialog from '$lib/components/containers/Dialog.svelte';
 	import { useMarkerColor } from '$lib/composables/useMarkerColor';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import type { Nade } from '../dtos/nade';
+	import NadeDialog from './NadeDialog.svelte';
 
 	export let index: number;
 	export let nade: Nade;
@@ -13,23 +11,12 @@
 	$: color = useMarkerColor(nade.type);
 
 	let showDialog = false;
-	let lineupImgUrl: string | undefined = undefined;
-	let impactImgUrl: string | undefined = undefined;
-
-	const openDialog = async () => {
-		lineupImgUrl = supabase.storage.from('strats').getPublicUrl(nade.lineupImg)
-			.data.publicUrl;
-		impactImgUrl = supabase.storage.from('strats').getPublicUrl(nade.impactImg)
-			.data.publicUrl;
-
-		showDialog = true;
-	};
 </script>
 
 <button
 	class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2 z-10 aspect-square rounded"
 	style="left: {nade.lineupX}%; top: {nade.lineupY}%"
-	on:click={openDialog}
+	on:click={() => (showDialog = true)}
 	><svg
 		style="fill: {color}"
 		xmlns="http://www.w3.org/2000/svg"
@@ -43,53 +30,9 @@
 <button
 	class="absolute grid place-items-center w-5 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 z-10"
 	style="background-color: {color}; left: {nade.impactX}%; top: {nade.impactY}%"
-	on:click={openDialog}
+	on:click={() => (showDialog = true)}
 >
 	<span class="absolute text-xs pointer-events-none">{index + 1}</span>
 </button>
 
-<Dialog bind:show={showDialog} title={nade.name}>
-	<div slot="body" class="grid mt-4">
-		<div class="flex gap-4">
-			<div>
-				<h2 class="font-bold">Lineup image:</h2>
-				{#if lineupImgUrl}
-					<img
-						class="w-[40vw] rounded aspect-video object-cover"
-						src={lineupImgUrl}
-						alt="Lineup for {nade.name}"
-					/>
-				{:else}
-					<div
-						class="grid place-items-center px-4 w-[40vw] bg-neutral-800 border-2 border-dashed rounded aspect-video"
-					>
-						<p>No lineup image for this nade</p>
-					</div>
-				{/if}
-			</div>
-			<div>
-				<h2 class="font-bold">Impact image:</h2>
-				{#if impactImgUrl}
-					<img
-						class="w-[40vw] rounded aspect-video object-cover"
-						src={impactImgUrl}
-						alt="Impact for {nade.name}"
-					/>
-				{:else}
-					<div
-						class="grid place-items-center px-4 w-[40vw] bg-neutral-800 border-2 border-dashed rounded aspect-video"
-					>
-						<p>No impact image for this nade</p>
-					</div>
-				{/if}
-			</div>
-		</div>
-		<h1 class="text-xl font-bold mt-10">Notes:</h1>
-		<p>Notes are soon to be implemented!</p>
-	</div>
-	<div slot="form" class="flex justify-end">
-		<SecondaryButton on:click={() => (showDialog = false)}
-			>Close</SecondaryButton
-		>
-	</div>
-</Dialog>
+<NadeDialog bind:show={showDialog} {nade} {supabase} />

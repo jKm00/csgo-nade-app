@@ -60,6 +60,7 @@ export const load = async ({ params, parent }) => {
 			nades: data.nades?.map(
 				(nade: {
 					name: string;
+					notes: string;
 					type: string;
 					lineup_x: number;
 					lineup_y: number;
@@ -70,6 +71,7 @@ export const load = async ({ params, parent }) => {
 				}) => {
 					return {
 						name: nade.name,
+						notes: nade.notes,
 						type: nade.type,
 						lineupX: nade.lineup_x,
 						lineupY: nade.lineup_y,
