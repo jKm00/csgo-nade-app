@@ -156,7 +156,7 @@
 				goto(`/maps/${stratInfo.map.name}/strats/${stratId}`);
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		} finally {
 			isLoading = false;
 		}
@@ -195,10 +195,9 @@
 			{nades}
 		/>
 		<div class="grid mt-4">
-			<MainButton on:click={handleCreateStrat} disabled={isLoading}
+			<MainButton on:click={handleCreateStrat} disabled={isLoading} {isLoading}
 				>Create strat</MainButton
 			>
-			<LoadingIndicator {isLoading} />
 		</div>
 	{/if}
 </main>
