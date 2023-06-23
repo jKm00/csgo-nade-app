@@ -8,8 +8,6 @@
 	export let nade: Nade;
 	export let supabase: SupabaseClient;
 
-	$: console.log(nade);
-
 	let lineupImgUrl: string | undefined = undefined;
 	let impactImgUrl: string | undefined = undefined;
 
@@ -20,8 +18,19 @@
 	const fetchImgUrls = () => {
 		lineupImgUrl = supabase.storage.from('strats').getPublicUrl(nade.lineupImg)
 			.data.publicUrl;
+
+		const lineupPaths = lineupImgUrl.split('/');
+		if (lineupPaths[lineupPaths.length - 1] === 'null') {
+			lineupImgUrl = undefined;
+		}
+
 		impactImgUrl = supabase.storage.from('strats').getPublicUrl(nade.impactImg)
 			.data.publicUrl;
+
+		const impactPaths = impactImgUrl.split('/');
+		if (impactPaths[impactPaths.length - 1] === 'null') {
+			impactImgUrl = undefined;
+		}
 	};
 </script>
 
@@ -56,7 +65,7 @@
 					<div
 						class="grid place-items-center px-4 w-[40vw] bg-neutral-800 border-2 border-dashed rounded aspect-video"
 					>
-						<p>{nade.notes}</p>
+						<p>No impact image for this nade</p>
 					</div>
 				{/if}
 			</div>
