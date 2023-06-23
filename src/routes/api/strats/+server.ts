@@ -69,7 +69,7 @@ export const POST = async ({ request, locals }) => {
 		];
 	}
 
-	nades.forEach(async (nade) => {
+	for (var nade of nades) {
 		// Upload lineup img
 		const { imgUrl: lineupImgUrl, error: lineupError } = await uploadImg(
 			locals.supabase,
@@ -79,7 +79,7 @@ export const POST = async ({ request, locals }) => {
 		);
 
 		if (lineupError) {
-			console.log(lineupError);
+			console.log('Failed to upload lineup image: ', lineupError);
 		}
 
 		// Upload impact img
@@ -91,7 +91,7 @@ export const POST = async ({ request, locals }) => {
 		);
 
 		if (impactError) {
-			console.log(impactError);
+			console.log('Failed to upload impact image:', impactError);
 		}
 
 		// Insert nade
@@ -109,9 +109,9 @@ export const POST = async ({ request, locals }) => {
 		});
 
 		if (error) {
-			console.log(error);
+			console.log('Failed to insert nade into db:', error);
 		}
-	});
+	}
 
 	return new Response(JSON.stringify(stratId!), { status: 200 });
 };

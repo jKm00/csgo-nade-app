@@ -12,6 +12,7 @@
 	import Tag from '$lib/components/containers/Tag.svelte';
 	import MarkerMeaning from '$lib/components/feedback/MarkerMeaning.svelte';
 	import RadarViewer from '$lib/features/stratViewer/components/RadarViewer.svelte';
+	import LoadingIndicator from '$lib/components/feedback/LoadingIndicator.svelte';
 
 	export let data;
 	export let form;
