@@ -16,8 +16,6 @@
 	export let mouseY: number;
 	export let active: boolean = false;
 
-	$: console.log(active);
-
 	let dragActive = false;
 	let mouseUp = false;
 	let markerType: MarkerType | undefined = undefined;

@@ -13,7 +13,7 @@
 </script>
 
 <dialog
-	class="bg-neutral-900 rounded text-white backdrop:bg-neutral-950/90 max-w-3xl"
+	class="bg-neutral-900 rounded text-white backdrop:bg-neutral-950/90 max-w-full"
 	bind:this={dialog}
 >
 	<div class="grid">

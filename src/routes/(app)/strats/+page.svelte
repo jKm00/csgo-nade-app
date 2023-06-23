@@ -7,7 +7,7 @@
 	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
 	import StratOverview from '$lib/features/stratEditor/components/StratOverview.svelte';
 	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
-	import type { Nade } from '$lib/features/stratEditor/types/nade';
+	import type { Nade } from '$lib/features/stratEditor/types/nade.js';
 	import toast from 'svelte-french-toast';
 	import { Chasing } from 'svelte-loading-spinners';
 

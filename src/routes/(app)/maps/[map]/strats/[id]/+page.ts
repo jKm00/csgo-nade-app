@@ -40,7 +40,10 @@ export const load = async ({ params, parent }) => {
 			name: data.name,
 			desc: data.description,
 			teamSide: data.team_side,
-			position: data.positions?.name ?? undefined,
+			position:
+				data.positions instanceof Array
+					? data.positions[0].name
+					: data.positions?.name ?? undefined,
 			createAt: data.inserted_at,
 			authorUuid:
 				data.profiles instanceof Array
@@ -57,6 +60,7 @@ export const load = async ({ params, parent }) => {
 			nades: data.nades?.map(
 				(nade: {
 					name: string;
+					notes: string;
 					type: string;
 					lineup_x: number;
 					lineup_y: number;
@@ -67,6 +71,7 @@ export const load = async ({ params, parent }) => {
 				}) => {
 					return {
 						name: nade.name,
+						notes: nade.notes,
 						type: nade.type,
 						lineupX: nade.lineup_x,
 						lineupY: nade.lineup_y,
