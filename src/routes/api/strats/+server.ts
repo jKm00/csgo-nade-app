@@ -78,7 +78,9 @@ export const POST = async ({ request, locals }) => {
 			'LINEUP'
 		);
 
-		console.log(lineupError);
+		if (lineupError) {
+			console.log(lineupError);
+		}
 
 		// Upload impact img
 		const { imgUrl: impactImgUrl, error: impactError } = await uploadImg(
@@ -88,7 +90,9 @@ export const POST = async ({ request, locals }) => {
 			'IMPACT'
 		);
 
-		console.log(impactError);
+		if (impactError) {
+			console.log(impactError);
+		}
 
 		// Insert nade
 		const { error } = await locals.supabase.from('nades').insert({
@@ -103,7 +107,9 @@ export const POST = async ({ request, locals }) => {
 			impact_img: impactImgUrl,
 		});
 
-		console.log(error);
+		if (error) {
+			console.log(error);
+		}
 	});
 
 	return new Response(JSON.stringify(stratId!), { status: 200 });

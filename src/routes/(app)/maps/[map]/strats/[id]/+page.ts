@@ -40,7 +40,10 @@ export const load = async ({ params, parent }) => {
 			name: data.name,
 			desc: data.description,
 			teamSide: data.team_side,
-			position: data.positions?.name ?? undefined,
+			position:
+				data.positions instanceof Array
+					? data.positions[0].name
+					: data.positions?.name ?? undefined,
 			createAt: data.inserted_at,
 			authorUuid:
 				data.profiles instanceof Array

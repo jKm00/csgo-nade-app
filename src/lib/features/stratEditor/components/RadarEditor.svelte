@@ -65,7 +65,11 @@
 
 <div>
 	<!-- Radar wrapper -->
-	<div class="relative w-full aspect-square">
+	<div
+		class="relative w-full aspect-square"
+		bind:clientWidth={radarWidth}
+		bind:clientHeight={radarHeight}
+	>
 		{#each nades as nade, index}
 			<EditableNadeMarker
 				bind:nade
@@ -84,8 +88,6 @@
 			class="cursor-pointer"
 			on:mousemove={handleMouseMove}
 			on:click={handleMapClick}
-			bind:clientWidth={radarWidth}
-			bind:clientHeight={radarHeight}
 		>
 			<img src={radarPath} alt={`Radar of ${map}`} />
 		</div>
