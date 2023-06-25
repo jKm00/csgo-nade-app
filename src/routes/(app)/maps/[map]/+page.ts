@@ -32,9 +32,7 @@ export const load = async ({ params, parent }) => {
 			.single();
 
 		if (!data || !data.strats) {
-			return fail(400, {
-				message: 'Failed to fetch data',
-			});
+			return [];
 		}
 
 		if (!(data?.strats instanceof Array)) {
