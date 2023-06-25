@@ -243,10 +243,12 @@
 {#if team && isTeamLeader && session !== null}
 	<!-- Transfer team leader drawer -->
 	<Drawer bind:show={showTransfer}>
-		<TransferLeaderForm {teamMembers} teamId={team.id} {session} />
+		<h1 class="font-bold text-red-400" slot="title">Transfer leader</h1>
+		<TransferLeaderForm slot="body" {teamMembers} teamId={team.id} {session} />
 	</Drawer>
 	<!-- Invite player drawer -->
 	<Drawer bind:show={showInvite}>
-		<InvitePlayerForm data={data.form} teamId={team.id} />
+		<h1 class="font-bold text-red-400" slot="title">Invite player</h1>
+		<InvitePlayerForm slot="body" data={data.form} teamId={team.id} />
 	</Drawer>
 {/if}

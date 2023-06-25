@@ -13,9 +13,8 @@
 	const { form, errors, enhance } = superForm(data);
 </script>
 
-<h1 class="text-xl font-bold mb-4 px-4">Invite player</h1>
 <form
-	class="grid gap-4 items-center mb-6 p-4"
+	class="grid gap-4 items-center mb-6 px-4"
 	action="?/invitePlayer"
 	method="POST"
 	use:enhance
@@ -24,7 +23,8 @@
 	<TextInput
 		id="username"
 		name="username"
-		placeholder="Username"
+		label="Username:"
+		placeholder="Enter players username"
 		value={$form.username}
 		errors={$errors.username}
 	/>

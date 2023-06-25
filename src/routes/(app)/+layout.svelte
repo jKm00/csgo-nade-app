@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import NavBar from '$lib/components/layout/NavBar.svelte';
+	import NavBar from '$lib/features/navBar/components/NavBar.svelte';
 	import WelcomeBanner from '$lib/components/layout/WelcomeBanner.svelte';
 	import { onMount } from 'svelte';
 
