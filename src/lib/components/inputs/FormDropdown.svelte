@@ -16,6 +16,7 @@
 	export let value: T | null = null;
 	export let options: Option[];
 	export let errors: string[] | undefined = undefined;
+	export let showDefaultOptions: boolean = true;
 	export let defaultOptions: string | undefined = undefined;
 	export let selected: Option | null =
 		options?.find((opt) => opt.value === value) ?? null;
@@ -43,7 +44,7 @@
 
 <input type="hidden" {id} {name} bind:value />
 <div
-	class="relative w-40 text-sm text-neutral-400"
+	class="relative w-52 text-neutral-400"
 	use:clickOutside={() => (showDropDown = false)}
 	bind:this={dropDown}
 	on:keyup={handleKeyUp}
@@ -69,11 +70,13 @@
 			? ''
 			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full max-h-52 overflow-y-auto shadow z-10"
 	>
-		<button
-			class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-			on:click|preventDefault={() => updateSelected(null)}
-			>{defaultOptions ?? 'No value'}</button
-		>
+		{#if showDefaultOptions}
+			<button
+				class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+				on:click|preventDefault={() => updateSelected(null)}
+				>{defaultOptions ?? 'No value'}</button
+			>
+		{/if}
 		{#if options}
 			{#each options as option}
 				<button

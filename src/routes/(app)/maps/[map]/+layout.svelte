@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MapMenu from '$lib/features/stratListing/components/MapMenu.svelte';
 	import { maps } from '$lib/shared/maps.js';
 
 	export let data;
@@ -8,7 +9,7 @@
 </script>
 
 <header
-	class="grid items-center relative w-default overflow-hidden p-4 rounded mt-4"
+	class="grid items-center relative w-default overflow-hidden p-4 rounded my-4"
 >
 	<img
 		class="absolute"
@@ -18,5 +19,6 @@
 	<div class="absolute h-full w-full bg-neutral-950/40 z-10" />
 	<h1 class="relative text-3xl font-bold text-center z-10">{mapName}</h1>
 </header>
+<MapMenu selectedMap={mapName} />
 
 <slot />

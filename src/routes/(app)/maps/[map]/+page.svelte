@@ -1,19 +1,15 @@
 <script lang="ts">
-	import MainLink from '$lib/components/buttons/MainLink.svelte';
 	import StratCard from '$lib/components/containers/StratCard.svelte';
 	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
+	import Filters from '$lib/features/stratListing/components/Filters.svelte';
 
 	export let data;
 
-	$: ({ mapName } = data);
+	$: ({ mapName, filters } = data);
 </script>
 
-<div class="w-default mt-10">
-	<!-- Header -->
-	<div class="flex justify-between mb-4">
-		<h2 class="font-bold uppercase">Strats</h2>
-		<MainLink link="/strats">Create new strat</MainLink>
-	</div>
+<div class="grid gap-4 w-default mt-10">
+	<Filters map={mapName} bind:filters />
 	<div
 		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
 	>
