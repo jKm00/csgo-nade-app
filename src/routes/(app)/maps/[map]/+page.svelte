@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MainLink from '$lib/components/buttons/MainLink.svelte';
 	import StratCard from '$lib/components/containers/StratCard.svelte';
 	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
 
@@ -11,10 +12,7 @@
 	<!-- Header -->
 	<div class="flex justify-between mb-4">
 		<h2 class="font-bold uppercase">Strats</h2>
-		<a
-			class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 rounded py-1 px-2"
-			href="/strats">Create new strat</a
-		>
+		<MainLink link="/strats">Create new strat</MainLink>
 	</div>
 	<div
 		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"

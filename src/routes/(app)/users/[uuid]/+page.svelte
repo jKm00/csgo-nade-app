@@ -49,7 +49,7 @@
 			<main class="grow">
 				<div class="flex items-center justify-between mb-4">
 					<h2 class="text-2xl font-bold">Teams</h2>
-					<MainLink link="/teams">New team</MainLink>
+					<MainLink link="/teams">Create new team</MainLink>
 				</div>
 				<div class="flex flex-wrap gap-4">
 					{#if teams}

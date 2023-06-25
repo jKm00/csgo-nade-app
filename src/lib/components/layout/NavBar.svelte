@@ -5,6 +5,7 @@
 	import toast from 'svelte-french-toast';
 	import { clickOutside } from 'svelte-use-click-outside';
 	import Divider from '../forms/Divider.svelte';
+	import CreateMenu from '../containers/CreateMenu.svelte';
 
 	$: ({ session, supabase } = $page.data);
 
@@ -73,6 +74,7 @@
 	</div>
 	{#if session}
 		<div class="flex items-center gap-6">
+			<CreateMenu />
 			<!-- Notificaitons -->
 			<a class="relative" href="/users/{session.user.id}/alerts">
 				<svg
