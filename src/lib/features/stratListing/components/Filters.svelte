@@ -8,32 +8,27 @@
 
 	export let map: string;
 
-	export let filters: Filter[] = [];
+	let filters: Filter[] = [{ id: 0, label: 'team', value: 'DOT' }];
 	$: numberOfFilters = filters.length;
 
 	let showFilterForm = false;
 
-	let { set } = useQueryParams(
-		filters.map((filter) => ({
-			label: filter.label,
-			value: filter.value,
-		})),
-		`/maps/${map}`
-	);
+	$: params = filters.map((filter) => ({
+		key: filter.label,
+		value: filter.value,
+	}));
+	const { set } = useQueryParams(params, `/maps/${map}`);
+
+	$: {
+		set(params);
+	}
 
 	const clearFilters = () => {
 		filters = [];
-		set([]);
 	};
 
 	const deleteFilter = (event: CustomEvent<{ id: number }>) => {
 		filters = filters.filter((f) => f.id !== event.detail.id);
-		set(
-			filters.map((filter) => ({
-				label: filter.label,
-				value: filter.value,
-			}))
-		);
 	};
 
 	const handleSubmit = (event: CustomEvent<FilterFormEvent>) => {
@@ -93,13 +88,6 @@
 				];
 			}
 		}
-
-		set(
-			filters.map((filter) => ({
-				label: filter.label,
-				value: filter.value,
-			}))
-		);
 	};
 
 	const getNextIndex = () => {

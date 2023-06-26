@@ -1,16 +1,19 @@
 import { fail } from '@sveltejs/kit';
 import type { Filter } from '$lib/features/stratListing/types/Filter';
+import { browser } from '$app/environment';
 
 export const load = async ({ params, parent, url }) => {
 	const mapName = params.map;
 
-	const searchParams = url.searchParams;
-	let filters: Filter[] = [];
+	if (!browser) {
+		const searchParams = url.searchParams;
+		let filters: Filter[] = [];
 
-	let index = 0;
-	for (const [key, value] of searchParams.entries()) {
-		filters = [...filters, { id: index, label: key, value }];
-		index++;
+		let index = 0;
+		for (const [key, value] of searchParams.entries()) {
+			filters = [...filters, { id: index, label: key, value }];
+			index++;
+		}
 	}
 
 	const fetchStrats = async () => {
@@ -111,7 +114,6 @@ export const load = async ({ params, parent, url }) => {
 
 	return {
 		mapName,
-		filters,
 		streamed: {
 			strats: fetchStrats(),
 		},

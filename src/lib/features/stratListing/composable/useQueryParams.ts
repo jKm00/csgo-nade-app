@@ -3,7 +3,7 @@ import { goto } from '$app/navigation';
 import { browser } from '$app/environment';
 
 export const useQueryParams = (
-	params: { label: string; value: string }[],
+	params: { key: string; value: string }[],
 	baseUrl: string
 ) => {
 	const { subscribe, set } = writable(params);
@@ -14,7 +14,7 @@ export const useQueryParams = (
 		if (value) {
 			queryParams = new URLSearchParams();
 			value.forEach((param) => {
-				queryParams.append(param.label, param.value);
+				queryParams.append(param.key, param.value);
 			});
 			if (browser) {
 				goto(`${baseUrl}?${queryParams.toString()}`);

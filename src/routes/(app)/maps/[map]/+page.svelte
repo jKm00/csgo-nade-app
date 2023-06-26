@@ -5,11 +5,11 @@
 
 	export let data;
 
-	$: ({ mapName, filters } = data);
+	$: ({ mapName } = data);
 </script>
 
 <div class="grid gap-4 w-default mt-10">
-	<Filters map={mapName} bind:filters />
+	<Filters map={mapName} />
 	<div
 		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
 	>
