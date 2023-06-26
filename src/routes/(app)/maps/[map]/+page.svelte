@@ -1,7 +1,7 @@
 <script lang="ts">
 	import StratCard from '$lib/components/containers/StratCard.svelte';
 	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
-	import Filters from '$lib/features/stratListing/components/Filters.svelte';
+	import Filters from '$lib/features/stratListing/components/filter/Filters.svelte';
 
 	export let data;
 

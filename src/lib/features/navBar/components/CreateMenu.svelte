@@ -29,7 +29,7 @@
 				on:click={() => (showMenu = false)}>Close</button
 			>
 			<div class="flex gap-10 text-center text-xl">
-				<a href="/strats">
+				<a href="/strats/new">
 					<img
 						class="w-80 aspect-square bg-red-400 rounded p-14"
 						src="/assets/icons/strat-planning-icon.png"

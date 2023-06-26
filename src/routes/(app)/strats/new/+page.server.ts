@@ -5,7 +5,7 @@ export const load = async ({ url, locals }) => {
 	const session = await locals.getSession();
 
 	if (!session) {
-		throw redirect(302, '/login?redirectTo=/strats');
+		throw redirect(302, '/login?redirectTo=/strats/new');
 	}
 
 	const { data: maps } = await locals.supabase

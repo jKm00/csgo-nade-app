@@ -2,9 +2,9 @@
 	import { fade } from 'svelte/transition';
 	import FilterForm from './FilterForm.svelte';
 	import FilterChips from './FilterChips.svelte';
-	import type { Filter } from '../types/Filter';
-	import { useQueryParams } from '../composable/useQueryParams';
-	import type { FilterFormEvent } from '../types/FilterFormEvent';
+	import type { Filter } from '../../types/Filter';
+	import { useQueryParams } from '../../composable/useQueryParams';
+	import type { FilterFormEvent } from '../../types/FilterFormEvent';
 
 	export let map: string;
 

@@ -4,6 +4,17 @@
 
 	export let show: boolean;
 	export let width = 'w-drawer';
+	export let side: 'left' | 'right' = 'right';
+
+	$: drawerWidth = width !== 'w-drawer' ? `width: ${width};` : '';
+	$: drawerSide = side === 'left' ? 'left: 0;' : 'right: 0;';
+	$: hidden = show
+		? 'transform: translateX(0)'
+		: side === 'left'
+		? 'transform: translateX(-100%)'
+		: 'transform: translateX(100%)';
+
+	$: drawerStyles = drawerWidth + drawerSide + hidden;
 </script>
 
 {#if show}
@@ -14,10 +25,8 @@
 	/>
 {/if}
 <div
-	style={width !== 'w-drawer' ? `width: ${width};` : ''}
-	class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 z-50 {show
-		? 'translate-x-0'
-		: 'translate-x-full'} transition-transform"
+	style={drawerStyles}
+	class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 z-50 transition-transform"
 	use:clickOutside={() => (show = false)}
 >
 	<div class="flex items-center justify-between p-4">

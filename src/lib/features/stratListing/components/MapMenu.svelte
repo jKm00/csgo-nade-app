@@ -1,4 +1,5 @@
 <script lang="ts">
+	// TODO: Remove as it is unused
 	import { goto } from '$app/navigation';
 	import MainLink from '$lib/components/buttons/MainLink.svelte';
 	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
@@ -19,7 +20,7 @@
 	};
 </script>
 
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
 	<FormDropdown
 		id="map"
 		name="map"
@@ -29,5 +30,5 @@
 		bind:value={selectedMap}
 		on:update={handleDropdownUpdate}
 	/>
-	<MainLink link="/strats">Create new strat</MainLink>
+	<MainLink link="/strats/new">Create new strat</MainLink>
 </div>
