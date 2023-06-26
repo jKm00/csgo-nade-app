@@ -8,9 +8,12 @@
 </script>
 
 <div class="flex gap-2">
-	<button on:click={() => (showDrawer = true)} class="flex items-center gap-1">
+	<button
+		on:click={() => (showDrawer = true)}
+		class="flex items-center gap-1 hover:text-red-400 focus-within:text-red-400 group"
+	>
 		<svg
-			class="fill-white"
+			class="fill-white group-hover:fill-red-400 group-focus-within:fill-red-400"
 			xmlns="http://www.w3.org/2000/svg"
 			height="1em"
 			viewBox="0 0 512 512"
@@ -20,9 +23,11 @@
 		>Filters (3)
 	</button>
 	<button
-		class="text-neutral-400 underline"
+		class="text-neutral-400 hover:underline focus-within:underline"
 		on:click={() => (showDrawer = true)}>Change</button
 	>
-	<button class="text-neutral-400 underline">Clear all</button>
+	<button class="text-neutral-400 hover:underline focus-within:underline"
+		>Clear all</button
+	>
 	<FilterDrawer bind:showDrawer {filters} />
 </div>
