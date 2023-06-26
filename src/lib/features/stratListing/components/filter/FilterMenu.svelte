@@ -2,7 +2,7 @@
 	import FilterDrawer from './FilterDrawer.svelte';
 	import type { Filter } from '../../types/Filter';
 
-	let showDrawer = true;
+	let showDrawer = false;
 
 	let filters: Filter[] = [];
 </script>

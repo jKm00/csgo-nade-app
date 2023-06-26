@@ -4,7 +4,7 @@
 	export let name: string;
 </script>
 
-<a href="/maps/{name}">
+<a href="/strats?map={name}">
 	<div
 		class="relative group hover:scale-105 transition-all rounded overflow-hidden"
 	>

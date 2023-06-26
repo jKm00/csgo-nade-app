@@ -1,7 +1,8 @@
 <script lang="ts">
+	// TODO: Remove as new component is replacing this one (ActiveFilters)
 	import { createEventDispatcher } from 'svelte';
-	import type { Filter } from '../types/Filter';
 	import FilterChip from './FilterChip.svelte';
+	import { type Filter } from '../../types/Filter';
 
 	const dispatch = createEventDispatcher<{ delete: { id: number } }>();
 

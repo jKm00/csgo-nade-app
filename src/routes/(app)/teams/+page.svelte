@@ -1,6 +1,6 @@
 <script lang="ts">
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
-	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
+	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import { TEAM_ROLES } from '$lib/shared/teamRoles.js';
 	import toast from 'svelte-french-toast';
@@ -48,7 +48,7 @@
 	/>
 	<div>
 		<p class="font-bold">Your team role:</p>
-		<FormDropdown
+		<Dropdown
 			id="role"
 			name="role"
 			value={$teamForm.role}

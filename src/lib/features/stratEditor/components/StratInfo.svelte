@@ -1,5 +1,5 @@
 <script lang="ts">
-	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
+	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 
@@ -63,14 +63,14 @@
 		/>
 	</div>
 	<div class="flex flex-wrap gap-4">
-		<FormDropdown
+		<Dropdown
 			id="map"
 			name="map"
 			placeholder="Select map"
 			bind:value={map}
 			options={mapOptions}
 		/>
-		<FormDropdown
+		<Dropdown
 			id="side"
 			name="side"
 			placeholder="Select side"
@@ -80,7 +80,7 @@
 				{ value: 'T', label: 'T' },
 			]}
 		/>
-		<FormDropdown
+		<Dropdown
 			id="position"
 			name="position"
 			placeholder="Select position"
@@ -88,7 +88,7 @@
 			bind:value={position}
 			options={mapPositions}
 		/>
-		<FormDropdown
+		<Dropdown
 			id="privacy"
 			name="privacy"
 			placeholder="Select privacy"
@@ -98,7 +98,7 @@
 				{ value: 'PRIVATE', label: 'Private' },
 			]}
 		/>
-		<FormDropdown
+		<Dropdown
 			id="team"
 			name="team"
 			placeholder="Select team"

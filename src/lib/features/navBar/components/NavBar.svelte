@@ -3,9 +3,7 @@
 	import type { RealtimeChannel } from '@supabase/supabase-js';
 	import { onDestroy, onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
-	import { clickOutside } from 'svelte-use-click-outside';
-	import Divider from '../../../components/forms/Divider.svelte';
-	import CreateMenu from './CreateMenu.svelte';
+	import CreateMenu from './CreateDialog.svelte';
 	import type { User } from '$lib/features/navBar/types/User';
 	import UserMenu from '$lib/features/navBar/components/UserMenu.svelte';
 
@@ -13,7 +11,6 @@
 
 	let user: User;
 
-	let showUserInfo = false;
 	let numberOfAlerts: number;
 
 	let invitationSubscription: RealtimeChannel;

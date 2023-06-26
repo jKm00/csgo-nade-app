@@ -3,7 +3,6 @@
 	import { goto } from '$app/navigation';
 	import MainLink from '$lib/components/buttons/MainLink.svelte';
 	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
-	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
 	import { maps } from '$lib/shared/maps';
 
 	export let selectedMap: string;
@@ -21,7 +20,7 @@
 </script>
 
 <div class="flex justify-between items-center">
-	<FormDropdown
+	<Dropdown
 		id="map"
 		name="map"
 		placeholder="Select map"

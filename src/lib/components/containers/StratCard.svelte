@@ -1,4 +1,5 @@
 <script lang="ts">
+	// TODO: Remove as a new is made in correct feature
 	import Tag from './Tag.svelte';
 
 	export let map: string;
