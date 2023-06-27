@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
+
 	import { clickOutside } from 'svelte-use-click-outside';
 	import ErrorMessage from '../feedback/ErrorMessage.svelte';
 	import { createEventDispatcher } from 'svelte';
@@ -65,28 +67,29 @@
 		></button
 	>
 	<!-- Options -->
-	<div
-		class="{showDropDown
-			? ''
-			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full max-h-52 overflow-y-auto shadow z-10"
-	>
-		{#if showDefaultOptions}
-			<button
-				class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-				on:click|preventDefault={() => updateSelected(null)}
-				>{defaultOptions ?? 'No value'}</button
-			>
-		{/if}
-		{#if options}
-			{#each options as option}
+	{#if showDropDown}
+		<div
+			transition:slide={{ duration: 100 }}
+			class="absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full max-h-52 overflow-y-auto shadow z-10"
+		>
+			{#if showDefaultOptions}
 				<button
-					on:click|preventDefault={() => updateSelected(option)}
 					class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-					>{option.label}</button
+					on:click|preventDefault={() => updateSelected(null)}
+					>{defaultOptions ?? 'No value'}</button
 				>
-			{/each}
-		{/if}
-	</div>
+			{/if}
+			{#if options}
+				{#each options as option}
+					<button
+						on:click|preventDefault={() => updateSelected(option)}
+						class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+						>{option.label}</button
+					>
+				{/each}
+			{/if}
+		</div>
+	{/if}
 	{#if errors}
 		<ErrorMessage>{errors[0]}</ErrorMessage>
 	{/if}
