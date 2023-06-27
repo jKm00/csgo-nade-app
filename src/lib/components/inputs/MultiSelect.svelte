@@ -27,8 +27,6 @@
 	// If not, last item index is number of options + display
 	$: lastItemIdIndex = clearable ? options.length + 1 : options.length;
 
-	$: console.log(keyboardNavTracker);
-
 	const handleKeyUp = (event: KeyboardEvent) => {
 		switch (event.code) {
 			case 'Escape':
