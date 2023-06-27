@@ -8,7 +8,7 @@
 	export let showDrawer: boolean;
 </script>
 
-<Drawer bind:show={showDrawer} width="20rem" side="left">
+<Drawer bind:show={showDrawer} width="min(90vw, 25rem)" side="left">
 	<div slot="title">
 		<h1 class="text-2xl font-bold text-red-400">Filters (3):</h1>
 		<div class="flex gap-4">
