@@ -1,16 +1,21 @@
 <script lang="ts">
-	export let value: boolean;
-	export let id: string;
-	export let name: string;
-	export let errors: string[] | undefined = undefined;
+	import { fade } from 'svelte/transition';
+
+	export let id: string | undefined = undefined;
+	export let name: string | undefined = undefined;
+	export let checked: boolean;
 </script>
 
-<div>
-	<div class="flex items-center gap-2">
-		<input {id} {name} type="checkbox" bind:checked={value} />
-		<p><slot /></p>
-	</div>
-	{#if errors}
-		<p>{errors[0]}</p>
-	{/if}
-</div>
+<input type="hidden" {id} {name} />
+<button class="p-[0.125rem] rounded border-2">
+	<svg
+		style={checked ? 'fill: white;' : 'fill: transparent;'}
+		class="w-2 h-2 transition-colors"
+		xmlns="http://www.w3.org/2000/svg"
+		height="1em"
+		viewBox="0 0 448 512"
+		><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+			d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+		/></svg
+	>
+</button>
