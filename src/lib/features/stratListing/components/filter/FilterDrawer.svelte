@@ -10,17 +10,15 @@
 
 <Drawer bind:show={showDrawer} width="min(90vw, 25rem)" side="left">
 	<div slot="title">
-		<h1 class="text-2xl font-bold text-red-400">Filters (3):</h1>
-		<div class="flex gap-4">
-			<button class="text-neutral-400 underline">Clear all</button>
-			<button
-				class="text-neutral-400 underline"
-				on:click={() => (showDrawer = false)}>Close</button
-			>
-		</div>
+		<h1 class="text-2xl font-bold text-red-400">
+			Filters ({filters.length}):
+		</h1>
 	</div>
 	<div slot="body" class="grid gap-10 p-4">
-		<FilterForm />
+		<FilterForm
+			on:close={() => (showDrawer = false)}
+			on:clear={() => (filters = [])}
+		/>
 		<ActiveFilters {filters} />
 	</div>
 </Drawer>

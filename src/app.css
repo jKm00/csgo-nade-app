@@ -26,5 +26,9 @@ html {
 	border: none;
 }
 
+svg {
+	fill: white;
+}
+
 @tailwind components;
 @tailwind utilities;
