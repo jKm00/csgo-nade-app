@@ -26,7 +26,6 @@
 			name="test"
 			bind:values
 			options={selectOptions}
-			label="Name:"
 			placeholder="Select name"
 			clearable={true}
 		/>

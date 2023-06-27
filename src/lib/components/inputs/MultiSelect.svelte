@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { draw, fade, fly, slide } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
+	import { slide } from 'svelte/transition';
 	import { clickOutside } from 'svelte-use-click-outside';
 
 	type T = $$Generic;
@@ -87,6 +86,9 @@
 </script>
 
 <input type="hidden" {id} {name} bind:value={values} />
+{#if label}
+	<p class="font-bold">{label}</p>
+{/if}
 <div
 	class="relative text-neutral-400"
 	use:clickOutside={closeMenu}
