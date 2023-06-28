@@ -23,23 +23,23 @@
 	let showMenu = false;
 	// Keep track of selected options.
 	// Used to display the labels of the selected options
-	let selected: Option[] = [];
-
-	// Initialze selected if any values are passed as props
-	options.forEach((option) => {
-		if (values.includes(option.value)) {
-			selected = [...selected, option];
-		}
-	});
-
-	// Map selected options to values for correct return type
-	$: values = selected.map((option) => option.value);
+	$: selected = findSelected(values);
 
 	let multiSelect: HTMLElement;
 	let keyboardNavTracker = 0;
 	// If cleareable, last item index is number of options + clear option + display
 	// If not, last item index is number of options + display
 	$: lastItemIdIndex = clearable ? options.length + 1 : options.length;
+
+	const findSelected = (values: T[]): Option[] => {
+		let found: Option[] = [];
+		options.forEach((option) => {
+			if (values.includes(option.value)) {
+				found = [...found, option];
+			}
+		});
+		return found;
+	};
 
 	const handleKeyUp = (event: KeyboardEvent) => {
 		switch (event.code) {
@@ -88,16 +88,16 @@
 	};
 
 	const handleOptionSelect = (option: Option) => {
-		const found = selected.find((value) => value.key === option.key);
+		const found = values.find((value) => value === option.value);
 		if (found) {
-			selected = selected.filter((o) => o.key !== option.key);
+			values = values.filter((value) => value !== option.value);
 		} else {
-			selected = [...selected, option];
+			values = [...values, option.value];
 		}
 	};
 
 	const clearAll = () => {
-		selected = [];
+		values = [];
 	};
 </script>
 
@@ -144,7 +144,7 @@
 	{#if showMenu}
 		<div
 			transition:slide={{ duration: 100 }}
-			class="absolute top-[115%] grid bg-neutral-700 rounded overflow-hidden w-full min-w-fit z-10 shadow-xl shadow-neutral-900"
+			class="absolute top-[115%] grid bg-neutral-700 py-2 rounded overflow-hidden w-full min-w-fit max-h-60 overflow-y-auto z-10 shadow-xl shadow-neutral-900"
 		>
 			{#if clearable}
 				<button
