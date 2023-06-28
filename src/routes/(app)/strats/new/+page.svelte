@@ -169,7 +169,7 @@
 		on:updateFormStep={(event) => goToStep(event.detail.step)}
 	/>
 	{#if activeStep === FormSteps.INFO}
-		<!-- TODO: Fix maps, maybe as chat -->
+		<!-- TODO: Fix: dropdown selected value is not displayed when navigating back and forth. Look at multiselect implementation -->
 		<StratInfo
 			bind:name={stratInfo.name}
 			bind:description={stratInfo.description}

@@ -1,7 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ params, locals }) => {
-	// TODO: Fetch profile from supabase
 	const { data } = await locals.supabase
 		.from('profiles')
 		.select('*, profile_picture ( filename )')

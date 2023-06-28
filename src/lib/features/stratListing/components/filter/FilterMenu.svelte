@@ -50,7 +50,7 @@
 	};
 
 	/**
-	 * Tries to add a filter to the filter list. Duplicated filter are
+	 * Tries to add a filter to the filter list. Duplicated filters are
 	 * not added
 	 *
 	 * @param type of filter
@@ -72,9 +72,28 @@
 		}
 	};
 
+	/**
+	 * Returns the next index for a new filter
+	 */
 	const getIndex = () => {
 		if (filters.length === 0) return 0;
 		return filters[filters.length - 1].id + 1;
+	};
+
+	/**
+	 * Clears all filters
+	 */
+	const clearFilters = () => {
+		filters = [];
+	};
+
+	/**
+	 * Deletes a filter
+	 *
+	 * @param id of the filter to delete
+	 */
+	const deleteFilter = (id: number) => {
+		filters = filters.filter((filter) => filter.id !== id);
 	};
 </script>
 
@@ -139,4 +158,10 @@
 	{/if}
 </div>
 
-<FilterDrawer on:submit={handleFilterSubmit} bind:showDrawer bind:filters />
+<FilterDrawer
+	on:submit={handleFilterSubmit}
+	on:clear={clearFilters}
+	on:delete={(event) => deleteFilter(event.detail.id)}
+	bind:showDrawer
+	{filters}
+/>

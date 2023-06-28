@@ -6,10 +6,6 @@
 
 	export let filters: Filter[];
 	export let showDrawer: boolean;
-
-	const clearFilters = () => {
-		filters = [];
-	};
 </script>
 
 <Drawer bind:show={showDrawer} width="min(90vw, 25rem)" side="left">
@@ -19,11 +15,7 @@
 		</h1>
 	</div>
 	<div slot="body" class="grid gap-10 p-4">
-		<FilterForm
-			on:submit
-			on:close={() => (showDrawer = false)}
-			on:clear={clearFilters}
-		/>
-		<ActiveFilters {filters} />
+		<FilterForm on:submit on:close={() => (showDrawer = false)} on:clear />
+		<ActiveFilters on:delete {filters} />
 	</div>
 </Drawer>

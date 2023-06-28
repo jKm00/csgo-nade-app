@@ -56,11 +56,11 @@
 	};
 
 	const close = () => {
-		dispatch('close', true);
+		dispatch('close');
 	};
 
 	const clearFilters = () => {
-		dispatch('clear', true);
+		dispatch('clear');
 	};
 </script>
 
