@@ -4,6 +4,16 @@
 	import FilterDisplay from './FilterDisplay.svelte';
 	import { useLocalStorage } from '$lib/composables/useLocalStorage';
 	import { get } from 'svelte/store';
+	import type { FilterFormEvent } from '../../types/FilterFormEvent';
+
+	enum FilterType {
+		MAP = 'Map',
+		POSITION = 'Position',
+		SIDE = 'Side',
+		STRAT = 'Strat',
+		TEAM = 'Team',
+		AUTHOR = 'Author',
+	}
 
 	let showDrawer = false;
 	const showFilters = useLocalStorage<boolean>('showFilters', false);
@@ -13,6 +23,59 @@
 		{ id: 1, label: 'Author', value: 'jKm' },
 		{ id: 2, label: 'Map', value: 'Inferno' },
 	];
+
+	/**
+	 * Handles the event when the filter form is submitted
+	 *
+	 * @param event dispatched from the form
+	 */
+	const handleFilterSubmit = (event: CustomEvent<FilterFormEvent>) => {
+		const formData = event.detail;
+
+		if (formData.stratName !== null) {
+			tryAddFilter(FilterType.STRAT, formData.stratName);
+		}
+
+		if (formData.teamName !== null) {
+			tryAddFilter(FilterType.TEAM, formData.teamName);
+		}
+
+		if (formData.author !== null) {
+			tryAddFilter(FilterType.AUTHOR, formData.author);
+		}
+
+		if (formData.maps !== null) {
+			formData.maps.forEach((map) => tryAddFilter(FilterType.MAP, map));
+		}
+	};
+
+	/**
+	 * Tries to add a filter to the filter list. Duplicated filter are
+	 * not added
+	 *
+	 * @param type of filter
+	 * @param value of the filter
+	 */
+	const tryAddFilter = (type: FilterType, value: string) => {
+		const found = filters.find(
+			(filter) => filter.label === type && filter.value === value
+		);
+		if (!found) {
+			filters = [
+				...filters,
+				{
+					id: getIndex(),
+					label: type,
+					value: value,
+				},
+			];
+		}
+	};
+
+	const getIndex = () => {
+		if (filters.length === 0) return 0;
+		return filters[filters.length - 1].id + 1;
+	};
 </script>
 
 <div class="grid gap-2">
@@ -76,4 +139,4 @@
 	{/if}
 </div>
 
-<FilterDrawer bind:showDrawer {filters} />
+<FilterDrawer on:submit={handleFilterSubmit} bind:showDrawer bind:filters />

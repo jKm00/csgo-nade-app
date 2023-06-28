@@ -66,15 +66,15 @@
 			/></svg
 		></button
 	>
-	<!-- Options -->
+	<!-- Menu -->
 	{#if showDropDown}
 		<div
 			transition:slide={{ duration: 100 }}
-			class="absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full max-h-52 overflow-y-auto shadow z-10"
+			class="absolute top-[115%] grid gap-2 bg-neutral-700 py-2 rounded w-full min-w-fit max-h-60 overflow-y-auto shadow z-10"
 		>
 			{#if showDefaultOptions}
 				<button
-					class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+					class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
 					on:click|preventDefault={() => updateSelected(null)}
 					>{defaultOptions ?? 'No value'}</button
 				>
@@ -83,7 +83,7 @@
 				{#each options as option}
 					<button
 						on:click|preventDefault={() => updateSelected(option)}
-						class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+						class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
 						>{option.label}</button
 					>
 				{/each}

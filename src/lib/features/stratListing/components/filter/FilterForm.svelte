@@ -5,7 +5,7 @@
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
 	import type { Filter } from '../../types/Filter';
 	import MultiSelect from '$lib/components/inputs/MultiSelect.svelte';
-	import { maps } from '$lib/shared/maps';
+	import { maps as storedMaps } from '$lib/shared/maps';
 
 	const dispatch = createEventDispatcher<{
 		submit: FilterFormEvent;
@@ -14,13 +14,21 @@
 	}>();
 
 	let selectedMaps: string[] = [];
-	const mapsOptions = maps.map((map, index) => ({
+	const mapsOptions = storedMaps.map((map, index) => ({
 		key: index,
 		label: map.name,
 		value: map.name,
 	}));
 
-	$: console.log(selectedMaps);
+	let selectedPositions: string[] = [];
+	// TODO: Fetch all positions from db
+	let positionOptions = [{ key: 0, label: 'A site', value: 'A site' }];
+
+	let selectedSides: string[] = [];
+	const sideOptions = [
+		{ key: 0, label: 'CT', value: 'CT' },
+		{ key: 1, label: 'T', value: 'T' },
+	];
 
 	let strat = '';
 	let team = '';
@@ -28,11 +36,23 @@
 
 	const handleSubmit = () => {
 		dispatch('submit', {
-			stratName: '',
-			teamName: '',
-			position: '',
-			teamSide: '',
+			maps: selectedMaps.length === 0 ? null : selectedMaps,
+			positions: selectedPositions.length === 0 ? null : selectedPositions,
+			side: selectedSides.length === 0 ? null : selectedSides,
+			stratName: strat === '' ? null : strat,
+			teamName: team === '' ? null : team,
+			author: author === '' ? null : author,
 		});
+		resetInputs();
+	};
+
+	const resetInputs = () => {
+		selectedMaps = [];
+		selectedPositions = [];
+		selectedSides = [];
+		strat = '';
+		team = '';
+		author = '';
 	};
 
 	const close = () => {
@@ -48,7 +68,7 @@
 	<!-- Buttons -->
 	<div class="flex gap-[1px]">
 		<button
-			class="flex flex-1 items-center justify-center gap-1 bg-neutral-700 py-1 px-3 rounded-s hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+			class="flex flex-1 items-center justify-center gap-1 bg-neutral-700 py-1 px-3 rounded-s hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500 transition-colors"
 			on:click={clearFilters}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"
@@ -58,7 +78,7 @@
 			>Clear all</button
 		>
 		<button
-			class="flex flex-1 items-center justify-center gap-1 bg-neutral-700 py-1 px-3 rounded-e hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+			class="flex flex-1 items-center justify-center gap-1 bg-neutral-700 py-1 px-3 rounded-e hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500 transition-colors"
 			on:click={close}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"
@@ -78,7 +98,20 @@
 				bind:values={selectedMaps}
 				options={mapsOptions}
 				placeholder="Select maps"
-				clearable={true}
+			/>
+			<MultiSelect
+				id="position"
+				name="position"
+				bind:values={selectedPositions}
+				options={positionOptions}
+				placeholder="Select position"
+			/>
+			<MultiSelect
+				id="side"
+				name="side"
+				bind:values={selectedSides}
+				options={sideOptions}
+				placeholder="Select team side"
 			/>
 		</fieldset>
 		<fieldset class="grid gap-2">
@@ -86,22 +119,22 @@
 			<TextInput
 				id="strat"
 				name="strat"
-				placeholder="Strat name..."
+				placeholder="Strat name"
 				bind:value={strat}
 			/>
 			<TextInput
 				id="team"
 				name="team"
-				placeholder="Team name..."
+				placeholder="Team name"
 				bind:value={team}
 			/>
 			<TextInput
 				id="author"
 				name="author"
-				placeholder="Strat author..."
+				placeholder="Strat author"
 				bind:value={author}
 			/>
 		</fieldset>
-		<FormButton>Save filters</FormButton>
+		<FormButton>Add filters</FormButton>
 	</form>
 </div>
