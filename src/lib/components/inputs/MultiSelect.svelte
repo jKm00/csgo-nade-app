@@ -144,12 +144,12 @@
 	{#if showMenu}
 		<div
 			transition:slide={{ duration: 100 }}
-			class="absolute grid bg-neutral-800 rounded overflow-hidden w-full min-w-fit z-10"
+			class="absolute top-[115%] grid bg-neutral-700 rounded overflow-hidden w-full min-w-fit z-10 shadow-xl shadow-neutral-900"
 		>
 			{#if clearable}
 				<button
 					data-item="1"
-					class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600 outline-none"
+					class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500 outline-none"
 					on:click|preventDefault={clearAll}>{clearableLabel}</button
 				>
 			{/if}
@@ -157,7 +157,7 @@
 				{@const isSelected = selected.includes(option)}
 				<button
 					data-item={clearable ? index + 2 : index + 1}
-					class="flex items-center gap-2 text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600 transition-colors outline-none {isSelected
+					class="flex items-center gap-2 text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500 transition-colors outline-none {isSelected
 						? 'selected'
 						: ''}"
 					on:click|preventDefault={() => handleOptionSelect(option)}
