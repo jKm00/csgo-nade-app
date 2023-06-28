@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte/internal';
 	import { slide } from 'svelte/transition';
 	import { clickOutside } from 'svelte-use-click-outside';
 
@@ -12,7 +13,7 @@
 
 	export let id: string;
 	export let name: string;
-	export let values: Option[] = [];
+	export let values: T[] = [];
 	export let options: Option[];
 	export let label: string | undefined = undefined;
 	export let placeholder: string;
@@ -20,6 +21,19 @@
 	export let clearableLabel: string = 'Clear all';
 
 	let showMenu = false;
+	// Keep track of selected options.
+	// Used to display the labels of the selected options
+	let selected: Option[] = [];
+
+	// Initialze selected if any values are passed as props
+	options.forEach((option) => {
+		if (values.includes(option.value)) {
+			selected = [...selected, option];
+		}
+	});
+
+	// Map selected options to values for correct return type
+	$: values = selected.map((option) => option.value);
 
 	let multiSelect: HTMLElement;
 	let keyboardNavTracker = 0;
@@ -74,12 +88,16 @@
 	};
 
 	const handleOptionSelect = (option: Option) => {
-		const found = values.find((value) => value.key === option.key);
+		const found = selected.find((value) => value.key === option.key);
 		if (found) {
-			values = values.filter((value) => value.key !== option.key);
+			selected = selected.filter((o) => o.key !== option.key);
 		} else {
-			values = [...values, option];
+			selected = [...selected, option];
 		}
+	};
+
+	const clearAll = () => {
+		selected = [];
 	};
 </script>
 
@@ -104,9 +122,9 @@
 				{placeholder}
 			{:else}
 				<span>
-					{values[0].label}
-					{#if values.length > 1}
-						+{values.length - 1}
+					{selected[0].label}
+					{#if selected.length > 1}
+						+{selected.length - 1}
 					{/if}
 				</span>
 			{/if}
@@ -132,14 +150,14 @@
 				<button
 					data-item="1"
 					class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600 outline-none"
-					on:click|preventDefault={() => (values = [])}>{clearableLabel}</button
+					on:click|preventDefault={clearAll}>{clearableLabel}</button
 				>
 			{/if}
 			{#each options as option, index}
-				{@const selected = values.includes(option)}
+				{@const isSelected = selected.includes(option)}
 				<button
 					data-item={clearable ? index + 2 : index + 1}
-					class="flex items-center gap-2 text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600 transition-colors outline-none {selected
+					class="flex items-center gap-2 text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600 transition-colors outline-none {isSelected
 						? 'selected'
 						: ''}"
 					on:click|preventDefault={() => handleOptionSelect(option)}
@@ -147,7 +165,7 @@
 					<!-- Check marker -->
 					<div class="p-[0.125rem] rounded border-2">
 						<svg
-							style={selected ? 'fill: white;' : 'fill: transparent;'}
+							style={isSelected ? 'fill: white;' : 'fill: transparent;'}
 							class="w-2 h-2 transition-colors"
 							xmlns="http://www.w3.org/2000/svg"
 							height="1em"

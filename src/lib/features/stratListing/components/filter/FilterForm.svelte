@@ -4,12 +4,23 @@
 	import type { FilterFormEvent } from '../../types/FilterFormEvent';
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
 	import type { Filter } from '../../types/Filter';
+	import MultiSelect from '$lib/components/inputs/MultiSelect.svelte';
+	import { maps } from '$lib/shared/maps';
 
 	const dispatch = createEventDispatcher<{
 		submit: FilterFormEvent;
 		close: boolean;
 		clear: boolean;
 	}>();
+
+	let selectedMaps: string[] = [];
+	const mapsOptions = maps.map((map, index) => ({
+		key: index,
+		label: map.name,
+		value: map.name,
+	}));
+
+	$: console.log(selectedMaps);
 
 	let strat = '';
 	let team = '';
@@ -61,8 +72,14 @@
 	<form on:submit|preventDefault={handleSubmit} class="grid gap-10">
 		<fieldset class="grid gap-2 mb-2">
 			<legend class="text-sm font-bold">Map options:</legend>
-			<!-- TODO: Make multiselect dropdown -->
-			<p class="text-neutral-400 text-sm">Multiselect dropdown comming!</p>
+			<MultiSelect
+				id="map"
+				name="map"
+				bind:values={selectedMaps}
+				options={mapsOptions}
+				placeholder="Select maps"
+				clearable={true}
+			/>
 		</fieldset>
 		<fieldset class="grid gap-2">
 			<legend class="text-sm font-bold mb-2">Other options:</legend>
