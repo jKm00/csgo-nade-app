@@ -19,23 +19,40 @@ export const actions = {
 	registerUser: async ({ request, locals }) => {
 		const form = await superValidate(request, registerSchema);
 
+		// Validate form
 		if (!form.valid) {
 			return message(form, 'Invalid form');
 		}
 
 		const { username, fullName, email, password } = form.data;
 
-		// Make sure username is available
-		const { data: user } = await locals.supabase
-			.from('profiles')
-			.select('*')
-			.eq('username', username)
-			.single();
+		// Make sure username and email is available
+		const { data: user, error } = await locals.supabase.rpc(
+			'get_profiles_by_username_or_email',
+			{
+				input_username: username,
+				input_email: email,
+			}
+		);
 
-		if (user) {
-			return message(form, 'Username already taken. Try another!', {
-				status: 400,
-			});
+		// Handle taken username or email
+		if (user.length > 0) {
+			let errorMsg: string;
+			if (user[0].username === username && user[0].email === email) {
+				errorMsg = 'Username and email is taken! Try something else.';
+			} else if (user[0].username === username) {
+				errorMsg = 'Username is already taken! Try another.';
+			} else if (user[0].email === email) {
+				errorMsg = 'Email is already taken! Try another.';
+			}
+			return message(
+				form,
+				errorMsg ??
+					'Something went wrong. Please try again or contact support!',
+				{
+					status: 400,
+				}
+			);
 		}
 
 		// Sign up to supabase auth
@@ -44,7 +61,7 @@ export const actions = {
 			password,
 		});
 
-		// Catch any errors
+		// Handle auth errors
 		if (err) {
 			if (err instanceof AuthApiError && err.status === 400) {
 				return message(form, err.message, {
@@ -56,7 +73,7 @@ export const actions = {
 			});
 		}
 
-		// Create user profile
+		// Create profile
 		const { error: userError } = await locals.supabase.from('profiles').insert({
 			uuid: data.user!.id,
 			name: fullName,
@@ -64,12 +81,14 @@ export const actions = {
 			email: email,
 		});
 
+		// Handle profile errors
 		if (userError) {
 			return message(form, 'Failed to create user. Please try again later', {
 				status: 500,
 			});
 		}
 
+		// Redirect
 		throw redirect(302, '/verify');
 	},
 };
