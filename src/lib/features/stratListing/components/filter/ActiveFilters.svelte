@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { Filter } from '../../types/Filter';
 	import FilterChip from './FilterChip.svelte';
+	import { FilterType } from '../../types/FilterType';
 
 	const dispatch = createEventDispatcher<{ delete: { id: number } }>();
 

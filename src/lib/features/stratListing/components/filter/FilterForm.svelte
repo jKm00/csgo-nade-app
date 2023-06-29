@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ActiveFilters from './ActiveFilters.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import type { FilterFormEvent } from '../../types/FilterFormEvent';
@@ -22,7 +23,11 @@
 
 	let selectedPositions: string[] = [];
 	// TODO: Fetch all positions from db
-	let positionOptions = [{ key: 0, label: 'A site', value: 'A site' }];
+	let positionOptions = [
+		{ key: 0, label: 'A site', value: 'A site' },
+		{ key: 1, label: 'B site', value: 'B site' },
+		{ key: 2, label: 'Mid', value: 'Mid' },
+	];
 
 	let selectedSides: string[] = [];
 	const sideOptions = [
@@ -38,7 +43,7 @@
 		dispatch('submit', {
 			maps: selectedMaps.length === 0 ? null : selectedMaps,
 			positions: selectedPositions.length === 0 ? null : selectedPositions,
-			side: selectedSides.length === 0 ? null : selectedSides,
+			sides: selectedSides.length === 0 ? null : selectedSides,
 			stratName: strat === '' ? null : strat,
 			teamName: team === '' ? null : team,
 			author: author === '' ? null : author,
@@ -135,6 +140,6 @@
 				bind:value={author}
 			/>
 		</fieldset>
-		<FormButton>Add filters</FormButton>
+		<FormButton>Save filters</FormButton>
 	</form>
 </div>

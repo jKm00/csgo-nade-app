@@ -1,11 +1,20 @@
 <script lang="ts">
 	import Drawer from '$lib/components/containers/Drawer.svelte';
+	import { createEventDispatcher } from 'svelte';
 	import type { Filter } from '../../types/Filter';
 	import ActiveFilters from './ActiveFilters.svelte';
 	import FilterForm from './FilterForm.svelte';
+	import type { FilterFormEvent } from '../../types/FilterFormEvent';
+
+	const dispatch = createEventDispatcher<{ submit: FilterFormEvent }>();
 
 	export let filters: Filter[];
 	export let showDrawer: boolean;
+
+	const handleSubmit = (event: CustomEvent<FilterFormEvent>) => {
+		showDrawer = false;
+		dispatch('submit', event.detail);
+	};
 </script>
 
 <Drawer bind:show={showDrawer} width="min(90vw, 25rem)" side="left">
@@ -15,7 +24,11 @@
 		</h1>
 	</div>
 	<div slot="body" class="grid gap-10 p-4">
-		<FilterForm on:submit on:close={() => (showDrawer = false)} on:clear />
+		<FilterForm
+			on:submit={handleSubmit}
+			on:close={() => (showDrawer = false)}
+			on:clear
+		/>
 		<ActiveFilters on:delete {filters} />
 	</div>
 </Drawer>

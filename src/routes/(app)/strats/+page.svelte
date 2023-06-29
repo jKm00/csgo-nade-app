@@ -4,6 +4,10 @@
 	import StratListingHeader from '$lib/features/stratListing/components/StratListingHeader.svelte';
 	import FilterMenu from '$lib/features/stratListing/components/filter/FilterMenu.svelte';
 
+	export let data;
+
+	$: ({ filters } = data);
+
 	let tmpStrat = [
 		{
 			map: 'Inferno',
@@ -22,7 +26,7 @@
 
 <main class="grid gap-6 w-default">
 	<StratListingHeader />
-	<FilterMenu />
+	<FilterMenu loadedFilters={filters} />
 	<div
 		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
 	>
