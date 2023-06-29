@@ -13,7 +13,7 @@
 	let filters: Filter[] = loadedFilters;
 
 	const { set } = useQueryParams(
-		loadedFilters.map((filter) => ({ key: filter.label, value: filter.value })),
+		filters.map((filter) => ({ key: filter.label, value: filter.value })),
 		'/strats'
 	);
 
