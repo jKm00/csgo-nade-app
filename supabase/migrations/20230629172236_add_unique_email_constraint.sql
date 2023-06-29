@@ -8,7 +8,7 @@ alter table "public"."profiles_backup" enable row level security;
 -- Remove duplicated emails
 DELETE FROM profiles
 WHERE id NOT IN (
-  SELECT MAX(id)
+  SELECT MIN(id)
   FROM profiles
   GROUP BY email
 );
