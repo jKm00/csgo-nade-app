@@ -3,12 +3,13 @@
 	import NavBar from '$lib/features/navBar/components/NavBar.svelte';
 	import WelcomeBanner from '$lib/components/layout/WelcomeBanner.svelte';
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	export let data;
 
 	$: ({ session, authUser } = data);
 
-	$: if (session && authUser === null) {
+	$: if (session && authUser === null && browser) {
 		goto('/profile-setup');
 	}
 

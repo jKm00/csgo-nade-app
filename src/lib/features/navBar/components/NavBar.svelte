@@ -15,6 +15,7 @@
 
 	let invitationSubscription: RealtimeChannel;
 
+	// TODO: Subscribe to invitations on session change
 	onMount(async () => {
 		if (session !== null) {
 			const { data: userData } = await supabase
@@ -28,7 +29,7 @@
 			const { data } = await supabase
 				.from('team_invitations')
 				.select('*', { count: 'exact' })
-				.eq('player_id', user.id);
+				.eq('player_id', user?.id);
 
 			numberOfAlerts = data?.length ?? 0;
 
