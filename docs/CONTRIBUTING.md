@@ -44,8 +44,9 @@ Every contribution is much appreciated. This guide will help you get up to speed
 3. Create a branch based on `main` with a name following the [branch naming convention](#branch-naming) for this repository.
 4. Implement the issue in your branch.
 5. When finished, create a pull request to `main`.
-6. Assign it with an appropriate label based on the work you have implemented.
-7. Wait for comments/approval:
+6. Ensure that the title of your pull request accurately describes the changes made. _(This title will be automatically included in the change log when a new version is released!)_
+7. Assign it with an appropriate label based on the work you have implemented.
+8. Wait for comments/approval:
    - If it is approved, you don't have to do anything more.
    - If it's not approved, review the comments and fix the problems. Then wait for another approval.
 
