@@ -1,12 +1,18 @@
 <script lang="ts">
-	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
+	import FilterMenu from '$lib/features/stratListing/components/FilterMenu.svelte';
 	import StratCard from '$lib/features/stratListing/components/StratCard.svelte';
 	import StratListingHeader from '$lib/features/stratListing/components/StratListingHeader.svelte';
-	import FilterMenu from '$lib/features/stratListing/components/filter/FilterMenu.svelte';
 
 	export let data;
 
-	$: ({ filters } = data);
+	$: params = {
+		map: data.map ?? '',
+		position: data.position ?? '',
+		side: data.side ?? '',
+		strat: data.strat ?? '',
+		team: data.team ?? '',
+		author: data.author ?? '',
+	};
 
 	let tmpStrat = [
 		{
@@ -24,9 +30,9 @@
 	];
 </script>
 
-<main class="grid gap-6 w-default">
+<main class="grid gap-6 mt-10 w-default">
 	<StratListingHeader />
-	<FilterMenu loadedFilters={filters} />
+	<FilterMenu {params} />
 	<div
 		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
 	>

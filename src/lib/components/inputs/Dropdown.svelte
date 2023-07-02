@@ -19,7 +19,7 @@
 	export let options: Option[];
 	export let errors: string[] | undefined = undefined;
 	export let showDefaultOptions: boolean = true;
-	export let defaultOptions: string | undefined = undefined;
+	export let defaultOptions: string = 'No value';
 	export let selected: Option | null =
 		options?.find((opt) => opt.value === value) ?? null;
 
@@ -76,7 +76,7 @@
 				<button
 					class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
 					on:click|preventDefault={() => updateSelected(null)}
-					>{defaultOptions ?? 'No value'}</button
+					>{defaultOptions}</button
 				>
 			{/if}
 			{#if options}
