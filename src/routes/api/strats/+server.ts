@@ -32,7 +32,7 @@ export const POST = async ({ request, locals }) => {
 	);
 
 	if (error) {
-		console.error(error);
+		console.error('Create strat error:', error);
 		return new Response('Something went wrong. Please try again!', {
 			status: 400,
 		});
