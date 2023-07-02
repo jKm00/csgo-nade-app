@@ -5,6 +5,7 @@
 	import { maps } from '$lib/shared/maps';
 	import Drawer from '$lib/components/containers/Drawer.svelte';
 	import { goto } from '$app/navigation';
+	import FilterChip from './FilterChip.svelte';
 
 	export let params: {
 		map: string;
@@ -84,6 +85,7 @@
 	};
 </script>
 
+<!-- Buttons -->
 <div class="flex gap-[1px]">
 	<button
 		class="flex items-center gap-2 bg-neutral-600 px-2 py-1 rounded-s hover:bg-neutral-500 focus-within:bg-neutral-500 active:bg-neutral-400"
@@ -105,6 +107,29 @@
 	>
 </div>
 
+<!-- Chips -->
+<div class="flex gap-2">
+	{#if map !== ''}
+		<FilterChip label="Map" value={map} color="rgb(248 113 113)" />
+	{/if}
+	{#if position !== ''}
+		<FilterChip label="Position" value={position} color="rgb(192 132 252)" />
+	{/if}
+	{#if side !== ''}
+		<FilterChip label="Side" value={side} color="rgb(251 146 60)" />
+	{/if}
+	{#if stratName !== ''}
+		<FilterChip label="Strat" value={stratName} color="rgb(45 212 191)" />
+	{/if}
+	{#if teamName !== ''}
+		<FilterChip label="Team" value={teamName} color="rgb(56 189 248)" />
+	{/if}
+	{#if author !== ''}
+		<FilterChip label="Author" value={author} color="rgb(250 204 21)" />
+	{/if}
+</div>
+
+<!-- Drawer -->
 <Drawer bind:show={showDrawer} width="25rem" side="left">
 	<div slot="title">
 		<h1 class="text-2xl font-bold text-red-400">Filters</h1>
