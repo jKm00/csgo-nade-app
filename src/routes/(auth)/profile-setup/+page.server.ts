@@ -40,6 +40,7 @@ export const actions = {
 
 		// Handle errors
 		if (error) {
+			console.log(error);
 			if (error.code === '23505') {
 				return message(form, 'Username already taken. Try another one');
 			}

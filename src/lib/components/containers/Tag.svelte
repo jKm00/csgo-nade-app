@@ -17,7 +17,7 @@
 </script>
 
 <p
-	class="border group-hover:text-white group-focus-within:text-white transition-colors rounded-full px-4 {colorStyles()}"
+	class="border group-hover:text-white group-focus-within:text-white transition-colors rounded px-4 {colorStyles()}"
 	style="background-color: ${color}"
 >
 	<slot />

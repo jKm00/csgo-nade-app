@@ -1,6 +1,5 @@
 <script lang="ts">
 	import StratCard from '$lib/components/containers/StratCard.svelte';
-	import MapSkeleton from '$lib/components/skeletons/MapSkeleton.svelte';
 
 	export let data;
 
@@ -12,7 +11,8 @@
 		class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
 	>
 		{#await data.streamed.strats}
-			<MapSkeleton />
+			<!-- <MapSkeleton /> -->
+			<div />
 		{:then strats}
 			{#if strats === null || strats.length === 0}
 				<p class="text-neutral-400 text-center col-span-full">

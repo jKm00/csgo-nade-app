@@ -5,7 +5,8 @@ export const load = async ({ locals }) => {
 	const { data } = await locals.supabase
 		.from('profiles')
 		.select()
-		.eq('uuid', session?.user?.id);
+		.eq('uuid', session?.user?.id)
+		.single();
 
 	// FIXME: Don't think does anything atm.
 	// The redirect is happening in +layout.svelte.
@@ -15,6 +16,6 @@ export const load = async ({ locals }) => {
 
 	return {
 		session,
-		authUser: data !== null && data.length > 0 ? data[0] : null,
+		authUser: data,
 	};
 };

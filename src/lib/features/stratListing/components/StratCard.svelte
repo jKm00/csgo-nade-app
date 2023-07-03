@@ -1,33 +1,31 @@
 <script lang="ts">
 	import Tag from '$lib/components/containers/Tag.svelte';
 
-	export let map: string;
-	export let stratId: string;
+	export let thumbnail: string;
+	export let stratId: number;
 	export let stratName: string;
+	export let team: string;
 	export let authorId: string;
 	export let authorName: string;
 	export let createdAt: string;
-	export let teamSide: 'CT' | 'T';
-	export let team: string | undefined;
-	export let positionImage: string | undefined;
-	export let positionName: string | undefined;
+	export let side: string;
+	export let position: string;
 </script>
 
 <a
 	class="bg-neutral-800 rounded shadow overflow-hidden group"
-	href="/maps/{map}/strats/{stratId}"
+	href="/strats/{stratId}"
 >
-	{#if positionImage && positionName}
+	{#if thumbnail}
 		<img
 			class="aspect-[16/6] w-full object-cover"
-			src="/assets/images/maps/{map.toLowerCase()}/{positionImage}"
-			alt="Overview over {positionName}"
+			src="/assets/images/{thumbnail}"
+			alt="Overview over {position}"
 		/>
 	{:else}
 		<div
 			class="grid text-center items-center content-center aspect-[16/6] bg-neutral-700 text-neutral-300"
 		>
-			<p class="font-bold">CSGO Strats</p>
 			<p>No image to display</p>
 		</div>
 	{/if}
@@ -41,13 +39,13 @@
 			{/if}
 		</p>
 		<div class="flex gap-2 mt-6">
-			{#if teamSide === 'CT'}
-				<Tag color="blue">{teamSide}</Tag>
+			{#if side === 'CT'}
+				<Tag color="blue">{side}</Tag>
 			{:else}
-				<Tag color="red">{teamSide}</Tag>
+				<Tag color="red">{side}</Tag>
 			{/if}
-			{#if positionName}
-				<Tag color="purple">{positionName}</Tag>
+			{#if position}
+				<Tag color="purple">{position}</Tag>
 			{/if}
 		</div>
 	</div>

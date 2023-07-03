@@ -86,7 +86,7 @@
 </script>
 
 <!-- Buttons -->
-<div class="flex gap-[1px]">
+<div class="flex gap-[1px] items-center">
 	<button
 		class="flex items-center gap-2 bg-neutral-600 px-2 py-1 rounded-s hover:bg-neutral-500 focus-within:bg-neutral-500 active:bg-neutral-400"
 		on:click={() => (showDrawer = true)}
