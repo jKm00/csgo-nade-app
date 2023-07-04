@@ -7,10 +7,10 @@
 	import StratSkeleton from '$lib/components/skeletons/StratSkeleton.svelte';
 	import { maps } from '$lib/shared/maps.js';
 	import toast from 'svelte-french-toast';
-	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
+	import NadeColorMeaning from '$lib/features/stratSymbols/components/NadeColorMeaning.svelte';
 	import { NadeType } from '$lib/features/stratEditor/types/nade.js';
 	import Tag from '$lib/components/containers/Tag.svelte';
-	import MarkerMeaning from '$lib/components/feedback/MarkerMeaning.svelte';
+	import MarkerMeaning from '$lib/features/stratSymbols/components/MarkerMeaning.svelte';
 	import RadarViewer from '$lib/features/stratViewer/components/RadarViewer.svelte';
 	import LoadingIndicator from '$lib/components/feedback/LoadingIndicator.svelte';
 

@@ -41,7 +41,7 @@
 				<h2 class="font-bold">Lineup image:</h2>
 				{#if lineupImgUrl}
 					<img
-						class="w-[40vw] rounded aspect-video object-cover"
+						class="w-[40vw] rounded aspect-video object-cover bg-neutral-800"
 						src={lineupImgUrl}
 						alt="Lineup for {nade.name}"
 					/>
@@ -57,7 +57,7 @@
 				<h2 class="font-bold">Impact image:</h2>
 				{#if impactImgUrl}
 					<img
-						class="w-[40vw] rounded aspect-video object-cover"
+						class="w-[40vw] rounded aspect-video object-cover bg-neutral-800"
 						src={impactImgUrl}
 						alt="Impact for {nade.name}"
 					/>
