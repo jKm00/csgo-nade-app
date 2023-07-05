@@ -18,7 +18,7 @@
 >
 	{#if thumbnail}
 		<img
-			class="aspect-[16/6] w-full object-cover"
+			class="aspect-[16/6] w-full object-cover bg-neutral-700"
 			src="/assets/images/{thumbnail}"
 			alt="Overview over {position}"
 		/>

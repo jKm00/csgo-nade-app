@@ -1,7 +1,7 @@
-import { redirect, type Actions } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { profileDetailsSchema } from '$lib/validations/zodShemas';
-import { AuthApiError, type PostgrestError } from '@supabase/supabase-js';
+import { AuthApiError } from '@supabase/supabase-js';
 
 export const load = async ({ parent }) => {
 	const { session, authUser } = await parent();

@@ -19,21 +19,37 @@
 	let showDrawer = false;
 
 	let map = params.map;
-	// TODO: Fetch maps
 	$: mapOptions = maps.map((map) => ({
 		label: map.name,
 		value: map.name,
 	}));
 
 	let position = params.position;
+	// TODO: Fetch positions from db an display based on selected map
 	let positionOptions = [
 		{ label: 'A site', value: 'A site' },
 		{ label: 'B site', value: 'B site' },
 		{ label: 'Mid', value: 'Mid' },
+		{ label: 'Top mid', value: 'Top mid' },
+		{ label: 'Short', value: 'Short' },
+		{ label: 'Banan', value: 'Banan' },
+		{ label: 'Water', value: 'Water' },
+		{ label: 'Apps', value: 'Apps' },
+		{ label: 'Palace', value: 'Palace' },
+		{ label: 'B apps', value: 'B apps' },
+		{ label: 'Outside', value: 'Outside' },
+		{ label: 'Lobby', value: 'Lobby' },
+		{ label: 'Ramp', value: 'Ramp' },
+		{ label: 'Long', value: 'Long' },
+		{ label: 'Fountain', value: 'Fountain' },
+		{ label: 'Connector', value: 'Connector' },
+		{ label: 'Monster enterance', value: 'Monster enterance' },
+		{ label: 'Sewage', value: 'Sewage' },
+		{ label: 'A ramp', value: 'A ramp' },
+		{ label: 'B ramp', value: 'B ramp' },
 	];
 
 	let side = params.side;
-	// TODO: Fetch from db and change based on selected map
 	let sideOptions = [
 		{ label: 'CT', value: 'CT' },
 		{ label: 'T', value: 'T' },
@@ -46,27 +62,27 @@
 	const handleSubmit = () => {
 		const params = new URLSearchParams();
 
-		if (map !== '') {
+		if (!!map) {
 			params.append('map', map);
 		}
 
-		if (position !== '') {
+		if (!!position) {
 			params.append('position', position);
 		}
 
-		if (side !== '') {
+		if (!!side) {
 			params.append('side', side);
 		}
 
-		if (stratName !== '') {
+		if (!!stratName) {
 			params.append('strat', stratName);
 		}
 
-		if (teamName !== '') {
+		if (!!teamName) {
 			params.append('team', teamName);
 		}
 
-		if (author !== '') {
+		if (!!author) {
 			params.append('author', author);
 		}
 
@@ -108,6 +124,7 @@
 </div>
 
 <!-- Chips -->
+<!-- TODO: Store in a list and display with for each -->
 <div class="flex gap-2">
 	{#if map !== ''}
 		<FilterChip label="Map" value={map} color="rgb(248 113 113)" />

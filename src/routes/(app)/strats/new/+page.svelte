@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import MainButton from '$lib/components/buttons/MainButton.svelte';
-	import LoadingIndicator from '$lib/components/feedback/LoadingIndicator.svelte';
 	import NadeEditor from '$lib/features/stratEditor/components/NadeEditor.svelte';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
 	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
@@ -9,7 +8,6 @@
 	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
 	import type { Nade } from '$lib/features/stratEditor/types/nade.js';
 	import toast from 'svelte-french-toast';
-	import { Chasing } from 'svelte-loading-spinners';
 
 	export let data;
 

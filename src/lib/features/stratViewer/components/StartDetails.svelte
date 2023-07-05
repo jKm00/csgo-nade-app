@@ -1,5 +1,4 @@
 <script lang="ts">
-	import NadeSummary from '$lib/components/containers/NadeSummary.svelte';
 	import Tag from '$lib/components/containers/Tag.svelte';
 
 	export let stratName: string;
@@ -12,7 +11,7 @@
 	export let position: string;
 </script>
 
-<div>
+<div class="mt-4 sm:mt-0">
 	<header>
 		<h2 class="text-3xl font-bold">{stratName}</h2>
 		<div class="flex gap-4 justify-between text-neutral-400 text-sm mb-4">

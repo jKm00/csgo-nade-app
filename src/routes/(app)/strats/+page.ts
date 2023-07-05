@@ -1,4 +1,4 @@
-export const load = async ({ url, locals, parent }) => {
+export const load = async ({ url, parent }) => {
 	const map = url.searchParams.get('map');
 	const position = url.searchParams.get('position');
 	const side = url.searchParams.get('side');
@@ -9,12 +9,12 @@ export const load = async ({ url, locals, parent }) => {
 	const fetchStrats = async () => {
 		const { supabase } = await parent();
 		const { data, error } = await supabase.rpc('query_strats_with_filters', {
-			p_map: map,
-			p_strat_position: position,
-			p_side: side,
-			p_strat_name: strat,
-			p_team_name: team,
-			p_author: author,
+			p_map: map === '' ? null : map,
+			p_strat_position: position === '' ? null : position,
+			p_side: side === '' ? null : side,
+			p_strat_name: strat === '' ? null : strat,
+			p_team_name: team === '' ? null : team,
+			p_author: author === '' ? null : author,
 		});
 
 		const strats = data?.map(

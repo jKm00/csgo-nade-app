@@ -1,4 +1,3 @@
-import type { Nade } from '$lib/features/stratEditor/types/nade';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ url, locals }) => {

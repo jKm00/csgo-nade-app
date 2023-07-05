@@ -12,7 +12,7 @@
 	let showDeleteDialog = false;
 </script>
 
-<nav class="flex justify-between font-bold mt-4">
+<nav class="flex justify-between font-bold">
 	<a
 		class="flex items-center gap-2 hover:text-red-400 focus-within:text-red-400 group"
 		href="/strats"

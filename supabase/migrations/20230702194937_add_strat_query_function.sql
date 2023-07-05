@@ -1,6 +1,23 @@
-CREATE OR REPLACE FUNCTION public.query_strats_with_filters(p_map text, p_strat_position text, p_side text, p_strat_name text, p_team_name text, p_author text)
- RETURNS TABLE(strat_id bigint, strat_name text, author character varying, author_id uuid, created_at timestamp with time zone, team text, side text, position_name text, position_img text, map_name text)
- LANGUAGE plpgsql
+CREATE OR REPLACE FUNCTION public.query_strats_with_filters(
+  p_map text default null, 
+  p_strat_position text default null, 
+  p_side text default null, 
+  p_strat_name text default null, 
+  p_team_name text default null, 
+  p_author text default null
+)
+ RETURNS TABLE(
+  strat_id bigint, 
+  strat_name text, 
+  author character varying, 
+  author_id uuid, 
+  created_at timestamp with time zone, 
+  team text, side text, 
+  position_name text, 
+  position_img text, 
+  map_name text
+)
+LANGUAGE plpgsql
 AS $function$
 BEGIN
     RETURN QUERY

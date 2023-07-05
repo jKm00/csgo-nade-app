@@ -3,16 +3,11 @@
 	import MainButton from '$lib/components/buttons/MainButton.svelte';
 	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
 	import Dialog from '$lib/components/containers/Dialog.svelte';
-	import NadeSummary from '$lib/components/containers/NadeSummary.svelte';
-	import StratSkeleton from '$lib/components/skeletons/StratSkeleton.svelte';
-	import { maps } from '$lib/shared/maps.js';
+	import NadeSummary from '$lib/features/stratViewer/components/NadeSummary.svelte';
+	import StratDetailsSkeleton from '$lib/features/stratViewer/skeletons/StratDetailsSkeleton.svelte';
 	import toast from 'svelte-french-toast';
-	import NadeColorMeaning from '$lib/features/stratSymbols/components/NadeColorMeaning.svelte';
-	import { NadeType } from '$lib/features/stratEditor/types/nade.js';
 	import Tag from '$lib/components/containers/Tag.svelte';
-	import MarkerMeaning from '$lib/features/stratSymbols/components/MarkerMeaning.svelte';
 	import RadarViewer from '$lib/features/stratViewer/components/RadarViewer.svelte';
-	import LoadingIndicator from '$lib/components/feedback/LoadingIndicator.svelte';
 
 	export let data;
 	export let form;
@@ -90,7 +85,7 @@
 	<RadarViewer map={mapName} {supabase} />
 	<!-- Strat info -->
 	{#await data.lazy.strat}
-		<StratSkeleton />
+		<StratDetailsSkeleton />
 	{:then strat}
 		{#if strat === null}
 			<div class="grid gap-4 items-center content-center text-center">
