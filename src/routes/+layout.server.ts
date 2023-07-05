@@ -5,14 +5,11 @@ export const load = async ({ locals }) => {
 	const { data } = await locals.supabase
 		.from('profiles')
 		.select()
-		.eq('uuid', session?.user?.id);
-
-	if (session && data === null) {
-		throw redirect(302, '/profile-setup');
-	}
+		.eq('uuid', session?.user?.id)
+		.single();
 
 	return {
 		session,
-		authUser: data !== null && data.length > 0 ? data[0] : null,
+		authUser: data,
 	};
 };

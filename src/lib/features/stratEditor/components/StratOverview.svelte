@@ -1,5 +1,5 @@
 <script lang="ts">
-	import NadeColorMeaning from '$lib/components/feedback/NadeColorMeaning.svelte';
+	import NadeColorMeaning from '$lib/features/stratSymbols/components/NadeColorMeaning.svelte';
 	import { NadeType, type Nade } from '../types/nade';
 	import StratOverviewNadeThumbnail from './StratOverviewNadeThumbnail.svelte';
 

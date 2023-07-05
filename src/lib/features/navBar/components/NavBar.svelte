@@ -3,9 +3,7 @@
 	import type { RealtimeChannel } from '@supabase/supabase-js';
 	import { onDestroy, onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
-	import { clickOutside } from 'svelte-use-click-outside';
-	import Divider from '../../../components/forms/Divider.svelte';
-	import CreateMenu from './CreateMenu.svelte';
+	import CreateMenu from './CreateDialog.svelte';
 	import type { User } from '$lib/features/navBar/types/User';
 	import UserMenu from '$lib/features/navBar/components/UserMenu.svelte';
 
@@ -13,11 +11,11 @@
 
 	let user: User;
 
-	let showUserInfo = false;
 	let numberOfAlerts: number;
 
 	let invitationSubscription: RealtimeChannel;
 
+	// TODO: Subscribe to invitations on session change
 	onMount(async () => {
 		if (session !== null) {
 			const { data: userData } = await supabase
@@ -31,7 +29,7 @@
 			const { data } = await supabase
 				.from('team_invitations')
 				.select('*', { count: 'exact' })
-				.eq('player_id', user.id);
+				.eq('player_id', user?.id);
 
 			numberOfAlerts = data?.length ?? 0;
 

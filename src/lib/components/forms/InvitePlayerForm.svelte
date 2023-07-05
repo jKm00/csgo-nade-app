@@ -4,7 +4,7 @@
 	import TextInput from '../inputs/TextInput.svelte';
 	import { TEAM_ROLES } from '$lib/shared/teamRoles';
 	import FormButton from '../buttons/FormButton.svelte';
-	import FormDropdown from '../inputs/FormDropdown.svelte';
+	import FormDropdown from '../inputs/Dropdown.svelte';
 	import type { InvitePlayerSchema } from '$lib/validations/zodShemas';
 
 	export let data: Validation<InvitePlayerSchema>;

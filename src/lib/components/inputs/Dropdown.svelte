@@ -1,18 +1,31 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { slide } from 'svelte/transition';
+
 	import { clickOutside } from 'svelte-use-click-outside';
+	import ErrorMessage from '../feedback/ErrorMessage.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	type T = $$Generic;
 
 	interface Option {
-		value: string;
+		value: T;
 		label: string;
 	}
 
-	const dispatch = createEventDispatcher<{ update: { value: string } }>();
-
+	export let id: string;
+	export let name: string;
 	export let placeholder: string;
+	export let value: T | null = null;
 	export let options: Option[];
+	export let errors: string[] | undefined = undefined;
+	export let showDefaultOptions: boolean = true;
+	export let defaultOptions: string = 'No value';
+	export let selected: Option | null =
+		options?.find((opt) => opt.value === value) ?? null;
 
-	let selected: Option | null = null;
+	const dispatch = createEventDispatcher<{ update: { value: T | null } }>();
+
+	$: value = selected?.value ?? null;
 
 	let dropDown: HTMLElement;
 	let showDropDown = false;
@@ -28,11 +41,12 @@
 		showDropDown = false;
 	};
 
-	$: dispatch('update', { value: selected?.value ?? '' });
+	$: dispatch('update', { value });
 </script>
 
+<input type="hidden" {id} {name} bind:value />
 <div
-	class="relative w-40 text-sm text-neutral-400"
+	class="relative w-52 text-neutral-400"
 	use:clickOutside={() => (showDropDown = false)}
 	bind:this={dropDown}
 	on:keyup={handleKeyUp}
@@ -41,7 +55,7 @@
 	<button
 		class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
 		on:click|preventDefault={() => (showDropDown = !showDropDown)}
-		>{selected !== null ? selected.label : placeholder}<svg
+		>{selected && selected !== null ? selected.label : placeholder}<svg
 			class={`${
 				showDropDown ? '' : '-rotate-90'
 			} fill-neutral-400 h-3 transition-transform`}
@@ -52,22 +66,31 @@
 			/></svg
 		></button
 	>
-	<!-- Options -->
-	<div
-		class="{showDropDown
-			? ''
-			: 'hidden'} absolute grid gap-2 bg-neutral-800 py-2 rounded min-w-full shadow z-10"
-	>
-		<button
-			class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-			on:click|preventDefault={() => updateSelected(null)}>No value</button
+	<!-- Menu -->
+	{#if showDropDown}
+		<div
+			transition:slide={{ duration: 100 }}
+			class="absolute top-[115%] grid gap-2 bg-neutral-700 py-2 rounded w-full min-w-fit max-h-60 overflow-y-auto shadow z-10"
 		>
-		{#each options as option}
-			<button
-				on:click|preventDefault={() => updateSelected(option)}
-				class="text-left p-2 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-				>{option.label}</button
-			>
-		{/each}
-	</div>
+			{#if showDefaultOptions}
+				<button
+					class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+					on:click|preventDefault={() => updateSelected(null)}
+					>{defaultOptions}</button
+				>
+			{/if}
+			{#if options}
+				{#each options as option}
+					<button
+						on:click|preventDefault={() => updateSelected(option)}
+						class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+						>{option.label}</button
+					>
+				{/each}
+			{/if}
+		</div>
+	{/if}
+	{#if errors}
+		<ErrorMessage>{errors[0]}</ErrorMessage>
+	{/if}
 </div>

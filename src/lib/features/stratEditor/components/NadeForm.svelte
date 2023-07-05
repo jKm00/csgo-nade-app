@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DropZone from '$lib/components/inputs/DropZone.svelte';
-	import FormDropdown from '$lib/components/inputs/FormDropdown.svelte';
+	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import { NadeType, type Nade } from '../types/nade';
@@ -106,7 +106,7 @@
 			/>
 		</div>
 		<div class="flex flex-wrap gap-2">
-			<FormDropdown
+			<Dropdown
 				id="type"
 				name="type"
 				placeholder="Select nade type"
