@@ -5,9 +5,11 @@
 	import Dialog from '$lib/components/containers/Dialog.svelte';
 	import type { Session } from '@supabase/supabase-js';
 
-	export let session: Session | null;
-	export let authorUuid: string;
-	export let stratId: number;
+	export let session: Session | null = null;
+	export let authorUuid: string | undefined = undefined;
+	export let stratId: number | undefined = undefined;
+
+	export let map: string | undefined = undefined;
 
 	let showDeleteDialog = false;
 </script>
@@ -15,7 +17,7 @@
 <nav class="flex justify-between font-bold">
 	<a
 		class="flex items-center gap-2 hover:text-red-400 focus-within:text-red-400 group"
-		href="/strats"
+		href="/strats{map ? `?map=${map}` : ''}"
 		><svg
 			class="fill-white group-hover:fill-red-400 group-focus-within:fill-red-400"
 			xmlns="http://www.w3.org/2000/svg"

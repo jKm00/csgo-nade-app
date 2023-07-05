@@ -2,17 +2,16 @@
 	import NadeSummary from '$lib/features/stratViewer/components/NadeSummary.svelte';
 	import StratDetailsSkeleton from '$lib/features/stratViewer/skeletons/StratDetailsSkeleton.svelte';
 	import MarkerMeaning from '$lib/features/stratSymbols/components/MarkerMeaning.svelte';
-	import AuthorNavigation from '$lib/features/stratViewer/components/AuthorNavigation.svelte';
-	import BasicNavigation from '$lib/features/stratViewer/components/BasicNavigation.svelte';
 	import RadarViewer from '$lib/features/stratViewer/components/RadarViewer.svelte';
 	import StartDetails from '$lib/features/stratViewer/components/StartDetails.svelte';
 	import StratViewerHeader from '$lib/features/stratViewer/components/StratViewerHeader.svelte';
 	import RadarSkeleton from '$lib/features/stratViewer/skeletons/RadarSkeleton.svelte';
 	import toast from 'svelte-french-toast';
 	import StratViewerHeaderSkeleton from '$lib/features/stratViewer/skeletons/StratViewerHeaderSkeleton.svelte';
-	import BasicNavigationSkeleton from '$lib/features/stratViewer/skeletons/BasicNavigationSkeleton.svelte';
 	import NadeColorMeaning from '$lib/features/stratSymbols/components/NadeColorMeaning.svelte';
 	import NadeSummarySkeleton from '$lib/features/stratViewer/skeletons/NadeSummarySkeleton.svelte';
+	import StratViewerNavigation from '$lib/features/stratViewer/components/StratViewerNavigation.svelte';
+	import StratViewerNavigationSkeleton from '$lib/features/stratViewer/skeletons/StratViewerNavigationSkeleton.svelte';
 
 	export let form;
 	export let data;
@@ -34,17 +33,14 @@
 
 	<div>
 		{#await data.lazy.strat}
-			<BasicNavigationSkeleton />
+			<StratViewerNavigationSkeleton />
 		{:then strat}
-			{#if strat === null}
-				<BasicNavigation />
-			{:else}
-				<AuthorNavigation
-					{session}
-					authorUuid={strat.author.uuid}
-					stratId={strat.id}
-				/>
-			{/if}
+			<StratViewerNavigation
+				{session}
+				authorUuid={strat?.author.uuid}
+				stratId={strat?.id}
+				map={strat?.map.name}
+			/>
 		{/await}
 	</div>
 	<div class="wrapper gap-x-4 grid-cols-1 sm:grid-cols-2">
