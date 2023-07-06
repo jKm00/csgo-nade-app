@@ -10,7 +10,7 @@
 		|
 		<a
 			class="hover:underline focus-within:underline"
-			href="privacy-policy"
+			href="/privacy-policy"
 			target="_blank">Privacy policy</a
 		>
 		|
