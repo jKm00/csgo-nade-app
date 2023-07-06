@@ -3,6 +3,7 @@
 	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
+	import toast from 'svelte-french-toast';
 	import { NadeType, type Nade } from '../types/nade';
 
 	export let activeNade: Nade | undefined;
@@ -70,6 +71,14 @@
 	const mergeNades = (nadesBefore: Nade[], nade: Nade, nadesAfter: Nade[]) => {
 		nades = [...nadesBefore, nade, ...nadesAfter];
 	};
+
+	const displayError = (
+		event: CustomEvent<{ type: string; message: string }>
+	) => {
+		toast.error(`${event.detail.message}`, {
+			style: 'background: #333; color:#fff',
+		});
+	};
 </script>
 
 {#if !activeNade}
@@ -98,11 +107,13 @@
 				label="Lineup image:"
 				file={activeNade.lineupImg}
 				on:change={updateLineupImg}
+				on:error={displayError}
 			/>
 			<DropZone
 				label="Impact image:"
 				file={activeNade.impactImg}
 				on:change={updateImpactImg}
+				on:error={displayError}
 			/>
 		</div>
 		<div class="flex flex-wrap gap-2">
