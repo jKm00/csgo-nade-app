@@ -2,11 +2,11 @@
 	import { page } from '$app/stores';
 	import FormMessage from '$lib/components/feedback/FormMessage.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Dialog from '$lib/components/containers/Dialog.svelte';
 	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 
 	export let data;
 	export let form;
@@ -37,12 +37,16 @@
 	$: if ($message !== undefined) {
 		const statusOk = String($page.status).charAt(0) === '2';
 		if (statusOk) {
-			toast.success($message, {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'success',
+				title: 'Success',
+				desc: $message,
 			});
 		} else {
-			toast.error($message, {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'error',
+				title: 'Error',
+				desc: $message,
 			});
 		}
 	}
@@ -50,15 +54,19 @@
 	$: if ($passwordMessage !== undefined) {
 		const statusOk = String($page.status).charAt(0) === '2';
 		if (statusOk) {
-			toast.success($passwordMessage, {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'success',
+				title: 'Success',
+				desc: $passwordMessage,
 			});
 		}
 	}
 
 	$: if (form?.message) {
-		toast.error(form.message, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Error',
+			desc: form.message,
 		});
 	}
 </script>

@@ -6,20 +6,22 @@
 	import StartDetails from '$lib/features/stratViewer/components/StartDetails.svelte';
 	import StratViewerHeader from '$lib/features/stratViewer/components/StratViewerHeader.svelte';
 	import RadarSkeleton from '$lib/features/stratViewer/skeletons/RadarSkeleton.svelte';
-	import toast from 'svelte-french-toast';
 	import StratViewerHeaderSkeleton from '$lib/features/stratViewer/skeletons/StratViewerHeaderSkeleton.svelte';
 	import NadeColorMeaning from '$lib/features/stratSymbols/components/NadeColorMeaning.svelte';
 	import NadeSummarySkeleton from '$lib/features/stratViewer/skeletons/NadeSummarySkeleton.svelte';
 	import StratViewerNavigation from '$lib/features/stratViewer/components/StratViewerNavigation.svelte';
 	import StratViewerNavigationSkeleton from '$lib/features/stratViewer/skeletons/StratViewerNavigationSkeleton.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 
 	export let form;
 	export let data;
 	$: ({ session, supabase } = data);
 
 	$: if (form?.message) {
-		toast.error(form.message, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Error',
+			desc: form.message,
 		});
 	}
 </script>

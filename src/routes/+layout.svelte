@@ -3,8 +3,9 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import { invalidate } from '$app/navigation';
-	import { Toaster } from 'svelte-french-toast';
 	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
+	import Toast from '$lib/components/feedback/toast/Toast.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore';
 
 	export let data;
 
@@ -30,7 +31,7 @@
 	<title>CSGO Strats - BETA</title>
 </svelte:head>
 
-<Toaster />
+<Toast />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<BetaBanner />
 	<slot />

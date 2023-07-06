@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, tick } from 'svelte';
-	import toast from 'svelte-french-toast';
 	import { fade } from 'svelte/transition';
+	import { toast } from '../feedback/toast/toastStore';
 
 	// Label displayed over the drop zone
 	export let label: string;
@@ -48,8 +48,10 @@
 		// Make sure it is and jpg or png
 		const ext = newFile?.name.split('.').pop();
 		if (ext && !allowedFileTypes.includes(ext.toLocaleLowerCase())) {
-			toast.error('Only jpg, jpeg, and png allowed!', {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'error',
+				title: 'Invalid imaged type',
+				desc: 'Only jpg, jpeg, png, and webp allowed!',
 			});
 			return;
 		}

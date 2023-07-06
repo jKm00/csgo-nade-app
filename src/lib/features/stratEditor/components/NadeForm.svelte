@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { toast } from '$lib/components/feedback/toast/toastStore';
 	import DropZone from '$lib/components/inputs/DropZone.svelte';
 	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import toast from 'svelte-french-toast';
 	import { NadeType, type Nade } from '../types/nade';
 
 	export let activeNade: Nade | undefined;
@@ -75,8 +75,10 @@
 	const displayError = (
 		event: CustomEvent<{ type: string; message: string }>
 	) => {
-		toast.error(`${event.detail.message}`, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Image to large',
+			desc: event.detail.message,
 		});
 	};
 </script>

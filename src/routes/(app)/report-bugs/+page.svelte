@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
 	import FormMessage from '$lib/components/feedback/FormMessage.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import toast from 'svelte-french-toast';
 	import { Chasing } from 'svelte-loading-spinners';
 	import { superForm } from 'sveltekit-superforms/client';
 
@@ -20,16 +20,11 @@
 	} = superForm(data.form);
 
 	$: if (form?.message) {
-		toast.error(form.message, {
-			style: 'background: #333; color:#fff',
-		});
+		toast.push({ type: 'error', title: 'Error', desc: form.message });
 	}
 
 	$: if (form?.success) {
-		toast.success(form.success, {
-			style: 'background: #333; color:#fff',
-			duration: 5000,
-		});
+		toast.push({ type: 'success', title: 'Success', desc: form.success });
 	}
 </script>
 

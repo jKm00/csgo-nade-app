@@ -1,5 +1,5 @@
 <script lang="ts">
-	import toast from 'svelte-french-toast';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import { fade } from 'svelte/transition';
 
 	export let data;
@@ -8,8 +8,10 @@
 	$: ({ images, profile } = data);
 
 	$: if (form?.error) {
-		toast.error(form.error, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Error',
+			desc: form.error,
 		});
 	}
 
