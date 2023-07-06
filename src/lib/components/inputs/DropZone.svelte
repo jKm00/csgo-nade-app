@@ -9,9 +9,11 @@
 	// passed to the component and the component will
 	// display the image by default
 	export let file: File | undefined;
+	export let maxSize: number = 2 * 1024 * 1024;
 
 	const dispatch = createEventDispatcher<{
 		change: { value: File | undefined };
+		error: { type: string; message: string };
 	}>();
 
 	let dragAcitve = false;
@@ -28,9 +30,18 @@
 
 	const onFileChange = async (files: FileList | null) => {
 		if (files === null) return;
-		if (files.length > 0) {
-			updateFile(files[0]);
+		if (files.length === 0) return;
+
+		const imgSize = files[0].size;
+		if (imgSize > maxSize) {
+			dispatch('error', {
+				type: 'Exceeding max size',
+				message: `Image size too big. The maximum size is ${maxSize / 1024}kb`,
+			});
+			return;
 		}
+
+		updateFile(files[0]);
 	};
 
 	const updateFile = async (newFile: File | undefined) => {
