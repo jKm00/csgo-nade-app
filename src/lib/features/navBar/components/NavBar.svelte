@@ -5,10 +5,6 @@
 	import { notifications } from '$lib/stores/notificationStore';
 
 	$: ({ session } = $page.data);
-
-	notifications.subscribe((val) => {
-		console.log(val);
-	});
 </script>
 
 <nav class="flex justify-between p-4">
