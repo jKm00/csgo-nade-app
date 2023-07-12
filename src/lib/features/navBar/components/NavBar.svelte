@@ -32,6 +32,7 @@
 			</a>
 			<!-- User info -->
 			<UserMenu />
+			<!-- TODO: Remove when auth user is fixed -->
 			<form action="/logout" method="POST">
 				<button
 					class="flex items-center gap-4 hover:underline focus-within:underline"

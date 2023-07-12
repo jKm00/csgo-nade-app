@@ -1,11 +1,16 @@
 import type { User } from '$lib/features/navBar/types/User';
 import { get, writable } from 'svelte/store';
 import { page } from '$app/stores';
-import { notificationSubscription, notifications } from './notificationStore';
-import toast from 'svelte-french-toast';
+import {
+	decrement,
+	increment,
+	notificationSubscription,
+	notifications,
+} from './notificationStore';
 
 export const authUser = writable<User | null>(null);
 
+// Subscribe / unsubscribe from invitations when auth user changes
 authUser.subscribe(async (user) => {
 	if (user) {
 		const supabase = get(page).data.supabase;
@@ -30,18 +35,9 @@ authUser.subscribe(async (user) => {
 				(payload: any) => {
 					const eventType = payload.eventType;
 					if (eventType === 'INSERT') {
-						notifications.update((value) => {
-							return value + 1;
-						});
-						toast('You got a new invite', {
-							icon: '📩',
-							style: 'background: #333; color:#fff',
-						});
+						increment();
 					} else if (eventType === 'DELETE') {
-						notifications.update((value) => {
-							if (value === 0) return 0;
-							return value - 1;
-						});
+						decrement();
 					}
 				}
 			)
