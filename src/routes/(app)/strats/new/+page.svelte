@@ -11,7 +11,7 @@
 
 	export let data;
 
-	$: ({ maps, teams, authUser } = data);
+	$: ({ maps, teams } = data);
 
 	let stratInfo = {
 		name: '',
@@ -114,7 +114,8 @@
 		formData.append('positionId', `${stratInfo.position.id}`);
 		formData.append('privacy', stratInfo.privacy);
 		formData.append('teamId', `${stratInfo.team?.id}`);
-		formData.append('playerId', `${authUser?.id}`);
+		// TODO: Use auth store
+		// formData.append('playerId', `${authUser?.id}`);
 
 		// Add nades to form
 		formData.append('numberOfNades', `${nades.length}`);

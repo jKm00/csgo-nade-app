@@ -7,11 +7,12 @@
 
 	export let data;
 
-	$: ({ session, authUser } = data);
+	$: ({ session } = data);
 
-	$: if (session && authUser === null && browser) {
-		goto('/profile-setup');
-	}
+	// TODO: Check auth
+	// $: if (session && authUser === null && browser) {
+	// 	goto('/profile-setup');
+	// }
 
 	let firstTimeVisit = false;
 	onMount(() => {

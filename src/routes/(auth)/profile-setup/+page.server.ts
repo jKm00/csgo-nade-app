@@ -2,11 +2,15 @@ import { redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { profileDetailsSchema } from '$lib/validations/zodShemas';
 import { AuthApiError } from '@supabase/supabase-js';
+import { get } from 'svelte/store';
+import { authUser } from '$lib/stores/authStore.js';
+import type { User } from '$lib/features/navBar/types/User';
 
-export const load = async ({ parent }) => {
-	const { session, authUser } = await parent();
+export const load = async ({ locals }) => {
+	const session = await locals.getSession();
+	const user = get(authUser);
 
-	if (!session || (session && authUser !== null)) {
+	if (!session || (session && user)) {
 		throw redirect(302, '/');
 	}
 
@@ -31,12 +35,16 @@ export const actions = {
 		const { name, username } = form.data as Record<string, string>;
 
 		// Upsert the profile with form data
-		const { error } = await locals.supabase.from('profiles').upsert({
-			uuid: session.user.id,
-			name: name,
-			username: username,
-			email: session.user.email,
-		});
+		const { data, error } = await locals.supabase
+			.from('profiles')
+			.upsert({
+				uuid: session.user.id,
+				name: name,
+				username: username,
+				email: session.user.email,
+			})
+			.select('id, uuid, name, username, profile_picture ( filename )')
+			.single();
 
 		// Handle errors
 		if (error) {
@@ -49,6 +57,9 @@ export const actions = {
 			}
 			return message(form, 'Server error. Please try again later');
 		}
+
+		// FIXME: Does not work after redirect, not sure if the problem is here or else where
+		authUser.set(data as User);
 
 		// Redirect
 		throw redirect(302, '/');
