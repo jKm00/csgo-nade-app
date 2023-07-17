@@ -58,10 +58,9 @@ export const actions = {
 			return message(form, 'Server error. Please try again later');
 		}
 
-		// FIXME: Does not work after redirect, not sure if the problem is here or else where
-		authUser.set(data as User);
-
-		// Redirect
-		throw redirect(302, '/');
+		return {
+			form,
+			user: data as User,
+		};
 	},
 };
