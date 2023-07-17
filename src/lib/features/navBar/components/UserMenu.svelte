@@ -1,18 +1,16 @@
 <script lang="ts">
 	import Drawer from '$lib/components/containers/Drawer.svelte';
-	import type { User } from '../types/User';
-
-	export let user: User;
+	import { authUser } from '$lib/stores/authStore';
 
 	let showMenu = false;
 </script>
 
-{#if user}
+{#if $authUser}
 	<button on:click={() => (showMenu = true)}>
 		<img
 			class="w-6 rounded-full"
-			src="/assets/images/profile_pictures/{user.profile_picture.filename}"
-			alt="{user.name}'s profile picture"
+			src="/assets/images/profile_pictures/{$authUser.profile_picture.filename}"
+			alt="{$authUser.name}'s profile picture"
 		/>
 	</button>
 
@@ -21,12 +19,13 @@
 		<div class="flex gap-2 items-center" slot="title">
 			<img
 				class="w-16 aspect-square rounded-full"
-				src="/assets/images/profile_pictures/{user.profile_picture.filename}"
-				alt="{user.name}'s profile picture"
+				src="/assets/images/profile_pictures/{$authUser.profile_picture
+					.filename}"
+				alt="{$authUser.name}'s profile picture"
 			/>
 			<div class="grid">
-				<h1 class="text-lg font-bold">{user.name}</h1>
-				<p class="text-sm text-neutral-400">@{user.username}</p>
+				<h1 class="text-lg font-bold">{$authUser.name}</h1>
+				<p class="text-sm text-neutral-400">@{$authUser.username}</p>
 			</div>
 		</div>
 		<!-- Drawer body -->
@@ -36,7 +35,7 @@
 					<a
 						on:click={() => (showMenu = false)}
 						class="flex items-center gap-4 hover:underline focus-within:underline"
-						href="/users/{user.uuid}"
+						href="/users/{$authUser.uuid}"
 					>
 						<svg
 							class="w-4 fill-white aspect-square"
@@ -52,7 +51,7 @@
 					<a
 						on:click={() => (showMenu = false)}
 						class="flex items-center gap-4 hover:underline focus-within:underline"
-						href="/users/{user.uuid}/settings"
+						href="/users/{$authUser.uuid}/settings"
 					>
 						<svg
 							class="w-4 aspect-square fill-white"
