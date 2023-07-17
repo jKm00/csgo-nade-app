@@ -7,6 +7,7 @@
 	import StratOverview from '$lib/features/stratEditor/components/StratOverview.svelte';
 	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
 	import type { Nade } from '$lib/features/stratEditor/types/nade.js';
+	import { authUser } from '$lib/stores/authStore.js';
 	import toast from 'svelte-french-toast';
 
 	export let data;
@@ -114,8 +115,7 @@
 		formData.append('positionId', `${stratInfo.position.id}`);
 		formData.append('privacy', stratInfo.privacy);
 		formData.append('teamId', `${stratInfo.team?.id}`);
-		// TODO: Use auth store
-		// formData.append('playerId', `${authUser?.id}`);
+		formData.append('playerId', `${$authUser?.id}`);
 
 		// Add nades to form
 		formData.append('numberOfNades', `${nades.length}`);
@@ -152,7 +152,7 @@
 
 			if (response) {
 				const stratId = await response.json();
-				goto(`/maps/${stratInfo.map.name}/strats/${stratId}`);
+				goto(`/strats/${stratId}`);
 			}
 		} catch (err) {
 			console.error(err);
