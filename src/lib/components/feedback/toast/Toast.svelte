@@ -1,14 +1,17 @@
 <script lang="ts">
-	import { scale } from 'svelte/transition';
+	import { fly, scale, slide } from 'svelte/transition';
 	import { removeToast, toastStore } from './toastStore';
+	import { flip } from 'svelte/animate';
 </script>
 
 <div class="grid gap-1 absolute top-5 right-5 z-50">
-	{#each $toastStore as toast}
+	{#each $toastStore as toast (toast.id)}
 		{@const background =
 			toast.type === 'success' ? 'rgb(74 222 128)' : 'rgb(248 113 113)'}
 		<div
-			transition:scale={{ duration: 200 }}
+			in:scale={{ duration: 200 }}
+			out:scale={{ duration: 200 }}
+			animate:flip={{ duration: 200 }}
 			class="flex items-stretch text-white bg-neutral-950 rounded w-96"
 		>
 			<span class="block w-1" style="background-color: {background}" />
