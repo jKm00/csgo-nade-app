@@ -1,4 +1,5 @@
 <script lang="ts">
+	import StratSection from '$lib/features/account/page/StratSection.svelte';
 	import TeamSection from '$lib/features/account/page/TeamSection.svelte';
 	import UserInfo from '$lib/features/account/page/UserInfo.svelte';
 
@@ -26,9 +27,63 @@
 			joinedAt: new Date(),
 		},
 	];
+
+	let strats = [
+		{
+			id: 1,
+			name: 'B site execute',
+			authorUsername: 'jKm',
+			thumbnail: '/assets/images/maps/ancient/a_site.webp',
+			createdAt: new Date(),
+			side: 'T',
+			position: 'A site',
+			map: 'Ancient',
+		},
+		{
+			id: 1,
+			name: 'B site execute',
+			authorUsername: 'jKm',
+			thumbnail: '/assets/images/maps/ancient/a_site.webp',
+			createdAt: new Date(),
+			side: 'T',
+			position: 'A site',
+			map: 'Ancient',
+		},
+		{
+			id: 1,
+			name: 'B site execute',
+			authorUsername: 'jKm',
+			thumbnail: '/assets/images/maps/ancient/a_site.webp',
+			createdAt: new Date(),
+			side: 'T',
+			position: 'A site',
+			map: 'Ancient',
+		},
+		{
+			id: 1,
+			name: 'B site execute',
+			authorUsername: 'jKm',
+			thumbnail: '/assets/images/maps/ancient/a_site.webp',
+			createdAt: new Date(),
+			side: 'T',
+			position: 'A site',
+			map: 'Ancient',
+		},
+		{
+			id: 1,
+			name: 'B site execute',
+			authorUsername: 'jKm',
+			thumbnail: '/assets/images/maps/ancient/a_site.webp',
+			createdAt: new Date(),
+			side: 'T',
+			position: 'A site',
+			map: 'Ancient',
+		},
+	];
 </script>
 
-<div class="w-default grid gap-8 mt-4">
+<div class="w-default grid gap-10 mt-10">
 	<UserInfo {name} {username} {profilePicture} />
 	<TeamSection {teams} />
+	<StratSection {username} {strats} />
 </div>
