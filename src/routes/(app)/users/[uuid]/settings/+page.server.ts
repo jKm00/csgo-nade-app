@@ -3,11 +3,17 @@ import {
 	emailSchema,
 	updateUserDetailsSchema,
 } from '$lib/validations/zodShemas';
-import { AuthApiError, type Session } from '@supabase/supabase-js';
-import { error, fail, redirect } from '@sveltejs/kit';
+import { AuthApiError } from '@supabase/supabase-js';
+import { fail, redirect } from '@sveltejs/kit';
 import { message, setError, superValidate } from 'sveltekit-superforms/server';
 
-export const load = async ({ parent }) => {
+export const load = async ({ locals, params, parent }) => {
+	const session = await locals.getSession();
+
+	if (!session || params.uuid !== session.user.id) {
+		throw redirect(302, '/');
+	}
+
 	const { profile } = await parent();
 
 	const userDetailsForm = await superValidate(updateUserDetailsSchema, {
