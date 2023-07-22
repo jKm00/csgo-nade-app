@@ -52,21 +52,28 @@ export const load = async ({ locals, parent }) => {
 					strat.profiles instanceof Array
 						? strat.profiles[0].username
 						: strat.profiles?.username ?? '',
-				thumbnail: `/maps/${
-					strat.maps instanceof Array
-						? strat.maps[0].name.toLowerCase()
-						: strat.maps?.name.toLowerCase() ?? ''
-				}/${
+				thumbnail:
 					strat.positions instanceof Array
-						? strat.positions[0].img
-						: strat.positions?.img ?? ''
-				}`,
+						? `/maps/${
+								strat.maps instanceof Array
+									? strat.maps[0].name.toLowerCase()
+									: strat.maps?.name.toLowerCase() ?? ''
+						  }/${strat.positions[0].img}`
+						: strat.positions
+						? `/maps/${
+								strat.maps instanceof Array
+									? strat.maps[0].name.toLowerCase()
+									: strat.maps?.name.toLowerCase()
+						  }/${strat.positions.img}`
+						: undefined,
 				createdAt: new Date(strat.inserted_at),
 				side: strat.team_side,
 				position:
 					strat.positions instanceof Array
 						? strat.positions[0].name
-						: strat.positions?.name ?? '',
+						: strat.positions
+						? strat.positions.name
+						: undefined,
 				map:
 					strat.maps instanceof Array
 						? strat.maps[0].name
