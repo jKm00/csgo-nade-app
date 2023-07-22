@@ -3,30 +3,30 @@
 	import TeamSection from '$lib/features/account/page/TeamSection.svelte';
 	import UserInfo from '$lib/features/account/page/UserInfo.svelte';
 
-	let name = 'Joakim Edvardsen';
-	let username = 'jKm';
-	let profilePicture = '/assets/images/profile_pictures/profile_2.png';
+	export let data;
 
-	let teams = [
-		{
-			name: 'DOT',
-			org: 'DOT Esport',
-			role: 'Main AWPer',
-			joinedAt: new Date(),
-		},
-		{
-			name: 'NIP',
-			org: 'NIP',
-			role: 'Entry fragger',
-			joinedAt: new Date(),
-		},
-		{
-			name: 'FAZE',
-			org: 'FAZE Clan',
-			role: 'In-game leader',
-			joinedAt: new Date(),
-		},
-	];
+	$: ({ profile, teams } = data);
+
+	// let teams = [
+	// 	{
+	// 		name: 'DOT',
+	// 		org: 'DOT Esport',
+	// 		role: 'Main AWPer',
+	// 		joinedAt: new Date(),
+	// 	},
+	// 	{
+	// 		name: 'NIP',
+	// 		org: 'NIP',
+	// 		role: 'Entry fragger',
+	// 		joinedAt: new Date(),
+	// 	},
+	// 	{
+	// 		name: 'FAZE',
+	// 		org: 'FAZE Clan',
+	// 		role: 'In-game leader',
+	// 		joinedAt: new Date(),
+	// 	},
+	// ];
 
 	let strats = [
 		{
@@ -83,7 +83,13 @@
 </script>
 
 <div class="w-default grid gap-10 mt-10">
-	<UserInfo {name} {username} {profilePicture} />
-	<TeamSection {teams} />
-	<StratSection {username} {strats} />
+	{#if profile}
+		<UserInfo
+			name={profile.name}
+			username={profile?.username}
+			profilePicture={profile.profilePicture.filename}
+		/>
+		<TeamSection {teams} />
+		<StratSection username={profile.username} {strats} />
+	{/if}
 </div>
