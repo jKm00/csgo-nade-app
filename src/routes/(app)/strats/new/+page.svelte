@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import MainButton from '$lib/components/buttons/MainButton.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import NadeEditor from '$lib/features/stratEditor/components/NadeEditor.svelte';
 	import StratEditorNav from '$lib/features/stratEditor/components/StratEditorNav.svelte';
 	import StratInfo from '$lib/features/stratEditor/components/StratInfo.svelte';
@@ -8,7 +9,6 @@
 	import { FormSteps } from '$lib/features/stratEditor/types/formSteps';
 	import type { Nade } from '$lib/features/stratEditor/types/nade.js';
 	import { authUser } from '$lib/stores/authStore.js';
-	import toast from 'svelte-french-toast';
 
 	export let data;
 
@@ -55,8 +55,10 @@
 			stratInfo.position === null ||
 			stratInfo.privacy === ''
 		) {
-			toast.error('Need to fill out the form before continuing', {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'error',
+				title: 'Invalid form',
+				desc: 'Need to fill out the form before continuing',
 			});
 			return false;
 		}
@@ -65,8 +67,10 @@
 
 	const isValidNades = () => {
 		if (nades.length === 0) {
-			toast.error('Need at least one nade!', {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'error',
+				title: 'Invalid strat',
+				desc: 'Need at least one nade!',
 			});
 			return false;
 		}
@@ -79,12 +83,11 @@
 				!nade.type
 		);
 		if (nade) {
-			toast.error(
-				'Make sure all nades have a name, a type and correct markers',
-				{
-					style: 'background: #333; color:#fff',
-				}
-			);
+			toast.push({
+				type: 'error',
+				title: 'Invalid nades',
+				desc: 'Make sure all nades have a name, a type and correct markers',
+			});
 			return false;
 		}
 		return true;
@@ -93,14 +96,18 @@
 	const handleCreateStrat = async () => {
 		isLoading = true;
 		if (stratInfo.map === null) {
-			toast.error('Map is not selected!', {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'error',
+				title: 'No map selected!',
+				desc: 'Select a map before continuing',
 			});
 			return;
 		}
 		if (stratInfo.position === null) {
-			toast.error('Position is not selected!', {
-				style: 'background: #333; color:#fff',
+			toast.push({
+				type: 'error',
+				title: 'No position selected!',
+				desc: 'Select a position before continuing',
 			});
 			return;
 		}

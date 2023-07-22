@@ -1,5 +1,5 @@
+import { toast } from '$lib/components/feedback/toast/toastStore';
 import type { RealtimeChannel } from '@supabase/supabase-js';
-import toast from 'svelte-french-toast';
 import { writable } from 'svelte/store';
 
 export const notifications = writable<number>(0);
@@ -7,9 +7,10 @@ export const notifications = writable<number>(0);
 export const notificationSubscription = writable<RealtimeChannel | null>(null);
 
 export const increment = () => {
-	toast('You got a new invite', {
-		icon: '📩',
-		style: 'background: #333; color:#fff',
+	toast.push({
+		type: 'info',
+		title: '📩 New invitations',
+		desc: 'You just go a new invitations!',
 	});
 	notifications.update((val) => {
 		return val + 1;

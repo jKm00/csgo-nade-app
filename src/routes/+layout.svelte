@@ -2,8 +2,8 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import { onMount } from 'svelte';
 	import '../app.css';
+	import Toast from '$lib/components/feedback/toast/Toast.svelte';
 	import { goto, invalidate } from '$app/navigation';
-	import { Toaster } from 'svelte-french-toast';
 	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
 	import type { User } from '$lib/features/navBar/types/User';
 	import { authUser } from '$lib/stores/authStore';
@@ -50,7 +50,7 @@
 	<title>CSGO Strats - BETA</title>
 </svelte:head>
 
-<Toaster />
+<Toast />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<BetaBanner />
 	<slot />

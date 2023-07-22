@@ -1,9 +1,9 @@
 <script lang="ts">
 	import FormButton from '$lib/components/buttons/FormButton.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import Dropdown from '$lib/components/inputs/Dropdown.svelte';
 	import TextInput from '$lib/components/inputs/TextInput.svelte';
 	import { TEAM_ROLES } from '$lib/shared/teamRoles.js';
-	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
@@ -18,8 +18,10 @@
 	} = superForm(data.form);
 
 	$: if (form?.error) {
-		toast.error(form.error, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Error',
+			desc: form.error,
 		});
 	}
 </script>

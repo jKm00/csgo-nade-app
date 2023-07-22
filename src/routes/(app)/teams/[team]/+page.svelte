@@ -3,9 +3,9 @@
 	import MainButton from '$lib/components/buttons/MainButton.svelte';
 	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
 	import Drawer from '$lib/components/containers/Drawer.svelte';
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import InvitePlayerForm from '$lib/components/forms/InvitePlayerForm.svelte';
 	import TransferLeaderForm from '$lib/components/forms/TransferLeaderForm.svelte';
-	import toast from 'svelte-french-toast';
 
 	export let data;
 	export let form;
@@ -13,14 +13,18 @@
 	$: ({ team, teamMembers, session } = data);
 
 	$: if (form?.message) {
-		toast.error(form.message, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Error',
+			desc: form.message,
 		});
 	}
 
 	$: if (form?.success) {
-		toast.success(form.success, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'success',
+			title: 'Success',
+			desc: form.success,
 		});
 	}
 

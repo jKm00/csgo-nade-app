@@ -1,20 +1,24 @@
 <script lang="ts">
+	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import type { RealtimeChannel } from '@supabase/supabase-js';
 	import { onDestroy, onMount } from 'svelte';
-	import toast from 'svelte-french-toast';
 
 	export let data;
 	export let form;
 
 	$: if (form?.error) {
-		toast.error(form.error, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'error',
+			title: 'Error',
+			desc: form.error,
 		});
 	}
 
 	$: if (form?.success) {
-		toast.success(form.success, {
-			style: 'background: #333; color:#fff',
+		toast.push({
+			type: 'success',
+			title: 'Success',
+			desc: form.success,
 		});
 	}
 

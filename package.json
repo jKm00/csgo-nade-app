@@ -36,7 +36,6 @@
 		"@supabase/auth-helpers-sveltekit": "^0.9.4",
 		"@supabase/auth-ui-shared": "^0.1.6",
 		"@supabase/auth-ui-svelte": "^0.2.2",
-		"svelte-french-toast": "1.0.4-beta.0",
 		"svelte-use-click-outside": "^1.0.0"
 	}
 }
