@@ -5,7 +5,7 @@
 
 	export let data;
 
-	$: ({ profile, teams } = data);
+	$: ({ profile, teams, strats } = data);
 
 	// let teams = [
 	// 	{
@@ -28,58 +28,58 @@
 	// 	},
 	// ];
 
-	let strats = [
-		{
-			id: 1,
-			name: 'B site execute',
-			authorUsername: 'jKm',
-			thumbnail: '/assets/images/maps/ancient/a_site.webp',
-			createdAt: new Date(),
-			side: 'T',
-			position: 'A site',
-			map: 'Ancient',
-		},
-		{
-			id: 1,
-			name: 'B site execute',
-			authorUsername: 'jKm',
-			thumbnail: '/assets/images/maps/ancient/a_site.webp',
-			createdAt: new Date(),
-			side: 'T',
-			position: 'A site',
-			map: 'Ancient',
-		},
-		{
-			id: 1,
-			name: 'B site execute',
-			authorUsername: 'jKm',
-			thumbnail: '/assets/images/maps/ancient/a_site.webp',
-			createdAt: new Date(),
-			side: 'T',
-			position: 'A site',
-			map: 'Ancient',
-		},
-		{
-			id: 1,
-			name: 'B site execute',
-			authorUsername: 'jKm',
-			thumbnail: '/assets/images/maps/ancient/a_site.webp',
-			createdAt: new Date(),
-			side: 'T',
-			position: 'A site',
-			map: 'Ancient',
-		},
-		{
-			id: 1,
-			name: 'B site execute',
-			authorUsername: 'jKm',
-			thumbnail: '/assets/images/maps/ancient/a_site.webp',
-			createdAt: new Date(),
-			side: 'T',
-			position: 'A site',
-			map: 'Ancient',
-		},
-	];
+	// let strats = [
+	// 	{
+	// 		id: 1,
+	// 		name: 'B site execute',
+	// 		authorUsername: 'jKm',
+	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
+	// 		createdAt: new Date(),
+	// 		side: 'T',
+	// 		position: 'A site',
+	// 		map: 'Ancient',
+	// 	},
+	// 	{
+	// 		id: 1,
+	// 		name: 'B site execute',
+	// 		authorUsername: 'jKm',
+	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
+	// 		createdAt: new Date(),
+	// 		side: 'T',
+	// 		position: 'A site',
+	// 		map: 'Ancient',
+	// 	},
+	// 	{
+	// 		id: 1,
+	// 		name: 'B site execute',
+	// 		authorUsername: 'jKm',
+	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
+	// 		createdAt: new Date(),
+	// 		side: 'T',
+	// 		position: 'A site',
+	// 		map: 'Ancient',
+	// 	},
+	// 	{
+	// 		id: 1,
+	// 		name: 'B site execute',
+	// 		authorUsername: 'jKm',
+	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
+	// 		createdAt: new Date(),
+	// 		side: 'T',
+	// 		position: 'A site',
+	// 		map: 'Ancient',
+	// 	},
+	// 	{
+	// 		id: 1,
+	// 		name: 'B site execute',
+	// 		authorUsername: 'jKm',
+	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
+	// 		createdAt: new Date(),
+	// 		side: 'T',
+	// 		position: 'A site',
+	// 		map: 'Ancient',
+	// 	},
+	// ];
 </script>
 
 <div class="w-default grid gap-10 mt-10">

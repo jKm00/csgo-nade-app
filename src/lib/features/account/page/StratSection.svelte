@@ -27,7 +27,7 @@
 						class="group bg-neutral-800 rounded overflow-hidden shadow"
 					>
 						<img
-							src={strat.thumbnail}
+							src={`/assets/images/${strat.thumbnail}`}
 							alt={strat.map}
 							class="w-full object-cover h-40"
 						/>
