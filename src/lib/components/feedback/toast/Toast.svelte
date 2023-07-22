@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fly, scale, slide } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { removeToast, toastStore } from './toastStore';
 	import { flip } from 'svelte/animate';
 </script>
@@ -7,7 +7,11 @@
 <div class="grid gap-1 fixed top-5 right-5 z-50">
 	{#each $toastStore as toast (toast.id)}
 		{@const background =
-			toast.type === 'success' ? 'rgb(74 222 128)' : 'rgb(248 113 113)'}
+			toast.type === 'success'
+				? 'rgb(74 222 128)'
+				: toast.type === 'error'
+				? 'rgb(248 113 113)'
+				: 'rgb(56 189 248)'}
 		<div
 			transition:fly={{ x: 200, duration: 200 }}
 			animate:flip={{ duration: 200 }}

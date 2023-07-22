@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import Toast from '$lib/components/feedback/toast/Toast.svelte';
-	import { toast } from '$lib/components/feedback/toast/toastStore';
 	import { goto, invalidate } from '$app/navigation';
 	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
 	import type { User } from '$lib/features/navBar/types/User';

@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export type ToastType = 'success' | 'error';
+export type ToastType = 'success' | 'error' | 'info';
 
 export interface Toast {
 	id: string;
@@ -11,7 +11,7 @@ export interface Toast {
 
 export const toastStore = writable<Toast[]>([]);
 
-const push = (toast: Omit<Toast, 'id'>, delay: number = 2000) => {
+const push = (toast: Omit<Toast, 'id'>, delay: number = 4000) => {
 	const id = crypto.randomUUID();
 
 	toastStore.update((value) => {
