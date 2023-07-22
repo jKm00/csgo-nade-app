@@ -5,10 +5,10 @@
 		id: number;
 		name: string;
 		authorUsername: string;
-		thumbnail: string;
+		thumbnail: string | undefined;
 		createdAt: Date;
 		side: string;
-		position: string;
+		position: string | undefined;
 		map: string;
 	}
 
@@ -26,11 +26,17 @@
 						href={`/strats/${strat.id}`}
 						class="group bg-neutral-800 rounded overflow-hidden shadow"
 					>
-						<img
-							src={`/assets/images/${strat.thumbnail}`}
-							alt={strat.map}
-							class="w-full object-cover h-40"
-						/>
+						{#if strat.thumbnail}
+							<img
+								src={`/assets/images${strat.thumbnail}`}
+								alt={strat.map}
+								class="w-full object-cover h-40"
+							/>
+						{:else}
+							<div class="grid place-items-center h-40">
+								<p class="text-neutral-400 text-sm">Image not available</p>
+							</div>
+						{/if}
 						<div class="p-4">
 							<h3 class="font-bold">{strat.name}</h3>
 							<p class="text-neutral-400 text-sm">
@@ -40,7 +46,9 @@
 								<Tag color={strat.side === 'T' ? 'red' : 'blue'}
 									>{strat.side}</Tag
 								>
-								<Tag color="purple">{strat.position}</Tag>
+								{#if strat.position}
+									<Tag color="purple">{strat.position}</Tag>
+								{/if}
 							</div>
 						</div>
 					</a>
