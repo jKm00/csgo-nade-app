@@ -6,83 +6,9 @@
 	export let data;
 
 	$: ({ profile, teams, strats } = data);
-
-	// let teams = [
-	// 	{
-	// 		name: 'DOT',
-	// 		org: 'DOT Esport',
-	// 		role: 'Main AWPer',
-	// 		joinedAt: new Date(),
-	// 	},
-	// 	{
-	// 		name: 'NIP',
-	// 		org: 'NIP',
-	// 		role: 'Entry fragger',
-	// 		joinedAt: new Date(),
-	// 	},
-	// 	{
-	// 		name: 'FAZE',
-	// 		org: 'FAZE Clan',
-	// 		role: 'In-game leader',
-	// 		joinedAt: new Date(),
-	// 	},
-	// ];
-
-	// let strats = [
-	// 	{
-	// 		id: 1,
-	// 		name: 'B site execute',
-	// 		authorUsername: 'jKm',
-	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
-	// 		createdAt: new Date(),
-	// 		side: 'T',
-	// 		position: 'A site',
-	// 		map: 'Ancient',
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		name: 'B site execute',
-	// 		authorUsername: 'jKm',
-	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
-	// 		createdAt: new Date(),
-	// 		side: 'T',
-	// 		position: 'A site',
-	// 		map: 'Ancient',
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		name: 'B site execute',
-	// 		authorUsername: 'jKm',
-	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
-	// 		createdAt: new Date(),
-	// 		side: 'T',
-	// 		position: 'A site',
-	// 		map: 'Ancient',
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		name: 'B site execute',
-	// 		authorUsername: 'jKm',
-	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
-	// 		createdAt: new Date(),
-	// 		side: 'T',
-	// 		position: 'A site',
-	// 		map: 'Ancient',
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		name: 'B site execute',
-	// 		authorUsername: 'jKm',
-	// 		thumbnail: '/assets/images/maps/ancient/a_site.webp',
-	// 		createdAt: new Date(),
-	// 		side: 'T',
-	// 		position: 'A site',
-	// 		map: 'Ancient',
-	// 	},
-	// ];
 </script>
 
-<div class="w-default grid gap-10 mt-10">
+<div class="w-default grid gap-14 mt-10">
 	{#if profile}
 		<UserInfo
 			name={profile.name}

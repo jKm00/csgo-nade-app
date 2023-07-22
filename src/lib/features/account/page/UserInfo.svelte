@@ -6,7 +6,7 @@
 
 <header class="flex flex-col gap-4 sm:flex-row items-center">
 	<img
-		class="rounded"
+		class="rounded w-36"
 		src={`/assets/images/profile_pictures/${profilePicture}`}
 		alt={name}
 	/>
