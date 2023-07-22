@@ -1,7 +1,7 @@
 <footer class="text-neutral-500 text-sm text-center py-4 px-4 mt-10">
 	<p>Joakim Edvardsen &copy; 2023. All rights reserved</p>
 	<p>
-		Version 0.7.2 |
+		Version 0.8.2 |
 		<a
 			class="hover:underline focus-within:underline"
 			href="/terms-of-service"
