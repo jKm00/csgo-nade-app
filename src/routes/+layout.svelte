@@ -20,14 +20,6 @@
 
 		return () => data.subscription.unsubscribe();
 	});
-
-	const showToast = () => {
-		toast.push({
-			type: 'error',
-			title: 'My toast',
-			desc: 'A cool desc',
-		});
-	};
 </script>
 
 <svelte:head>
@@ -43,6 +35,5 @@
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
 	<BetaBanner />
 	<slot />
-	<button on:click={showToast} class="text-white">Toast me</button>
 	<Footer />
 </div>

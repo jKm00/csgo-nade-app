@@ -4,13 +4,12 @@
 	import { flip } from 'svelte/animate';
 </script>
 
-<div class="grid gap-1 absolute top-5 right-5 z-50">
+<div class="grid gap-1 fixed top-5 right-5 z-50">
 	{#each $toastStore as toast (toast.id)}
 		{@const background =
 			toast.type === 'success' ? 'rgb(74 222 128)' : 'rgb(248 113 113)'}
 		<div
-			in:scale={{ duration: 200 }}
-			out:scale={{ duration: 200 }}
+			transition:fly={{ x: 200, duration: 200 }}
 			animate:flip={{ duration: 200 }}
 			class="flex items-stretch text-white bg-neutral-950 rounded w-96"
 		>
