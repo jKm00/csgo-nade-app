@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Tag from '$lib/components/containers/Tag.svelte';
 
-	export let thumbnail: string;
+	export let thumbnail: string | undefined;
 	export let stratId: number;
 	export let stratName: string;
-	export let team: string;
+	export let team: string | undefined;
 	export let authorId: string;
 	export let authorName: string;
 	export let createdAt: string;
 	export let side: string;
-	export let position: string;
+	export let position: string | undefined;
 </script>
 
 <a
@@ -18,15 +18,15 @@
 >
 	{#if thumbnail}
 		<img
-			class="aspect-[16/6] w-full object-cover bg-neutral-700"
+			class="aspect-[16/8] w-full object-cover bg-neutral-700"
 			src="/assets/images/{thumbnail}"
 			alt="Overview over {position}"
 		/>
 	{:else}
 		<div
-			class="grid text-center items-center content-center aspect-[16/6] bg-neutral-700 text-neutral-300"
+			class="grid text-center items-center content-center aspect-[16/8] bg-neutral-700 text-neutral-300"
 		>
-			<p>No image to display</p>
+			<p class="text-neutral-400 text-sm">Image not available</p>
 		</div>
 	{/if}
 	<div class="grid p-4">
