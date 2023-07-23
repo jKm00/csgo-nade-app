@@ -34,38 +34,38 @@
 	};
 </script>
 
-<Dialog bind:show title={nade.name}>
+<Dialog bind:show title={`Nade: ${nade.name}`}>
 	<div slot="body" class="grid mt-4">
-		<div class="flex gap-4">
+		<div class="grid sm:flex gap-4">
 			<div>
-				<h2 class="font-bold">Lineup image:</h2>
+				<h2 class="font-bold mb-1">Lineup image:</h2>
 				{#if lineupImgUrl}
 					<img
-						class="w-[40vw] rounded aspect-video object-cover bg-neutral-800"
+						class="rounded aspect-video object-cover bg-neutral-800"
 						src={lineupImgUrl}
 						alt="Lineup for {nade.name}"
 					/>
 				{:else}
 					<div
-						class="grid place-items-center px-4 w-[40vw] bg-neutral-800 border-2 border-dashed rounded aspect-video"
+						class="grid place-items-center px-10 bg-neutral-800 border-2 border-dashed rounded aspect-video"
 					>
-						<p>No lineup image for this nade</p>
+						<p class="text-center">Author has not provided any lineup image</p>
 					</div>
 				{/if}
 			</div>
 			<div>
-				<h2 class="font-bold">Impact image:</h2>
+				<h2 class="font-bold mb-1">Impact image:</h2>
 				{#if impactImgUrl}
 					<img
-						class="w-[40vw] rounded aspect-video object-cover bg-neutral-800"
+						class="rounded aspect-video object-cover bg-neutral-800"
 						src={impactImgUrl}
 						alt="Impact for {nade.name}"
 					/>
 				{:else}
 					<div
-						class="grid place-items-center px-4 w-[40vw] bg-neutral-800 border-2 border-dashed rounded aspect-video"
+						class="grid place-items-center px-10 bg-neutral-800 border-2 border-dashed rounded aspect-video"
 					>
-						<p>No impact image for this nade</p>
+						<p class="text-center">Author has not provided any impact image</p>
 					</div>
 				{/if}
 			</div>
