@@ -1,3 +1,4 @@
+-- Replace old function with new updated version
 CREATE OR REPLACE FUNCTION public.query_strats_with_filters(
   p_map text default null, 
   p_strat_position text default null, 
@@ -35,7 +36,7 @@ BEGIN
     FROM strats s
     INNER JOIN profiles p ON p.id = s.author_id
     LEFT JOIN teams t ON t.id = s.team_id
-    INNER JOIN positions pos ON pos.id = s.position_id
+    LEFT JOIN positions pos ON pos.id = s.position_id
     INNER JOIN maps m ON m.id = s.map_id
     WHERE 
         (p_map IS NULL OR m.name = p_map) AND
