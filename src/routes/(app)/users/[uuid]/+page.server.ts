@@ -35,7 +35,8 @@ export const load = async ({ locals, parent }) => {
 					*, 
 					profiles (username),
 					maps (name),
-					positions (img, name)
+					positions (img, name),
+					teams (name)
 				`
 				)
 				.eq('author_id', profile.id)
@@ -78,6 +79,10 @@ export const load = async ({ locals, parent }) => {
 					strat.maps instanceof Array
 						? strat.maps[0].name
 						: strat.maps?.name ?? '',
+				team:
+					strat.teams instanceof Array
+						? strat.teams[0].name
+						: strat.teams?.name ?? undefined,
 			})) ?? []
 		);
 	};

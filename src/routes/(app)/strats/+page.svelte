@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { lazy } from 'zod';
 	import FilterMenu from '$lib/features/stratListing/components/FilterMenu.svelte';
 	import StratCard from '$lib/features/stratListing/components/StratCard.svelte';
 	import StratListingHeader from '$lib/features/stratListing/components/StratListingHeader.svelte';

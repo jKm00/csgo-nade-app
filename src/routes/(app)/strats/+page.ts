@@ -38,9 +38,9 @@ export const load = async ({ url, parent }) => {
 				team: strat.team,
 				side: strat.side,
 				position: strat.position_name,
-				thumbnail: `/maps/${strat.map_name.toLowerCase()}/${
-					strat.position_img
-				}`,
+				thumbnail: strat.position_img
+					? `/maps/${strat.map_name.toLowerCase()}/${strat.position_img}`
+					: undefined,
 			})
 		);
 

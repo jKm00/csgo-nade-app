@@ -10,6 +10,7 @@
 		side: string;
 		position: string | undefined;
 		map: string;
+		team: string | undefined;
 	}
 
 	export let strats: Strat[];
@@ -30,17 +31,27 @@
 							<img
 								src={`/assets/images${strat.thumbnail}`}
 								alt={strat.map}
-								class="w-full object-cover h-40"
+								class="w-full object-cover aspect-[16/8]"
 							/>
 						{:else}
-							<div class="grid place-items-center h-40">
+							<div class="grid place-items-center aspect-[16/8] bg-neutral-700">
 								<p class="text-neutral-400 text-sm">Image not available</p>
 							</div>
 						{/if}
 						<div class="p-4">
 							<h3 class="font-bold">{strat.name}</h3>
 							<p class="text-neutral-400 text-sm">
-								@{strat.authorUsername} - {strat.createdAt.toLocaleDateString()}
+								<span>@{strat.authorUsername} - </span>
+								{#if strat.team}
+									<span
+										><a
+											href={`/teams/${strat.team}`}
+											class="hover:underline focus-within:underline"
+											>{strat.team}</a
+										> -
+									</span>
+								{/if}
+								{strat.createdAt.toLocaleDateString()}
 							</p>
 							<div class="flex gap-2 mt-6">
 								<Tag color={strat.side === 'T' ? 'red' : 'blue'}
