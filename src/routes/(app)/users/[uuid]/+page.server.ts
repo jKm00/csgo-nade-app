@@ -40,7 +40,7 @@ export const load = async ({ locals, parent }) => {
 				`
 				)
 				.eq('author_id', profile.id)
-				.limit(10);
+				.limit(6);
 
 			strats = data;
 		}
@@ -87,8 +87,25 @@ export const load = async ({ locals, parent }) => {
 		);
 	};
 
+	const fetchTotalNumberOfStrats = async () => {
+		const { profile } = await parent();
+
+		let numberOfStrats = 0;
+		if (profile) {
+			const { data, count } = await locals.supabase
+				.from('strats')
+				.select('*', { count: 'exact', head: true })
+				.eq('author_id', profile.id);
+
+			numberOfStrats = count ?? 0;
+		}
+
+		return numberOfStrats;
+	};
+
 	return {
 		teams: fetchTeams(),
 		strats: fetchStrats(),
+		totalNumberOfStrats: fetchTotalNumberOfStrats(),
 	};
 };
