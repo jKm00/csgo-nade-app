@@ -5,7 +5,7 @@
 
 	export let data;
 
-	$: ({ profile, teams, strats } = data);
+	$: ({ profile, teams, strats, totalNumberOfStrats } = data);
 </script>
 
 <div class="w-default grid gap-14 mt-10">
@@ -16,6 +16,6 @@
 			profilePicture={profile.profilePicture.filename}
 		/>
 		<TeamSection {teams} />
-		<StratSection username={profile.username} {strats} />
+		<StratSection username={profile.username} {strats} {totalNumberOfStrats} />
 	{/if}
 </div>

@@ -13,19 +13,22 @@
 		team: string | undefined;
 	}
 
+	export let totalNumberOfStrats: number;
 	export let strats: Strat[];
 	export let username: string;
 </script>
 
 <section>
-	<h2 class="font-bold text-xl mb-4">Strats ({strats.length})</h2>
+	<h2 class="font-bold text-xl mb-4">Strats ({totalNumberOfStrats})</h2>
 	{#if strats.length > 0}
 		<div class="grid gap-4">
-			<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+			<div
+				class="carousel gap-4 max-sm:flex max-sm:flex-col max-md:grid max-md:grid-cols-2 max-"
+			>
 				{#each strats as strat}
 					<a
 						href={`/strats/${strat.id}`}
-						class="group bg-neutral-800 rounded overflow-hidden shadow"
+						class="carousel-item group bg-neutral-800 rounded shadow snap-start"
 					>
 						{#if strat.thumbnail}
 							<img
@@ -64,6 +67,23 @@
 						</div>
 					</a>
 				{/each}
+				{#if totalNumberOfStrats > 6}
+					<a
+						href={`/strats?author=${username}`}
+						class="max-md:hidden grid place-items-center bg-neutral-800 rounded"
+					>
+						<div class="grid place-items-center gap-4 p-4 w-72">
+							View more<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="1em"
+								viewBox="0 0 448 512"
+								><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+									d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+								/></svg
+							>
+						</div>
+					</a>
+				{/if}
 			</div>
 			<a
 				href={`/strats?author=${username}`}
@@ -74,3 +94,19 @@
 		<p class="text-neutral-400 text-sm">This user currently has no starts...</p>
 	{/if}
 </section>
+
+<style scoped>
+	@media not all and (max-width: 900px) {
+		.carousel {
+			display: flex;
+			overflow-x: auto;
+			scroll-snap-type: x proximity;
+		}
+
+		.carousel-item {
+			flex-shrink: 0;
+			flex-basis: 28%;
+			scroll-snap-align: start;
+		}
+	}
+</style>
