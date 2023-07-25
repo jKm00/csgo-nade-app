@@ -179,3 +179,26 @@ export const reportBugSchema = z.object({
 		.min(1, 'Descriptions is required')
 		.trim(),
 });
+
+export const forgotPasswordEmailSchema = z.object({
+	email: z.string().email(),
+});
+
+export const forgotPasswordUpdateSchema = z.object({
+	newPassword: z
+		.string({ required_error: 'A new password is required' })
+		.regex(
+			new RegExp(
+				'^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$'
+			),
+			'One uppercase, one lower, one special character, and a number required'
+		),
+	newPasswordConfirm: z
+		.string({ required_error: 'Need to confirm the new password' })
+		.regex(
+			new RegExp(
+				'^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,}$'
+			),
+			'One uppercase, one lower, one special character, and a number required'
+		),
+});

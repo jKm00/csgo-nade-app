@@ -7,6 +7,7 @@
 	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
 	import type { User } from '$lib/features/navBar/types/User';
 	import { authUser } from '$lib/stores/authStore';
+	import { redirect } from '@sveltejs/kit';
 
 	export let data;
 
