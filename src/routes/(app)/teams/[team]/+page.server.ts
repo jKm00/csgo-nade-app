@@ -7,22 +7,22 @@ export const load = async ({ params, locals }) => {
 
 	const form = superValidate(invitePlayerSchema);
 
-	const team = await locals.supabase
-		.from('teams')
-		.select(
-			`
+	const fetchTeam = async (name: string) => {
+		const { data } = await locals.supabase
+			.from('teams')
+			.select(
+				`
 			id,
 			name,
 			created_at,
 			organization,
 			profiles ( uuid, username )
 		`
-		)
-		.ilike('name', teamName);
+			)
+			.ilike('name', teamName)
+			.single();
 
-	let teamMembers = null;
-	if (team.data && team.data.length > 0) {
-		teamMembers = await locals.supabase
+		const teamMembers = await locals.supabase
 			.from('team_members')
 			.select(
 				`
@@ -31,13 +31,19 @@ export const load = async ({ params, locals }) => {
 				profiles ( id, uuid, username, email )
 			`
 			)
-			.eq('team_id', team.data[0].id);
-	}
+			.eq('team_id', data?.id);
+
+		const team = {
+			...data,
+			members: teamMembers.data,
+		};
+
+		return team;
+	};
 
 	return {
 		form,
-		team: team.data && team.data.length > 0 ? team.data[0] : null,
-		teamMembers: teamMembers?.data ?? null,
+		team: fetchTeam(params.team),
 	};
 };
 

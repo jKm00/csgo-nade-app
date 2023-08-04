@@ -10,7 +10,7 @@
 	export let data;
 	export let form;
 
-	$: ({ team, teamMembers, session } = data);
+	$: ({ team, session } = data);
 
 	$: if (form?.message) {
 		toast.push({
@@ -29,7 +29,7 @@
 	}
 
 	$: userId = session?.user.id;
-	$: membersIds = teamMembers?.map((m) => {
+	$: membersIds = team.members?.map((m) => {
 		return m.profiles && m.profiles instanceof Array
 			? m.profiles[0].uuid
 			: m.profiles?.uuid;
@@ -70,6 +70,7 @@
 		profile:
 			| { uuid: string; username: string; email?: string }
 			| { uuid: string; username: string; email?: string }[]
+			| null
 	) => {
 		if (profile instanceof Array) {
 			return profile[0];
@@ -82,7 +83,7 @@
 	{#if team}
 		<!-- general team info -->
 		<div class="flex justify-between items-center">
-			<h1 class="text-xl text-red-400 font-bold">
+			<h1 class="text-2xl text-red-400 font-bold">
 				{team.name}
 			</h1>
 			{#if isTeamLeader}
@@ -130,7 +131,7 @@
 				</form>
 			{/if}
 		</div>
-		<div class="flex gap-10 bg-neutral-800 rounded shadow p-4 text-sm mb-6">
+		<div class="flex gap-10 rounded shadow text-sm mb-6">
 			<div>
 				<h3 class="font-bold">Name:</h3>
 				<p>{team.name}</p>
@@ -153,46 +154,75 @@
 			</div>
 		</div>
 		<!-- team members -->
-		<h2 class="text-lg font-bold mb-2">Members</h2>
-		<div class="flex flex-wrap gap-4">
-			{#if teamMembers !== null}
-				{#each teamMembers as member}
-					<a
-						href="/users/{member.profiles
-							? getProfile(member.profiles).uuid
-							: ''}"
-					>
-						<div class="grid gap-4 bg-neutral-800 h-full rounded shadow p-4">
-							<div>
-								<h3 class="font-bold">
-									{member.profiles ? getProfile(member.profiles).username : ''}
-								</h3>
-								<p class="text-sm text-neutral-400">
-									{member.profiles ? getProfile(member.profiles).email : ''}
-								</p>
-							</div>
-							<div>
-								<p class="flex gap-10 justify-between text-sm">
-									<span class="font-bold">Role:</span>{member.role ?? 'n/a'}
-								</p>
-								<p class="flex gap-10 justify-between text-sm">
-									<span class="font-bold">Joined At:</span>{new Date(
-										member.inserted_at
-									).toDateString()}
-								</p>
-							</div>
-							{#if isTeamLeader && (member.profiles ? getProfile(member.profiles).uuid !== userId : true)}
-								<button
-									on:click|preventDefault={() => handleKick(member)}
-									class="text-sm text-red-400 hover:underline focus-within:underline"
-									>Kick from team</button
+		<section>
+			<h2 class="font-bold text-lg mb-4">Members ({team.members?.length})</h2>
+			{#if team.members !== null}
+				<div class="max-md:hidden grid grid-cols-4 p-2 text-neutral-400">
+					<p>Username</p>
+					<p>Role</p>
+					<p>Joined at</p>
+				</div>
+				<div class="grid sm:grid-cols-2 md:grid-cols-1 max-md:gap-4">
+					{#each team.members as member, index}
+						<a
+							href={`/users/${getProfile(member.profiles)?.uuid}`}
+							class="p-2 rounded shadow max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-4 {index %
+								2 ===
+							0
+								? 'md:bg-neutral-800'
+								: ''}"
+						>
+							<p class="flex justify-between">
+								<span class="md:hidden text-neutral-400">Username:</span
+								>{getProfile(member.profiles)?.username}
+							</p>
+							<p class="flex justify-between">
+								<span class="md:hidden text-neutral-400">Role:</span
+								>{member.role}
+							</p>
+							<p class="flex justify-between">
+								<span class="md:hidden text-neutral-400">Joined at:</span
+								>{new Date(member.inserted_at).toLocaleDateString()}
+							</p>
+							{#if isTeamLeader && getProfile(member.profiles)?.uuid !== userId}
+								<div class="flex justify-between">
+									<a
+										class="max-md:hidden flex items-center gap-2 justify-end"
+										href={`/teams/${team.name}`}
+										>View player<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 256 512"
+											><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+												d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
+											/></svg
+										></a
+									>
+									<button
+										on:click|preventDefault={() => handleKick(member)}
+										class="text-sm text-red-400 hover:underline focus-within:underline"
+										>Kick from team</button
+									>
+								</div>
+							{:else}
+								<a
+									class="max-md:hidden flex items-center gap-2 justify-end"
+									href={`/teams/${team.name}`}
+									>View player<svg
+										xmlns="http://www.w3.org/2000/svg"
+										height="1em"
+										viewBox="0 0 256 512"
+										><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+											d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
+										/></svg
+									></a
 								>
 							{/if}
-						</div>
-					</a>
-				{/each}
+						</a>
+					{/each}
+				</div>
 			{/if}
-		</div>
+		</section>
 		<!-- Confirm kick dialog -->
 		<dialog
 			bind:this={confirmKickDialog}
@@ -244,11 +274,16 @@
 		</p>
 	{/if}
 </main>
-{#if team && isTeamLeader && session !== null}
+{#if team && isTeamLeader && session !== null && team.id}
 	<!-- Transfer team leader drawer -->
 	<Drawer bind:show={showTransfer}>
 		<h1 class="font-bold text-red-400" slot="title">Transfer leader</h1>
-		<TransferLeaderForm slot="body" {teamMembers} teamId={team.id} {session} />
+		<TransferLeaderForm
+			slot="body"
+			teamMembers={team.members}
+			teamId={team.id}
+			{session}
+		/>
 	</Drawer>
 	<!-- Invite player drawer -->
 	<Drawer bind:show={showInvite}>
