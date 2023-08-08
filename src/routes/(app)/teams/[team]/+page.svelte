@@ -80,10 +80,10 @@
 	};
 </script>
 
-<main class="grid gap-4 w-default my-10">
+<main class="grid w-default my-10">
 	{#if team}
 		<!-- General team info -->
-		<div class="flex justify-between items-center">
+		<div class="flex justify-between items-center mb-4">
 			<h1 class="text-2xl text-red-400 font-bold">
 				{team.name}
 			</h1>
@@ -132,7 +132,7 @@
 				</form>
 			{/if}
 		</div>
-		<div class="flex gap-10 rounded shadow text-sm mb-6">
+		<div class="flex gap-10 rounded shadow text-sm mb-10">
 			<div>
 				<h3 class="font-bold">Name:</h3>
 				<p>{team.name}</p>
@@ -155,8 +155,8 @@
 			</div>
 		</div>
 		<!-- Team members -->
-		<section>
-			<h2 class="font-bold text-lg mb-4">Members ({team.members?.length})</h2>
+		<section class="mb-10">
+			<h2 class="font-bold text-xl mb-4">Members ({team.members?.length})</h2>
 			{#if team.members !== null}
 				<div class="max-md:hidden grid grid-cols-4 p-2 text-neutral-400">
 					<p>Username</p>
@@ -196,7 +196,7 @@
 								<a
 									class="max-md:hidden flex items-center gap-2 justify-end w-full"
 									href={`/teams/${team.name}`}
-									>View player<svg
+									>View profile<svg
 										xmlns="http://www.w3.org/2000/svg"
 										height="1em"
 										viewBox="0 0 256 512"
