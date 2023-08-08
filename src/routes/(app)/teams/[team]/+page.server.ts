@@ -3,26 +3,24 @@ import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export const load = async ({ params, locals }) => {
-	const teamName = params.team;
-
 	const form = superValidate(invitePlayerSchema);
 
-	const team = await locals.supabase
-		.from('teams')
-		.select(
-			`
+	const fetchTeam = async (name: string) => {
+		const { data } = await locals.supabase
+			.from('teams')
+			.select(
+				`
 			id,
 			name,
 			created_at,
 			organization,
 			profiles ( uuid, username )
 		`
-		)
-		.ilike('name', teamName);
+			)
+			.ilike('name', name)
+			.single();
 
-	let teamMembers = null;
-	if (team.data && team.data.length > 0) {
-		teamMembers = await locals.supabase
+		const teamMembers = await locals.supabase
 			.from('team_members')
 			.select(
 				`
@@ -31,13 +29,91 @@ export const load = async ({ params, locals }) => {
 				profiles ( id, uuid, username, email )
 			`
 			)
-			.eq('team_id', team.data[0].id);
-	}
+			.eq('team_id', data?.id);
+
+		const team = {
+			...data,
+			members: teamMembers.data,
+		};
+
+		return team;
+	};
+
+	const fetchStrats = async (team: string) => {
+		const { data: teamId } = await locals.supabase
+			.from('teams')
+			.select(`id`)
+			.eq('name', team)
+			.single();
+
+		const { data: strats } = await locals.supabase
+			.from('strats')
+			.select(
+				`
+				*,
+				profiles (username),
+				maps (name),
+				positions (img, name),
+				teams (name)
+			`
+			)
+			.eq('team_id', teamId?.id);
+
+		const { data, count } = await locals.supabase
+			.from('strats')
+			.select('*', { count: 'exact', head: true })
+			.eq('team_id', teamId?.id);
+
+		return {
+			strats:
+				strats?.map((strat) => ({
+					id: strat.id,
+					name: strat.name,
+					authorUsername:
+						strat.profiles instanceof Array
+							? strat.profiles[0].username
+							: strat.profiles?.username ?? '',
+					thumbnail:
+						strat.positions instanceof Array
+							? `/maps/${
+									strat.maps instanceof Array
+										? strat.maps[0].name.toLowerCase()
+										: strat.maps?.name.toLowerCase() ?? ''
+							  }/${strat.positions[0].img}`
+							: strat.positions
+							? `/maps/${
+									strat.maps instanceof Array
+										? strat.maps[0].name.toLowerCase()
+										: strat.maps?.name.toLowerCase()
+							  }/${strat.positions.img}`
+							: undefined,
+					createdAt: new Date(strat.inserted_at),
+					side: strat.team_side,
+					position:
+						strat.positions instanceof Array
+							? strat.positions[0].name
+							: strat.positions
+							? strat.positions.name
+							: undefined,
+					map:
+						strat.maps instanceof Array
+							? strat.maps[0].name
+							: strat.maps?.name ?? '',
+					team:
+						strat.teams instanceof Array
+							? strat.teams[0].name
+							: strat.teams?.name ?? undefined,
+				})) ?? [],
+			count,
+		};
+	};
 
 	return {
 		form,
-		team: team.data && team.data.length > 0 ? team.data[0] : null,
-		teamMembers: teamMembers?.data ?? null,
+		team: fetchTeam(params.team),
+		lazy: {
+			strats: fetchStrats(params.team),
+		},
 	};
 };
 
