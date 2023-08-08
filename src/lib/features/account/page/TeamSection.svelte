@@ -22,7 +22,7 @@
 			{#each teams as team, index}
 				<a
 					href={`/teams/${team.name}`}
-					class="p-2 rounded shadow max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-5 {index %
+					class="p-2 rounded shadow group max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-5 {index %
 						2 ===
 					0
 						? 'md:bg-neutral-800'
@@ -43,9 +43,10 @@
 						>{team.joinedAt.toLocaleDateString()}
 					</p>
 					<a
-						class="max-md:hidden flex items-center gap-2 justify-end"
+						class="max-md:hidden flex items-center gap-2 justify-end group-hover:text-red-400 group-focus-within:text-red-400"
 						href={`/teams/${team.name}`}
 						>View team<svg
+							class="group-hover:fill-red-400 group-focus-within:fill-red-400"
 							xmlns="http://www.w3.org/2000/svg"
 							height="1em"
 							viewBox="0 0 256 512"
