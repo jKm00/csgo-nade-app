@@ -6,6 +6,7 @@
 	import { toast } from '$lib/components/feedback/toast/toastStore.js';
 	import InvitePlayerForm from '$lib/components/forms/InvitePlayerForm.svelte';
 	import TransferLeaderForm from '$lib/components/forms/TransferLeaderForm.svelte';
+	import StratSlider from '$lib/features/stratListing/components/StratSlider.svelte';
 
 	export let data;
 	export let form;
@@ -81,7 +82,7 @@
 
 <main class="grid gap-4 w-default my-10">
 	{#if team}
-		<!-- general team info -->
+		<!-- General team info -->
 		<div class="flex justify-between items-center">
 			<h1 class="text-2xl text-red-400 font-bold">
 				{team.name}
@@ -148,12 +149,12 @@
 			</div>
 			<div>
 				<h3 class="font-bold">Team Leader:</h3>
-				<a href="/users/{team.profiles ? getProfile(team.profiles).uuid : ''}">
-					{team.profiles ? getProfile(team.profiles).username : 'n/a'}
+				<a href="/users/{team.profiles ? getProfile(team.profiles)?.uuid : ''}">
+					{team.profiles ? getProfile(team.profiles)?.username : 'n/a'}
 				</a>
 			</div>
 		</div>
-		<!-- team members -->
+		<!-- Team members -->
 		<section>
 			<h2 class="font-bold text-lg mb-4">Members ({team.members?.length})</h2>
 			{#if team.members !== null}
@@ -210,6 +211,16 @@
 				</div>
 			{/if}
 		</section>
+		<!-- Team strats -->
+		{#await data.lazy.strats}
+			<p>Loading...</p>
+		{:then data}
+			<StratSlider
+				strats={data.strats}
+				totalNumberOfStrats={data.count ?? 0}
+				redirect="team"
+			/>
+		{/await}
 		<!-- Confirm kick dialog -->
 		<dialog
 			bind:this={confirmKickDialog}
