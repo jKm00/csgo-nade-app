@@ -195,7 +195,7 @@
 								{/if}
 								<a
 									class="max-md:hidden flex items-center gap-2 justify-end w-full"
-									href={`/teams/${team.name}`}
+									href={`/users/${getProfile(member.profiles)?.uuid}`}
 									>View profile<svg
 										xmlns="http://www.w3.org/2000/svg"
 										height="1em"
