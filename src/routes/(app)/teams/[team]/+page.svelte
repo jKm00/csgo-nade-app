@@ -167,7 +167,7 @@
 					{#each team.members as member, index}
 						<a
 							href={`/users/${getProfile(member.profiles)?.uuid}`}
-							class="p-2 rounded shadow max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-4 {index %
+							class="p-2 rounded shadow group max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-4 {index %
 								2 ===
 							0
 								? 'md:bg-neutral-800'
@@ -194,9 +194,10 @@
 									>
 								{/if}
 								<a
-									class="max-md:hidden flex items-center gap-2 justify-end w-full"
+									class="max-md:hidden flex items-center gap-2 justify-end w-full group-hover:text-red-400 group-focus-within:text-red-400"
 									href={`/users/${getProfile(member.profiles)?.uuid}`}
 									>View profile<svg
+										class="group-hover:fill-red-400 group-focus-within:fill-red-400"
 										xmlns="http://www.w3.org/2000/svg"
 										height="1em"
 										viewBox="0 0 256 512"

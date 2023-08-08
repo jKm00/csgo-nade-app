@@ -19,8 +19,8 @@
 
 	const redirectLink =
 		redirect === 'user'
-			? `/strats?author=${strats[0].authorUsername}`
-			: `/strats?teamName=${strats[0].team}`;
+			? `/strats?author=${strats[0]?.authorUsername}`
+			: `/strats?teamName=${strats[0]?.team}`;
 </script>
 
 <section>
