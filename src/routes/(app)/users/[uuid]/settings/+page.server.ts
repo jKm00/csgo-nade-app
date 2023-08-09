@@ -80,9 +80,7 @@ export const actions = {
 			});
 		}
 
-		return message(userDetailsForm, 'User details updated', {
-			status: 200,
-		});
+		return message(userDetailsForm, 'User details updated');
 	},
 	updateEmail: async ({ request, locals }) => {
 		const session = await locals.getSession();
@@ -118,9 +116,7 @@ export const actions = {
 			});
 		}
 
-		return message(emailForm, 'Verification link sent to the new email', {
-			status: 200,
-		});
+		return message(emailForm, 'Verification link sent to the new email');
 	},
 	updatePassword: async ({ request, locals }) => {
 		// Validate form
@@ -157,9 +153,7 @@ export const actions = {
 		}
 
 		// Password changed
-		return message(passwordForm, 'Password has been changed', {
-			status: 200,
-		});
+		return message(passwordForm, 'Password has been changed');
 	},
 	deleteUser: async ({ locals }) => {
 		const session = await locals.getSession();
