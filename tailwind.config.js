@@ -17,7 +17,8 @@ export default {
       },
       width: {
         'default': 'min(95vw, 72rem)',
-        'drawer': 'min(95vw, 40rem)'
+        'drawer': 'min(95vw, 40rem)',
+        'default-form': 'min(94vw, 40rem)'
       }
     },
   },
