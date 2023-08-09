@@ -7,7 +7,6 @@
 	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
 	import type { User } from '$lib/features/navBar/types/User';
 	import { authUser } from '$lib/stores/authStore';
-	import { redirect } from '@sveltejs/kit';
 
 	export let data;
 
@@ -33,7 +32,7 @@
 						if (!data) {
 							goto('/profile-setup');
 						} else {
-							authUser.set(data as User);
+							authUser.set(data as unknown as User);
 						}
 						console.log($authUser);
 					} else {
