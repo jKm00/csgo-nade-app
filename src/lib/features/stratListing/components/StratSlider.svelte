@@ -15,7 +15,12 @@
 
 	export let totalNumberOfStrats: number;
 	export let strats: Strat[];
-	export let username: string;
+	export let redirect: 'user' | 'team';
+
+	const redirectLink =
+		redirect === 'user'
+			? `/strats?author=${strats[0]?.authorUsername}`
+			: `/strats?teamName=${strats[0]?.team}`;
 </script>
 
 <section>
@@ -69,7 +74,7 @@
 				{/each}
 				{#if totalNumberOfStrats > 6}
 					<a
-						href={`/strats?author=${username}`}
+						href={redirectLink}
 						class="max-md:hidden grid place-items-center bg-neutral-800 rounded"
 					>
 						<div class="grid place-items-center gap-4 p-4 w-72">
@@ -86,7 +91,7 @@
 				{/if}
 			</div>
 			<a
-				href={`/strats?author=${username}`}
+				href={redirectLink}
 				class="text-center hover:underline focus-within:underline">View all</a
 			>
 		</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import StratSection from '$lib/features/account/page/StratSection.svelte';
+	import StratSlider from '$lib/features/stratListing/components/StratSlider.svelte';
 	import TeamSection from '$lib/features/account/page/TeamSection.svelte';
 	import UserInfo from '$lib/features/account/page/UserInfo.svelte';
 
@@ -16,6 +16,6 @@
 			profilePicture={profile.profilePicture.filename}
 		/>
 		<TeamSection {teams} />
-		<StratSection username={profile.username} {strats} {totalNumberOfStrats} />
+		<StratSlider {strats} {totalNumberOfStrats} redirect="user" />
 	{/if}
 </div>

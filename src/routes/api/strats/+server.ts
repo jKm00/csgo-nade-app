@@ -149,7 +149,7 @@ const createStrat = async (
 			description,
 			privacy,
 			map_id: mapId,
-			team_id: teamId ? null : teamId,
+			team_id: teamId ? Number(teamId) : null,
 			author_id: playerId,
 			position_id: Number(positionId),
 			team_side: side,
