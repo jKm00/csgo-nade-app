@@ -31,9 +31,7 @@ export const actions = {
 				return message(form, 'Something went wrong. Please try again!');
 			}
 
-			return message(form, 'Email sent', {
-				status: 200,
-			});
+			return message(form, 'Email sent');
 		} catch (err) {
 			return message(form, 'Something went wrong. Please try again!');
 		}

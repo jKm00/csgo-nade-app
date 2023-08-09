@@ -15,7 +15,7 @@
 		your password
 	</p>
 {:else}
-	<form class="grid gap-4 w-64" method="POST" use:enhance>
+	<form class="grid gap-4 w-default-form" method="POST" use:enhance>
 		<TextInput
 			id="email"
 			name="email"
@@ -24,6 +24,10 @@
 			bind:value={$form.email}
 			errors={$errors.email}
 		/>
-		<FormButton loading={$delayed}>Submit</FormButton>
+		<FormButton loading={$delayed ?? false}>Submit</FormButton>
+		<a
+			class="text-sm text-neutral-400 text-center hover:underline focus-within:underline"
+			href="/login">Back to login page</a
+		>
 	</form>
 {/if}

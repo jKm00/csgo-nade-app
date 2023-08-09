@@ -16,24 +16,29 @@
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange(
 			async (event, _session) => {
-				if (_session?.expires_at !== session?.expires_at) {
-					invalidate('supabase:auth');
-				}
-
-				if (session) {
-					const { data } = await supabase
-						.from('profiles')
-						.select('id, uuid, name, username, profile_picture ( filename )')
-						.eq('uuid', session.user.id)
-						.single();
-
-					if (!data) {
-						goto('/profile-setup');
-					} else {
-						authUser.set(data as User);
-					}
+				if (event === 'PASSWORD_RECOVERY') {
+					goto(`/login/new-password?token=${_session?.access_token}`);
 				} else {
-					authUser.set(null);
+					if (_session?.expires_at !== session?.expires_at) {
+						invalidate('supabase:auth');
+					}
+
+					if (session) {
+						const { data } = await supabase
+							.from('profiles')
+							.select('id, uuid, name, username, profile_picture ( filename )')
+							.eq('uuid', session.user.id)
+							.single();
+
+						if (!data) {
+							goto('/profile-setup');
+						} else {
+							authUser.set(data as User);
+						}
+						console.log($authUser);
+					} else {
+						authUser.set(null);
+					}
 				}
 			}
 		);

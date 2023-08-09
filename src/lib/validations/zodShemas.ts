@@ -201,4 +201,5 @@ export const forgotPasswordUpdateSchema = z.object({
 			),
 			'One uppercase, one lower, one special character, and a number required'
 		),
+	token: z.string(),
 });
