@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@supabase/auth-helpers-sveltekit':
     specifier: ^0.9.4
@@ -52,8 +56,8 @@ devDependencies:
     specifier: ^0.3.4
     version: 0.3.4
   sveltekit-superforms:
-    specifier: ^0.8.6
-    version: 0.8.6(@sveltejs/kit@1.20.2)(svelte@3.54.0)(zod@3.21.4)
+    specifier: ^1.5.1
+    version: 1.5.1(@sveltejs/kit@1.20.2)(svelte@3.54.0)(zod@3.21.4)
   tailwindcss:
     specifier: ^3.3.2
     version: 3.3.2
@@ -1755,11 +1759,11 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /sveltekit-superforms@0.8.6(@sveltejs/kit@1.20.2)(svelte@3.54.0)(zod@3.21.4):
-    resolution: {integrity: sha512-pX4nwr+xGcT/NC0IHiIQ1TFgCEWAKrX5ODq3SMVYaUayz+QikPnEOOOvhsR2+NwI1z+Khz5lVHpcx6ZG/tkuQQ==}
+  /sveltekit-superforms@1.5.1(@sveltejs/kit@1.20.2)(svelte@3.54.0)(zod@3.21.4):
+    resolution: {integrity: sha512-OqKzxuL1P29CFiK1CD00JRsvEsRPedvrR0qXmB4uqzXAIjOS+DpLjoEaa6Cnkd4H00fRa2161GcZNeEBue/D3A==}
     peerDependencies:
       '@sveltejs/kit': 1.x
-      svelte: 3.x
+      svelte: 3.x || 4.x
       zod: 3.x
     dependencies:
       '@sveltejs/kit': 1.20.2(svelte@3.54.0)(vite@4.3.0)
