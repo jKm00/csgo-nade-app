@@ -36,8 +36,9 @@ export const actions = {
 		);
 
 		// Handle taken username or email
-		if (user.length > 0) {
-			let errorMsg: string;
+		if (user && user.length > 0) {
+			let errorMsg =
+				'Something went wrong. Please try again or contact support!';
 			if (user[0].username === username && user[0].email === email) {
 				errorMsg = 'Username and email is taken! Try something else.';
 			} else if (user[0].username === username) {
@@ -45,14 +46,9 @@ export const actions = {
 			} else if (user[0].email === email) {
 				errorMsg = 'Email is already taken! Try another.';
 			}
-			return message(
-				form,
-				errorMsg ??
-					'Something went wrong. Please try again or contact support!',
-				{
-					status: 400,
-				}
-			);
+			return message(form, errorMsg, {
+				status: 400,
+			});
 		}
 
 		// Sign up to supabase auth
