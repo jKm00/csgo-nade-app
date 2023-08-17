@@ -34,7 +34,6 @@
 						} else {
 							authUser.set(data as unknown as User);
 						}
-						console.log($authUser);
 					} else {
 						authUser.set(null);
 					}

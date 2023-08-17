@@ -1,3 +1,4 @@
+import type { User } from '$lib/features/navBar/types/User';
 import { loginSchema } from '$lib/validations/zodShemas';
 import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
@@ -54,7 +55,7 @@ export const actions = {
 		const { email, password } = form.data as Record<string, string>;
 
 		// Sign in with form
-		const { error: err } = await locals.supabase.auth.signInWithPassword({
+		const { data, error: err } = await locals.supabase.auth.signInWithPassword({
 			email,
 			password,
 		});
@@ -70,8 +71,34 @@ export const actions = {
 			});
 		}
 
+		// Fetch details fo signed in user
+		const { data: user } = await locals.supabase
+			.from('profiles')
+			.select('id, uuid, name, username, profile_picture ( filename )')
+			.eq('uuid', data.user.id)
+			.single();
+
+		if (!user) {
+			return message(form, 'Something went wrong. Please try again.', {
+				status: 500,
+			});
+		}
+
 		const redirectTo = url.searchParams.get('redirectTo') ?? '/';
 
-		throw redirect(302, redirectTo);
+		// FIXME: Currently returning status 500 so I can catch the values on the client.
+		// For some reason, it redirects to home page on success (200) making me unable to use the
+		// values before redirecting manually.
+		return message(
+			form,
+			{
+				user: user as unknown as User,
+				session: data.session,
+				redirectTo,
+			},
+			{
+				status: 500,
+			}
+		);
 	},
 };

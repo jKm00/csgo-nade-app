@@ -3,19 +3,18 @@
 	import CreateMenu from './CreateDialog.svelte';
 	import UserMenu from '$lib/features/navBar/components/UserMenu.svelte';
 	import { notifications } from '$lib/stores/notificationStore';
-
-	$: ({ session } = $page.data);
+	import { authUser } from '$lib/stores/authStore';
 </script>
 
 <nav class="flex justify-between p-4">
 	<div>
 		<h1 class="font-bold uppercase"><a href="/">Csgo Strats</a></h1>
 	</div>
-	{#if session}
+	{#if $authUser}
 		<div class="flex items-center gap-6">
 			<CreateMenu />
 			<!-- Notificaitons -->
-			<a class="relative" href="/users/{session.user.id}/alerts">
+			<a class="relative" href="/users/{$authUser.uuid}/alerts">
 				<svg
 					class="w-4 fill-white cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"

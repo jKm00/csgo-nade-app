@@ -1,13 +1,17 @@
 <script lang="ts">
 	import type { LoginSchema } from '$lib/validations/zodShemas';
 	import { superForm } from 'sveltekit-superforms/client';
-	import type { Validation } from 'sveltekit-superforms/index';
 	import TextInput from '../inputs/TextInput.svelte';
 	import { page } from '$app/stores';
 	import { Chasing } from 'svelte-loading-spinners';
 	import FormMessage from '../feedback/FormMessage.svelte';
+	import type { SuperValidated } from 'sveltekit-superforms';
+	import type { User } from '$lib/features/navBar/types/User';
+	import { authUser } from '$lib/stores/authStore';
+	import { goto } from '$app/navigation';
+	import type { Session } from '@supabase/supabase-js';
 
-	export let data: Validation<LoginSchema>;
+	export let data: SuperValidated<LoginSchema>;
 	export let redirectTo: string;
 
 	const {
@@ -17,6 +21,17 @@
 		delayed,
 		message,
 	} = superForm(data);
+
+	$: {
+		setAuthUser($message?.user, $message?.redirectTo);
+	}
+
+	const setAuthUser = (user?: User, redirectTo?: string) => {
+		if (user && redirectTo) {
+			authUser.set(user);
+			goto(redirectTo);
+		}
+	};
 </script>
 
 <form
