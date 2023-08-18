@@ -4,7 +4,6 @@
 	import '../app.css';
 	import Toast from '$lib/components/feedback/toast/Toast.svelte';
 	import { goto, invalidate } from '$app/navigation';
-	import BetaBanner from '$lib/components/layout/BetaBanner.svelte';
 	import type { User } from '$lib/features/navBar/types/User';
 	import { authUser } from '$lib/stores/authStore';
 
@@ -56,7 +55,6 @@
 
 <Toast />
 <div class="flex flex-col min-h-screen bg-neutral-900 text-white">
-	<BetaBanner />
 	<slot />
 	<Footer />
 </div>
