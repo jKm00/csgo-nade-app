@@ -50,7 +50,7 @@
 		type="image/x-icon"
 		href="/assets/icons/favicons/favicon.ico"
 	/>
-	<title>CSGO Strats - BETA</title>
+	<title>CSGO Strats</title>
 </svelte:head>
 
 <Toast />
