@@ -9,7 +9,6 @@
 	import type { User } from '$lib/features/navBar/types/User';
 	import { authUser } from '$lib/stores/authStore';
 	import { goto } from '$app/navigation';
-	import type { Session } from '@supabase/supabase-js';
 
 	export let data: SuperValidated<LoginSchema>;
 	export let redirectTo: string;

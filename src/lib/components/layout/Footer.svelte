@@ -1,7 +1,7 @@
 <footer class="text-neutral-500 text-sm text-center py-4 px-4 mt-10">
 	<p>Joakim Edvardsen &copy; 2023. All rights reserved</p>
 	<p>
-		Version 0.11.0 |
+		Version 0.12.0 |
 		<a
 			class="hover:underline focus-within:underline"
 			href="/terms-of-service"
@@ -13,6 +13,8 @@
 			href="/privacy-policy"
 			target="_blank">Privacy policy</a
 		>
+		|
+		<a class="hover:underline focus-within:underline" href="/help">Help</a>
 		|
 		<a
 			class="hover:underline focus-within:underline"
