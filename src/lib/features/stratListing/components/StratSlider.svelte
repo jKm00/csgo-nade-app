@@ -28,7 +28,7 @@
 	{#if strats.length > 0}
 		<div class="grid gap-4">
 			<div
-				class="carousel gap-4 max-sm:flex max-sm:flex-col max-md:grid max-md:grid-cols-2 max-"
+				class="carousel gap-4 max-sm:flex max-sm:flex-col max-md:grid max-md:grid-cols-2"
 			>
 				{#each strats as strat}
 					<a

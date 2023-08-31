@@ -14,7 +14,7 @@
 			target="_blank">Privacy policy</a
 		>
 		|
-		<a class="hover:underline focus-within:underline" href="/help">Help</a>
+		<a class="hover:underline focus-within:underline" href="/guide">Guide</a>
 		|
 		<a
 			class="hover:underline focus-within:underline"
