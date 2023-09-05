@@ -6,7 +6,7 @@
 <div class="w-default">
 	<div class="max-w-[80ch] leading-7">
 		<section class="mb-10">
-			<h1 class="text-red-400 text-3xl font-bold mb-4">CSGO Strats - Help</h1>
+			<h1 class="text-red-400 text-3xl font-bold mb-4">CSGO Strats - Guide</h1>
 			<p>
 				Welcome to the CSGO Strats help guide. This resource is designed to
 				assist you in making the most of our web application, enabling you to
