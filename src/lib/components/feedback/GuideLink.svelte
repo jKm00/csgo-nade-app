@@ -24,12 +24,7 @@
 		>
 	</div>
 	<p class="">
-		For more details of how to use this application that a look at this <a
-			href=""
-			class="underline hover:text-red-400 focus-within:text-red-400 transition-colors"
-			>video guide</a
-		>
-		or this
+		For more details of how to use this application that a look at this
 		<a
 			href="/guide"
 			class="underline hover:text-red-400 focus-within:text-red-400 transition-colors"
