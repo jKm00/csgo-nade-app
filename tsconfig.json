@@ -6,9 +6,13 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true
-	}
+		"sourceMap": false,
+		"strict": true,
+		"target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
+	},
+	"include": ["**/*.ts"]
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
 	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes

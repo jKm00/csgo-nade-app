@@ -21,3 +21,4 @@ symlink-from
 secrets/
 build/
 .vscode/
+/test-results/

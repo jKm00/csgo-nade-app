@@ -6,7 +6,7 @@
 </script>
 
 {#if $authUser}
-	<button on:click={() => (showMenu = true)}>
+	<button on:click={() => (showMenu = true)} data-cy="profile-picture">
 		<img
 			class="w-6 rounded-full"
 			src="/assets/images/profile_pictures/{$authUser.profile_picture.filename}"
