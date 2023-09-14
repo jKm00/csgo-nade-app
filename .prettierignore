@@ -1,0 +1,11 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/docs
+
+.env
+.env.example
+netlify.toml
+package.json
+pnpm-lock.yaml
