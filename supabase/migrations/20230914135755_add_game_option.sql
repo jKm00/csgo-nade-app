@@ -27,7 +27,7 @@ using ((auth.uid() IN ( SELECT profiles.uuid
                   WHERE ((roles.name)::text = 'ADMIN'::text))))))));
 
 
-create policy "Enable insert for authenticated users only"
+create policy "Enable insert for admins only"
 on "public"."games"
 as permissive
 for insert
@@ -73,7 +73,7 @@ with check ((auth.uid() IN ( SELECT profiles.uuid
 INSERT INTO "public"."games" (full_name, short_name) 
 VALUES 
    ('Counter-Strike: Global Offensive', 'CS:GO'),
-   ('Counter-Strike: 2', 'CS2');
+   ('Counter-Strike 2', 'CS2');
 
 -- add game column to strats referencing a game in games table with a default value as "CS:GO"
 alter table "public"."strats" add column "game" bigint not null default '1'::bigint;
