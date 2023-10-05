@@ -66,6 +66,7 @@ export const actions = {
 					status: 400,
 				});
 			}
+			console.error(err);
 			return message(form, 'Server error. Please try again later.', {
 				status: 500,
 			});
