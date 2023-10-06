@@ -93,6 +93,7 @@
 						teamName={strat.teamName}
 						side={strat.teamSide}
 						position={strat.position}
+						game={strat.game}
 					/>
 				</div>
 			{/if}
