@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let color: 'red' | 'blue' | 'purple';
+	export let color: 'red' | 'blue' | 'purple' | 'amber';
 
 	// Have to do it like this for the tailwind compiler
 	// to include the colors until I figure out how to do it proparly
@@ -12,6 +12,9 @@
 		}
 		if (color === 'purple') {
 			return 'bg-purple-400/10 border-purple-400 text-purple-400 group-hover:bg-purple-400 group-focus-within:bg-purple-400';
+		}
+		if (color === 'amber') {
+			return 'bg-amber-400/10 border-amber-400 text-amber-400 group-hover:bg-amber-400 group-focus-within:bg-amber-400';
 		}
 	};
 </script>

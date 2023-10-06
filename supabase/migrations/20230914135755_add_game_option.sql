@@ -76,9 +76,9 @@ VALUES
    ('Counter-Strike 2', 'CS2');
 
 -- add game column to strats referencing a game in games table with a default value as "CS:GO"
-alter table "public"."strats" add column "game" bigint not null default '1'::bigint;
+alter table "public"."strats" add column "game_id" bigint not null default '1'::bigint;
 
-alter table "public"."strats" add constraint "strats_game_fkey" FOREIGN KEY (game) REFERENCES games(id) ON DELETE RESTRICT not valid;
+alter table "public"."strats" add constraint "strats_game_fkey" FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE RESTRICT not valid;
 
 alter table "public"."strats" validate constraint "strats_game_fkey";
 
