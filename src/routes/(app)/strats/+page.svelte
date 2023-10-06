@@ -37,6 +37,7 @@
 						createdAt={strat.createdAt}
 						team={strat.team}
 						side={strat.side}
+						game={strat.game.shortName}
 					/>
 				{/each}
 			{/if}

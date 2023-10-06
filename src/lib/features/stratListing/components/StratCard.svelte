@@ -10,6 +10,7 @@
 	export let createdAt: string;
 	export let side: string;
 	export let position: string | undefined;
+	export let game: string;
 </script>
 
 <a
@@ -38,7 +39,7 @@
 				- <a class="underline" href="/teams/{team}">{team}</a>
 			{/if}
 		</p>
-		<div class="flex gap-2 mt-6">
+		<div class="flex flex-wrap gap-2 mt-6">
 			{#if side === 'CT'}
 				<Tag color="blue">{side}</Tag>
 			{:else}
@@ -47,6 +48,7 @@
 			{#if position}
 				<Tag color="purple">{position}</Tag>
 			{/if}
+			<Tag color="amber">{game}</Tag>
 		</div>
 	</div>
 </a>
