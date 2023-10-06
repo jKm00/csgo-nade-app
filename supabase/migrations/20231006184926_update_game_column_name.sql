@@ -1,0 +1,1 @@
+ALTER TABLE "public"."strats" RENAME COLUMN "game" TO "game_id";
