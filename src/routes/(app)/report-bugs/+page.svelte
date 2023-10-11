@@ -1,27 +1,10 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import FormMessage from '$lib/components/feedback/FormMessage.svelte';
   import { toast } from '$lib/components/feedback/toast/toastStore.js';
-  import TextAreaInput from '$lib/components/inputs/TextAreaInput.svelte';
-  import TextInput from '$lib/components/inputs/TextInput.svelte';
-  import { Button } from '$lib/components/ui/button';
-  import { superForm } from 'sveltekit-superforms/client';
-  import { Loader2 } from 'lucide-svelte';
-  import { Input } from '$lib/components/ui/input';
   import { reportBugSchema } from '$lib/validations/zodShemas';
   import * as Form from '$lib/components/ui/form';
-  import { Textarea } from '$lib/components/ui/textarea';
 
   export let data;
   export let form;
-
-  // const {
-  //   form: reportForm,
-  //   errors,
-  //   enhance,
-  //   delayed,
-  //   message,
-  // } = superForm(data.form, { warnings: { duplicateId: false } });
 
   $: if (form?.message) {
     toast.push({ type: 'error', title: 'Error', desc: form.message });
@@ -52,10 +35,5 @@
       <Form.Validation />
     </Form.Item>
   </Form.Field>
-  <Form.Button class="mt-4">
-    {#if true}
-      <Loader2 class="mr-2 h-4 w-4 animate-spin" />
-    {/if}
-    Submit report
-  </Form.Button>
+  <Form.Button class="mt-4">Submit report</Form.Button>
 </Form.Root>

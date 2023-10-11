@@ -109,7 +109,7 @@
     {#if !file}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <button
-        class="grid place-items-center bg-neutral-800 rounded border border-neutral-700 text-neutral-400 border-dashed aspect-video"
+        class="grid place-items-center bg-background rounded border border-neutral-700 text-neutral-400 border-dashed aspect-video"
         on:click|preventDefault={openFileOption}
         on:dragenter|preventDefault|stopPropagation={() => (dragAcitve = true)}
         on:dragover|preventDefault|stopPropagation={() => (dragAcitve = true)}
@@ -122,6 +122,7 @@
       </button>
     {:else}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <img
         class="rounded aspect-video object-cover cursor-pointer bg-neutral-800"
         src="#"

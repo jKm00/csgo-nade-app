@@ -45,6 +45,7 @@
 </script>
 
 <input type="hidden" {id} {name} bind:value />
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="relative w-52 text-neutral-400"
   use:clickOutside={() => (showDropDown = false)}
@@ -53,7 +54,7 @@
 >
   <!-- Selected value or placeholder -->
   <button
-    class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+    class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-background border hover:bg-muted focus-within:bg-muted active:bg-muted"
     on:click|preventDefault={() => (showDropDown = !showDropDown)}
     >{selected && selected !== null ? selected.label : placeholder}<svg
       class={`${
@@ -70,11 +71,11 @@
   {#if showDropDown}
     <div
       transition:slide={{ duration: 100 }}
-      class="absolute top-[115%] grid gap-2 bg-neutral-700 py-2 rounded w-full min-w-fit max-h-60 overflow-y-auto shadow z-10"
+      class="absolute top-[115%] grid gap-2 bg-background border py-2 rounded w-full min-w-fit max-h-60 overflow-y-auto shadow z-10"
     >
       {#if showDefaultOptions}
         <button
-          class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+          class="text-left p-2 hover:bg-muted focus-within:bg-muted"
           on:click|preventDefault={() => updateSelected(null)}
           >{defaultOptions}</button
         >
@@ -83,7 +84,7 @@
         {#each options as option}
           <button
             on:click|preventDefault={() => updateSelected(option)}
-            class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+            class="text-left p-2 hover:bg-muted focus-within:bg-muted"
             >{option.label}</button
           >
         {/each}
