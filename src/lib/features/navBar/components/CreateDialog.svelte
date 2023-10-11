@@ -1,7 +1,5 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-  import { Button } from '$lib/components/ui/button';
 
   let showMenu = false;
 </script>
