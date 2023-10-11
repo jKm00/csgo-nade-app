@@ -1,7 +1,18 @@
 <script lang="ts">
   import { NadeType, type Nade } from '$lib/features/stratEditor/types/nade';
 
-  export let nades: Nade[];
+  export let nades: {
+    id: number;
+    name: string;
+    notes: string;
+    type: NadeType;
+    lineupX: number;
+    lineupY: number;
+    impactX: number;
+    impactY: number;
+    lineupImg: string;
+    impactImg: string;
+  }[];
 
   let smokes = 0;
   let flashes = 0;

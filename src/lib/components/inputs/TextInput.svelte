@@ -15,7 +15,7 @@
   {/if}
   {#if isPassword}
     <input
-      class="bg-neutral-800 rounded-sm p-2"
+      class="bg-background border rounded p-2"
       type="password"
       placeholder={placeholder ?? ''}
       {id}

@@ -21,12 +21,12 @@
   <!-- Backdrop -->
   <div
     transition:fade={{ duration: 200 }}
-    class="fixed top-0 bottom-0 left-0 right-0 bg-neutral-950/80 z-20"
+    class="fixed top-0 bottom-0 left-0 right-0 bg-neutral-950/50 z-20"
   />
 {/if}
 <div
   style={drawerStyles}
-  class="fixed top-0 bottom-0 right-0 w-drawer bg-neutral-900 z-50 transition-transform"
+  class="fixed top-0 bottom-0 right-0 w-drawer bg-background z-50 transition-transform"
   use:clickOutside={() => (show = false)}
 >
   <div class="flex items-center justify-between p-4">
