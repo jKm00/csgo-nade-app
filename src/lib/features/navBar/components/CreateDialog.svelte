@@ -6,19 +6,6 @@
   let showMenu = false;
 </script>
 
-<DropdownMenu.Root>
-  <DropdownMenu.Trigger asChild let:builder>
-    <Button builders={[builder]} variant="outline">Open</Button>
-  </DropdownMenu.Trigger>
-  <DropdownMenu.Content>
-    <DropdownMenu.Group>
-      <DropdownMenu.Item>Create strat</DropdownMenu.Item>
-    </DropdownMenu.Group>
-  </DropdownMenu.Content>
-</DropdownMenu.Root>
-
-<Button variant="outline">Open</Button>
-
 <button on:click={() => (showMenu = true)}
   ><svg
     class="fill-white text-xl"
