@@ -1,102 +1,102 @@
 <script lang="ts">
-	import { isEqual } from '$lib/utils/isEqual';
+  import { isEqual } from '$lib/utils/isEqual';
 
-	import { slide } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
 
-	import { clickOutside } from 'svelte-use-click-outside';
-	import ErrorMessage from '../feedback/ErrorMessage.svelte';
-	import { createEventDispatcher } from 'svelte';
+  import { clickOutside } from 'svelte-use-click-outside';
+  import ErrorMessage from '../feedback/ErrorMessage.svelte';
+  import { createEventDispatcher } from 'svelte';
 
-	type T = $$Generic;
+  type T = $$Generic;
 
-	interface Option {
-		value: T;
-		label: string;
-	}
+  interface Option {
+    value: T;
+    label: string;
+  }
 
-	export let id: string;
-	export let name: string;
-	export let label: string | undefined = undefined;
-	export let placeholder: string;
-	export let value: T | null = null;
-	export let options: Option[];
-	export let errors: string[] | undefined = undefined;
-	export let showDefaultOptions: boolean = true;
-	export let defaultOptions: string = 'No value';
+  export let id: string;
+  export let name: string;
+  export let label: string | undefined = undefined;
+  export let placeholder: string;
+  export let value: T | null = null;
+  export let options: Option[];
+  export let errors: string[] | undefined = undefined;
+  export let showDefaultOptions: boolean = true;
+  export let defaultOptions: string = 'No value';
 
-	$: selected = options?.find((opt) => opt.value === value);
+  $: selected = options?.find((opt) => opt.value === value);
 
-	const dispatch = createEventDispatcher<{ update: { value: T | null } }>();
+  const dispatch = createEventDispatcher<{ update: { value: T | null } }>();
 
-	let dropDown: HTMLElement;
-	let showDropDown = false;
+  let dropDown: HTMLElement;
+  let showDropDown = false;
 
-	const handleKeyUp = (event: KeyboardEvent) => {
-		if (event.code === 'Escape') {
-			showDropDown = false;
-		}
-	};
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.code === 'Escape') {
+      showDropDown = false;
+    }
+  };
 
-	const setValue = (val: T | null) => {
-		value = val;
-		showDropDown = false;
-	};
+  const setValue = (val: T | null) => {
+    value = val;
+    showDropDown = false;
+  };
 
-	$: dispatch('update', { value });
+  $: dispatch('update', { value });
 </script>
 
 <div class="grid">
-	<input type="hidden" {id} {name} bind:value />
-	{#if label}
-		<label class="font-bold" for={id}>{label}</label>
-	{/if}
-	<div
-		class="relative text-neutral-400"
-		use:clickOutside={() => (showDropDown = false)}
-		bind:this={dropDown}
-		on:keyup={handleKeyUp}
-	>
-		<!-- Selected value or placeholder -->
-		<button
-			class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
-			on:click|preventDefault={() => (showDropDown = !showDropDown)}
-			>{selected ? selected.label : placeholder}<svg
-				class={`${
-					showDropDown ? '' : '-rotate-90'
-				} fill-neutral-400 h-3 transition-transform`}
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 448 512"
-				><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-					d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
-				/></svg
-			></button
-		>
-		<!-- Menu -->
-		{#if showDropDown}
-			<div
-				transition:slide={{ duration: 100 }}
-				class="absolute top-[115%] grid gap-2 bg-neutral-700 py-2 rounded overflow-hidden w-full min-w-fit max-h-60 overflow-y-auto shadow z-10"
-			>
-				{#if showDefaultOptions}
-					<button
-						class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
-						on:click|preventDefault={() => setValue(null)}
-						>{defaultOptions}</button
-					>
-				{/if}
-				{#if options}
-					{#each options as option}
-						<button
-							on:click|preventDefault={() => setValue(option.value)}
-							class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
-							>{option.label}</button
-						>
-					{/each}
-				{/if}
-			</div>
-		{/if}
-		{#if errors}
-			<ErrorMessage>{errors[0]}</ErrorMessage>
-		{/if}
-	</div>
+  <input type="hidden" {id} {name} bind:value />
+  {#if label}
+    <label class="font-bold" for={id}>{label}</label>
+  {/if}
+  <div
+    class="relative text-neutral-400"
+    use:clickOutside={() => (showDropDown = false)}
+    bind:this={dropDown}
+    on:keyup={handleKeyUp}
+  >
+    <!-- Selected value or placeholder -->
+    <button
+      class="flex gap-2 justify-between min-w-full items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 focus-within:bg-neutral-700 active:bg-neutral-600"
+      on:click|preventDefault={() => (showDropDown = !showDropDown)}
+      >{selected ? selected.label : placeholder}<svg
+        class={`${
+          showDropDown ? '' : '-rotate-90'
+        } fill-neutral-400 h-3 transition-transform`}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+        ><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+          d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+        /></svg
+      ></button
+    >
+    <!-- Menu -->
+    {#if showDropDown}
+      <div
+        transition:slide={{ duration: 100 }}
+        class="absolute top-[115%] grid gap-2 bg-neutral-700 py-2 rounded overflow-hidden w-full min-w-fit max-h-60 overflow-y-auto shadow z-10"
+      >
+        {#if showDefaultOptions}
+          <button
+            class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+            on:click|preventDefault={() => setValue(null)}
+            >{defaultOptions}</button
+          >
+        {/if}
+        {#if options}
+          {#each options as option}
+            <button
+              on:click|preventDefault={() => setValue(option.value)}
+              class="text-left p-2 hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500"
+              >{option.label}</button
+            >
+          {/each}
+        {/if}
+      </div>
+    {/if}
+    {#if errors}
+      <ErrorMessage>{errors[0]}</ErrorMessage>
+    {/if}
+  </div>
 </div>
