@@ -1,5 +1,4 @@
 <script lang="ts">
-  import FormButton from '$lib/components/buttons/FormButton.svelte';
   import Dropdown2 from '$lib/components/inputs/Dropdown2.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import { maps } from '$lib/shared/maps';
@@ -160,12 +159,12 @@
 <!-- Drawer -->
 <Drawer bind:show={showDrawer} width="25rem" side="left">
   <div slot="title">
-    <h1 class="text-2xl font-bold text-red-400">Filters</h1>
+    <h1 class="text-2xl font-bold text-primary">Filters</h1>
   </div>
   <div slot="body" class="p-4">
     <form on:submit={handleSubmit} class="grid gap-10">
       <fieldset class="grid gap-2">
-        <legend class="font-bold">Map options:</legend>
+        <legend class="font-bold mb-1">Map options:</legend>
         <Dropdown2
           id="map"
           name="map"
@@ -189,7 +188,7 @@
         />
       </fieldset>
       <fieldset class="grid gap-2">
-        <legend class="font-bold">Other options:</legend>
+        <legend class="font-bold mb-1">Other options:</legend>
         <TextInput
           id="stratName"
           name="stratName"
@@ -209,7 +208,7 @@
           bind:value={author}
         />
       </fieldset>
-      <FormButton>Save</FormButton>
+      <Button>Save</Button>
     </form>
   </div>
 </Drawer>
