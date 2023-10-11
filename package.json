@@ -38,6 +38,12 @@
     "@supabase/auth-helpers-sveltekit": "^0.9.4",
     "@supabase/auth-ui-shared": "^0.1.7",
     "@supabase/auth-ui-svelte": "^0.2.6",
-    "svelte-use-click-outside": "^1.0.0"
+    "bits-ui": "^0.5.7",
+    "clsx": "^2.0.0",
+    "formsnap": "^0.2.0",
+    "lucide-svelte": "^0.285.0",
+    "svelte-use-click-outside": "^1.0.0",
+    "tailwind-merge": "^1.14.0",
+    "tailwind-variants": "^0.1.14"
   }
 }

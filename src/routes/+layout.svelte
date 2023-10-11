@@ -75,7 +75,7 @@
     <LoadingBar />
   </div>
 {/if}
-<div class="flex flex-col min-h-screen bg-neutral-900 text-white">
+<div class="flex flex-col min-h-screen">
   <slot />
   <Footer />
 </div>

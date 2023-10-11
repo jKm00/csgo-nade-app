@@ -1,8 +1,23 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
+  import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+  import { Button } from '$lib/components/ui/button';
 
   let showMenu = false;
 </script>
+
+<DropdownMenu.Root>
+  <DropdownMenu.Trigger asChild let:builder>
+    <Button builders={[builder]} variant="outline">Open</Button>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Group>
+      <DropdownMenu.Item>Create strat</DropdownMenu.Item>
+    </DropdownMenu.Group>
+  </DropdownMenu.Content>
+</DropdownMenu.Root>
+
+<Button variant="outline">Open</Button>
 
 <button on:click={() => (showMenu = true)}
   ><svg
@@ -18,6 +33,7 @@
 
 {#if showMenu}
   <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     transition:fade={{ duration: 100 }}
     class="absolute inset-0 grid place-items-center bg-neutral-950/90 z-50"
