@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { RegisterSchema } from "$lib/validations/zodShemas";
-  import { superForm } from "sveltekit-superforms/client";
-  import TextInput from "../inputs/TextInput.svelte";
-  import FormButton from "../buttons/FormButton.svelte";
-  import { Chasing } from "svelte-loading-spinners";
-  import { page } from "$app/stores";
-  import FormMessage from "../feedback/FormMessage.svelte";
-  import type { SuperValidated } from "sveltekit-superforms";
+  import type { RegisterSchema } from '$lib/validations/zodShemas';
+  import { superForm } from 'sveltekit-superforms/client';
+  import TextInput from '../inputs/TextInput.svelte';
+  import { Chasing } from 'svelte-loading-spinners';
+  import { page } from '$app/stores';
+  import FormMessage from '../feedback/FormMessage.svelte';
+  import type { SuperValidated } from 'sveltekit-superforms';
+  import { Button } from '$lib/components/ui/button';
 
   export let data: SuperValidated<RegisterSchema>;
 
@@ -77,7 +77,7 @@
       <p class="text-xs text-red-400 mt-2">Need to accept terms of service</p>
     {/if}
   </div>
-  <FormButton loading={$delayed}>Register</FormButton>
+  <Button disabled={$delayed}>Register</Button>
   <FormMessage message={$message} status={$page.status} />
   {#if $delayed}
     <div class="grid justify-center">
