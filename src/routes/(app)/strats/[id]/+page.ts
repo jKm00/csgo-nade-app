@@ -1,3 +1,5 @@
+import type { NadeType } from '$lib/features/stratEditor/types/nade';
+
 export const load = async ({ params, parent }) => {
   const fetchStrat = async () => {
     const stratId = params.id;
@@ -89,7 +91,7 @@ export const load = async ({ params, parent }) => {
           id: nade.id,
           name: nade.name,
           notes: nade.notes,
-          type: nade.type,
+          type: nade.type as NadeType,
           lineupX: nade.lineup_x,
           lineupY: nade.lineup_y,
           impactX: nade.impact_x,

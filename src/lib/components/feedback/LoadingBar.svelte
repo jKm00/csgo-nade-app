@@ -26,7 +26,7 @@
 </script>
 
 <div
-  class="fixed top-0 left-0 right-0 bg-red-400 h-1 origin-left custom"
+  class="fixed top-0 left-0 right-0 bg-primary h-1 origin-left custom"
   style="--scale: {$progress * 100}%"
 />
 
