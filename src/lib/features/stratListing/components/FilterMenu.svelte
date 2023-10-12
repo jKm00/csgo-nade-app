@@ -34,7 +34,11 @@
   let author = filters.find((f) => f.key === 'author')?.value;
 
   const getPositions = (selectedMap: string | undefined) => {
-    if (selectedMap === undefined || selectedMap === '') return positions;
+    if (selectedMap === undefined || selectedMap === '') {
+      return positions.filter(
+        (pos, index) => positions.map((p) => p.name).indexOf(pos.name) === index
+      );
+    }
 
     const mapId = maps.find((m) => m.name === selectedMap)?.id;
 
