@@ -1,31 +1,60 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import CreateMenu from './CreateDialog.svelte';
   import UserMenu from '$lib/features/navBar/components/UserMenu.svelte';
   import { notifications } from '$lib/stores/notificationStore';
   import { authUser } from '$lib/stores/authStore';
+  import { Button } from '$lib/components/ui/button';
+  import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+  import { Route, Users2, Play, Plus, Bell } from 'lucide-svelte';
 </script>
 
-<nav class="flex justify-between p-4">
+<nav class="flex items-center justify-between p-4">
   <div>
     <h1 class="font-bold uppercase"><a href="/">Cs Strats</a></h1>
   </div>
   {#if $authUser}
-    <div class="flex items-center gap-6">
-      <CreateMenu />
+    <div class="flex items-center gap-2">
+      <!-- Create dropdown -->
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger asChild let:builder>
+          <Button builders={[builder]} variant="outline" class="p-2">
+            <Plus size="20" />
+          </Button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content class="w-56">
+          <DropdownMenu.Label>Create menu</DropdownMenu.Label>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Group>
+            <a href="/strats/new">
+              <DropdownMenu.Item class="gap-2">
+                <Route size="20" />
+                Create Strat
+              </DropdownMenu.Item>
+            </a>
+            <a href="/teams">
+              <DropdownMenu.Item class="gap-2">
+                <Users2 size="20" />
+                Create Team
+              </DropdownMenu.Item>
+            </a>
+            <!-- TODO: Apply this menu item when lobby is implemented -->
+            <!-- <a href="/lobby">
+              <DropdownMenu.Item class="gap-2">
+                <Play size="20" />
+                Create Lobby
+              </DropdownMenu.Item>
+            </a> -->
+          </DropdownMenu.Group>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
       <!-- Notificaitons -->
-      <a class="relative" href="/users/{$authUser.uuid}/alerts">
-        <svg
-          class="w-4 fill-white cursor-pointer"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          ><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-            d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"
-          /></svg
-        >
+      <a
+        class="relative border p-2 rounded-md mr-2 hover:bg-muted focus-visible:bg-muted"
+        href="/users/{$authUser.uuid}/alerts"
+      >
+        <Bell size="20" />
         {#if $notifications !== 0}
           <span
-            class="absolute -top-1 -right-2 grid place-items-center w-2 aspect-square rounded-full text-xs bg-red-400"
+            class="absolute top-2 right-2 grid place-items-center w-2 aspect-square rounded-full text-xs bg-red-400"
           />
         {/if}
       </a>
