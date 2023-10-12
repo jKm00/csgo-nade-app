@@ -36,13 +36,12 @@
                 Create Team
               </DropdownMenu.Item>
             </a>
-            <!-- TODO: Apply this menu item when lobby is implemented -->
-            <!-- <a href="/lobby">
+            <a href="/lobby">
               <DropdownMenu.Item class="gap-2">
                 <Play size="20" />
                 Create Lobby
               </DropdownMenu.Item>
-            </a> -->
+            </a>
           </DropdownMenu.Group>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
