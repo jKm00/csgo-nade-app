@@ -1,6 +1,6 @@
 import type { NadeType } from '$lib/features/stratEditor/types/nade';
 
-export const load = async ({ params, parent }) => {
+export const load = async ({ params, parent, url }) => {
   const fetchStrat = async () => {
     const stratId = params.id;
 
@@ -108,6 +108,7 @@ export const load = async ({ params, parent }) => {
   };
 
   return {
+    redirect: url.searchParams.get('filters'),
     lazy: {
       strat: fetchStrat(),
     },

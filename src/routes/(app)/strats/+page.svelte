@@ -5,6 +5,25 @@
   import StratListingSkeleton from '$lib/features/stratListing/components/StratListingSkeleton.svelte';
 
   export let data;
+
+  $: redirectLink = getRedirectLink(data.filters);
+
+  function getRedirectLink(filters: { key: string; value: string }[]) {
+    if (filters.length === 0) return '';
+
+    const redirect = ['?filters='];
+
+    filters.forEach((f, index) => {
+      redirect.push(`${f.key}:${f.value}`);
+
+      // If not last item
+      if (index !== filters.length - 1) {
+        redirect.push(',');
+      }
+    });
+
+    return redirect.join('');
+  }
 </script>
 
 <main class="grid gap-6 mt-10 w-default">
@@ -33,6 +52,7 @@
             team={strat.team}
             side={strat.side}
             game={strat.game.shortName}
+            {redirectLink}
           />
         {/each}
       {:else}

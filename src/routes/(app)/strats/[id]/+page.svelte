@@ -15,7 +15,7 @@
 
   export let form;
   export let data;
-  $: ({ session, supabase } = data);
+  $: ({ session, supabase, redirect } = data);
 
   $: if (form?.message) {
     toast.push({
@@ -23,6 +23,21 @@
       title: 'Error',
       desc: form.message,
     });
+  }
+
+  $: formattedRedirect = formatRedirect(redirect);
+
+  function formatRedirect(redirect: string | null) {
+    if (!redirect) return '';
+
+    const urlParams = new URLSearchParams();
+    const filters = redirect.split(',');
+    filters.forEach((f) => {
+      const [key, value] = f.split(':');
+      urlParams.append(key, value);
+    });
+
+    return `?${urlParams.toString()}`;
   }
 </script>
 
@@ -42,6 +57,7 @@
         authorUuid={strat?.author.uuid}
         stratId={strat?.id}
         map={strat?.map.name}
+        redirect={formattedRedirect}
       />
     {/await}
   </div>

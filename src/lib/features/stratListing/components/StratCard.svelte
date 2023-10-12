@@ -12,11 +12,14 @@
   export let side: string;
   export let position: string | undefined;
   export let game: string;
+  export let redirectLink: string | undefined;
+
+  const redirect = redirectLink !== undefined ? redirectLink : '';
 </script>
 
 <a
   class="bg-card rounded shadow overflow-hidden group"
-  href="/strats/{stratId}"
+  href="/strats/{stratId}{redirect}"
 >
   <Card.Root>
     <Card.Header class="p-0">
