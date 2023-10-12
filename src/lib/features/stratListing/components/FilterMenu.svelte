@@ -114,7 +114,7 @@
           >Apply filters to only see strat of you choice</Sheet.Description
         >
       </Sheet.Header>
-      <div class="grid gap-8 mt-8">
+      <form on:submit|preventDefault={applyFilters} class="grid gap-8 mt-8">
         <div class="grid gap-2">
           <!-- Map -->
           <Select.Root
@@ -189,10 +189,8 @@
             on:input={() => (filterHasChanged = true)}
           />
         </div>
-        <Button on:click={applyFilters} disabled={!filterHasChanged}
-          >Save filters</Button
-        >
-      </div>
+        <Button disabled={!filterHasChanged}>Save filters</Button>
+      </form>
     </Sheet.Content>
   </Sheet.Root>
   <Button on:click={clearFilters} variant="outline" class="gap-1">
