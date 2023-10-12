@@ -20,7 +20,7 @@
     {#await data.lazy.strats}
       <StratListingSkeleton />
     {:then strats}
-      {#if strats}
+      {#if strats && strats.length > 0}
         {#each strats as strat}
           <StratCard
             thumbnail={strat.thumbnail}
@@ -35,6 +35,10 @@
             game={strat.game.shortName}
           />
         {/each}
+      {:else}
+        <p class="text-center col-span-4 text-muted-foreground text-sm">
+          No strats available with the selected filters
+        </p>
       {/if}
     {/await}
   </div>
