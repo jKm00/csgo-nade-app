@@ -18,10 +18,10 @@
 </script>
 
 <a
-  class="bg-card rounded shadow overflow-hidden group"
+  class="rounded shadow overflow-hidden group"
   href="/strats/{stratId}{redirect}"
 >
-  <Card.Root>
+  <Card.Root class="h-full">
     <Card.Header class="p-0">
       {#if thumbnail}
         <img
