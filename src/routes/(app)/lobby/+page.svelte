@@ -1,25 +1,41 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button';
   import { ChevronRight, Minus, Plus } from 'lucide-svelte';
+  import { flip } from 'svelte/animate';
 
   export let data;
 
   $: ({ maps, teams } = data);
 
-  let teamMembers = [
-    'jKm',
-    'Andy',
-    'Haimat',
-    'Jens',
-    'Hans',
-    'Holmane',
-    'Benny',
-  ];
-
   let selectedMap: number | null = null;
   let selectedTeam: number | null = null;
 
-  let invitedPlayers: string[] = [];
+  let teamMembers = [
+    { id: 0, name: 'jKm' },
+    { id: 1, name: 'Andy' },
+    { id: 2, name: 'Haimat' },
+    { id: 3, name: 'Jens' },
+    { id: 4, name: 'Hans' },
+    { id: 5, name: 'Holamne' },
+    { id: 6, name: 'Benny' },
+  ];
+  let selectedPlayers: { id: number; name: string }[] = [];
+
+  const selectMember = (id: number) => {
+    const foundMember = teamMembers.find((m) => m.id === id);
+    if (!foundMember) return;
+
+    teamMembers = teamMembers.filter((m) => m.id !== id);
+    selectedPlayers = [...selectedPlayers, foundMember];
+  };
+
+  const unSelectMember = (id: number) => {
+    const foundMember = selectedPlayers.find((p) => p.id === id);
+    if (!foundMember) return;
+
+    selectedPlayers = selectedPlayers.filter((p) => p.id !== id);
+    teamMembers = [...teamMembers, foundMember];
+  };
 </script>
 
 <div class="w-default grid gap-8">
@@ -73,11 +89,15 @@
         <h3 class="flex-grow mb-1 player-start">Team members:</h3>
         <h3 class="flex-grow mb-1 player-end">Invited players:</h3>
         <!-- Team members not selected -->
-        <div class="col-span-5 grid py-2 border rounded-md player-start">
-          {#each teamMembers as member}
+        <div
+          class="col-span-5 grid py-2 content-start border rounded-md player-start"
+        >
+          {#each teamMembers as member (member.id)}
             <button
+              on:click={() => selectMember(member.id)}
               class="flex justify-between items-center px-4 py-1 hover:bg-muted focus-visible:bg-muted group"
-              >{member}
+              animate:flip={{ duration: 200 }}
+              >{member.name}
               <Plus
                 size="20"
                 class="opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -90,10 +110,12 @@
         <div
           class="col-span-5 grid py-2 content-start border rounded-md player-end"
         >
-          {#each invitedPlayers as player}
+          {#each selectedPlayers as player (player.id)}
             <button
+              on:click={() => unSelectMember(player.id)}
               class="flex justify-between items-center px-4 py-1 hover:bg-muted focus-visible:bg-muted group"
-              >{player}
+              animate:flip={{ duration: 200 }}
+              >{player.name}
               <Minus
                 size="20"
                 class="opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
