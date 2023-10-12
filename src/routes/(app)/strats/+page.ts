@@ -6,6 +6,11 @@ export const load = async ({ url, parent }) => {
   const team = url.searchParams.get('teamName');
   const author = url.searchParams.get('author');
 
+  let filters = [];
+  for (const [key, value] of url.searchParams.entries()) {
+    filters.push({ key, value });
+  }
+
   const fetchStrats = async () => {
     const { supabase } = await parent();
     const { data, error } = await supabase.rpc('query_strats_with_filters', {
@@ -53,13 +58,28 @@ export const load = async ({ url, parent }) => {
     return strats;
   };
 
+  const fetchMaps = async () => {
+    const { supabase } = await parent();
+    const { data, error } = await supabase.from('maps').select('id, name');
+
+    return {
+      data: data as { id: number; name: string }[],
+    };
+  };
+
+  const fetchPosition = async () => {
+    const { supabase } = await parent();
+    const { data } = await supabase.from('positions').select('map_id, name');
+
+    return {
+      data: data as { map_id: number; name: string }[],
+    };
+  };
+
   return {
-    map,
-    position,
-    side,
-    strat,
-    team,
-    author,
+    filters,
+    maps: fetchMaps(),
+    positions: fetchPosition(),
     lazy: {
       strats: fetchStrats(),
     },
