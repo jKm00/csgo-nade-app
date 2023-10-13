@@ -41,15 +41,18 @@
       _: IntersectionObserver
     ) => {
       entries.forEach((entry) => {
+        // If target is moving into viewport from bottom
         if (entry.isIntersecting) {
           fetchNextStrats();
         }
       });
     };
 
+    // Initialize observer
     let observer = new IntersectionObserver(callback, options);
     observer.observe(target);
 
+    // Unsubscribe from page store and unobserve target when component is destroyed
     return () => {
       unsubscribe();
       observer.unobserve(target);
