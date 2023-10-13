@@ -23,12 +23,12 @@ export const GET = async ({ request, locals }) => {
 		p_strat_name: strat,
 		p_team_name: team,
 		p_author: author,
-	}).range(from, to);
+	}).range(Number(from), Number(to));
 
 	if (error) {
 		console.error(error);
 		return new Response('Something went wrong. Please try again!', { status: 500 });
-	}
+	};
 
 	return json(data);
 }

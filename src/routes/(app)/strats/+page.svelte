@@ -3,17 +3,66 @@
   import FilterMenu from '$lib/features/stratListing/components/FilterMenu.svelte';
   import StratCard from '$lib/features/stratListing/components/StratCard.svelte';
   import StratListingHeader from '$lib/features/stratListing/components/StratListingHeader.svelte';
-  import StratListingSkeleton from '$lib/features/stratListing/components/StratListingSkeleton.svelte';
   import type { StratResponse } from '$lib/dtos/StratResponse.js';
+  import { onMount } from 'svelte';
+  import { Loader2 } from 'lucide-svelte';
 
   export let data;
 
+  const LOAD_BATCH_SIZE = 12;
+
   let from = 0;
-  let to = 11;
+  let to = LOAD_BATCH_SIZE - 1;
+  let isMoreStrats: boolean;
+  let isLoadingMoreStrats = false;
+
+  onMount(() => {
+    const unsubscribe = page.subscribe((page) => {
+      // When filter changes, reset lazy loading
+      if (page.url.pathname === '/strats') {
+        from = 0;
+        to = LOAD_BATCH_SIZE - 1;
+        isMoreStrats = true;
+      }
+    });
+
+    // Intersect observer to watch when footer enters viewport.
+    // When this happens, load more strats
+    let options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.0,
+    };
+
+    let target = document.querySelector('#footer')!;
+
+    let callback = (
+      entries: IntersectionObserverEntry[],
+      _: IntersectionObserver
+    ) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          fetchNextStrats();
+        }
+      });
+    };
+
+    let observer = new IntersectionObserver(callback, options);
+    observer.observe(target);
+
+    return () => {
+      unsubscribe();
+      observer.unobserve(target);
+    };
+  });
 
   $: loadedStrats = data.strats as StratResponse[];
 
   $: redirectLink = getRedirectLink(data.filters);
+
+  $: if (data.filters) {
+    isMoreStrats = true;
+  }
 
   function getRedirectLink(filters: { key: string; value: string }[]) {
     if (filters.length === 0) return '';
@@ -33,20 +82,33 @@
   }
 
   async function fetchNextStrats() {
-    from += 12;
-    to += 12;
+    if (!isMoreStrats) return;
 
-    const response = await fetch(
-      `/api/strats?${$page.url.searchParams.toString()}&from=${from}&to=${to}`
-    );
-    const result = (await response.json()) as StratResponse[];
+    isLoadingMoreStrats = true;
 
-    loadedStrats = [...loadedStrats, ...result];
+    from += LOAD_BATCH_SIZE;
+    to += LOAD_BATCH_SIZE;
+
+    try {
+      const response = await fetch(
+        `/api/strats?${$page.url.searchParams.toString()}&from=${from}&to=${to}`
+      );
+      const result = (await response.json()) as StratResponse[];
+      // If last request resulted in a list less then 12, there are no more strats
+      if (result.length < 12) {
+        isMoreStrats = false;
+      }
+
+      loadedStrats = [...loadedStrats, ...result];
+    } catch (err) {
+      console.error(err);
+    } finally {
+      isLoadingMoreStrats = false;
+    }
   }
 </script>
 
 <main class="grid gap-6 mt-10 w-default">
-  <button on:click={fetchNextStrats}>Fetch strats</button>
   <StratListingHeader />
   <FilterMenu
     filters={data.filters}
@@ -74,6 +136,11 @@
           {redirectLink}
         />
       {/each}
+      {#if isLoadingMoreStrats}
+        <div class="flex justify-center col-span-full py-4">
+          <Loader2 class="animate-spin" />
+        </div>
+      {/if}
     {:else}
       <p class="text-center col-span-4 text-muted-foreground text-sm">
         No strats available with the selected filters
