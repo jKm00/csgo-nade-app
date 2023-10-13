@@ -19,6 +19,7 @@ values
 ('Vertigo', '/assets/images/thumbnails/vertigo_compressed.webp', '/assets/images/radars/de_vertigo.webp');
 
 -- insert profile pictures into db
+-- Note: profile picture 1 is inserted in migration as this is the default profile picture when signing up
 insert into
 public.profile_pictures (filename)
 values
