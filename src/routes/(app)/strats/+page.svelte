@@ -63,10 +63,6 @@
 
   $: redirectLink = getRedirectLink(data.filters);
 
-  $: if (data.filters) {
-    isMoreStrats = true;
-  }
-
   function getRedirectLink(filters: { key: string; value: string }[]) {
     if (filters.length === 0) return '';
 
