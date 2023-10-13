@@ -139,7 +139,32 @@ INSERT INTO "public"."profiles" ("uuid", "name", "username", "email", "inserted_
 
 -- insert strats
 INSERT INTO "public"."strats" ("inserted_at", "updated_at", "name", "description", "privacy", "map_id", "team_id", "author_id", "position_id", "team_side", "game_id") VALUES
-	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'A site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2);
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'A site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'B site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'C site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'D site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'E site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'F site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'G site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'H site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'I site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'J site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'K site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'L site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'M site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'N site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'O site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'P site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'Q site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'R site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'S site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'T site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'U site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'V site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'W site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'X site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'Y site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
+	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'Z site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2);
 
 INSERT INTO "public"."nades" ("created_at", "name", "type", "lineup_x", "lineup_y", "impact_x", "impact_y", "lineup_img", "impact_img", "strat_id", "notes") VALUES
 	('2023-10-13 14:42:20.722825+00', 'CT', 'SMOKE', 84.68, 53.52, 45.6, 78.7, NULL, NULL, 1, 'Jump throw'),
