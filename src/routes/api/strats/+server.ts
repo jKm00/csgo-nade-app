@@ -1,5 +1,37 @@
 import type { Nade, NadeType } from '$lib/features/stratEditor/types/nade';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { json } from '@sveltejs/kit';
+
+export const GET = async ({ request, locals }) => { 
+	const [_, params] = request.url.split('?');
+	const urlParams = new URLSearchParams(params);
+
+	const map = urlParams.get('map') ?? null;
+	const position = urlParams.get('position') ?? null;
+	const side = urlParams.get('side') ?? null;
+	const strat = urlParams.get('stratName') ?? null;
+	const team = urlParams.get('teamName') ?? null;
+	const author = urlParams.get('author') ?? null;
+
+	const from = urlParams.get('from') ?? '0';
+	const to = urlParams.get('to') ?? '11';
+
+	const { data, error } = await locals.supabase.rpc('query_strats_with_filters', {
+		p_map: map,
+		p_strat_position: position,
+		p_side: side,
+		p_strat_name: strat,
+		p_team_name: team,
+		p_author: author,
+	}).range(from, to);
+
+	if (error) {
+		console.error(error);
+		return new Response('Something went wrong. Please try again!', { status: 500 });
+	}
+
+	return json(data);
+}
 
 export const POST = async ({ request, locals }) => {
 	const session = await locals.getSession();
@@ -61,8 +93,8 @@ export const POST = async ({ request, locals }) => {
 				type: nadeType,
 				lineupX: nadeLineupX,
 				lineupY: nadeLineupY,
-				impactPointX: nadeImpactX,
-				impactPointY: nadeImpactY,
+				impactX: nadeImpactX,
+				impactY: nadeImpactY,
 				lineupImg: lineupImg,
 				impactImg: impactImg,
 			},
@@ -101,8 +133,8 @@ export const POST = async ({ request, locals }) => {
 			type: `${nade.type}`,
 			lineup_x: nade.lineupX,
 			lineup_y: nade.lineupY,
-			impact_x: nade.impactPointX ?? 0,
-			impact_y: nade.impactPointY ?? 0,
+			impact_x: nade.impactX ?? 0,
+			impact_y: nade.impactY ?? 0,
 			strat_id: stratId!,
 			lineup_img: lineupImgUrl,
 			impact_img: impactImgUrl,
