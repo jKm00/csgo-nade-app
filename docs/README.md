@@ -49,6 +49,14 @@ npm install
 npm run dev
 ```
 
+**Note:** When running locally, the db is automatically populated with two test users. Their login credentials are:
+
+|User|Email|Password|
+|--|--|--|
+|Test User 1|test1@gmail.com|#TestUser1|
+|Test User 2|test2@gmail.com|#TestUser2|
+
+
 ## 💻 Supabase commands
 
 For a list of useful Supabase commands, refer to the [Supabase Cheatsheet](./supabase-cheatsheet.md).

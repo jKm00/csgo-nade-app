@@ -5,7 +5,7 @@
   export let thumbnail: string | undefined;
   export let stratId: number;
   export let stratName: string;
-  export let team: string | undefined;
+  export let team: string | null;
   export let authorId: string;
   export let authorName: string;
   export let createdAt: string;
