@@ -4,12 +4,7 @@
   import { flip } from 'svelte/animate';
 </script>
 
-<!-- 
-  FIXME: 
-  Toast is behind drawers even though it has a higher z-index. Quick fix was moving 
-  it to the left side of the screen. Need to look more into it.
--->
-<div class="grid gap-1 fixed top-5 left-5 z-50">
+<div class="grid gap-1 fixed top-5 left-5 z-[100]">
   {#each $toastStore as toast (toast.id)}
     {@const background =
       toast.type === 'success'
