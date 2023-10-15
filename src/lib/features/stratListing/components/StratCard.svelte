@@ -21,7 +21,7 @@
   class="rounded shadow overflow-hidden group"
   href="/strats/{stratId}{redirect}"
 >
-  <Card.Root class="h-full">
+  <Card.Root class="h-full overflow-hidden">
     <Card.Header class="p-0">
       {#if thumbnail}
         <img
