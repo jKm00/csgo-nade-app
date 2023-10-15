@@ -120,10 +120,10 @@
     {#if loadedStrats && loadedStrats.length > 0}
       {#each loadedStrats as strat}
         <StratCard
-          thumbnail={`/maps/${strat.map_name.toLowerCase()}/${
-            strat.position_img
-          }`}
-          position={strat.position_name}
+          thumbnail={strat.position_img
+            ? `/maps/${strat.map_name.toLowerCase()}/${strat.position_img}`
+            : undefined}
+          position={strat.position_name ? strat.position_name : undefined}
           stratId={strat.strat_id}
           stratName={strat.strat_name}
           authorId={strat.author_id}
