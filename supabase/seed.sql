@@ -136,7 +136,7 @@ INSERT INTO "auth"."identities" ("id", "user_id", "identity_data", "provider", "
 
 INSERT INTO "public"."profiles" ("uuid", "name", "username", "email", "inserted_at", "updated_at", "profile_picture") VALUES
 	('1196d029-6157-49de-8c01-9a1e0ceed845', 'Test User 1', 'test_user1', 'test1@gmail.com', '2023-10-13 14:37:15.800209+00', '2023-10-13 14:37:15.800209+00', 20),
-	('2f67d176-15ec-4622-afa3-eeb0a56c10c9', 'Test User 2', 'Test2', 'test2@gmail.com', '2023-10-13 14:39:30.039147+00', '2023-10-13 14:39:30.039147+00', 16);
+	('2f67d176-15ec-4622-afa3-eeb0a56c10c9', 'Test User 2', 'test_user2', 'test2@gmail.com', '2023-10-13 14:39:30.039147+00', '2023-10-13 14:39:30.039147+00', 16);
 
 -- insert strats
 INSERT INTO "public"."strats" ("inserted_at", "updated_at", "name", "description", "privacy", "map_id", "team_id", "author_id", "position_id", "team_side", "game_id") VALUES
