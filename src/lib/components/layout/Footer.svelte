@@ -4,7 +4,7 @@
 >
   <p>Joakim Edvardsen &copy; 2023. All rights reserved</p>
   <p>
-    Version 1.1.9 |
+    Version 1.1.10 |
     <a
       class="hover:underline focus-within:underline"
       href="/terms-of-service"
