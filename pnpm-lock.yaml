@@ -73,6 +73,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.5.2
     version: 3.5.2(postcss@8.4.31)(svelte@4.2.1)
+  svelte-dnd-action:
+    specifier: ^0.9.31
+    version: 0.9.31(svelte@4.2.1)
   svelte-loading-spinners:
     specifier: ^0.3.4
     version: 0.3.4
@@ -2696,6 +2699,14 @@ packages:
       - sass
       - stylus
       - sugarss
+    dev: true
+
+  /svelte-dnd-action@0.9.31(svelte@4.2.1):
+    resolution: {integrity: sha512-rUracVJOQkh1g5mCF4TM/IM4f41eUFoNAcO2ctCY4czKyprmPSQipe64vhp+OptWwtw7t8dflD7IIPHvjCwpmQ==}
+    peerDependencies:
+      svelte: '>=3.23.0'
+    dependencies:
+      svelte: 4.2.1
     dev: true
 
   /svelte-hmr@0.15.3(svelte@4.2.1):
