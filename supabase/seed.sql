@@ -138,6 +138,13 @@ INSERT INTO "public"."profiles" ("uuid", "name", "username", "email", "inserted_
 	('1196d029-6157-49de-8c01-9a1e0ceed845', 'Test User 1', 'test_user1', 'test1@gmail.com', '2023-10-13 14:37:15.800209+00', '2023-10-13 14:37:15.800209+00', 20),
 	('2f67d176-15ec-4622-afa3-eeb0a56c10c9', 'Test User 2', 'test_user2', 'test2@gmail.com', '2023-10-13 14:39:30.039147+00', '2023-10-13 14:39:30.039147+00', 16);
 
+-- Insert team
+INSERT INTO "public"."teams" ("name", "team_leader", "organization") VALUES
+	('DOT', 1, 'DOT Esport');
+
+INSERT INTO "public"."team_members" ("team_id", "player_id", "role") VALUES
+	(1, 1, 'Main AWPer');
+
 -- insert strats
 INSERT INTO "public"."strats" ("inserted_at", "updated_at", "name", "description", "privacy", "map_id", "team_id", "author_id", "position_id", "team_side", "game_id") VALUES
 	('2023-10-13 14:42:20.704966+00', '2023-10-13 14:42:20.704966+00', 'A site execute', 'Full a site execute', 'PUBLIC', 4, NULL, 1, 14, 'T', 2),
