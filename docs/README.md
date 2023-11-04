@@ -5,7 +5,7 @@ An application for teams and users the create and share csgo strategies
 </p>
 
 <a href="https://csgostrats.com/" target="_blank">
-  <img src="../assets/images/home_page.PNG" alt="Home page" />
+  <img src="./images/home-page.PNG" alt="Home page" />
 </a>
 
 ## 📕 About
