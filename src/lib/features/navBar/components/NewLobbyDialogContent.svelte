@@ -103,7 +103,7 @@
     </Dialog.Description>
   </Dialog.Header>
   <div class="flex flex-col gap-4">
-    {#if teams}
+    {#if teams && teams.length > 0}
       <Select.Root portal={null} onSelectedChange={handleSelect}>
         <Select.Trigger class="w-full">
           <Select.Value placeholder="Select a team" />
@@ -129,7 +129,12 @@
         <p class="text-red-400 text-sm">{errorMessage}</p>
       {/if}
     {:else}
-      <p>You are not in any teams.</p>
+      <p>You need to be part of a team before you can create a lobby.</p>
+      <a
+        href="/teams"
+        class="underline"
+        on:click={() => dispatch('close', true)}>Create a new team here</a
+      >
     {/if}
   </div>
 </Dialog.Content>
