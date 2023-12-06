@@ -81,17 +81,31 @@
       const { url, error } = await res.json();
 
       if (error) {
-        throw new Error(error);
+        handleError(error);
+        return;
       }
 
       dispatch('close', true);
       goto(url);
     } catch (e) {
       console.error(e);
-      errorMessage = 'Something went wrong. Please try again!';
+      errorMessage = 'Something went wrong. Please try again later.';
     } finally {
       isLoading = false;
     }
+  }
+
+  function handleError(error: { message: string; code: string }) {
+    switch (error.code) {
+      case 'P0001':
+        errorMessage =
+          'You are already in an active lobby. Go to notification center to re-join it.';
+        break;
+      default:
+        errorMessage = 'Something went wrong. Please try again later.';
+        break;
+    }
+    isLoading = false;
   }
 </script>
 

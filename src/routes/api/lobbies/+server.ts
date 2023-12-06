@@ -20,6 +20,20 @@ export async function POST({ request, locals }) {
     return json({ error: profileError.message }, { status: 500 });
   }
 
+  // Check if user is in an active lobby
+  const { data: lobbyMember } = await supabase
+    .from('lobby_members')
+    .select('player_id')
+    .eq('player_id', profile.id)
+    .single();
+
+  if (lobbyMember) {
+    return json(
+      { error: { message: 'You are already in a lobby', code: 'P0001' } },
+      { status: 400 }
+    );
+  }
+
   const { teamId } = await request.json();
 
   // Create new lobby
