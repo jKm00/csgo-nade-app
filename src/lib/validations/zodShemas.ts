@@ -165,6 +165,7 @@ export const invitePlayerSchema = z.object({
     .string({ required_error: 'Role is required ' })
     .min(1, 'Role is required')
     .trim(),
+  senderId: z.number({ required_error: 'Sender id is required' }),
 });
 
 export type InvitePlayerSchema = typeof invitePlayerSchema;

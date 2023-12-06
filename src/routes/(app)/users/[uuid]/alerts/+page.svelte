@@ -22,7 +22,7 @@
     });
   }
 
-  $: ({ invitations, supabase, session, lobbyInvitations } = data);
+  $: ({ teamInvitations, supabase, session, lobbyInvitations } = data);
 
   let user: { id: number; profilePicture: { filename: string } } | null = null;
 
@@ -79,9 +79,9 @@
   <h1 class="text-xl text-primary font-bold mb-6">Notification Center</h1>
   <section class="mb-8">
     <h2 class="text-lg font-bold mb-2">
-      Team Invitations ({invitations?.length})
+      Team Invitations ({teamInvitations?.length ?? 0})
     </h2>
-    {#if invitations && invitations.length > 0}
+    {#if teamInvitations && teamInvitations.length > 0}
       <ul class="grid gap-4">
         <li class="grid grid-cols-4 gap-4 text-sm font-bold">
           <span>Team name</span>
@@ -89,22 +89,11 @@
           <span>Team role</span>
           <span>Accept / Decline</span>
         </li>
-        {#each invitations as inv}
+        {#each teamInvitations as inv}
           <li class="grid grid-cols-4 gap-4 items-center">
-            <a
-              href="/teams/{inv.teams && inv.teams instanceof Array
-                ? inv.teams[0].name.toLowerCase()
-                : inv.teams?.name.toLowerCase()}"
-              >{inv.teams && inv.teams instanceof Array
-                ? inv.teams[0].name
-                : inv.teams?.name}</a
-            >
-            <span
-              >{inv.teams && inv.teams instanceof Array
-                ? inv.teams[0].organization
-                : inv.teams?.organization}</span
-            >
-            <span>{inv.team_role ?? 'n/a'}</span>
+            <a href="/teams/{inv.details.teamName}">{inv.details.teamName}</a>
+            <span>{inv.details.organization}</span>
+            <span>{inv.details.role ?? 'n/a'}</span>
             <div class="flex gap-2">
               <form method="POST">
                 <input type="hidden" name="invitationId" value={inv.id} />

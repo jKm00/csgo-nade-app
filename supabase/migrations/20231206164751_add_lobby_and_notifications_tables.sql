@@ -200,5 +200,8 @@ for insert
 to authenticated
 with check (true);
 
-
+-- insert notification types
+INSERT INTO notification_type (name) VALUES
+('LOBBY_INVITE'),
+('TEAM_INVITE')
 

@@ -9,7 +9,7 @@ export interface SupabaseResponse<T> {
   error: SupabaseError | null;
 }
 
-interface NotificationData {
+export interface NotificationData {
   id: number;
   created_at: string;
   updated_at: string;
@@ -22,8 +22,11 @@ interface NotificationData {
     name: string;
     created_at: string;
   };
-  details: Record<string, string>;
+  details: Record<string, unknown>;
 }
 
 export interface NotificationResponse
   extends SupabaseResponse<NotificationData[]> {}
+
+export interface SingleNotificationResponse
+  extends SupabaseResponse<NotificationData> {}

@@ -6,6 +6,7 @@
   import type { InvitePlayerSchema } from '$lib/validations/zodShemas';
   import { Button } from '$lib/components/ui/button';
   import type { SuperValidated } from 'sveltekit-superforms';
+  import { authUser } from '$lib/stores/authStore';
 
   export let data: SuperValidated<InvitePlayerSchema>;
   export let teamId: number;
@@ -19,6 +20,7 @@
   method="POST"
   use:enhance
 >
+  <input type="hidden" name="senderId" value={$authUser?.id} />
   <input type="hidden" name="teamId" value={teamId} />
   <TextInput
     id="username"

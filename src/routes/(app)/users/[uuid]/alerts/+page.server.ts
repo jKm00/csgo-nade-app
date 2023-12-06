@@ -1,5 +1,10 @@
-import type { NotificationResponse } from '$lib/dtos';
-import type { LobbyDetailsResponse } from '$lib/features/lobby/dtos.js';
+import type {
+  NotificationData,
+  NotificationResponse,
+  SingleNotificationResponse,
+} from '$lib/dtos';
+import type { CustomError, Success } from '$lib/types';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }) => {
@@ -9,49 +14,35 @@ export const load = async ({ locals, params }) => {
     throw redirect(302, '/');
   }
 
-  async function fetchTeamInvitations() {
+  async function fetchNotifications(type: number) {
     const { data: userData } = await locals.supabase
       .from('profiles')
       .select('id')
-      .eq('uuid', session.user.id);
+      .eq('uuid', session.user.id)
+      .single();
 
-    if (!userData || userData.length === 0) {
-      throw redirect(302, '/');
-    }
-
-    const { data } = await locals.supabase
-      .from('team_invitations')
-      .select(
-        `
-				id,
-				player_id,
-				team_role,
-				teams ( name, organization )
-			`
-      )
-      .eq('player_id', userData[0].id);
+    const { data } = (await locals.supabase
+      .from('notifications')
+      .select('*, type ( name )')
+      .eq('type', type)
+      .eq('status', 'PENDING')
+      .eq('recipient_id', userData?.id)) as NotificationResponse;
 
     return data;
   }
 
-  async function fetchNotifications(type: string) {
-    const { data } = (await locals.supabase
-      .from('notifications')
-      .select('*, type:type(*)')
-      .eq('type.name', type)) as NotificationResponse;
-
-    return data;
+  async function fetchTeamInvitations() {
+    const TEAM_INVITATION_NAME = 2;
+    return await fetchNotifications(TEAM_INVITATION_NAME);
   }
 
   async function fetchLobbyInvitations() {
-    const LOBBY_INVITATION_NAME = 'LOBBY_INVITATION';
-    const lobbyNotifications = await fetchNotifications(LOBBY_INVITATION_NAME);
-
-    return lobbyNotifications;
+    const LOBBY_INVITATION_NAME = 1;
+    return await fetchNotifications(LOBBY_INVITATION_NAME);
   }
 
   return {
-    invitations: fetchTeamInvitations(),
+    teamInvitations: fetchTeamInvitations(),
     lobbyInvitations: fetchLobbyInvitations(),
   };
 };
@@ -67,8 +58,8 @@ export const actions = {
     }
 
     const { error } = await locals.supabase
-      .from('team_invitations')
-      .delete()
+      .from('notifications')
+      .update({ status: 'DECLINED', updated_at: new Date() })
       .eq('id', invitationId);
 
     if (error) {
@@ -90,49 +81,69 @@ export const actions = {
     }
 
     // Fetch additional data from invitations
-    const { data: invitationData } = await locals.supabase
-      .from('team_invitations')
-      .select(
-        `
-				id,
-				player_id,
-				team_role,
-				teams ( id, name )
-			`
-      )
-      .eq('id', invitationId);
+    const { data: notificationData } = (await locals.supabase
+      .from('notifications')
+      .select('*, type:type(*)')
+      .eq('id', invitationId)
+      .single()) as SingleNotificationResponse;
 
-    // Make sure additional data is correct
-    if (!invitationData || invitationData.length === 0) {
+    if (!notificationData) {
       return fail(400, {
         error: 'Failed to find invitation. Please try again!',
       });
     }
 
-    const teamData = invitationData[0].teams as { id: number; name: string };
-    const teamId = teamData.id;
-    const teamName = teamData.name;
-    const { player_id: playerId, team_role: teamRole } = invitationData[0];
-
-    if (teamId === null || playerId === null) {
-      return fail(400, {
-        error: 'Something went wrong. Please try again!',
-      });
+    if (notificationData.type.name === 'TEAM_INVITE') {
+      let teamName: string;
+      try {
+        teamName = await handleTeamInviteAccept(
+          locals.supabase,
+          notificationData
+        );
+      } catch (e: any) {
+        return fail(400, {
+          error: e.message,
+        });
+      }
+      throw redirect(302, `/teams/${teamName.toLowerCase()}`);
+    } else if (notificationData.type.name === 'LOBBY_INVITE') {
+      await handleLobbyInviteAccept(locals.supabase, notificationData);
     }
-
-    // Insert member into team members
-    const { error } = await locals.supabase.from('team_members').insert({
-      team_id: teamId,
-      player_id: playerId,
-      role: teamRole,
-    });
-
-    if (error) {
-      return fail(400, {
-        error: 'Failed to join team. Please try again!',
-      });
-    }
-
-    throw redirect(302, `/teams/${teamName.toLowerCase()}`);
   },
 };
+
+async function handleTeamInviteAccept(
+  supabase: SupabaseClient,
+  notificationData: NotificationData
+) {
+  // Insert member into team members
+  const { error } = await supabase.from('team_members').insert({
+    team_id: notificationData.details.teamId,
+    player_id: notificationData.recipient_id,
+    role: notificationData.details.role,
+  });
+
+  if (error) {
+    throw new Error('Failed to join team. Please try again!');
+  }
+
+  const { error: notificationError } = await supabase
+    .from('notifications')
+    .update({ status: 'ACCEPTED', updated_at: new Date() })
+    .eq('id', notificationData.id);
+
+  if (notificationError) {
+    throw new Error('Failed to accept invitation. Please try again!');
+  }
+
+  return notificationData.details.teamName as string;
+}
+
+async function handleLobbyInviteAccept(
+  supabase: SupabaseClient,
+  notificationData: NotificationData
+) {
+  console.log(notificationData);
+
+  return { code: 400, message: 'Not implemented yet', hint: '' };
+}
