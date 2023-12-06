@@ -1,115 +1,138 @@
+import type { NotificationResponse } from '$lib/dtos';
+import type { LobbyDetailsResponse } from '$lib/features/lobby/dtos.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }) => {
-	const session = await locals.getSession();
+  const session = await locals.getSession();
 
-	if (!session || params.uuid !== session.user.id) {
-		throw redirect(302, '/');
-	}
+  if (!session || params.uuid !== session.user.id) {
+    throw redirect(302, '/');
+  }
 
-	const { data: userData } = await locals.supabase
-		.from('profiles')
-		.select('id')
-		.eq('uuid', session.user.id);
+  async function fetchTeamInvitations() {
+    const { data: userData } = await locals.supabase
+      .from('profiles')
+      .select('id')
+      .eq('uuid', session.user.id);
 
-	if (!userData || userData.length === 0) {
-		throw redirect(302, '/');
-	}
+    if (!userData || userData.length === 0) {
+      throw redirect(302, '/');
+    }
 
-	const { data } = await locals.supabase
-		.from('team_invitations')
-		.select(
+    const { data } = await locals.supabase
+      .from('team_invitations')
+      .select(
+        `
+				id,
+				player_id,
+				team_role,
+				teams ( name, organization )
 			`
-      id,
-			player_id,
-			team_role,
-      teams ( name, organization )
-    `
-		)
-		.eq('player_id', userData[0].id);
+      )
+      .eq('player_id', userData[0].id);
 
-	return {
-		invitations: data,
-	};
+    return data;
+  }
+
+  async function fetchNotifications(type: string) {
+    const { data } = (await locals.supabase
+      .from('notifications')
+      .select('*, type:type(*)')
+      .eq('type.name', type)) as NotificationResponse;
+
+    return data;
+  }
+
+  async function fetchLobbyInvitations() {
+    const LOBBY_INVITATION_NAME = 'LOBBY_INVITATION';
+    const lobbyNotifications = await fetchNotifications(LOBBY_INVITATION_NAME);
+
+    return lobbyNotifications;
+  }
+
+  return {
+    invitations: fetchTeamInvitations(),
+    lobbyInvitations: fetchLobbyInvitations(),
+  };
 };
 
 export const actions = {
-	decline: async ({ request, locals }) => {
-		const invitationId = (await request.formData()).get('invitationId');
+  decline: async ({ request, locals }) => {
+    const invitationId = (await request.formData()).get('invitationId');
 
-		if (!invitationId) {
-			return fail(400, {
-				error: 'Failed to find invitation',
-			});
-		}
+    if (!invitationId) {
+      return fail(400, {
+        error: 'Failed to find invitation',
+      });
+    }
 
-		const { error } = await locals.supabase
-			.from('team_invitations')
-			.delete()
-			.eq('id', invitationId);
+    const { error } = await locals.supabase
+      .from('team_invitations')
+      .delete()
+      .eq('id', invitationId);
 
-		if (error) {
-			console.log(error);
-			return fail(400, {
-				error: error.message,
-			});
-		}
+    if (error) {
+      console.log(error);
+      return fail(400, {
+        error: error.message,
+      });
+    }
 
-		return { success: 'Invitation declined' };
-	},
-	accept: async ({ request, locals }) => {
-		const invitationId = (await request.formData()).get('invitationId');
+    return { success: 'Invitation declined' };
+  },
+  accept: async ({ request, locals }) => {
+    const invitationId = (await request.formData()).get('invitationId');
 
-		if (!invitationId) {
-			return fail(400, {
-				error: 'Failed to find invitation. Please try again!',
-			});
-		}
+    if (!invitationId) {
+      return fail(400, {
+        error: 'Failed to find invitation. Please try again!',
+      });
+    }
 
-		// Fetch additional data from invitations
-		const { data: invitationData } = await locals.supabase
-			.from('team_invitations')
-			.select(
-				`
+    // Fetch additional data from invitations
+    const { data: invitationData } = await locals.supabase
+      .from('team_invitations')
+      .select(
+        `
 				id,
 				player_id,
 				team_role,
 				teams ( id, name )
 			`
-			)
-			.eq('id', invitationId);
+      )
+      .eq('id', invitationId);
 
-		// Make sure additional data is correct
-		if (!invitationData || invitationData.length === 0) {
-			return fail(400, {
-				error: 'Failed to find invitation. Please try again!',
-			});
-		}
+    // Make sure additional data is correct
+    if (!invitationData || invitationData.length === 0) {
+      return fail(400, {
+        error: 'Failed to find invitation. Please try again!',
+      });
+    }
 
-		const teamData = invitationData[0].teams as { id: number; name: string };
-		const teamId = teamData.id;
-		const teamName = teamData.name;
-		const { player_id: playerId, team_role: teamRole } = invitationData[0];
+    const teamData = invitationData[0].teams as { id: number; name: string };
+    const teamId = teamData.id;
+    const teamName = teamData.name;
+    const { player_id: playerId, team_role: teamRole } = invitationData[0];
 
-		if (teamId === null || playerId === null) {
-			return fail(400, {
-				error: 'Something went wrong. Please try again!',
-			});
-		}
+    if (teamId === null || playerId === null) {
+      return fail(400, {
+        error: 'Something went wrong. Please try again!',
+      });
+    }
 
-		// Insert member into team members
-		const { error } = await locals.supabase.from('team_members').insert({
-			team_id: teamId,
-			player_id: playerId,
-			role: teamRole,
-		});
+    // Insert member into team members
+    const { error } = await locals.supabase.from('team_members').insert({
+      team_id: teamId,
+      player_id: playerId,
+      role: teamRole,
+    });
 
-		if (error) {
-			return fail(400, {
-				error: 'Failed to join team. Please try again!',
-			});
-		}
+    if (error) {
+      return fail(400, {
+        error: 'Failed to join team. Please try again!',
+      });
+    }
 
-		throw redirect(302, `/teams/${teamName.toLowerCase()}`);
-	},
+    throw redirect(302, `/teams/${teamName.toLowerCase()}`);
+  },
 };
