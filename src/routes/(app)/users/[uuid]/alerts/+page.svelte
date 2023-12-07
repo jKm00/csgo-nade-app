@@ -1,7 +1,8 @@
 <script lang="ts">
   import { toast } from '$lib/components/feedback/toast/toastStore.js';
-  import type { RealtimeChannel } from '@supabase/supabase-js';
-  import { onDestroy, onMount } from 'svelte';
+  import { notifications } from '$lib/stores/notificationStore.js';
+  import { onMount } from 'svelte';
+  import { get } from 'svelte/store';
 
   export let data;
   export let form;
@@ -22,58 +23,29 @@
     });
   }
 
-  $: ({ teamInvitations, supabase, session, lobbyInvitations } = data);
+  $: ({ teamInvitations, lobbyInvitations } = data);
 
-  let user: { id: number; profilePicture: { filename: string } } | null = null;
-
+  let currentNotifications: number;
   let showRefreshMsg = false;
 
-  let invitationSubscription: RealtimeChannel;
-  onMount(async () => {
-    if (session !== null) {
-      const { data: userData } = await supabase
-        .from('profiles')
-        .select('id, profile_picture ( filename )')
-        .eq('uuid', session.user.id);
+  onMount(() => {
+    const unsubscribe = notifications.subscribe((val) => {
+      if (val === null) return;
 
-      if (userData) {
-        user = {
-          id: userData[0].id,
-          profilePicture: userData[0].profile_picture as unknown as {
-            filename: string;
-          },
-        };
-
-        invitationSubscription = supabase
-          .channel('table_db_changes')
-          .on(
-            'postgres_changes',
-            {
-              event: '*',
-              schema: 'public',
-              table: 'team_invitations',
-              filter: `player_id=eq.${user?.id}`,
-            },
-            () => {
-              showRefreshMsg = true;
-            }
-          )
-          .subscribe();
+      if (val > currentNotifications) {
+        showRefreshMsg = true;
       }
-    }
-  });
+      currentNotifications = val;
+    });
 
-  onDestroy(() => {
-    if (invitationSubscription) {
-      invitationSubscription.unsubscribe();
-    }
+    return unsubscribe;
   });
 </script>
 
 <main class="w-default my-10">
   {#if showRefreshMsg}
-    <p class="text-sm text-center text-neutral-400 mb-10">
-      Refresh page to see newest changes!
+    <p class="text-center text-red-400 mb-10">
+      You have new notifications. Refresh the page to see them!
     </p>
   {/if}
   <h1 class="text-xl text-primary font-bold mb-6">Notification Center</h1>

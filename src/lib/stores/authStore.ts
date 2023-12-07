@@ -15,11 +15,11 @@ authUser.subscribe(async (user) => {
   if (user) {
     const supabase = get(page).data.supabase;
 
-    // TODO: Convert team_invitations into general notifications table
     const { data } = await supabase
-      .from('team_invitations')
+      .from('notifications')
       .select('*', { count: 'exact' })
-      .eq('player_id', user.id);
+      .eq('recipient_id', user.id)
+      .eq('status', 'PENDING');
 
     notifications.set(data.length);
 
@@ -30,14 +30,17 @@ authUser.subscribe(async (user) => {
         {
           event: '*',
           schema: 'public',
-          table: 'team_invitations',
-          filter: `player_id=eq.${user.id}`,
+          table: 'notifications',
+          filter: `recipient_id=eq.${user.id}`,
         },
         (payload: any) => {
           const eventType = payload.eventType;
-          if (eventType === 'INSERT') {
+          if (eventType === 'INSERT' || payload.new.status === 'PENDING') {
             increment();
-          } else if (eventType === 'DELETE') {
+          } else if (
+            eventType === 'UPDATE' &&
+            payload.new.status !== 'PENDING'
+          ) {
             decrement();
           }
         }
