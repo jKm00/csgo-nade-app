@@ -92,5 +92,8 @@ with check (((player_id IN ( SELECT p.id
      LEFT JOIN profiles p ON ((p.id = n.recipient_id)))
   WHERE (p.uuid = auth.uid())))));
 
-
+-- insert notification types
+INSERT INTO notification_types (name) VALUES
+('LOBBY_INVITE'),
+('TEAM_INVITE')
 
