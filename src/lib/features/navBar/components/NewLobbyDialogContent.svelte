@@ -9,10 +9,12 @@
 
   type Response = {
     data: {
-      id: string;
-      name: string;
       profiles: {
         uuid: string;
+      };
+      team: {
+        id: string;
+        name: string;
       };
     }[];
     error: {
@@ -34,12 +36,14 @@
 
   onMount(async () => {
     if (session) {
-      const { data } = (await supabase
-        .from('teams')
+      const { data, error } = (await supabase
+        .from('team_members')
         .select(
           `
-        id,
-        name,
+        team:team_id (
+          id,
+          name
+        ), 
         profiles!inner (
           uuid
         )
@@ -48,9 +52,9 @@
         .eq('profiles.uuid', session.user.id)) as Response;
 
       if (data) {
-        teams = data.map((team) => ({
-          label: team.name,
-          value: team.id,
+        teams = data.map((d) => ({
+          label: d.team.name,
+          value: d.team.id,
         }));
       }
     }
