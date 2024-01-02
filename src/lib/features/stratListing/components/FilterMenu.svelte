@@ -73,7 +73,7 @@
       urlParams.append('position', selectedPosition.value);
     }
 
-    if (selectedSide.value && selectedMap.value !== '') {
+    if (selectedSide.value && selectedSide.value !== '') {
       urlParams.append('side', selectedSide.value);
     }
 
@@ -139,7 +139,7 @@
               </Select.Group>
             </Select.Content>
           </Select.Root>
-          <!-- Side -->
+          <!-- Position -->
           <Select.Root
             onSelectedChange={() => (filterHasChanged = true)}
             bind:selected={selectedPosition}
@@ -149,7 +149,7 @@
             </Select.Trigger>
             <Select.Content>
               <Select.Group class="max-h-60 overflow-y-auto">
-                <Select.Item value="" label="Map">Clear</Select.Item>
+                <Select.Item value="" label="Position">Clear</Select.Item>
                 {#each activePositions as position}
                   <Select.Item value={position.name} label={position.name}
                     >{position.name}</Select.Item
@@ -168,7 +168,7 @@
             </Select.Trigger>
             <Select.Content>
               <Select.Group>
-                <Select.Item value="" label="Map">Clear</Select.Item>
+                <Select.Item value="" label="Side">Clear</Select.Item>
                 <Select.Item value="CT" label="CT">CT</Select.Item>
                 <Select.Item value="T" label="T">T</Select.Item>
               </Select.Group>
