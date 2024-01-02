@@ -29,10 +29,16 @@ export const load = async ({ url, parent, fetch }) => {
     };
   };
 
+  const [maps, positions, strats] = await Promise.all([
+    fetchMaps(),
+    fetchPosition(),
+    fetchStrats(),
+  ]);
+
   return {
     filters,
-    maps: fetchMaps(),
-    positions: fetchPosition(),
-    strats: fetchStrats(),
+    maps,
+    positions,
+    strats,
   };
 };

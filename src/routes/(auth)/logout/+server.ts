@@ -4,5 +4,5 @@ import { redirect } from '@sveltejs/kit';
 export const POST = async ({ locals }) => {
 	await locals.supabase.auth.signOut();
 	authUser.set(null);
-	throw redirect(303, '/');
+	redirect(303, '/');
 };

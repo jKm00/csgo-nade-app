@@ -7,7 +7,7 @@ export const load = async ({ locals }) => {
 	const session = await locals.getSession();
 
 	if (!session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const form = superValidate(teamSchema);
@@ -90,6 +90,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, `/teams/${name.toLowerCase()}`);
+		redirect(302, `/teams/${name.toLowerCase()}`);
 	},
 };

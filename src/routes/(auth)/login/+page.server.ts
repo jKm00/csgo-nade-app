@@ -9,7 +9,7 @@ const OAUTH_PROVIDER = ['github', 'discord'];
 export const load: ServerLoad = async ({ locals, url }) => {
 	const session = await locals.getSession();
 	if (session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const redirectTo = url.searchParams.get('redirectTo');
@@ -44,7 +44,7 @@ export const actions = {
 				});
 			}
 
-			throw redirect(303, data.url);
+			redirect(303, data.url);
 		}
 
 		// Validate form

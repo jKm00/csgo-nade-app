@@ -6,7 +6,7 @@ import { message, superValidate } from 'sveltekit-superforms/server';
 export const load = async ({ locals }) => {
 	const session = await locals.getSession();
 	if (session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const form = await superValidate(registerSchema);
@@ -86,6 +86,6 @@ export const actions = {
 		}
 
 		// Redirect
-		throw redirect(302, '/verify');
+		redirect(302, '/verify');
 	},
 };

@@ -4,7 +4,7 @@ export const load = async ({ locals, params }) => {
 	const session = await locals.getSession();
 
 	if (!session || params.uuid !== session.user.id) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const { data } = await locals.supabase

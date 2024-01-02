@@ -11,7 +11,7 @@ export const load = async ({ locals, params, parent }) => {
   const session = await locals.getSession();
 
   if (!session || params.uuid !== session.user.id) {
-    throw redirect(302, '/');
+    redirect(302, '/');
   }
 
   const { profile } = await parent();
@@ -189,6 +189,6 @@ export const actions = {
     await locals.supabase.auth.signOut();
 
     // Redirect to home page
-    throw redirect(302, '/');
+    redirect(302, '/');
   },
 };

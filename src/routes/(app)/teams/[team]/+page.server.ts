@@ -222,7 +222,7 @@ export const actions = {
 			return fail(401, { message: 'Unauthorized' });
 		}
 
-		throw redirect(302, url.pathname);
+		redirect(302, url.pathname);
 	},
 	transferLeader: async ({ request, locals }) => {
 		const session = await locals.getSession();
@@ -275,6 +275,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/');
+		redirect(302, '/');
 	},
 };

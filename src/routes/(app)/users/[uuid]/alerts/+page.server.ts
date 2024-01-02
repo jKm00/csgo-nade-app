@@ -4,7 +4,7 @@ export const load = async ({ locals, params }) => {
 	const session = await locals.getSession();
 
 	if (!session || params.uuid !== session.user.id) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const { data: userData } = await locals.supabase
@@ -13,7 +13,7 @@ export const load = async ({ locals, params }) => {
 		.eq('uuid', session.user.id);
 
 	if (!userData || userData.length === 0) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const { data } = await locals.supabase
@@ -110,6 +110,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, `/teams/${teamName.toLowerCase()}`);
+		redirect(302, `/teams/${teamName.toLowerCase()}`);
 	},
 };

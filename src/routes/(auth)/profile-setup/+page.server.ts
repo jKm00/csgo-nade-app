@@ -11,7 +11,7 @@ export const load = async ({ locals }) => {
 	const user = get(authUser);
 
 	if (!session || (session && user)) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const form = await superValidate(profileDetailsSchema);
