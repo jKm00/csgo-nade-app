@@ -14,7 +14,7 @@
   export let game: string;
   export let redirectLink: string | undefined;
 
-  const redirect = redirectLink !== undefined ? redirectLink : '';
+  $: redirect = redirectLink !== undefined ? redirectLink : '';
 </script>
 
 <a
