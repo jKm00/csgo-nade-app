@@ -10,18 +10,16 @@
     easing: cubicOut,
   });
 
-  const unsubscribe = navigationStore.subscribe((state) => {
-    if (state === 'loaded') {
-      progress.set(1, { duration: 1000 });
-    }
-  });
-
   onMount(() => {
     progress.set(0.7);
-  });
 
-  onDestroy(() => {
-    unsubscribe();
+    const unsubscribe = navigationStore.subscribe((state) => {
+      if (state === 'loaded') {
+        progress.set(1, { duration: 1000 });
+      }
+    });
+
+    return unsubscribe;
   });
 </script>
 
