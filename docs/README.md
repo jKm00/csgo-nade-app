@@ -53,8 +53,8 @@ npm run dev
 
 |User|Email|Password|
 |--|--|--|
-|Test User 1|test1@gmail.com|#TestUser1|
-|Test User 2|test2@gmail.com|#TestUser2|
+|Test User 1|test1@gmail.com|#TestUser123|
+|Test User 2|test2@gmail.com|#TestUser123|
 
 
 ## 💻 Supabase commands
