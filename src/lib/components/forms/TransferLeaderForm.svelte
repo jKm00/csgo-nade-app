@@ -30,7 +30,7 @@
 		{#each filteredMembers as member, index}
 			<div
 				class="flex items-center justify-between px-4 py-2 {index % 2 === 0
-					? 'bg-neutral-800'
+					? 'dark:bg-neutral-800 bg-neutral-100'
 					: ''}"
 			>
 				{member.profiles.username}
@@ -38,7 +38,7 @@
 			</div>
 		{/each}
 	{:else}
-		<p class="text-sm text-neutral-400 px-4">
+		<p class="text-sm text-muted-foreground px-4">
 			No other team members in the team...
 		</p>
 	{/if}

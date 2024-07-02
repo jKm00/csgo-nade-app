@@ -13,7 +13,7 @@
 </script>
 
 <dialog
-  class="bg-neutral-900 rounded text-white backdrop:bg-neutral-950/90 max-w-6xl left-4 right-4 p-4"
+  class="rounded backdrop:bg-neutral-950/90 max-w-6xl left-4 right-4 p-4"
   bind:this={dialog}
 >
   <div class="grid">
@@ -21,7 +21,7 @@
       <h1 class="text-2xl text-primary font-bold">{title}</h1>
       <button on:click={() => (show = false)}
         ><svg
-          class="fill-neutral-400 hover:fill-white focus-within:fill-white transition-colors"
+          class="fill-muted-foreground hover:fill-foreground focus-within:fill-foreground transition-colors"
           xmlns="http://www.w3.org/2000/svg"
           height="1em"
           viewBox="0 0 384 512"

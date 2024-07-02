@@ -26,7 +26,7 @@
       />
       <div class="grid">
         <h1 class="text-lg font-bold">{$authUser.name}</h1>
-        <p class="text-sm text-neutral-400">@{$authUser.username}</p>
+        <p class="text-sm text-muted-foreground">@{$authUser.username}</p>
       </div>
     </div>
     <!-- Drawer body -->

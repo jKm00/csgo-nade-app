@@ -14,7 +14,7 @@
 <section>
   <h2 class="font-bold text-xl mb-4">Teams ({teams.length})</h2>
   {#if teams.length > 0}
-    <div class="max-md:hidden grid grid-cols-5 p-2 text-neutral-400">
+    <div class="max-md:hidden grid grid-cols-5 p-2 text-muted-foreground">
       <p>Name</p>
       <p>Organization</p>
       <p>Role</p>
@@ -24,24 +24,24 @@
       {#each teams as team, index}
         <a
           href={`/teams/${team.name}`}
-          class="p-2 rounded shadow group max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-5 {index %
+          class="p-2 rounded shadow group max-md:block dark:border max-md:bg-background max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-5 {index %
             2 ===
           0
             ? 'md:bg-muted'
             : ''}"
         >
           <p class="flex justify-between">
-            <span class="md:hidden text-neutral-400">Name:</span>{team.name}
+            <span class="md:hidden text-muted-foreground">Name:</span>{team.name}
           </p>
           <p class="flex justify-between">
-            <span class="md:hidden text-neutral-400">Organization:</span
+            <span class="md:hidden text-muted-foreground">Organization:</span
             >{team.org}
           </p>
           <p class="flex justify-between">
-            <span class="md:hidden text-neutral-400">Role:</span>{team.role}
+            <span class="md:hidden text-muted-foreground">Role:</span>{team.role}
           </p>
           <p class="flex justify-between">
-            <span class="md:hidden text-neutral-400">Joined at:</span
+            <span class="md:hidden text-muted-foreground">Joined at:</span
             >{team.joinedAt.toLocaleDateString()}
           </p>
           <a
@@ -52,7 +52,7 @@
       {/each}
     </div>
   {:else}
-    <p class="text-neutral-400 text-sm">
+    <p class="text-muted-foreground text-sm">
       This user is currently not in any teams...
     </p>
   {/if}

@@ -13,13 +13,13 @@
 <OAuthLogin {supabase} />
 <!-- Other links -->
 <div class="text-center">
-	<p class="text-sm text-neutral-400">
+	<p class="text-sm text-muted-foreground">
 		Don't have an account? <a
-			class="underline hover:text-white focus-within:text-white"
+			class="underline"
 			href="/register">Sign up here</a
 		>
 	</p>
-	<a href="/login/forgot-password" class="text-sm text-neutral-400 underline"
+	<a href="/login/forgot-password" class="text-sm text-muted-foreground underline"
 		>Forgot password</a
 	>
 </div>

@@ -62,7 +62,7 @@
 </script>
 
 <button
-  class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2 z-10 aspect-square rounded"
+  class="absolute grid place-items-center text-2xl -translate-x-1/2 -translate-y-1/2 z-10 aspect-square rounded text-white"
   style="left: {nade.lineupX}%; top: {nade.lineupY}%; {active
     ? 'border: 2px solid white'
     : ''}"
@@ -82,7 +82,7 @@
 
 {#if nade.impactX && nade.impactY}
   <button
-    class="absolute grid place-items-center w-5 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 z-10"
+    class="absolute grid place-items-center w-5 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 z-10 text-white"
     style="background-color: {color}; left: {nade.impactX}%; top: {nade.impactY}%; {active
       ? 'border: 2px solid white'
       : ''}"

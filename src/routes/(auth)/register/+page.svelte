@@ -9,9 +9,9 @@
 <RegisterForm data={data.form} />
 <!-- Ouath alternatives -->
 <SignUpOAuthLinks />
-<p class="text-sm text-neutral-400 text-center">
+<p class="text-sm text-muted-foreground text-center">
 	Already have an account? <a
-		class="underline hover:text-white focus-within:text-white"
+		class="underline"
 		href="/login">Login in here</a
 	>
 </p>

@@ -3,7 +3,7 @@
 		A verifyication email has been sent to you. Please check it out and verify
 		yourself before continuing.
 	</p>
-	<a href="/" class="text-sm text-neutral-400 underline text-center"
+	<a href="/" class="text-sm text-muted-foreground underline text-center"
 		>Back home</a
 	>
 </div>

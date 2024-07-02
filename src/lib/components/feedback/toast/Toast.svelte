@@ -15,7 +15,7 @@
     <div
       transition:fly={{ x: -200, duration: 200 }}
       animate:flip={{ duration: 200 }}
-      class="flex items-stretch text-white bg-neutral-950 rounded w-96"
+      class="flex items-stretch bg-background rounded w-96 shadow-lg"
     >
       <span class="block w-1" style="background-color: {background}" />
       <div class="px-4 py-4 w-full">
@@ -23,7 +23,7 @@
           <h1 class="font-bold">{toast.title}</h1>
           <button on:click={() => removeToast(toast.id)}
             ><svg
-              class="fill-neutral-400 hover:fill-white focus-within:fill-white transition-colors"
+              class="fill-muted-foreground hover:fill-foreground focus-within:fill-foreground transition-colors"
               xmlns="http://www.w3.org/2000/svg"
               height="1em"
               viewBox="0 0 384 512"

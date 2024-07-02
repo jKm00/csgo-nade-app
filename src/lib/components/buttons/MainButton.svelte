@@ -11,7 +11,7 @@
   <button
     on:click
     {disabled}
-    class="flex items-center justify-center gap-2 bg-primary hover:opacity-90 focus-within:opacity-90 active:opacity-80 transition-opacity py-1 px-4 rounded"
+    class="flex items-center justify-center gap-2 bg-primary text-white hover:opacity-90 focus-within:opacity-90 active:opacity-80 transition-opacity py-1 px-4 rounded"
     ><slot /></button
   >
 {/if}

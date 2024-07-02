@@ -33,14 +33,14 @@
         <div
           class="grid text-center items-center content-center aspect-[16/8] bg-neutral-700 text-neutral-300"
         >
-          <p class="text-neutral-400 text-sm">Image not available</p>
+          <p class="text-muted-foreground text-sm">Image not available</p>
         </div>
       {/if}
     </Card.Header>
     <Card.Content>
       <div class="grid pt-4">
         <h2 class="text-2xl font-bold">{stratName}</h2>
-        <p class="text-neutral-400">
+        <p class="text-muted-foreground">
           <a class="underline" href="/users/{authorId}">{authorName}</a>
           - {new Date(createdAt).toLocaleDateString()}
           {#if team !== null}

@@ -92,7 +92,7 @@
 </script>
 
 {#if !activeNade}
-  <p class="grid place-items-center text-neutral-400">
+  <p class="grid place-items-center text-muted-foreground">
     Create or click on a nade to see detailed info
   </p>
 {:else}

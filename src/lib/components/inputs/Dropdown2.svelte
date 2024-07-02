@@ -52,7 +52,7 @@
   {/if}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
-    class="relative text-neutral-400"
+    class="relative text-muted-foreground"
     use:clickOutside={() => (showDropDown = false)}
     bind:this={dropDown}
     on:keyup={handleKeyUp}
@@ -64,7 +64,7 @@
       >{selected ? selected.label : placeholder}<svg
         class={`${
           showDropDown ? '' : '-rotate-90'
-        } fill-neutral-400 h-3 transition-transform`}
+        } fill-muted-foreground h-3 transition-transform`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
         ><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path

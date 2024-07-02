@@ -32,10 +32,10 @@
   <div class="flex items-center justify-between p-4">
     <slot name="title" />
     <button
-      class="text-sm aspect-square p-2 rounded hover:bg-neutral-600 focus-within:bg-neutral-600 active:bg-neutral-500 group transition-colors"
+      class="text-sm aspect-square p-2 rounded group transition-colors"
       on:click={() => (show = false)}
       ><svg
-        class="fill-neutral-400 group-hover:fill-white group-focus-within:fill-white transition-colors"
+        class="fill-muted-foreground group-hover:fill-foreground group-focus-within:fill-foreground transition-colors"
         xmlns="http://www.w3.org/2000/svg"
         height="1em"
         viewBox="0 0 384 512"

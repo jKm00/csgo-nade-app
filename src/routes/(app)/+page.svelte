@@ -38,7 +38,7 @@
 				/>
 			{/each}
 		{:else}
-			<p class="text-sm text-neutral-400">
+			<p class="text-sm text-muted-foreground">
 				Obs... Seems like something is not working. We are surley working to fix
 				it!
 			</p>
