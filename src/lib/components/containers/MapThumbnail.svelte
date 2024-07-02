@@ -9,13 +9,13 @@
     class="relative group hover:scale-105 transition-all rounded overflow-hidden"
   >
     <div
-      class="absolute h-full w-full bg-neutral-950/70 group-hover:bg-neutral-900/0"
+      class="absolute h-full w-full bg-neutral-950/20 group-hover:bg-neutral-950/0 dark:bg-neutral-950/70 dark:group-hover:bg-neutral-900/0"
     />
     <img src={img} alt={imgAlt} />
     <div
       class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center font-bold"
     >
-      <h2 class="text-3xl uppercase">{name}</h2>
+      <h2 class="text-3xl uppercase text-white">{name}</h2>
     </div>
   </div>
 </a>
