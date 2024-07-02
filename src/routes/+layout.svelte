@@ -14,6 +14,7 @@
   import LoadingBar from '$lib/components/feedback/LoadingBar.svelte';
   import navigationStore from '$lib/stores/navigationStore';
   import { fade } from 'svelte/transition';
+  import { ModeWatcher } from 'mode-watcher';
 
   export let data;
 
@@ -69,6 +70,7 @@
   <title>CS Strats</title>
 </svelte:head>
 
+<ModeWatcher />
 <Toast />
 {#if $navigationStore === 'loading'}
   <div out:fade={{ delay: 500 }}>

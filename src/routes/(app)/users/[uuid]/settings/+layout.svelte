@@ -1,7 +1,14 @@
 <script lang="ts">
+  	import { type SettingsGroupRoute, useSettingsRoutes } from './routes.js';
+
 	export let data;
 
 	$: ({ session } = data);
+
+	let routes: SettingsGroupRoute[] = [];
+	$: if (session) {
+		routes = useSettingsRoutes(session?.user.id);
+	}
 </script>
 
 <div
@@ -21,21 +28,18 @@
 				/></svg
 			>Back to profile</a
 		>
-		<h2 class="text-neutral-400 font-bold uppercase text-sm mb-2">General</h2>
-		<ul>
-			<li>
-				<a
-					class="hover:underline focus-within:underline"
-					href="/users/{session?.user.id}/settings">Profile settings</a
-				>
-			</li>
-			<li>
-				<a
-					class="hover:underline focus-within:underline"
-					href="/users/{session?.user.id}/settings/picture">Profile picture</a
-				>
-			</li>
-		</ul>
+		{#each routes as routeGroup}
+			<h2 class="text-muted-foreground font-bold uppercase text-sm mb-2">
+				{routeGroup.groupTitle}
+			</h2>
+			<ul>
+				{#each routeGroup.routes as route}
+					<li>
+						<a class="hover:underline focus-within:underline" href={route.link}>{route.label}</a>
+					</li>
+				{/each}
+			</ul>
+		{/each}
 	</aside>
 	<main>
 		<slot><!-- optional fallback --></slot>
