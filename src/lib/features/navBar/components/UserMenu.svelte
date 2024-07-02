@@ -3,7 +3,7 @@
   import { authUser } from '$lib/stores/authStore';
   import { Bug, Info, LogOut, Settings, User } from 'lucide-svelte';
 
-  let showMenu = true;
+  let showMenu = false;
 </script>
 
 {#if $authUser}
