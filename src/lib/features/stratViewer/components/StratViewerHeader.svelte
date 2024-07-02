@@ -6,8 +6,9 @@
 <div class="relative h-20 overflow-hidden rounded bg-neutral-800">
 	{#if map && thumbnail}
 		<img class="-translate-y-1/2" src={thumbnail} alt={map} />
+		<div class="absolute inset-0 bg-neutral-950/40" />
 		<h1
-			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-2xl"
+			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-2xl text-white"
 		>
 			{map}
 		</h1>

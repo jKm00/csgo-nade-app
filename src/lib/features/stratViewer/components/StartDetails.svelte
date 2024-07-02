@@ -15,7 +15,7 @@
 <div class="mt-4 sm:mt-0">
   <header>
     <h2 class="text-3xl font-bold">{stratName}</h2>
-    <div class="flex gap-4 justify-between text-neutral-400 text-sm mb-4">
+    <div class="flex gap-4 justify-between text-muted-foreground text-sm mb-4">
       <p>
         Author: <a class="underline" href="/users/{authorUuid}"
           >{authorUsername}</a
