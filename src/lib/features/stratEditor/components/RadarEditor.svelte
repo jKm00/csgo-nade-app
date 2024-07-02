@@ -106,7 +106,7 @@
       </div>
     {/if}
   </div>
-  <p class="text-center text-neutral-400 mt-4">
+  <p class="text-center text-muted-foreground mt-4">
     <span class="underline">Tips:</span> Click and drag a nade to move it
   </p>
 </div>

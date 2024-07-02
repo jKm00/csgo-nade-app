@@ -43,12 +43,12 @@
               />
             {:else}
               <div class="grid place-items-center aspect-[16/8] bg-neutral-700">
-                <p class="text-neutral-400 text-sm">Image not available</p>
+                <p class="text-muted-foreground text-sm">Image not available</p>
               </div>
             {/if}
             <div class="p-4">
               <h3 class="font-bold">{strat.name}</h3>
-              <p class="text-neutral-400 text-sm">
+              <p class="text-muted-foreground text-sm">
                 <span>@{strat.authorUsername} - </span>
                 {#if strat.team}
                   <span
@@ -96,7 +96,7 @@
       >
     </div>
   {:else}
-    <p class="text-neutral-400 text-sm">This user currently has no starts...</p>
+    <p class="text-muted-foreground text-sm">This user currently has no starts...</p>
   {/if}
 </section>
 

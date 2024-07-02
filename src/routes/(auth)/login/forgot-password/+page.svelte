@@ -26,7 +26,7 @@
     />
     <Button disabled={$delayed ?? false}>Submit</Button>
     <a
-      class="text-sm text-neutral-400 text-center hover:underline focus-within:underline"
+      class="text-sm text-muted-foreground text-center hover:underline focus-within:underline"
       href="/login">Back to login page</a
     >
   </form>

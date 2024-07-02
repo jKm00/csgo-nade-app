@@ -72,7 +72,7 @@
 
 <main class="w-default my-10">
   {#if showRefreshMsg}
-    <p class="text-sm text-center text-neutral-400 mb-10">
+    <p class="text-sm text-center text-muted-foreground mb-10">
       Refresh page to see newest changes!
     </p>
   {/if}
@@ -135,6 +135,6 @@
       {/each}
     </ul>
   {:else}
-    <p class="text-sm text-neutral-400">No invitations</p>
+    <p class="text-sm text-muted-foreground">No invitations</p>
   {/if}
 </main>

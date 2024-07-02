@@ -5,7 +5,7 @@
 </script>
 
 <button
-	class="flex items-center justify-center gap-4 font-bold bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 py-2 px-4 rounded"
+	class="flex items-center justify-center gap-4 font-bold bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 text-white py-2 px-4 rounded"
 	type="submit"
 	disabled={loading}
 >

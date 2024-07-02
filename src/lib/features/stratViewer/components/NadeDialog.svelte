@@ -41,15 +41,15 @@
 				<h2 class="font-bold mb-1">Lineup image:</h2>
 				{#if lineupImgUrl}
 					<img
-						class="rounded aspect-video object-cover bg-neutral-800"
+						class="rounded aspect-video object-cover"
 						src={lineupImgUrl}
 						alt="Lineup for {nade.name}"
 					/>
 				{:else}
 					<div
-						class="grid place-items-center px-10 bg-neutral-800 border-2 border-dashed rounded aspect-video"
+						class="grid place-items-center px-10 border-2 border-dashed rounded aspect-video"
 					>
-						<p class="text-center">Author has not provided any lineup image</p>
+						<p class="text-center text-muted-foreground">Author has not provided any lineup image</p>
 					</div>
 				{/if}
 			</div>
@@ -57,15 +57,15 @@
 				<h2 class="font-bold mb-1">Impact image:</h2>
 				{#if impactImgUrl}
 					<img
-						class="rounded aspect-video object-cover bg-neutral-800"
+						class="rounded aspect-video object-cover"
 						src={impactImgUrl}
 						alt="Impact for {nade.name}"
 					/>
 				{:else}
 					<div
-						class="grid place-items-center px-10 bg-neutral-800 border-2 border-dashed rounded aspect-video"
+						class="grid place-items-center px-10 border-2 border-dashed rounded aspect-video"
 					>
-						<p class="text-center">Author has not provided any impact image</p>
+						<p class="text-center text-muted-foreground">Author has not provided any impact image</p>
 					</div>
 				{/if}
 			</div>
@@ -74,7 +74,7 @@
 		{#if nade.notes}
 			<p>{nade.notes}</p>
 		{:else}
-			<p class="text-neutral-400">
+			<p class="text-muted-foreground">
 				Author has not provided any notes for this nade
 			</p>
 		{/if}

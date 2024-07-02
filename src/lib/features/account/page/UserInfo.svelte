@@ -12,6 +12,6 @@
 	/>
 	<div class="grid text-center sm:text-left">
 		<h1 class="font-bold text-2xl">{name}</h1>
-		<p class="text-neutral-400">@{username}</p>
+		<p class="text-muted-foreground">@{username}</p>
 	</div>
 </header>

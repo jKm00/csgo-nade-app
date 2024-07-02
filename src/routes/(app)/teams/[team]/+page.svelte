@@ -122,7 +122,7 @@
         </form>
       {/if}
     </div>
-    <div class="flex gap-10 rounded shadow text-sm mb-10">
+    <div class="flex gap-10 rounded text-sm mb-10">
       <div>
         <h3 class="font-bold">Name:</h3>
         <p>{team.name}</p>
@@ -157,22 +157,22 @@
           {#each team.members as member, index}
             <a
               href={`/users/${getProfile(member.profiles)?.uuid}`}
-              class="p-2 rounded shadow group max-md:block max-md:bg-neutral-800 max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-4 {index %
+              class="p-2 rounded shadow group dark:border max-md:block max-md:bg-background max-md:hover:scale-[1.02] max-md:transition-transform md:grid md:grid-cols-4 {index %
                 2 ===
               0
                 ? 'md:bg-muted'
                 : ''}"
             >
               <p class="flex justify-between">
-                <span class="md:hidden text-neutral-400">Username:</span
+                <span class="md:hidden text-muted-foreground">Username:</span
                 >{getProfile(member.profiles)?.username}
               </p>
               <p class="flex justify-between">
-                <span class="md:hidden text-neutral-400">Role:</span
+                <span class="md:hidden text-muted-foreground">Role:</span
                 >{member.role}
               </p>
               <p class="flex justify-between">
-                <span class="md:hidden text-neutral-400">Joined at:</span
+                <span class="md:hidden text-muted-foreground">Joined at:</span
                 >{new Date(member.inserted_at).toLocaleDateString()}
               </p>
               <div class="flex justify-between">
@@ -207,7 +207,7 @@
     <!-- Confirm kick dialog -->
     <dialog
       bind:this={confirmKickDialog}
-      class="bg-neutral-900 rounded text-white text-sm backdrop:bg-neutral-950/90"
+      class="rounded text-sm backdrop:bg-neutral-950/50 dark:backdrop:bg-neutral-950/90 p-4"
     >
       {#if memberToKick !== null}
         <div class="grid">
@@ -224,7 +224,7 @@
               <input type="hidden" name="teamId" value={team.id} />
               <button
                 type="submit"
-                class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 py-1 px-4 rounded"
+                class="bg-red-400 hover:bg-red-500 focus-within:bg-red-500 active:bg-red-600 text-white py-1 px-4 rounded"
                 >Kick</button
               >
             </form>
@@ -234,7 +234,7 @@
     </dialog>
     <!-- Delete team dialog -->
     <dialog
-      class="bg-neutral-900 rounded text-white text-sm backdrop:bg-neutral-950/90"
+      class="rounded text-sm backdrop:bg-neutral-950/50 dark:backdrop:bg-neutral-950/90 p-4"
       bind:this={deleteTeamDialog}
     >
       <div class="grid">
@@ -250,7 +250,7 @@
       </div>
     </dialog>
   {:else}
-    <p class="text-sm text-neutral-400 text-center">
+    <p class="text-sm text-muted-foreground text-center">
       Team not available. <a class="underline" href="/">Go back to home page</a>
     </p>
   {/if}

@@ -85,7 +85,7 @@
             This could be because the strat does not exists, or you do not have
             permission to view it
           </p>
-          <a class="text-neutral-400 underline" href="/strats"
+          <a class="text-muted-foreground underline" href="/strats"
             >View other strats</a
           >
         </div>

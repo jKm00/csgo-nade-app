@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte/internal';
   import { slide } from 'svelte/transition';
   import { clickOutside } from 'svelte-use-click-outside';
 
@@ -105,8 +104,9 @@
 {#if label}
   <p class="font-bold">{label}</p>
 {/if}
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="relative text-neutral-400"
+  class="relative text-muted-foreground"
   use:clickOutside={closeMenu}
   on:keyup={handleKeyUp}
   bind:this={multiSelect}
@@ -131,7 +131,7 @@
       <svg
         class={`${
           showMenu ? '' : '-rotate-90'
-        } fill-neutral-400 h-3 transition-transform`}
+        } fill-muted-foreground h-3 transition-transform`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
         ><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
