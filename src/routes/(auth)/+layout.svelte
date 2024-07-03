@@ -1,8 +1,9 @@
+<header class="p-4">
+  <h1 class="font-bold uppercase"><a href="/">Cs Strats</a></h1>
+</header>
+
 <div class="flex flex-col flex-grow gap-10 justify-center items-center">
-  <h1 class="text-4xl font-bold uppercase text-primary my-4">
-    <a href="/">Csgo strats</a>
-  </h1>
-  <main>
+  <main class="flex justify-center item">
     <slot />
   </main>
 </div>
