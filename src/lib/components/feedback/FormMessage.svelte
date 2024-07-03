@@ -5,8 +5,8 @@
 
 {#if message}
 	{#if String(status).startsWith('2')}
-		<p class="text-sm text-center text-green-400">{message}</p>
+		<p class="text-sm text-center text-green-400 col-span-full">{message}</p>
 	{:else}
-		<p class="text-sm text-center text-red-400">{message}</p>
+		<p class="text-sm text-center text-destructive col-span-full">{message}</p>
 	{/if}
 {/if}

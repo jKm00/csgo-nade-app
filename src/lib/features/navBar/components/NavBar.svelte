@@ -4,7 +4,7 @@
   import { authUser } from '$lib/stores/authStore';
   import { Button } from '$lib/components/ui/button';
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-  import { Route, Users2, Play, Plus, Bell } from 'lucide-svelte';
+  import { Route, Users2, Plus, Bell } from 'lucide-svelte';
 </script>
 
 <nav class="flex items-center justify-between p-4">
