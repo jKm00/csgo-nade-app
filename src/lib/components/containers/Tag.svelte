@@ -1,27 +1,20 @@
 <script lang="ts">
-	export let color: 'red' | 'blue' | 'purple' | 'amber';
+	import { MapPin, SeparatorVertical, Gamepad, Swords } from 'lucide-svelte'
 
-	// Have to do it like this for the tailwind compiler
-	// to include the colors until I figure out how to do it proparly
-	$: colorStyles = () => {
-		if (color === 'red') {
-			return 'bg-red-400/10 border-red-400 text-red-400 group-hover:bg-red-400 group-focus-within:bg-red-400';
-		}
-		if (color === 'blue') {
-			return 'bg-blue-400/10 border-blue-400 text-blue-400 group-hover:bg-blue-400 group-focus-within:bg-blue-400';
-		}
-		if (color === 'purple') {
-			return 'bg-purple-400/10 border-purple-400 text-purple-400 group-hover:bg-purple-400 group-focus-within:bg-purple-400';
-		}
-		if (color === 'amber') {
-			return 'bg-amber-400/10 border-amber-400 text-amber-400 group-hover:bg-amber-400 group-focus-within:bg-amber-400';
-		}
-	};
+	const icons = {
+		side: Swords,
+		position: MapPin,
+		game: Gamepad,
+	} as const
+
+	type Type = keyof typeof icons;
+
+	export let type: Type
 </script>
 
 <p
-	class="border group-hover:text-white group-focus-within:text-white transition-colors rounded px-4 {colorStyles()}"
-	style="background-color: ${color}"
+	class="flex items-center text-xs"
 >
+	<svelte:component this={icons[type]} class="mr-1 w-4 h-4" />
 	<slot />
 </p>

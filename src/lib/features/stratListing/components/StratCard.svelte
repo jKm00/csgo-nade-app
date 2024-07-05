@@ -18,20 +18,20 @@
 </script>
 
 <a
-  class="rounded shadow overflow-hidden group"
+  class="group hover:scale-105 focus-visible:scale-105 transition-transform"
   href="/strats/{stratId}{redirect}"
 >
   <Card.Root class="h-full overflow-hidden">
-    <Card.Header class="p-0">
+    <Card.Header class="p-0 border-b-2 border-transparent group-hover:border-primary group-focus-visible:border-primary transition-colors">
       {#if thumbnail}
         <img
-          class="aspect-[16/8] w-full object-cover bg-neutral-700"
+          class="aspect-[16/8] w-full object-cover bg-muted"
           src="/assets/images/{thumbnail}"
           alt="Overview over {position}"
         />
       {:else}
         <div
-          class="grid text-center items-center content-center aspect-[16/8] bg-neutral-700 text-neutral-300"
+          class="grid place-items-center aspect-[16/8] bg-muted text-muted-foreground"
         >
           <p class="text-muted-foreground text-sm">Image not available</p>
         </div>
@@ -39,24 +39,24 @@
     </Card.Header>
     <Card.Content>
       <div class="grid pt-4">
-        <h2 class="text-2xl font-bold">{stratName}</h2>
-        <p class="text-muted-foreground">
-          <a class="underline" href="/users/{authorId}">{authorName}</a>
+        <h2 class="font-bold">{stratName}</h2>
+        <p class="text-muted-foreground text-sm">
+          {#if authorId}
+            <a class="underline" href="/users/{authorId}">{authorName}</a>
+          {:else}
+            <span>{authorName}</span>
+          {/if}
           - {new Date(createdAt).toLocaleDateString()}
           {#if team !== null}
             - <a class="underline" href="/teams/{team}">{team}</a>
           {/if}
         </p>
-        <div class="flex flex-wrap gap-2 mt-6">
-          {#if side === 'CT'}
-            <Tag color="blue">{side}</Tag>
-          {:else}
-            <Tag color="red">{side}</Tag>
-          {/if}
+        <div class="flex flex-wrap gap-4 mt-6">
+          <Tag type="side">{side}</Tag>
           {#if position}
-            <Tag color="purple">{position}</Tag>
+            <Tag type="position">{position}</Tag>
           {/if}
-          <Tag color="amber">{game}</Tag>
+          <Tag type="game">{game}</Tag>
         </div>
       </div>
     </Card.Content>

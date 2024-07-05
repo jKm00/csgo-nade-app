@@ -1,5 +1,6 @@
 <script lang="ts">
   import Tag from '$lib/components/containers/Tag.svelte';
+  import StratCard from './StratCard.svelte';
 
   interface Strat {
     id: number;
@@ -62,11 +63,9 @@
                 {strat.createdAt.toLocaleDateString()}
               </p>
               <div class="flex gap-2 mt-6">
-                <Tag color={strat.side === 'T' ? 'red' : 'blue'}
-                  >{strat.side}</Tag
-                >
+                <Tag type="side">{strat.side}</Tag>
                 {#if strat.position}
-                  <Tag color="purple">{strat.position}</Tag>
+                  <Tag type="position">{strat.position}</Tag>
                 {/if}
               </div>
             </div>
