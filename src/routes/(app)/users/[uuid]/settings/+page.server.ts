@@ -1,3 +1,4 @@
+import { authUser } from '$lib/stores/authStore';
 import {
   changePasswordSchema,
   emailSchema,
@@ -165,28 +166,18 @@ export const actions = {
       .eq('profiles.uuid', session.user.id)
       .single();
 
-    console.log(data);
-
-    if (data.profiles !== null) {
+    if (data && data.profiles !== null) {
       return fail(400, {
         message: 'Could not delete the account as you are a leader for a team',
       });
     }
 
-    // Delete user
-    const { error: err } = await locals.supabaseAdmin.auth.admin.deleteUser(
-      session.user.id
-    );
-
-    // Return any errors
-    if (err) {
-      return fail(400, {
-        message: 'Something went wrong. Please try again later',
-      });
-    }
-
-    // Log out user
+    // Logout user
     await locals.supabase.auth.signOut();
+    authUser.set(null);
+
+    // Delete user
+    await locals.supabaseAdmin.auth.admin.deleteUser(session.user.id);
 
     // Redirect to home page
     throw redirect(302, '/');
