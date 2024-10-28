@@ -1,3 +1,11 @@
+# ⚠️ Archive Notice
+This repository is archived and is no longer actively maintained or updated. Feel free to explore and use the code, but please note that issues and pull requests will not be monitored.
+
+## Website Availability
+The project website is available at <a href="https://csgostrats.com/">csgostrats.com</a> until January 2025. After January 2025, the site will be taken down and no longer accessible.
+
+-------------------------------------
+
 # Csgo Nade App
 
 <p style="text-align: center">
